@@ -19,7 +19,7 @@ class Utilities
 	{
 		if (arrayA_ == null || arrayB_ == null)
 		{
-			throw "NullPointerException in ContainsStringArray";
+			throw "NullPointerException in ContainsStringArray: arrayA_: " + (arrayA_ == null) + " arrayB_: " + (arrayB_ == null);
 		}
 		
 		if (arrayA_.length < arrayB_.length || arrayA_.length == 0 || arrayB_.length == 0)
@@ -37,6 +37,22 @@ class Utilities
 			
 		}
 		return true;
+	}
+	
+	/*
+	 * returns -1 if element is not contained in array, otherwise returns its index
+	 */
+	public static function Contains(array_:Array<String>, element_:String):Int
+	{
+		for (i in 0...array_.length)
+		{
+			if (Utilities.Compare(array_[i], element_) == 0)
+			{
+				return i;
+			}
+		}
+		
+		return -1;
 	}
 	
 }

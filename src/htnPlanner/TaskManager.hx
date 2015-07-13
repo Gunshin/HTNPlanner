@@ -11,7 +11,7 @@ class TaskManager
 	
 	var operands:Array<Operand> = new Array<Operand>();
 	
-	var predicates:Map < String, Predicate > = new Map < String, Predicate > ();
+	var basicOperands:Map < String, BasicOperand > = new Map < String, BasicOperand > ();
 	
 	public function new() 
 	{
@@ -22,18 +22,43 @@ class TaskManager
 		operands.push(operand_);
 	}
 	
-	public function AddPredicate(predicate_:Predicate)
+	public function AddBasicOperand(basicOperand_:BasicOperand)
 	{
-		predicates.set(predicate_.GetName(), predicate_);
+		basicOperands.set(basicOperand_.GetName(), basicOperand_);
 	}
 	
-	public function Evaluate(preConditions_:PreCondition, state_:State):Bool
+	public function Evaluate(value_:String):String
 	{
+		if (params_ == null || params_.length == 0)
+		{
+			throw "params is null or empty";
+		}
 		
+		var basicOperand:BasicOperand = null;
+		if ((basicOperand = GetBasicOperand(val)) != null)
+		{
+			//basicOperand.Execute(
+		}
+		
+	}
+	
+	/*public function Evaluate(preConditions_:PreCondition, state_:State):Bool
+	{
+		throw "this is not done yet";
+		
+		// loop through each evaluation
 		for (i in preConditions_.preConditions)
 		{
 			
-			//i is an Array<Strin>
+			
+			
+			
+			
+			
+			
+			
+			
+			//
 			var evaluationType:String = i[0];
 			
 			var success:Bool = true;
@@ -56,6 +81,38 @@ class TaskManager
 		
 		return true;
 		
+	}*/
+	
+	function RecursivePreconditionEvaluation(params_:Array<String>):String
+	{
+		throw "not done yet";
+		
+		if (params_ == null || params_.length == 0)
+		{
+			throw "params is null or empty";
+		}
+		
+		// lets get the next piece to evaluate
+		var val:String = params_[0];
+		
+		var basicOperand:BasicOperand = null;
+		if ((basicOperand = GetBasicOperand(val)) != null)
+		{
+			//basicOperand.Execute(
+		}
+		
+		return null;
+		
+	}
+	
+	function GetBasicOperand(name_:String):BasicOperand
+	{
+		if (basicOperands.exists(name_))
+		{
+			return basicOperands.get(name_);
+		}
+		
+		return null;
 	}
 	
 	/*
@@ -81,7 +138,7 @@ class TaskManager
 		var funcName:String = params_[0];
 		var params_:Array<String> = params_.slice(1);
 		
-		return predicates.get(funcName).Execute(params_, state_);
+		return Utilities.Compare(basicOperands.get(funcName).Execute(params_, state_), "true") == 0;
 		
 	}
 	
@@ -144,7 +201,7 @@ class TaskManager
 	
 	public function AddBasicPredicates()
 	{
-		AddPredicate(new Predicate("==", [], 
+		AddBasicOperand(new BasicOperand("==", [], 
 		function(params_:Array<String>, state_:State)
 		{
 			if (params_ == null || params_.length == 0)
@@ -169,7 +226,13 @@ class TaskManager
 					{
 						throw "Predicate == Has parameter of incorrect type: " + split[1];
 					}
-					var variableValue:String = state_.Get2(split[0], "Value")[0];
+					
+					// this looks a little confusing
+					// the idea is that GetMatching returns any relations that match meaning we could have multiple,
+					// however when we are evaluating with these primitive operands, we are only doing it on variables,
+					// meaning that the relation we are looking for _should_ only return a single array which itself has
+					// only 2 elements, with the second elemtn being the value
+					var variableValue:String = state_.GetMatching([split[0]])[0][1];
 					num = Std.parseInt(variableValue);
 					
 				}
@@ -182,15 +245,15 @@ class TaskManager
 			{
 				if (numbers[i] != numbers[i + 1])
 				{
-					return false; // a number is not equal
+					return "false"; // a number is not equal
 				}
 			}
 			
-			return true; // all numbers equal
+			return "true"; // all numbers equal
 			
 		}));
 		
-		AddPredicate(new Predicate("<", [],
+		AddBasicOperand(new BasicOperand("<", [],
 		function(params_:Array<String>, state_:State)
 		{
 			if (params_ == null || params_.length == 0)
@@ -211,11 +274,19 @@ class TaskManager
 					
 					var split:Array<String> = i.split("-");
 					
+					trace("split: " + split);
+					
 					if (Utilities.Compare(split[1], "Int") != 0) // make sure it is the correct type
 					{
 						throw "Predicate < Has parameter of incorrect type: " + split[1];
 					}
-					var variableValue:String = state_.Get2(split[0], "Value")[0];
+					
+					// this looks a little confusing
+					// the idea is that GetMatching returns any relations that match meaning we could have multiple,
+					// however when we are evaluating with these primitive operands, we are only doing it on variables,
+					// meaning that the relation we are looking for _should_ only return a single array which itself has
+					// only 2 elements, with the second elemtn being the value
+					var variableValue:String = state_.GetMatching([split[0]])[0][1];
 					num = Std.parseInt(variableValue);
 					
 				}
@@ -231,15 +302,15 @@ class TaskManager
 			{
 				if (!(left < right[i]))
 				{
-					return false; // a number is not equal
+					return "false"; // a number is not equal
 				}
 			}
 			
-			return true; // all numbers equal
+			return "true"; // all numbers equal
 			
 		}));
 		
-		AddPredicate(new Predicate(">", [],
+		AddBasicOperand(new BasicOperand(">", [],
 		function(params_:Array<String>, state_:State)
 		{
 			if (params_ == null || params_.length == 0)
@@ -264,7 +335,13 @@ class TaskManager
 					{
 						throw "Predicate > Has parameter of incorrect type: " + split[1];
 					}
-					var variableValue:String = state_.Get2(split[0], "Value")[0];
+					
+					// this looks a little confusing
+					// the idea is that GetMatching returns any relations that match meaning we could have multiple,
+					// however when we are evaluating with these primitive operands, we are only doing it on variables,
+					// meaning that the relation we are looking for _should_ only return a single array which itself has
+					// only 2 elements, with the second elemtn being the value
+					var variableValue:String = state_.GetMatching([split[0]])[0][1];
 					num = Std.parseInt(variableValue);
 					
 				}
@@ -280,11 +357,11 @@ class TaskManager
 			{
 				if (!(left > right[i]))
 				{
-					return false; // a number is not equal
+					return "false"; // a number is not equal
 				}
 			}
 			
-			return true; // all numbers equal
+			return "true"; // all numbers equal
 			
 		}));
 	}

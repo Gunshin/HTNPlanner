@@ -13,20 +13,22 @@
 			(in-city ?loc-to ?city)
 	)
 	:effect 
-	(
-		and (at ?truck ?loc-to)
-			(not (at ?truck ?loc-from))
-			(forall 
-				(?x - obj)
-				(when 
-					(and // 'when' condition
-						(in ?x ?truck)
-					)
-					(and // 'when' execution
-						(not (at ?x ?loc-from))
-						(at ?x ?loc-to)
-					)
+	(and 
+		(at ?truck ?loc-to)
+		(not (at ?truck ?loc-from))
+		(forall 
+			(?x - obj)
+			(when 
+				(and // 'when' condition
+					(in ?x ?truck)
+				)
+				(and // 'when' execution
+					(not (at ?x ?loc-from))
+					(at ?x ?loc-to)
 				)
 			)
+		)
 	)
 )
+
+(and (at ?truck ?loc-to) (not (at ?truck ?loc-from)) (forall (?x - obj) (when (and (in ?x ?truck))(and (not (at ?x ?loc-from))(at ?x ?loc-to)))))

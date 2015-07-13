@@ -17,20 +17,22 @@ class Main
 	public function new() 
 	{
 		
-		taskManager.AddBasicPredicates();
+		var tree:Tree = new Tree();
+		tree.ParsePDDL("(and (at ?truck ?loc-to) (not (at ?truck ?loc-from)) (forall (?x - obj) (when (and (in ?x ?truck))(and (not (at ?x ?loc-from))(at ?x ?loc-to)))))");
 		
-		state.AddRelation("InventoryCount", "Value", "2");
-		state.AddRelation("Boobs", "Value", "10");
-		state.AddRelationArray(["Inventory", "Wood", "0", "1", "2"]);
+		//taskManager.AddBasicPredicates();
 		
-		{
-			var prec:PreCondition = new PreCondition(0, [["Func", "<", "InventoryCount-Int", "5", "Boobs-Int"]]);
+		//state.AddRelation(["InventoryCount", "2"]);
+		//state.AddRelation(["Inventory", "Wood", "0", "1", "2"]);
+		
+		/*{
+			var prec:PreCondition = new PreCondition(0, [["Func", "<", "InventoryCount-Int", "5", "Temp-Int"]]);
 			
 			var result:Bool = taskManager.Evaluate(prec, state);
 			trace(result);
-		}
+		}*/
 		
-		taskManager.AddOperand(new Operand("BuyLand", new PreCondition(0, []), [new Effect(["Add", "Land"]), new Effect(["Add", "Money"])]));
+		/*taskManager.AddOperand(new Operand("BuyLand", new PreCondition(0, []), [new Effect(["Add", "Land"]), new Effect(["Add", "Money"])]));
 		taskManager.AddOperand(new Operand("GetMortgage", new PreCondition(0, []), [new Effect(["Add", "Debt"]), new Effect(["Add", "Money"])]));
 		
 		{
@@ -41,7 +43,7 @@ class Main
 			{
 				trace(i.GetName());
 			}
-		}
+		}*/
 		
 		/*var operands:Array<Operand> = [
 			new Operand("BuyLand", ["Money"], [new Effect(true, "Land"), new Effect(false, "Money")]),

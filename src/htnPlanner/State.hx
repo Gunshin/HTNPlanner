@@ -7,56 +7,23 @@ package htnPlanner;
 class State
 {
 	
-	var relations:Map<String, Map<String, Array<String>>>;
+	var relations:Array<Array<String>>;
 
 	public function new() 
 	{
-		relations = new Map<String, Map<String, Array<String>>>();
+		relations = new Array<Array<String>>();
 	}
-	
-	public function AddRelation(a_:String, b_:String, c_:String)
-	{
-		AddRelationArray([a_, b_, c_]);
-	}
-	
-	public function AddRelationArray(relations_:Array<String>)
+
+	public function AddRelation(relations_:Array<String>):Void
 	{
 		if (relations_ == null || relations_.length == 0)
 		{
 			return;
 		}
 		
-		if (!relations.exists(relations_[0])) // index 0 exists
+		if (!Exists(relations_))
 		{
-			relations.set(relations_[0], new Map<String, Array<String>>());
-		}
-		
-		if (relations_.length == 1) // if its one large, dont go further
-		{
-			return;
-		}
-		
-		var map:Map<String, Array<String>> = relations.get(relations_[0]);
-		
-		if (!map.exists(relations_[1]))
-		{
-			map.set(relations_[1], new Array<String>());
-		}
-		
-		if (relations_.length == 2) // again, return if we have no more
-		{
-			return;
-		}
-		
-		var array:Array<String> = map.get(relations_[1]);
-		var leftovers:Array<String> = relations_.slice(2);
-		
-		for (i in leftovers)
-		{
-			if (Contains(array, i) == -1) // add any that are not in the relations
-			{
-				array.push(i);
-			}
+			relations.push(relations_);
 		}
 		
 	}
@@ -65,76 +32,65 @@ class State
 	{
 		if (relation_ == null || relation_.length == 0)
 		{
-			return false;
+			throw "relation_ is null or empty";
 		}
 		
-		var keyA:String = relation_[0]; // we can guarantee the relation has a first term
-		
-		if (!relations.exists(keyA))
+		//check each element of the relation list
+		for (i in relations)
 		{
-			return false;
-		}
-		else if (relation_.length == 1) // since we tested for the first key and it exists, test to see if it is only 1 element long
-		{
-			return true;
-		}
-		
-		var keyB:String = relation_[1]; // we can now guarantee it has a second term
-		
-		if (!relations.get(keyA).exists(keyB))
-		{
-			return false; // keyB does not exist
-		}
-		else if (relation_.length == 2) // same as above, if its two elements long, success
-		{
-			return true;
-		}
-		
-		// now we can do a straight comparison into the final storage array
-		var elementsLeft:Array<String> = relation_.slice(2); // get the rest of the elements
-		var finalStorage:Array<String> = relations.get(keyA).get(keyB);
-		
-		for (i in elementsLeft)
-		{
-			if (Contains(finalStorage, i) == -1) // if this element does not exist, the precondition failed.
+			if (Utilities.ContainsStringArray(i, relation_))
 			{
-				return false;
+				return true;
 			}
 		}
 		
-		return true; // we made it through the rest of the preconditions without failing
-		
-	}
-	
-	public function Get1(relation_:String):Map<String, Array<String>>
-	{
-		return relations.get(relation_);
-	}
-	
-	public function Get2(relationA_:String, relationB_:String):Array<String>
-	{
-		if (relations.exists(relationA_))
-		{
-			return relations.get(relationA_).get(relationB_);
-		}
-		
-		return null;
+		return false; // we did not find any equivalent strings in the relation list
 	}
 	
 	/*
-	 * returns -1 if element is not contained in array, otherwise returns its index
+	 * 
+	 * Since this function can be used to get all relations that match from a substring of relations,
+	 * there is a need to retunr an array.
+	 * 
+	 * eg.
+	 * Conained relations:
+	 * ["Inventory", "Logs", "10"]
+	 * ["Inventory", "Axe", "1"]
+	 * ["Health", "100"]
+	 * 
+	 * With matching relation array:
+	 * ["Inventory", "Logs"]
+	 * 
+	 * Will return:
+	 * [["Inventory", "Logs", "10"]]
+	 * 
+	 * Or with:
+	 * ["Inventory"]
+	 * 
+	 * Will return:
+	 * [["Inventory", "Logs", "10"], ["Inventory", "Axe", "1"]]
+	 * 
 	 */
-	public static function Contains(array_:Array<String>, element_:String):Int
+	public function GetMatching(relation_:Array<String>):Array<Array<String>>
 	{
-		for (i in 0...array_.length)
+		
+		if (relation_ == null || relation_.length == 0)
 		{
-			if (Utilities.Compare(array_[i], element_) == 0)
+			throw "relation_ is null or empty";
+		}
+		
+		var matchingRelations:Array<Array<String>> = new Array<Array<String>>();
+		
+		//check each element of the relation list
+		for (i in relations)
+		{
+			if (Utilities.ContainsStringArray(i, relation_))
 			{
-				return i;
+				matchingRelations.push(i);
 			}
 		}
 		
-		return -1;
+		return matchingRelations;
 	}
-
+	
 }
