@@ -15,14 +15,18 @@ class Tree
 	{
 	}
 	
-	public function ParsePDDL(string_:String)
-	{		
-		baseNode = RecursiveParse(0, string_.substr(1, string_.length - 2), null, 0).returnNode;
+	public function SetupFromString(scope_:String)
+	{
+		baseNode = RecursiveParse(0, scope_.substr(1, scope_.length - 2), null).returnNode;
 	}
 	
-	public function RecursiveParse(start_:Int, string_:String, currentParentNode_:TreeNode, depth:Int):RecursiveParseEval
+	public function SetupFromNode(node_:TreeNode)
 	{
-		
+		baseNode = node_;
+	}
+	
+	function RecursiveParse(start_:Int, string_:String, currentParentNode_:TreeNode):RecursiveParseEval
+	{
 		var value:String = "";
 		var newNode:TreeNode = new TreeNode(currentParentNode_);
 		
@@ -31,18 +35,14 @@ class Tree
 		{
 			if (string_.charAt(i) == '(')
 			{
-				//trace("starting child at: " + (i + 1));
-				var childNode:RecursiveParseEval = RecursiveParse(i + 1, string_, newNode, depth + 1);
+				var childNode:RecursiveParseEval = RecursiveParse(i + 1, string_, newNode);
 				
 				newNode.children.push(childNode.returnNode);
-				trace("added child: " + value + " _ " + childNode.returnNode.value + " at depth: " + depth);
 				i = childNode.end; // set the i to after the childs stuff
 			}
 			else if(string_.charAt(i) == ')')
 			{
 				newNode.value = StringTools.trim(value);
-				//trace("node: " + value + " returning i: " + i);
-				//trace("ending child at: " + (i + 1) + " _ currently in: " + value + " returning on depth: " + depth);
 				return {returnNode:newNode, start:start_, end:i + 1};
 			}
 			else
@@ -57,35 +57,9 @@ class Tree
 		return {returnNode:newNode, start:start_, end:i + 1};
 	}
 	
-	public function Evaluate():Void
+	public function GetBaseNode():TreeNode
 	{
-		
-		
-		
+		return baseNode;
 	}
-	
-	function RecursiveEvaluate(node_:TreeNode, state_:State, taskManager_:TaskManager):Void
-	{
-		
-		// we are a leaf node
-		if (node_.children == 0)
-		{
-			
-			taskManager_.Evaluate(
-			
-		}
-		
-		var childValues:Array<String> = new Array<String>();
-		
-		for (i in node_.children)
-		{
-			
-			childValues.push(RecursiveEvaluate(i));
-			
-		}
-		
-	}
-	
-	function
 	
 }

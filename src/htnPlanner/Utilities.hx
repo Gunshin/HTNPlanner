@@ -55,4 +55,50 @@ class Utilities
 		return -1;
 	}
 	
+	public static function GetScope(string_:String, start_:Int):String
+	{
+		var value:String = "";
+		
+		var depth:Int = 0;
+		var i:Int = start_;
+		while (i < string_.length)
+		{
+			//need to make sure that we start the scope search on a bracket so that we do not immediately break
+			if (string_.charAt(i) == '(')
+			{				
+				depth++;
+			}
+			else if(string_.charAt(i) == ')')
+			{
+				depth--;
+			}
+			
+			value += string_.charAt(i);
+			i++;
+			
+			// if we are back on the bottom layer, eg. at the end of the scope
+			if (depth == 0)
+			{
+				break;
+			}
+		}
+		
+		return value;
+	}
+	
+	public static function GetNamedScope(name_:String, string_:String):String
+	{
+		var index:Int = string_.indexOf(name_);
+		
+		if (index == -1)
+		{
+			throw "name_ cannot be found";
+		}
+		
+		// this looks for the next occurence of "(" after our name_ point. should always be the correct scope start
+		var startIndexOfScope:Int = string_.indexOf("(", index);
+		
+		return GetScope(string_, startIndexOfScope);
+	}
+	
 }

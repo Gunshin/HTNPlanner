@@ -6,8 +6,7 @@
 		?city - city
 	)
 	:precondition 
-	(
-		and 
+	(and 
 			(at ?truck ?loc-from)
 			(in-city ?loc-from ?city)
 			(in-city ?loc-to ?city)

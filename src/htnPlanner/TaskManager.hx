@@ -27,18 +27,22 @@ class TaskManager
 		basicOperands.set(basicOperand_.GetName(), basicOperand_);
 	}
 	
-	public function Evaluate(value_:String):String
+	public function Evaluate(node_:TreeNode, state_:State):String
 	{
-		if (params_ == null || params_.length == 0)
+		throw "not done";
+		
+		/*if (value_ == null || value_.length == 0)
 		{
 			throw "params is null or empty";
 		}
 		
 		var basicOperand:BasicOperand = null;
-		if ((basicOperand = GetBasicOperand(val)) != null)
+		if ((basicOperand = GetBasicOperand(value_)) != null)
 		{
 			//basicOperand.Execute(
 		}
+		
+		return null;*/
 		
 	}
 	
