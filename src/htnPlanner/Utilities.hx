@@ -1,4 +1,5 @@
 package htnPlanner;
+import haxe.ds.StringMap;
 
 /**
  * ...
@@ -99,6 +100,59 @@ class Utilities
 		var startIndexOfScope:Int = string_.indexOf("(", index);
 		
 		return GetScope(string_, startIndexOfScope);
+	}
+	
+	public static function GenerateValueTypeMap(strings_:Array<String>):Map<String, String>
+	{
+		var map:Map<String, String> = new StringMap<String>();
+		
+		// used to cache which values are the same, so that when a type is hit, we can set them correctly
+		var currentSetOfValues:Array<String> = new Array<String>();
+		
+		// this indicator is used to define a type being set for values. it is flipped when a "-" is met
+		var indicator:Bool = false;
+		
+		// set it to 1 since the first element in split is ":types"
+		var index:Int = 1;
+		while (index < strings_.length) // dont ask about god damn while loops since someone on the haxe development team had the bright idea of 
+		// not allowing normal for loops. cant use foreach since they dont allow manual changing of the iterator
+		{
+			// check to see if the current element is empty
+			if (Utilities.Compare(strings_[index], "") != 0)
+			{
+				// indicator value declaring that the next element is a type
+				if (Utilities.Compare(strings_[index], "-") == 0)
+				{
+					indicator = true;
+				}
+				else
+				{
+					
+					if (!indicator)
+					{
+						// indicator has not been set yet, so the next value is not the type
+						currentSetOfValues.push(strings_[index]);
+					}
+					else
+					{
+						// indicator has been set, so lets set all our current values to the type
+						
+						for (i in currentSetOfValues)
+						{
+							// need to trim since the endline character might be included here
+							map.set(i, StringTools.trim(strings_[index]));
+						}
+						
+						currentSetOfValues = new Array<String>(); // reset the array (why is there no clear function? T_T)
+						
+						indicator = false;
+					}
+				}
+			}
+			
+			index++;
+		}
+		
 	}
 	
 }

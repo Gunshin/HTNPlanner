@@ -24,6 +24,8 @@ class Domain
 	
 	var predicates:Map<String, Predicate> = new StringMap<Predicate>();
 	
+	var actions:Map<String, Predicate> = new StringMap<Predicate>();
+	
 	public function new(domainFilePath_:String) 
 	{
 		var fileContent = File.getContent(domainFilePath_);
@@ -41,6 +43,8 @@ class Domain
 		ParseTypes(domainTree.GetBaseNode().GetChildrenWithContainingValue(":types")[0]);
 		
 		ParsePredicates(domainTree.GetBaseNode().GetChildrenWithContainingValue(":predicates")[0]);
+		
+		ParseActions(domainTree.GetBaseNode().GetChildrenWithContainingValue(":action"));
 		
 	}
 	
@@ -60,52 +64,7 @@ class Domain
 	{		
 		var split:Array<String> = node_.value.split(" ");
 		
-		// used to cache which values are the same, so that when a type is hit, we can set them correctly
-		var currentSetOfValues:Array<String> = new Array<String>();
-		
-		// this indicator is used to define a type being set for values. it is flipped when a "-" is met
-		var indicator:Bool = false;
-		
-		// set it to 1 since the first element in split is ":types"
-		var index:Int = 1;
-		while (index < split.length) // dont ask about god damn while loops since someone on the haxe development team had the bright idea of 
-		// not allowing normal for loops. cant use foreach since they dont allow manual changing of the iterator
-		{
-			// check to see if the current element is empty
-			if (Utilities.Compare(split[index], "") != 0)
-			{
-				// indicator value declaring that the next element is a type
-				if (Utilities.Compare(split[index], "-") == 0)
-				{
-					indicator = true;
-				}
-				else
-				{
-					
-					if (!indicator)
-					{
-						// indicator has not been set yet, so the next value is not the type
-						currentSetOfValues.push(split[index]);
-					}
-					else
-					{
-						// indicator has been set, so lets set all our current values to the type
-						
-						for (i in currentSetOfValues)
-						{
-							// need to trim since the endline character might be included here
-							types.set(i, StringTools.trim(split[index]));
-						}
-						
-						currentSetOfValues = new Array<String>(); // reset the array (why is there no clear function? T_T)
-						
-						indicator = false;
-					}
-				}
-			}
-			
-			index++;
-		}
+		types = Utilities.GenerateValueTypeMap(split.slice(1));
 	}
 	
 	function ParsePredicates(parentNode_:TreeNode)
@@ -117,7 +76,46 @@ class Domain
 		{
 			var predicate:Predicate = new Predicate(i.value);
 			predicates.set(predicate.firstPartOfValue, predicate);
+		}
+		
+	}
+	
+	function ParseActions(actionNodes_:Array<TreeNode>)
+	{
+		
+		for (i in actionNodes_)
+		{
+			var split:Array<String> = i.value.split(" ");
+			var action:Action = new Action(StringTools.trim(split[1]));
 			
+			// index 0 is ":action" whilst index 1 is the name of the action, as shown above
+			var index:Int = 2;
+			while (index < split.length)
+			{
+				
+				// we do index - 2 below because of the 2 indexs we have to skip
+				// this gives us a corresponding child node with correct scope for each key word such as parameters.
+				
+				if (Utilities.Compare(split[index], ":parameters") == 0)
+				{
+					var map:Map<String, String> = Utilities.GenerateValueTypeMap(i.children[index - 2].value);
+					
+					for (key in map.keys)
+					{
+						action.AddParameter(key, map.get(key));
+					}
+				}
+				else if (Utilities.Compare(split[index], ":precondition") == 0)
+				{
+					
+				}
+				else if (Utilities.Compare(split[index], ":effect") == 0)
+				{
+					
+				}
+				
+				index++;
+			}
 		}
 		
 	}

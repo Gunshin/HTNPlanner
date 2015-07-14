@@ -1,10 +1,6 @@
 
-currently writing taskmanager evaluation function. need to write some form of parameter thing so that,
-if the taskmanager is evaluating a func, it can find the correct paramters. a map should do. need to finish
-this so i can finish the Tree evaluate function.
 
-
-
+currently writing action parsing in Domain.ParseActions
 
 
 Task Manager:

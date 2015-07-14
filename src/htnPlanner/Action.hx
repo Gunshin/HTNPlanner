@@ -6,17 +6,28 @@ package htnPlanner;
  */
 class Action
 {
-	
-	var parameters:Array<Parameter> = null;
+	var name:String = null;
+	var parameters:Array<Parameter> = new Array<Parameter>();
 	var precondition:Tree = null;
 	var effect:Tree = null;
 
-	public function new(scope_:String) 
+	public function new(name_:String)
 	{
-		
+		name = name_;
 	}
 	
-	public function SetParameter(name_:String, value_:String)
+	public function AddParameter(name_:String, type_:String)
+	{
+		var param:Parameter = GetParameter(name_);
+		if (param != null)
+		{
+			throw "param already exists";
+		}
+		
+		parameters.push(new Parameter(name_, type_, null));
+	}
+	
+	public function SetParameter(name_:String, value_:String, type_:String)
 	{
 		var param:Parameter = GetParameter(name_);
 		if (param == null)
@@ -24,14 +35,14 @@ class Action
 			throw "param is invalid";
 		}
 		
-		param.value = value_;
+		param.SetValue(value_, type_);
 	}
 	
 	function GetParameter(name_:String):Parameter
 	{
 		for (i in parameters)
 		{
-			if (Utilities.Compare(name_, i.name) == 0)
+			if (Utilities.Compare(name_, i.GetName()) == 0)
 			{
 				return i;
 			}
