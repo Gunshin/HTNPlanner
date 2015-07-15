@@ -102,9 +102,9 @@ class Utilities
 		return GetScope(string_, startIndexOfScope);
 	}
 	
-	public static function GenerateValueTypeMap(strings_:Array<String>):Map<String, String>
+	public static function GenerateValueTypeMap(strings_:Array<String>):Array<Pair>
 	{
-		var map:Map<String, String> = new StringMap<String>();
+		var returnPairs:Array<Pair> = new Array<Pair>();
 		
 		// used to cache which values are the same, so that when a type is hit, we can set them correctly
 		var currentSetOfValues:Array<String> = new Array<String>();
@@ -139,7 +139,7 @@ class Utilities
 						for (i in currentSetOfValues)
 						{
 							// need to trim since the endline character might be included here
-							map.set(i, StringTools.trim(strings_[index]));
+							returnPairs.push(new Pair(i, StringTools.trim(strings_[index])));
 						}
 						
 						currentSetOfValues = new Array<String>(); // reset the array (why is there no clear function? T_T)
@@ -152,7 +152,7 @@ class Utilities
 			index++;
 		}
 		
-		return map;
+		return returnPairs;
 	}
 	
 }

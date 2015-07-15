@@ -152,7 +152,7 @@ class TaskManager
 	 * 
 	 * if the precondition exists in the state, then it is successful.
 	 */
-	function Exists(relation_:Array<String>, state_:State)
+	function Exists(relation_:String, state_:State)
 	{
 		return state_.Exists(relation_); // much simpler function
 	}
@@ -203,7 +203,7 @@ class TaskManager
 		
 	}
 	
-	public function AddBasicPredicates()
+	/*public function AddBasicPredicates()
 	{
 		AddBasicOperand(new BasicOperand("==", [], 
 		function(params_:Array<String>, state_:State)
@@ -368,7 +368,7 @@ class TaskManager
 			return "true"; // all numbers equal
 			
 		}));
-	}
+	}*/
 	
 	public static function MergeOperandArrays(arrayA_:Array<Operand>, arrayB_:Array<Operand>):Array<Operand>
 	{

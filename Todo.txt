@@ -4,6 +4,11 @@ domain.pddl parsing finished. precondition and effect have not been finished how
 and compare it to predicates and primitives. biggest problem will likely be foreach.
 
 
+problem.pddl:
+	currently adding the object list to intial states relation list, not sure if this is the smart thing to do. will this object list change during
+	plan generation?
+	
+
 Task Manager:
 	Change Int type to Float
 	Support single precondition array with and/or

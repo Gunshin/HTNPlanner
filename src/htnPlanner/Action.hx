@@ -27,7 +27,7 @@ class Action
 		parameters.push(new Parameter(name_, type_, null));
 	}
 	
-	public function SetParameter(name_:String, value_:String, type_:String)
+	public function SetParameter(name_:String, value_:String, type_:String, domain:Domain)
 	{
 		var param:Parameter = GetParameter(name_);
 		if (param == null)
@@ -35,7 +35,7 @@ class Action
 			throw "param is invalid";
 		}
 		
-		param.SetValue(value_, type_);
+		param.SetValue(value_, type_, domain);
 	}
 	
 	function GetParameter(name_:String):Parameter

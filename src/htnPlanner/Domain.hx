@@ -1,9 +1,7 @@
 package htnPlanner;
 
-import cpp.Void;
 import haxe.ds.HashMap;
 import haxe.ds.StringMap;
-import haxe.io.Eof;
 import sys.FileSystem;
 import sys.io.File;
 import sys.io.FileInput;
@@ -22,9 +20,9 @@ class Domain
 	
 	var types:Map<String, String> = new StringMap<String>();
 	
-	var predicates:Map<String, Predicate> = new StringMap<Predicate>();
+	public var predicates:Map<String, Predicate> = new StringMap<Predicate>();
 	
-	public var actions:Map<String, Action> = new StringMap<Action>();
+	var actions:Map<String, Action> = new StringMap<Action>();
 	
 	public function new(domainFilePath_:String) 
 	{
@@ -64,7 +62,12 @@ class Domain
 	{		
 		var split:Array<String> = node_.value.split(" ");
 		
-		types = Utilities.GenerateValueTypeMap(split.slice(1));
+		var pairs = Utilities.GenerateValueTypeMap(split.slice(1));
+		
+		for (i in pairs)
+		{
+			types.set(i.a, i.b);
+		}
 	}
 	
 	function ParsePredicates(parentNode_:TreeNode)
@@ -75,7 +78,7 @@ class Domain
 		for (i in predicateNodes)
 		{
 			var predicate:Predicate = new Predicate(i.value);
-			predicates.set(predicate.firstPartOfValue, predicate);
+			predicates.set(predicate.GetName(), predicate);
 		}
 		
 	}
@@ -98,11 +101,11 @@ class Domain
 				
 				if (Utilities.Compare(split[index], ":parameters") == 0)
 				{
-					var map:Map<String, String> = Utilities.GenerateValueTypeMap(i.children[index - 2].value.split(" "));
+					var pairs:Array<Pair> = Utilities.GenerateValueTypeMap(i.children[index - 2].value.split(" "));
 					
-					for (key in map.keys())
+					for (a in pairs)
 					{
-						action.AddParameter(key, map.get(key));
+						action.AddParameter(a.a, a.b);
 					}
 				}
 				else if (Utilities.Compare(split[index], ":precondition") == 0)
@@ -121,6 +124,33 @@ class Domain
 			
 			actions.set(action.GetName(), action);
 		}
+		
+	}
+	
+	public function ResolveInheritance(typeChecking_:String, typeCheckAgainst_:String):Bool
+	{
+		if (Utilities.Compare(typeChecking_, typeCheckAgainst_) == 0)
+		{
+			return true;
+		}
+		
+		var current:String = typeChecking_;
+		
+		// we want to break if the current type has a super type in the map. types that will not should likely
+		// only be "object"
+		while (types.exists(current))
+		{
+			current = types.get(current);
+			
+			if (Utilities.Compare(current, typeCheckAgainst_) == 0)
+			{
+				// we have found a correct type eg. the inheritance is correct
+				return true;
+			}
+		}
+		
+		//we iterated through the hierarchy but did not find the typeCheckAgainst_ in typeChecking_'s hierarchy
+		return false;
 		
 	}
 	

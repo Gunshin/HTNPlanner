@@ -7,14 +7,14 @@ package htnPlanner;
 class State
 {
 	
-	var relations:Array<Array<String>>;
+	var relations:Array<String>;
 
 	public function new() 
 	{
-		relations = new Array<Array<String>>();
+		relations = new Array<String>();
 	}
 
-	public function AddRelation(relations_:Array<String>):Void
+	public function AddRelation(relations_:String):Void
 	{
 		if (relations_ == null || relations_.length == 0)
 		{
@@ -28,7 +28,7 @@ class State
 		
 	}
 	
-	public function Exists(relation_:Array<String>):Bool
+	public function Exists(relation_:String):Bool
 	{
 		if (relation_ == null || relation_.length == 0)
 		{
@@ -38,7 +38,7 @@ class State
 		//check each element of the relation list
 		for (i in relations)
 		{
-			if (Utilities.ContainsStringArray(i, relation_))
+			if (Utilities.Compare(i, relation_) == 0)
 			{
 				return true;
 			}
@@ -71,7 +71,7 @@ class State
 	 * [["Inventory", "Logs", "10"], ["Inventory", "Axe", "1"]]
 	 * 
 	 */
-	public function GetMatching(relation_:Array<String>):Array<Array<String>>
+	public function GetMatching(relation_:String):Array<String>
 	{
 		
 		if (relation_ == null || relation_.length == 0)
@@ -79,12 +79,12 @@ class State
 			throw "relation_ is null or empty";
 		}
 		
-		var matchingRelations:Array<Array<String>> = new Array<Array<String>>();
+		var matchingRelations:Array<String> = new Array<String>();
 		
 		//check each element of the relation list
 		for (i in relations)
 		{
-			if (Utilities.ContainsStringArray(i, relation_))
+			if (i.indexOf(relation_) > -1)
 			{
 				matchingRelations.push(i);
 			}
