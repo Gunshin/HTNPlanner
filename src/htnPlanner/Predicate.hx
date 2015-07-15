@@ -35,7 +35,7 @@ class Predicate
 		
 		firstPartOfValue = split[0];
 		
-		for (i in map.keys)
+		for (i in map.keys())
 		{
 			parameters.push(new Parameter(i, map.get(i), null));
 		}

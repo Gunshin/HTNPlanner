@@ -112,8 +112,7 @@ class Utilities
 		// this indicator is used to define a type being set for values. it is flipped when a "-" is met
 		var indicator:Bool = false;
 		
-		// set it to 1 since the first element in split is ":types"
-		var index:Int = 1;
+		var index:Int = 0;
 		while (index < strings_.length) // dont ask about god damn while loops since someone on the haxe development team had the bright idea of 
 		// not allowing normal for loops. cant use foreach since they dont allow manual changing of the iterator
 		{
@@ -153,6 +152,7 @@ class Utilities
 			index++;
 		}
 		
+		return map;
 	}
 	
 }

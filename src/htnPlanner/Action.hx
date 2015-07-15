@@ -51,4 +51,26 @@ class Action
 		return null;
 	}
 	
+	public function SetPreconditionTree(node_:TreeNode)
+	{
+		precondition = new Tree();
+		precondition.SetupFromNode(node_);
+	}
+	
+	public function SetEffectTree(node_:TreeNode)
+	{
+		effect = new Tree();
+		effect.SetupFromNode(node_);
+	}
+	
+	public function GetName():String
+	{
+		return name;
+	}
+	
+	public function GetParameters():Array<Parameter>
+	{
+		return parameters;
+	}
+	
 }

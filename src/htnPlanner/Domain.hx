@@ -24,7 +24,7 @@ class Domain
 	
 	var predicates:Map<String, Predicate> = new StringMap<Predicate>();
 	
-	var actions:Map<String, Predicate> = new StringMap<Predicate>();
+	public var actions:Map<String, Action> = new StringMap<Action>();
 	
 	public function new(domainFilePath_:String) 
 	{
@@ -98,24 +98,28 @@ class Domain
 				
 				if (Utilities.Compare(split[index], ":parameters") == 0)
 				{
-					var map:Map<String, String> = Utilities.GenerateValueTypeMap(i.children[index - 2].value);
+					var map:Map<String, String> = Utilities.GenerateValueTypeMap(i.children[index - 2].value.split(" "));
 					
-					for (key in map.keys)
+					for (key in map.keys())
 					{
 						action.AddParameter(key, map.get(key));
 					}
 				}
 				else if (Utilities.Compare(split[index], ":precondition") == 0)
 				{
-					
+					var preconditionNode:TreeNode = i.children[index - 2];
+					action.SetPreconditionTree(preconditionNode);
 				}
 				else if (Utilities.Compare(split[index], ":effect") == 0)
 				{
-					
+					var effectNode:TreeNode = i.children[index - 2];
+					action.SetEffectTree(effectNode);
 				}
 				
 				index++;
 			}
+			
+			actions.set(action.GetName(), action);
 		}
 		
 	}

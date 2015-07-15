@@ -21,6 +21,8 @@ class Main
 	public function new() 
 	{
 		domain = new Domain(fname);
+		
+		var param = domain.actions.get("deliver").GetParameters();
 	}
 	
 	public static function main()

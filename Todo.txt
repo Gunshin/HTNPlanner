@@ -1,10 +1,9 @@
 
 
-currently writing action parsing in Domain.ParseActions
+domain.pddl parsing finished. precondition and effect have not been finished however as they have not been set to evaluate yet. need to take each node
+and compare it to predicates and primitives. biggest problem will likely be foreach.
 
 
 Task Manager:
-	Change Int type to Floa
+	Change Int type to Float
 	Support single precondition array with and/or
-	
-When evaluating do auto search for functions first instead of having to define func infront
