@@ -20,7 +20,7 @@ class Domain
 	
 	var types:Map<String, String> = new StringMap<String>();
 	
-	public var predicates:Map<String, Predicate> = new StringMap<Predicate>();
+	var predicates:Map<String, Predicate> = new StringMap<Predicate>();
 	
 	var actions:Map<String, Action> = new StringMap<Action>();
 	
@@ -152,6 +152,11 @@ class Domain
 		//we iterated through the hierarchy but did not find the typeCheckAgainst_ in typeChecking_'s hierarchy
 		return false;
 		
+	}
+	
+	public function GetPredicate(name_:String):Predicate
+	{
+		return predicates.get(name_);
 	}
 	
 }

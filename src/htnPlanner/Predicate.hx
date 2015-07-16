@@ -12,20 +12,19 @@ class Predicate
 
 	// predicates are usually defined by a keyword followed by the parameters eg. "at ?x - locatable ?l - location"
 	var name:String = null;
-	var parameters:Map<String, Parameter> = new StringMap<Parameter>();
 	
 	public function new(predicateValue_:String) 
 	{
 		ParseValue(predicateValue_);
 	}
 	
-	public function Construct():String
+	public function Construct(parameterMap_:Map<String, Parameter>):String
 	{
 		var constructedValue:String = name;
 		
 		for (i in templateValue)
 		{
-			constructedValue += " " + parameters.get(i).GetValue();
+			constructedValue += " " + parameterMap_.get(i).GetValue();
 		}
 		
 		return constructedValue;
@@ -41,7 +40,6 @@ class Predicate
 		for (i in pairs)
 		{
 			templateValue.push(i.a);
-			parameters.set(i.a, new Parameter(i.a, i.b, null));
 		}
 	}
 	
@@ -49,10 +47,4 @@ class Predicate
 	{
 		return name;
 	}
-	
-	public function GetParameter(name_:String):Parameter
-	{
-		return parameters.get(name_);
-	}
-	
 }

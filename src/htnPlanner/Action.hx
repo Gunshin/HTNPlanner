@@ -1,5 +1,8 @@
 package htnPlanner;
 
+import haxe.ds.HashMap;
+import haxe.ds.StringMap;
+
 /**
  * ...
  * @author Michael Stephens
@@ -7,14 +10,16 @@ package htnPlanner;
 class Action
 {
 	var name:String = null;
-	var parameters:Array<Parameter> = new Array<Parameter>();
-	var precondition:Tree = null;
+	var parameters:Map<String, Parameter> = new StringMap<Parameter>();
+	var precondition:Precondition = null;
 	var effect:Tree = null;
 
 	public function new(name_:String)
 	{
 		name = name_;
 	}
+	
+	//public function Eva
 	
 	public function AddParameter(name_:String, type_:String)
 	{
@@ -24,7 +29,7 @@ class Action
 			throw "param already exists";
 		}
 		
-		parameters.push(new Parameter(name_, type_, null));
+		parameters.set(name_, new Parameter(name_, type_, null));
 	}
 	
 	public function SetParameter(name_:String, value_:String, type_:String, domain:Domain)
@@ -40,21 +45,12 @@ class Action
 	
 	function GetParameter(name_:String):Parameter
 	{
-		for (i in parameters)
-		{
-			if (Utilities.Compare(name_, i.GetName()) == 0)
-			{
-				return i;
-			}
-		}
-		
-		return null;
+		return parameters.get(name_);
 	}
 	
 	public function SetPreconditionTree(node_:TreeNode)
 	{
-		precondition = new Tree();
-		precondition.SetupFromNode(node_);
+		precondition = new Precondition(node_);
 	}
 	
 	public function SetEffectTree(node_:TreeNode)
@@ -68,7 +64,7 @@ class Action
 		return name;
 	}
 	
-	public function GetParameters():Array<Parameter>
+	public function GetParameters():Map<String, Parameter>
 	{
 		return parameters;
 	}

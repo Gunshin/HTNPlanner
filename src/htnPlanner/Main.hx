@@ -1,10 +1,5 @@
 package htnPlanner;
 
-import htnPlanner.Operand.Effect;
-import htnPlanner.Operand.PreCondition;
-
-import htnPlanner.TaskManager;
-
 /**
  * ...
  * @author Michael Stephens
@@ -17,7 +12,6 @@ class Main
 	var domain:Domain;
 	var problem:Problem;
 
-	var taskManager:TaskManager = new TaskManager();
 	var state:State = new State();
 	
 	public function new() 
@@ -25,11 +19,6 @@ class Main
 		domain = new Domain(domainLocation);
 		problem = new Problem(problemLocation);
 		
-		var p = domain.predicates.get("at");
-		p.GetParameter("?x").SetValue("truck1", "truck", domain);
-		p.GetParameter("?l").SetValue("l3", "location", domain);
-		
-		trace(p.Construct());
 	}
 	
 	public static function main()
