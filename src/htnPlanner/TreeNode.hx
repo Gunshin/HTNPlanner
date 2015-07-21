@@ -6,40 +6,25 @@ package htnPlanner;
  */
 class TreeNode
 {
-	public var value:String = null;
-	public var parentNode:TreeNode = null;
-	public var children:Array<TreeNode> = new Array<TreeNode>();
-
 	
-	public var evaluatedVar:String = null;
+	var parent:TreeNode = null;
+	var children:Array<TreeNode> = new Array<TreeNode>();
 
-	public function new(parentNode_:TreeNode)
+	public function new() 
 	{
-		parentNode = parentNode_;
+		
 	}
-
 	
-	public function GetChildrenWithContainingValue(value_:String):Array<TreeNode>
+	public function Execute(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):Bool { throw "must override this function"; };
+	
+	public function AddChild(child_:TreeNode)
 	{
-		if (value_ == null || value_.length == 0)
-		{
-			throw "value_ is null";
-		}
-		
-		var childrenWithValue:Array<TreeNode> = new Array<TreeNode>();
-		
-		for (i in children)
-		{
-			
-			if (i.value.indexOf(value_) != -1)
-			{
-				childrenWithValue.push(i);
-			}
-			
-		}
-		
-		return childrenWithValue;
-		
+		children.push(child_);
+	}
+	
+	public function SetParent(parent_:TreeNode)
+	{
+		parent = parent_;
 	}
 	
 }

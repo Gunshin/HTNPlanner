@@ -18,7 +18,6 @@ class Main
 	{
 		domain = new Domain(domainLocation);
 		problem = new Problem(problemLocation);
-		
 	}
 	
 	public static function main()

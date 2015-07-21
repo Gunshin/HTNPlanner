@@ -14,7 +14,7 @@ class Domain
 {
 	var domainName:String = null;
 	
-	var domainTree:Tree = null;
+	var domainTree:RawTree = null;
 	
 	var requirements:Array<String> = new Array<String>();
 	
@@ -28,7 +28,7 @@ class Domain
 	{
 		var fileContent = File.getContent(domainFilePath_);
 		
-		domainTree = new Tree();
+		domainTree = new RawTree();
 		domainTree.SetupFromString(fileContent);
 		
 		// this gets the scope of the domain name, which only returns an array with a single element as there
@@ -46,7 +46,7 @@ class Domain
 		
 	}
 	
-	function ParseRequirements(node_:TreeNode)
+	function ParseRequirements(node_:RawTreeNode)
 	{
 		
 		var split:Array<String> = node_.value.split(" ");
@@ -58,7 +58,7 @@ class Domain
 		
 	}
 	
-	function ParseTypes(node_:TreeNode)
+	function ParseTypes(node_:RawTreeNode)
 	{		
 		var split:Array<String> = node_.value.split(" ");
 		
@@ -70,10 +70,10 @@ class Domain
 		}
 	}
 	
-	function ParsePredicates(parentNode_:TreeNode)
+	function ParsePredicates(parentNode_:RawTreeNode)
 	{
 		
-		var predicateNodes:Array<TreeNode> = parentNode_.children;
+		var predicateNodes:Array<RawTreeNode> = parentNode_.children;
 		
 		for (i in predicateNodes)
 		{
@@ -83,7 +83,7 @@ class Domain
 		
 	}
 	
-	function ParseActions(actionNodes_:Array<TreeNode>)
+	function ParseActions(actionNodes_:Array<RawTreeNode>)
 	{
 		
 		for (i in actionNodes_)
@@ -110,12 +110,12 @@ class Domain
 				}
 				else if (Utilities.Compare(split[index], ":precondition") == 0)
 				{
-					var preconditionNode:TreeNode = i.children[index - 2];
+					var preconditionNode:RawTreeNode = i.children[index - 2];
 					action.SetPreconditionTree(preconditionNode);
 				}
 				else if (Utilities.Compare(split[index], ":effect") == 0)
 				{
-					var effectNode:TreeNode = i.children[index - 2];
+					var effectNode:RawTreeNode = i.children[index - 2];
 					action.SetEffectTree(effectNode);
 				}
 				

@@ -14,19 +14,19 @@ class Problem
 {
 	var problemName:String = null;
 	
-	var problemTree:Tree = null;
+	var problemTree:RawTree = null;
 	
 	var domainName:String = null;
 	
 	var initialState:State = new State();
 	
-	var goal:Tree = null;
+	var goal:RawTree = null;
 
 	public function new(problemFilePath_:String) 
 	{
 		var fileContent = File.getContent(problemFilePath_);
 		
-		problemTree = new Tree();
+		problemTree = new RawTree();
 		problemTree.SetupFromString(fileContent);
 		
 		// this gets the scope of the problem name, which only returns an array with a single element as there
@@ -44,7 +44,7 @@ class Problem
 		ParseGoal(problemTree.GetBaseNode().GetChildrenWithContainingValue(":goal")[0]);
 	}
 	
-	function ParseObjects(node_:TreeNode)
+	function ParseObjects(node_:RawTreeNode)
 	{
 		
 		var pairs:Array<Pair> = Utilities.GenerateValueTypeMap(node_.value.split(" ").slice(1));
@@ -57,10 +57,10 @@ class Problem
 		}
 	}
 	
-	function ParseInit(node_:TreeNode)
+	function ParseInit(node_:RawTreeNode)
 	{
 		
-		var children:Array<TreeNode> = node_.children;
+		var children:Array<RawTreeNode> = node_.children;
 		
 		for (i in children)
 		{
@@ -68,11 +68,11 @@ class Problem
 		}
 	}
 	
-	function ParseGoal(node_:TreeNode)
+	function ParseGoal(node_:RawTreeNode)
 	{
 		
 		// for now just leaving goal as a tree that can be evaluated
-		goal = new Tree();
+		goal = new RawTree();
 		goal.SetupFromNode(node_);
 		
 	}

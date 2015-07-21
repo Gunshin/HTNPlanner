@@ -12,7 +12,7 @@ class Action
 	var name:String = null;
 	var parameters:Map<String, Parameter> = new StringMap<Parameter>();
 	var precondition:Precondition = null;
-	var effect:Tree = null;
+	var effect:RawTree = null;
 
 	public function new(name_:String)
 	{
@@ -48,14 +48,14 @@ class Action
 		return parameters.get(name_);
 	}
 	
-	public function SetPreconditionTree(node_:TreeNode)
+	public function SetPreconditionTree(tree_:Tree)
 	{
-		precondition = new Precondition(node_);
+		precondition = new Precondition(tree_);
 	}
 	
-	public function SetEffectTree(node_:TreeNode)
+	public function SetEffectTree(node_:RawTreeNode)
 	{
-		effect = new Tree();
+		effect = new RawTree();
 		effect.SetupFromNode(node_);
 	}
 	
