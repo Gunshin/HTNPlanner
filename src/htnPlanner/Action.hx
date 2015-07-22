@@ -11,8 +11,8 @@ class Action
 {
 	var name:String = null;
 	var parameters:Map<String, Parameter> = new StringMap<Parameter>();
-	var precondition:Precondition = null;
-	var effect:RawTree = null;
+	var precondition:Tree = null;
+	var effect:Tree = null;
 
 	public function new(name_:String)
 	{
@@ -50,13 +50,12 @@ class Action
 	
 	public function SetPreconditionTree(tree_:Tree)
 	{
-		precondition = new Precondition(tree_);
+		precondition = tree_;
 	}
 	
-	public function SetEffectTree(node_:RawTreeNode)
+	public function SetEffectTree(tree_:Tree)
 	{
-		effect = new RawTree();
-		effect.SetupFromNode(node_);
+		effect = tree_;
 	}
 	
 	public function GetName():String
@@ -67,6 +66,11 @@ class Action
 	public function GetParameters():Map<String, Parameter>
 	{
 		return parameters;
+	}
+	
+	public function Evaluate(state_:State, domain_:Domain):Bool
+	{
+		return precondition.Evaluate(parameters, state_, domain_);
 	}
 	
 }

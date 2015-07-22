@@ -2,9 +2,6 @@ package htnPlanner;
 
 import haxe.ds.HashMap;
 import haxe.ds.StringMap;
-import sys.FileSystem;
-import sys.io.File;
-import sys.io.FileInput;
 
 /**
  * ...
@@ -26,10 +23,13 @@ class Domain
 	
 	public function new(domainFilePath_:String) 
 	{
-		var fileContent = File.getContent(domainFilePath_);
-		
 		domainTree = new RawTree();
-		domainTree.SetupFromString(fileContent);
+		domainTree.SetupFromString(Utilities.CleanFileImport(domainFilePath_));
+		
+		for (i in domainTree.GetBaseNode().children)
+		{
+			trace(i.value);
+		}
 		
 		// this gets the scope of the domain name, which only returns an array with a single element as there
 		// are never 2 definitions for the domain name. We then split this value into two strings due to the value
@@ -95,7 +95,7 @@ class Domain
 			var index:Int = 2;
 			while (index < split.length)
 			{
-				
+				trace("on: " + split[index]);
 				// we do index - 2 below because of the 2 indexs we have to skip
 				// this gives us a corresponding child node with correct scope for each key word such as parameters.
 				
@@ -110,13 +110,15 @@ class Domain
 				}
 				else if (Utilities.Compare(split[index], ":precondition") == 0)
 				{
+					trace("precondition: " + (index - 2));
 					var preconditionNode:RawTreeNode = i.children[index - 2];
-					action.SetPreconditionTree(preconditionNode);
+					action.SetPreconditionTree(Tree.ConvertRawTreeNodeToTree(preconditionNode, this));
 				}
 				else if (Utilities.Compare(split[index], ":effect") == 0)
 				{
+					trace("effect: " + (index - 2));
 					var effectNode:RawTreeNode = i.children[index - 2];
-					action.SetEffectTree(effectNode);
+					action.SetEffectTree(Tree.ConvertRawTreeNodeToTree(effectNode, this));
 				}
 				
 				index++;
@@ -157,6 +159,11 @@ class Domain
 	public function GetPredicate(name_:String):Predicate
 	{
 		return predicates.get(name_);
+	}
+	
+	public function GetAction(name_:String):Action
+	{
+		return actions.get(name_);
 	}
 	
 }

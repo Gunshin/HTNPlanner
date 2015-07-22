@@ -18,6 +18,20 @@ class Main
 	{
 		domain = new Domain(domainLocation);
 		problem = new Problem(problemLocation);
+		
+		var action = domain.GetAction("drive");
+		
+		var initState = problem.GetClonedInitialState();
+		
+		action.SetParameter("?t", "truck1", "truck", domain);
+		
+		action.SetParameter("?from", "l3", "location", domain);
+		action.SetParameter("?to", "l1", "location", domain);
+		
+		action.SetParameter("?t1", "t0", "time", domain);
+		action.SetParameter("?t2", "t1", "time", domain);
+		
+		trace(action.Evaluate(initState, domain));
 	}
 	
 	public static function main()

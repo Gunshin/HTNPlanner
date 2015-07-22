@@ -21,10 +21,15 @@ class Tree
 	
 	public function Evaluate(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):Bool
 	{
-		return baseNode.Execute(parameters_, state_, domain_);
+		return baseNode.Evaluate(parameters_, state_, domain_);
 	}
 	
-	public static function ConvertRawTreeNodeToTreeCondition(rawNode_:RawTreeNode, domain_:Domain):Tree
+	public function Execute(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):Void
+	{
+		baseNode.Execute(parameters_, state_, domain_);
+	}
+	
+	public static function ConvertRawTreeNodeToTree(rawNode_:RawTreeNode, domain_:Domain):Tree
 	{
 		var baseNode:TreeNode = ConvertRawNode(rawNode_, domain_);
 		
@@ -45,38 +50,39 @@ class Tree
 			conditionNode.SetParent(conditionNodeParent_);
 			
 			RecursiveGenerateTree(i, conditionNode, domain_);
-			
 		}
 		
 	}
 	
 	static function ConvertRawNode(rawNode_:RawTreeNode, domain_:Domain):TreeNode
 	{
+		trace("rawnode.value: " + rawNode_.value);
+		
+		var newNode:TreeNode = null;
 		
 		var predicate:Predicate = domain_.GetPredicate(rawNode_.value);
 		if (predicate != null)
 		{
-			return new TreeNodePredicate(predicate);
+			newNode = new TreeNodePredicate(predicate);
+			return newNode;
 		}
 		
 		switch(rawNode_.value)
 		{
 			case "and":
-				return new TreeNodeAnd();
-				break;
+				newNode = new TreeNodeAnd();
 			case "not":
-				return new TreeNodeNot();
-				break;
+				newNode = new TreeNodeNot();
 			case "imply":
-				return new TreeNodeImply();
-				break;
+				newNode = new TreeNodeImply();
 			case "forall":
-				return new TreeNodeForall();
-				break;
+				newNode = new TreeNodeForall(rawNode_.children, domain_);
+				rawNode_.children = new Array<RawTreeNode>(); // we dont want to iterate through the children and add them to THIS tree
 			default:
 				throw "we do not know what this node is!: " + rawNode_.value;
-				break;
 		}
+		
+		return newNode;
 		
 	}
 	

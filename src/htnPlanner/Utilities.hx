@@ -1,6 +1,10 @@
 package htnPlanner;
 import haxe.ds.StringMap;
 
+import sys.FileSystem;
+import sys.io.File;
+import sys.io.FileInput;
+
 /**
  * ...
  * @author Michael Stephens
@@ -87,6 +91,13 @@ class Utilities
 		return value;
 	}
 	
+	public static function GetScopeContents(string_:String, start_:Int):String
+	{
+		var scope:String = GetScope(string_, start_);
+		
+		return scope.substr(1, scope.length - 2);
+	}
+	
 	public static function GetNamedScope(name_:String, string_:String):String
 	{
 		var index:Int = string_.indexOf(name_);
@@ -153,6 +164,42 @@ class Utilities
 		}
 		
 		return returnPairs;
+	}
+	
+	public static function CleanFileImport(filePath_:String):String
+	{
+		var fileContent:String = File.getContent(filePath_);
+
+		var lines:Array<String> = fileContent.split("\n");
+		
+		var finalString:String = "";
+		
+		for (i in lines)
+		{
+			var commentlessLine:String = StripComments(StringTools.trim(i));
+			finalString += " " + lines;
+		}
+		
+		return finalString;
+	}
+	
+	static function StripComments(string_:String):String
+	{		
+		var commentFree:String = "";
+			
+		for (index in 0...string_.length)
+		{
+			var char:String = string_.charAt(index);
+			
+			if (Compare(char, ";") == 0)
+			{
+				return commentFree;
+			}
+			
+			commentFree += string_.charAt(index);
+		}
+		
+		return commentFree;
 	}
 	
 }

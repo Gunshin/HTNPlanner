@@ -14,18 +14,29 @@ class State
 		relations = new Array<String>();
 	}
 
-	public function AddRelation(relations_:String):Void
+	public function AddRelation(relation_:String):Void
 	{
-		if (relations_ == null || relations_.length == 0)
+		if (relation_ == null || relation_.length == 0)
 		{
-			return;
+			throw "relation is null";
 		}
 		
-		if (!Exists(relations_))
+		if (!Exists(relation_))
 		{
-			relations.push(relations_);
+			relations.push(relation_);
 		}
 		
+	}
+	
+	public function RemoveRelation(relation_:String):Bool
+	{
+		
+		if (relation_ == null || relation_.length == 0)
+		{
+			throw "relation is null";
+		}
+		
+		return relations.remove(relation_);
 	}
 	
 	public function Exists(relation_:String):Bool
@@ -47,30 +58,6 @@ class State
 		return false; // we did not find any equivalent strings in the relation list
 	}
 	
-	/*
-	 * 
-	 * Since this function can be used to get all relations that match from a substring of relations,
-	 * there is a need to retunr an array.
-	 * 
-	 * eg.
-	 * Conained relations:
-	 * ["Inventory", "Logs", "10"]
-	 * ["Inventory", "Axe", "1"]
-	 * ["Health", "100"]
-	 * 
-	 * With matching relation array:
-	 * ["Inventory", "Logs"]
-	 * 
-	 * Will return:
-	 * [["Inventory", "Logs", "10"]]
-	 * 
-	 * Or with:
-	 * ["Inventory"]
-	 * 
-	 * Will return:
-	 * [["Inventory", "Logs", "10"], ["Inventory", "Axe", "1"]]
-	 * 
-	 */
 	public function GetMatching(relation_:String):Array<String>
 	{
 		
@@ -91,6 +78,18 @@ class State
 		}
 		
 		return matchingRelations;
+	}
+	
+	public function Clone():State
+	{
+		var newState:State = new State();
+		
+		for (i in relations)
+		{
+			newState.AddRelation(i);
+		}
+		
+		return newState;
 	}
 	
 }

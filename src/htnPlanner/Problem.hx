@@ -2,9 +2,6 @@ package htnPlanner;
 
 import haxe.ds.HashMap;
 import haxe.ds.StringMap;
-import sys.FileSystem;
-import sys.io.File;
-import sys.io.FileInput;
 
 /**
  * ...
@@ -23,11 +20,9 @@ class Problem
 	var goal:RawTree = null;
 
 	public function new(problemFilePath_:String) 
-	{
-		var fileContent = File.getContent(problemFilePath_);
-		
+	{		
 		problemTree = new RawTree();
-		problemTree.SetupFromString(fileContent);
+		problemTree.SetupFromString(Utilities.CleanFileImport(problemFilePath_));
 		
 		// this gets the scope of the problem name, which only returns an array with a single element as there
 		// are never 2 definitions for the problem name. We then split this value into two strings due to the value
@@ -74,6 +69,13 @@ class Problem
 		// for now just leaving goal as a tree that can be evaluated
 		goal = new RawTree();
 		goal.SetupFromNode(node_);
+		
+	}
+	
+	public function GetClonedInitialState():State
+	{
+		
+		return initialState.Clone();
 		
 	}
 	

@@ -16,9 +16,14 @@ class TreeNodePredicate extends TreeNode
 		predicate = predicate_;
 	}
 	
-	override public function Execute(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):Bool
+	override public function Evaluate(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):Bool
 	{
 		var predicateValue:String = predicate.Construct(parameters_);
 		return state_.Exists(predicateValue);
+	}
+	
+	override public function Execute(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):String
+	{
+		return predicate.Construct(parameters_);
 	}
 }

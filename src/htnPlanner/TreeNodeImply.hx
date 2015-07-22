@@ -12,9 +12,15 @@ class TreeNodeImply extends TreeNode
 		super();
 	}
 	
-	override public function Execute(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):Bool
+	override public function Evaluate(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):Bool
 	{		
-		return !children[0].Execute(parameters_, state_, domain_) || children[1].Execute(parameters_, state_, domain_);
+		return !children[0].Evaluate(parameters_, state_, domain_) || children[1].Evaluate(parameters_, state_, domain_);
+	}
+	
+	override public function Execute(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):String
+	{		
+		throw "this TreeNodeImply should not be used within action effect!";
+		return null;
 	}
 	
 }
