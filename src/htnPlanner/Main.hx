@@ -32,6 +32,8 @@ class Main
 		action.SetParameter("?t2", "t1", "time", domain);
 		
 		trace(action.Evaluate(initState, domain));
+		initState.Print();
+		action.Execute(initState, domain).Print();
 	}
 	
 	public static function main()

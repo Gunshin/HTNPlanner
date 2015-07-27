@@ -26,11 +26,6 @@ class Domain
 		domainTree = new RawTree();
 		domainTree.SetupFromString(Utilities.CleanFileImport(domainFilePath_));
 		
-		for (i in domainTree.GetBaseNode().children)
-		{
-			trace(i.value);
-		}
-		
 		// this gets the scope of the domain name, which only returns an array with a single element as there
 		// are never 2 definitions for the domain name. We then split this value into two strings due to the value
 		// being eg. "domain trucks", where trucks is the name we want.
@@ -41,6 +36,11 @@ class Domain
 		ParseTypes(domainTree.GetBaseNode().GetChildrenWithContainingValue(":types")[0]);
 		
 		ParsePredicates(domainTree.GetBaseNode().GetChildrenWithContainingValue(":predicates")[0]);
+		
+		for (i in predicates.keys())
+		{
+			trace(i + " _ " + i.length);
+		}
 		
 		ParseActions(domainTree.GetBaseNode().GetChildrenWithContainingValue(":action"));
 		
@@ -88,14 +88,17 @@ class Domain
 		
 		for (i in actionNodes_)
 		{
-			var split:Array<String> = i.value.split(" ");
+			var split:Array<String> = i.value.split(" ").filter(function(input) {
+				return input.length > 0;
+			});
+			
 			var action:Action = new Action(StringTools.trim(split[1]));
 			
 			// index 0 is ":action" whilst index 1 is the name of the action, as shown above
 			var index:Int = 2;
 			while (index < split.length)
 			{
-				trace("on: " + split[index]);
+				trace("on: " + split[index] + " _ " + split[index].length);
 				// we do index - 2 below because of the 2 indexs we have to skip
 				// this gives us a corresponding child node with correct scope for each key word such as parameters.
 				

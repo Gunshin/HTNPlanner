@@ -60,14 +60,17 @@ class Tree
 		
 		var newNode:TreeNode = null;
 		
-		var predicate:Predicate = domain_.GetPredicate(rawNode_.value);
+		var terms:Array<String> = rawNode_.value.split(" ");
+		var firstTerm:String = terms[0];
+		
+		var predicate:Predicate = domain_.GetPredicate(firstTerm);
 		if (predicate != null)
 		{
-			newNode = new TreeNodePredicate(predicate);
+			newNode = new TreeNodePredicate(predicate, terms.slice(1));
 			return newNode;
 		}
 		
-		switch(rawNode_.value)
+		switch(firstTerm)
 		{
 			case "and":
 				newNode = new TreeNodeAnd();
@@ -79,7 +82,7 @@ class Tree
 				newNode = new TreeNodeForall(rawNode_.children, domain_);
 				rawNode_.children = new Array<RawTreeNode>(); // we dont want to iterate through the children and add them to THIS tree
 			default:
-				throw "we do not know what this node is!: " + rawNode_.value;
+				throw "we do not know what this node is!: " + firstTerm;
 		}
 		
 		return newNode;

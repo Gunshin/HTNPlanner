@@ -73,4 +73,11 @@ class Action
 		return precondition.Evaluate(parameters, state_, domain_);
 	}
 	
+	public function Execute(state_:State, domain_:Domain):State
+	{
+		var cloned:State = state_.Clone();
+		effect.Execute(parameters, cloned, domain_);
+		return cloned;
+	}
+	
 }

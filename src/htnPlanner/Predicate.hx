@@ -8,7 +8,7 @@ import haxe.ds.StringMap;
 class Predicate
 {
 	//this value is used since the paramters are not guaranteed to be in order due to maps storing values alphabetically
-	var templateValue:Array<String> = new Array<String>();
+	//var templateValue:Array<String> = new Array<String>();
 
 	// predicates are usually defined by a keyword followed by the parameters eg. "at ?x - locatable ?l - location"
 	var name:String = null;
@@ -18,12 +18,13 @@ class Predicate
 		ParseValue(predicateValue_);
 	}
 	
-	public function Construct(parameterMap_:Map<String, Parameter>):String
+	public function Construct(parameterMap_:Map<String, Parameter>, templateValue_:Array<String>):String
 	{
 		var constructedValue:String = name;
 		
-		for (i in templateValue)
+		for (i in templateValue_)
 		{
+			trace(i);
 			constructedValue += " " + parameterMap_.get(i).GetValue();
 		}
 		
@@ -36,11 +37,6 @@ class Predicate
 		var pairs:Array<Pair> = Utilities.GenerateValueTypeMap(split.slice(1));
 		
 		name = split[0];
-		
-		for (i in pairs)
-		{
-			templateValue.push(i.a);
-		}
 	}
 	
 	public function GetName():String

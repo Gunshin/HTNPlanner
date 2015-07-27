@@ -1,5 +1,8 @@
 package htnPlanner;
 
+import sys.io.File;
+import sys.io.FileOutput;
+
 /**
  * ...
  * @author Michael Stephens
@@ -78,6 +81,15 @@ class State
 		}
 		
 		return matchingRelations;
+	}
+	
+	public function Print():Void
+	{
+		var fo:FileOutput = File.append("output.txt", false);
+		fo.writeString("\n\n\n\n\n\n\n\n");
+		fo.writeString(relations.toString());
+		fo.flush();
+		fo.close();
 	}
 	
 	public function Clone():State

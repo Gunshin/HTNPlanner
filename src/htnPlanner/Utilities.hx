@@ -1,5 +1,6 @@
 package htnPlanner;
 import haxe.ds.StringMap;
+import sys.io.FileOutput;
 
 import sys.FileSystem;
 import sys.io.File;
@@ -176,11 +177,14 @@ class Utilities
 		
 		for (i in lines)
 		{
-			var commentlessLine:String = StripComments(StringTools.trim(i));
-			finalString += " " + lines;
+			if (i.length > 1 || !StringTools.isSpace(i, 0))
+			{
+				var commentlessLine:String = StripComments(StringTools.trim(i));
+				finalString += " " + commentlessLine;
+			}
 		}
 		
-		return finalString;
+		return StringTools.trim(finalString);
 	}
 	
 	static function StripComments(string_:String):String
