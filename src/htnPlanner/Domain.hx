@@ -15,11 +15,15 @@ class Domain
 	
 	var requirements:Array<String> = new Array<String>();
 	
-	var types:Map<String, String> = new StringMap<String>();
+	var types:Types = null;
 	
 	var predicates:Map<String, Predicate> = new StringMap<Predicate>();
 	
+	var functions:Map<String, Function> = new StringMap<Function>();
+	
 	var actions:Map<String, Action> = new StringMap<Action>();
+	
+	var constants:Array<Pair> = new Array<Pair>();
 	
 	public function new(domainFilePath_:String) 
 	{
@@ -37,12 +41,19 @@ class Domain
 		
 		ParsePredicates(domainTree.GetBaseNode().GetChildrenWithContainingValue(":predicates")[0]);
 		
-		for (i in predicates.keys())
+		var functionsNodes:Array<RawTreeNode> = domainTree.GetBaseNode().GetChildrenWithContainingValue(":functions");
+		if (functionsNodes.length > 0)
 		{
-			trace(i + " _ " + i.length);
+			ParseFunctions(functionsNodes[0]);
 		}
 		
 		ParseActions(domainTree.GetBaseNode().GetChildrenWithContainingValue(":action"));
+		
+		var constantsNodes:Array<RawTreeNode> = domainTree.GetBaseNode().GetChildrenWithContainingValue(":constants");
+		if (constantsNodes.length > 0)
+		{
+			ParseConstants(constantsNodes[0]);
+		}
 		
 	}
 	
@@ -59,15 +70,18 @@ class Domain
 	}
 	
 	function ParseTypes(node_:RawTreeNode)
-	{		
-		var split:Array<String> = node_.value.split(" ");
-		
-		var pairs = Utilities.GenerateValueTypeMap(split.slice(1));
-		
-		for (i in pairs)
+	{
+		if (node_ == null)
 		{
-			types.set(i.a, i.b);
+			throw "there are no types specified in domain file";
 		}
+		
+		types = new Types(node_);
+	}
+	
+	function ParseConstants(node_:RawTreeNode)
+	{
+		constants = Utilities.GenerateValueTypeMap(node_.value.split(" ").slice(1));
 	}
 	
 	function ParsePredicates(parentNode_:RawTreeNode)
@@ -81,6 +95,17 @@ class Domain
 			predicates.set(predicate.GetName(), predicate);
 		}
 		
+	}
+	
+	function ParseFunctions(parentNode_:RawTreeNode)
+	{
+		var functionNodes:Array<RawTreeNode> = parentNode_.children;
+		
+		for (i in functionNodes)
+		{
+			var newFunction:Function = new Function(i.value);
+			functions.set(newFunction.GetName(), newFunction);
+		}
 	}
 	
 	function ParseActions(actionNodes_:Array<RawTreeNode>)
@@ -98,7 +123,6 @@ class Domain
 			var index:Int = 2;
 			while (index < split.length)
 			{
-				trace("on: " + split[index] + " _ " + split[index].length);
 				// we do index - 2 below because of the 2 indexs we have to skip
 				// this gives us a corresponding child node with correct scope for each key word such as parameters.
 				
@@ -113,13 +137,11 @@ class Domain
 				}
 				else if (Utilities.Compare(split[index], ":precondition") == 0)
 				{
-					trace("precondition: " + (index - 2));
 					var preconditionNode:RawTreeNode = i.children[index - 2];
 					action.SetPreconditionTree(Tree.ConvertRawTreeNodeToTree(preconditionNode, this));
 				}
 				else if (Utilities.Compare(split[index], ":effect") == 0)
 				{
-					trace("effect: " + (index - 2));
 					var effectNode:RawTreeNode = i.children[index - 2];
 					action.SetEffectTree(Tree.ConvertRawTreeNodeToTree(effectNode, this));
 				}
@@ -143,9 +165,9 @@ class Domain
 		
 		// we want to break if the current type has a super type in the map. types that will not should likely
 		// only be "object"
-		while (types.exists(current))
+		while (types.Exists(current))
 		{
-			current = types.get(current);
+			current = types.GetSuperType(current);
 			
 			if (Utilities.Compare(current, typeCheckAgainst_) == 0)
 			{
@@ -167,6 +189,11 @@ class Domain
 	public function GetAction(name_:String):Action
 	{
 		return actions.get(name_);
+	}
+	
+	public function GetFunction(name_:String):Function
+	{
+		return functions.get(name_);
 	}
 	
 }

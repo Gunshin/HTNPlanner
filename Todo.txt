@@ -1,4 +1,8 @@
 
+currently:
+	working on allowing TreeNodeInt to accept values from both children
+
+
 
 domain.pddl parsing finished. precondition and effect have not been finished however as they have not been set to evaluate yet. need to take each node
 and compare it to predicates and primitives. biggest problem will likely be foreach.

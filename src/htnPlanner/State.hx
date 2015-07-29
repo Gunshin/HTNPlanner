@@ -3,6 +3,11 @@ package htnPlanner;
 import sys.io.File;
 import sys.io.FileOutput;
 
+import haxe.Int64;
+
+import haxe.ds.HashMap;
+import haxe.ds.StringMap;
+
 /**
  * ...
  * @author Michael Stephens
@@ -10,11 +15,11 @@ import sys.io.FileOutput;
 class State
 {
 	
-	var relations:Array<String>;
+	var relations:Map<String, Bool> = new StringMap<Bool>();
+	var functions:Map<String, Int> = new StringMap<Int>();
 
 	public function new() 
 	{
-		relations = new Array<String>();
 	}
 
 	public function AddRelation(relation_:String):Void
@@ -26,7 +31,7 @@ class State
 		
 		if (!Exists(relation_))
 		{
-			relations.push(relation_);
+			relations.set(relation_, true);
 		}
 		
 	}
@@ -49,16 +54,7 @@ class State
 			throw "relation_ is null or empty";
 		}
 		
-		//check each element of the relation list
-		for (i in relations)
-		{
-			if (Utilities.Compare(i, relation_) == 0)
-			{
-				return true;
-			}
-		}
-		
-		return false; // we did not find any equivalent strings in the relation list
+		return relations.exists(relation_);
 	}
 	
 	public function GetMatching(relation_:String):Array<String>
@@ -72,7 +68,7 @@ class State
 		var matchingRelations:Array<String> = new Array<String>();
 		
 		//check each element of the relation list
-		for (i in relations)
+		for (i in relations.keys())
 		{
 			if (i.indexOf(relation_) > -1)
 			{
@@ -81,6 +77,16 @@ class State
 		}
 		
 		return matchingRelations;
+	}
+	
+	public function SetFunction(functionID_:String, value_:Int)
+	{
+		functions.set(functionID_, value_);
+	}
+	
+	public function GetFunction(functionID_:String):Int
+	{
+		return functions.get(functionID_);
 	}
 	
 	public function Print():Void
@@ -96,12 +102,35 @@ class State
 	{
 		var newState:State = new State();
 		
-		for (i in relations)
+		for (i in relations.keys())
 		{
 			newState.AddRelation(i);
+		}
+		
+		for (i in functions.keys())
+		{
+			newState.SetFunction(i, GetFunction(i));
 		}
 		
 		return newState;
 	}
 	
+	public function GenerateStateHash():Int64
+	{
+		var array:Array<Int64> = new Array<Int64>();
+		
+		for (i in relations.keys())
+		{
+			array.push(Utilities.StringHash(i));
+		}
+		
+		for (i in functions.keys())
+		{
+			array.push(Utilities.StringHash(i + GetFunction(i)));
+		}
+		
+		var hash:Int64 = Utilities.IntArrayHash(array);
+		
+		return hash;
+	}
 }

@@ -16,6 +16,8 @@ class Problem
 	var domainName:String = null;
 	
 	var initialState:State = new State();
+	var objects:Array<Pair> = new Array<Pair>();
+	
 	
 	var goal:RawTree = null;
 
@@ -41,20 +43,11 @@ class Problem
 	
 	function ParseObjects(node_:RawTreeNode)
 	{
-		
-		var pairs:Array<Pair> = Utilities.GenerateValueTypeMap(node_.value.split(" ").slice(1));
-		
-		for (i in pairs)
-		{
-			
-			initialState.AddRelation(i.a + " " + i.b);
-			
-		}
+		objects = Utilities.GenerateValueTypeMap(node_.value.split(" ").slice(1));
 	}
 	
 	function ParseInit(node_:RawTreeNode)
 	{
-		
 		var children:Array<RawTreeNode> = node_.children;
 		
 		for (i in children)

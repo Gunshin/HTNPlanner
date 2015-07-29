@@ -56,7 +56,7 @@ class Tree
 	
 	static function ConvertRawNode(rawNode_:RawTreeNode, domain_:Domain):TreeNode
 	{
-		trace("rawnode.value: " + rawNode_.value);
+		//trace("rawnode.value: " + rawNode_.value);
 		
 		var newNode:TreeNode = null;
 		
@@ -70,6 +70,17 @@ class Tree
 			return newNode;
 		}
 		
+		var func:Function = domain_.GetFunction(firstTerm);
+		if (func != null)
+		{
+			newNode = new TreeNodeFunction(func, terms.slice(1));
+			return newNode;
+		}
+		
+		// we filter this because function evaluators (TreeNodeInt) may produce a null element in the array due to the way things a parsed. We also cut
+		// off the front element because the name is not a param.
+		var params:Array<String> = terms.filter(function(s) { return s.length > 0; } ).slice(1);
+		
 		switch(firstTerm)
 		{
 			case "and":
@@ -81,6 +92,20 @@ class Tree
 			case "forall":
 				newNode = new TreeNodeForall(rawNode_.children, domain_);
 				rawNode_.children = new Array<RawTreeNode>(); // we dont want to iterate through the children and add them to THIS tree
+			case ">":
+				newNode = new TreeNodeIntMoreThan(params);
+			case ">=":
+				newNode = new TreeNodeIntMoreThanOrEqual(params);
+			case "<":
+				newNode = new TreeNodeIntLessThan(params);
+			case "<=":
+				newNode = new TreeNodeIntLessThanOrEqual(params);
+			case "assign":
+				newNode = new TreeNodeIntAssign(params);
+			case "increase":
+				newNode = new TreeNodeIntIncrease(params);
+			case "decrease":
+				newNode = new TreeNodeIntDecrease(params);
 			default:
 				throw "we do not know what this node is!: " + firstTerm;
 		}

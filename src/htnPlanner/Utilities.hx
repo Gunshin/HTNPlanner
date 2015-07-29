@@ -1,5 +1,6 @@
 package htnPlanner;
 import haxe.ds.StringMap;
+import haxe.Int64;
 import sys.io.FileOutput;
 
 import sys.FileSystem;
@@ -204,6 +205,37 @@ class Utilities
 		}
 		
 		return commentFree;
+	}
+	
+	//http://www.cse.yorku.ca/~oz/hash.html
+	public static function StringHash(string_:String):Int64
+	{
+		
+		var hash:Int64 = 0;
+		
+		var c:Int64 = 0;
+		
+        for(i in 0...string_.length)
+		{
+			c = Int64.ofInt(string_.charCodeAt(i));
+            hash = c + (hash << 6) + (hash << 16) - hash;
+		}
+		
+        return hash;
+	}
+	
+	//same as above but using an interger array instead
+	public static function IntArrayHash(array_:Array<Int64>):Int64
+	{
+		
+		var hash:Int64 = 0;
+			
+        for(i in array_)
+		{
+            hash = i + (hash << 6) + (hash << 16) - hash;
+		}
+		
+        return hash;
 	}
 	
 }

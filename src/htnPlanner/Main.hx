@@ -7,8 +7,8 @@ package htnPlanner;
 class Main 
 {
 	
-	var domainLocation:String = "pddlexamples/domain.pddl";
-	var problemLocation:String = "pddlexamples/p01.pddl";
+	var domainLocation:String = "pddlexamples/domains/classical/settlers/domain.pddl";
+	var problemLocation:String = "pddlexamples/domains/classical/settlers/p01_pfile1.pddl";
 	var domain:Domain;
 	var problem:Problem;
 
@@ -19,7 +19,7 @@ class Main
 		domain = new Domain(domainLocation);
 		problem = new Problem(problemLocation);
 		
-		var action = domain.GetAction("drive");
+		/*var action = domain.GetAction("drive");
 		
 		var initState = problem.GetClonedInitialState();
 		
@@ -33,7 +33,11 @@ class Main
 		
 		trace(action.Evaluate(initState, domain));
 		initState.Print();
-		action.Execute(initState, domain).Print();
+		var newState:State = action.Execute(initState, domain);
+		newState.Print();
+		
+		trace(initState.GenerateStateHash());
+		trace(newState.GenerateStateHash());*/
 	}
 	
 	public static function main()

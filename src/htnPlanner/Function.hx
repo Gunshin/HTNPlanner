@@ -1,21 +1,19 @@
 package htnPlanner;
-import haxe.ds.StringMap;
 
 /**
  * ...
  * @author Michael Stephens
  */
-class Predicate
+class Function
 {
-	//this value is used since the paramters are not guaranteed to be in order due to maps storing values alphabetically
-	//var templateValue:Array<String> = new Array<String>();
-
-	// predicates are usually defined by a keyword followed by the parameters eg. "at ?x - locatable ?l - location"
+	//this class is primarily here incase i want to do type checking on parameters and such
+	
+	
 	var name:String = null;
 	
-	public function new(predicateValue_:String) 
+	public function new(functionValue_:String) 
 	{
-		ParseValue(predicateValue_);
+		ParseValue(functionValue_);
 	}
 	
 	public function Construct(parameterMap_:Map<String, Parameter>, templateValue_:Array<String>):String
@@ -33,7 +31,11 @@ class Predicate
 	function ParseValue(string_:String)
 	{
 		var split:Array<String> = string_.split(" ");
-		var pairs:Array<Pair> = Utilities.GenerateValueTypeMap(split.slice(1));
+		
+		if (split.length > 1)
+		{
+			var pairs:Array<Pair> = Utilities.GenerateValueTypeMap(split.slice(1)); // this gives the parameters, not sure if i want to do anything with it yet
+		}
 		
 		name = split[0];
 	}
