@@ -7,9 +7,9 @@ package htnPlanner;
 class TreeNodeIntIncrease extends TreeNodeInt
 {
 
-	public function new(params_:Array<String>) 
+	public function new() 
 	{
-		super(params_);
+		super();
 	}
 	
 	override public function Evaluate(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):Bool
@@ -23,7 +23,7 @@ class TreeNodeIntIncrease extends TreeNodeInt
 		
 		var functionOneValue:Int = state_.GetFunction(functionOneID);
 		
-		state_.SetFunction(functionOneID, functionOneValue + GetSecondValue(parameters_, state_, domain_));
+		state_.SetFunction(functionOneID, functionOneValue + GetValueFromChild(1, parameters_, state_, domain_));
 		
 		return null;
 	}

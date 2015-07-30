@@ -1,7 +1,5 @@
 
-currently:
-	working on allowing TreeNodeInt to accept values from both children
-
+need to add problem.init correctly. currently everything is being added as a relation, needs to be evaluated through a tree
 
 
 domain.pddl parsing finished. precondition and effect have not been finished however as they have not been set to evaluate yet. need to take each node

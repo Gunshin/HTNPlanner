@@ -4,7 +4,7 @@ package htnPlanner;
  * ...
  * @author Michael Stephens
  */
-class TreeNodeIntDecrease extends TreeNodeInt
+class TreeNodeIntMinus extends TreeNodeInt
 {
 
 	public function new() 
@@ -19,12 +19,6 @@ class TreeNodeIntDecrease extends TreeNodeInt
 	
 	override public function Execute(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):String
 	{
-		var functionOneID:String = children[0].Execute(parameters_, state_, domain_);
-		
-		var functionOneValue:Int = state_.GetFunction(functionOneID);
-		
-		state_.SetFunction(functionOneID, functionOneValue - GetValueFromChild(1, parameters_, state_, domain_));
-		
-		return null;
+		return Std.string(GetValueFromChild(0, parameters_, state_, domain_) - GetValueFromChild(1, parameters_, state_, domain_));
 	}
 }

@@ -17,7 +17,9 @@ class Main
 	public function new() 
 	{
 		domain = new Domain(domainLocation);
-		problem = new Problem(problemLocation);
+		problem = new Problem(problemLocation, domain);
+		
+		trace(problem.EvaluateMetric(problem.GetClonedInitialState()));
 		
 		/*var action = domain.GetAction("drive");
 		

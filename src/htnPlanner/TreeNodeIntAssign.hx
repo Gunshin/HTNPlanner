@@ -7,9 +7,9 @@ package htnPlanner;
 class TreeNodeIntAssign extends TreeNodeInt
 {
 
-	public function new(params_:Array<String>) 
+	public function new() 
 	{
-		super(params_);
+		super();
 	}
 	
 	override public function Evaluate(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):Bool
@@ -21,7 +21,7 @@ class TreeNodeIntAssign extends TreeNodeInt
 	{
 		var functionOneID:String = children[0].Execute(parameters_, state_, domain_);
 		
-		state_.SetFunction(functionOneID, GetSecondValue(parameters_, state_, domain_));
+		state_.SetFunction(functionOneID, GetValueFromChild(1, parameters_, state_, domain_));
 		
 		return null;
 	}

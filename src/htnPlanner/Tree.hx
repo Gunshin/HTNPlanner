@@ -24,39 +24,78 @@ class Tree
 		return baseNode.Evaluate(parameters_, state_, domain_);
 	}
 	
-	public function Execute(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):Void
+	public function Execute(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):String
 	{
-		baseNode.Execute(parameters_, state_, domain_);
+		return baseNode.Execute(parameters_, state_, domain_);
+	}
+	
+	public function Recurse(func_:TreeNode-> Void)
+	{
+		Recursive(func_, baseNode);
+	}
+	
+	function Recursive(func_:TreeNode-> Void, currentNode_:TreeNode)
+	{
+		trace("DOWN");
+		
+		for (i in currentNode_.GetChildren())
+		{
+			Recursive(func_, i);
+		}
+		
+		func_(currentNode_);
+		trace("UP");
 	}
 	
 	public static function ConvertRawTreeNodeToTree(rawNode_:RawTreeNode, domain_:Domain):Tree
-	{
-		var baseNode:TreeNode = ConvertRawNode(rawNode_, domain_);
-		
-		RecursiveGenerateTree(rawNode_, baseNode, domain_);
+	{		
+		var baseNode:TreeNode = RecursiveGenerateTree(rawNode_, domain_);
 		
 		return new Tree(baseNode);
 		
 	}
 	
-	static function RecursiveGenerateTree(rawNodeParent_:RawTreeNode, conditionNodeParent_:TreeNode, domain_:Domain)
+	static function RecursiveGenerateTree(rawNode_:RawTreeNode, domain_:Domain):TreeNode
 	{
-		
-		for (i in rawNodeParent_.children)
+		//trace("entered");
+		var children:Array<TreeNode> = new Array<TreeNode>();
+		for (i in rawNode_.children)
 		{
 			
-			var conditionNode:TreeNode = ConvertRawNode(i, domain_);
+			children.push(RecursiveGenerateTree(i, domain_));
+			/*var conditionNode:TreeNode = ConvertRawNode(i, domain_);
 			conditionNodeParent_.AddChild(conditionNode);
 			conditionNode.SetParent(conditionNodeParent_);
 			
-			RecursiveGenerateTree(i, conditionNode, domain_);
+			RecursiveGenerateTree(i, conditionNode, domain_);*/
 		}
+		
+		//trace("children");
+		
+		var currentNode:TreeNode = ConvertRawNode(rawNode_, domain_);
+		for (i in children)
+		{
+			currentNode.AddChild(i);
+			i.SetParent(currentNode);
+		}
+		
+		//trace("added");
+		
+		if (Std.is(currentNode, TreeNodeInt))
+		{
+			var treeNode:TreeNodeInt = cast(currentNode, TreeNodeInt);
+			treeNode.AddValues(rawNode_.value.split(" ").slice(1));
+		}
+		
+		//trace("returning");
+		
+		return currentNode;
 		
 	}
 	
 	static function ConvertRawNode(rawNode_:RawTreeNode, domain_:Domain):TreeNode
 	{
-		//trace("rawnode.value: " + rawNode_.value);
+		trace("rawnode.value: " + rawNode_.value);
 		
 		var newNode:TreeNode = null;
 		
@@ -77,10 +116,6 @@ class Tree
 			return newNode;
 		}
 		
-		// we filter this because function evaluators (TreeNodeInt) may produce a null element in the array due to the way things a parsed. We also cut
-		// off the front element because the name is not a param.
-		var params:Array<String> = terms.filter(function(s) { return s.length > 0; } ).slice(1);
-		
 		switch(firstTerm)
 		{
 			case "and":
@@ -93,19 +128,27 @@ class Tree
 				newNode = new TreeNodeForall(rawNode_.children, domain_);
 				rawNode_.children = new Array<RawTreeNode>(); // we dont want to iterate through the children and add them to THIS tree
 			case ">":
-				newNode = new TreeNodeIntMoreThan(params);
+				newNode = new TreeNodeIntMoreThan();
 			case ">=":
-				newNode = new TreeNodeIntMoreThanOrEqual(params);
+				newNode = new TreeNodeIntMoreThanOrEqual();
 			case "<":
-				newNode = new TreeNodeIntLessThan(params);
+				newNode = new TreeNodeIntLessThan();
 			case "<=":
-				newNode = new TreeNodeIntLessThanOrEqual(params);
+				newNode = new TreeNodeIntLessThanOrEqual();
 			case "assign":
-				newNode = new TreeNodeIntAssign(params);
+				newNode = new TreeNodeIntAssign();
 			case "increase":
-				newNode = new TreeNodeIntIncrease(params);
+				newNode = new TreeNodeIntIncrease();
 			case "decrease":
-				newNode = new TreeNodeIntDecrease(params);
+				newNode = new TreeNodeIntDecrease();
+			case "+":
+				newNode = new TreeNodeIntAdd();
+			case "-":
+				newNode = new TreeNodeIntMinus();
+			case "*":
+				newNode = new TreeNodeIntMultiply();
+			case "/":
+				newNode = new TreeNodeIntDivide();
 			default:
 				throw "we do not know what this node is!: " + firstTerm;
 		}

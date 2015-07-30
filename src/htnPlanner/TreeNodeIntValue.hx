@@ -4,12 +4,21 @@ package htnPlanner;
  * ...
  * @author Michael Stephens
  */
-class TreeNodeIntDecrease extends TreeNodeInt
+class TreeNodeIntValue extends TreeNodeInt
 {
 
-	public function new() 
+	var value:Null<Int> = null;
+	
+	public function new(value_:String) 
 	{
-		super();
+		super(); //pass in a fresh array because we dont want any crazy cyclic shenanigans to happen
+		
+		value = Std.parseInt(value_);
+		
+		if (value == null)
+		{
+			throw "value is null!: " + value_;
+		}
 	}
 	
 	override public function Evaluate(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):Bool
@@ -19,12 +28,7 @@ class TreeNodeIntDecrease extends TreeNodeInt
 	
 	override public function Execute(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):String
 	{
-		var functionOneID:String = children[0].Execute(parameters_, state_, domain_);
-		
-		var functionOneValue:Int = state_.GetFunction(functionOneID);
-		
-		state_.SetFunction(functionOneID, functionOneValue - GetValueFromChild(1, parameters_, state_, domain_));
-		
-		return null;
+		return Std.string(value);
 	}
+	
 }

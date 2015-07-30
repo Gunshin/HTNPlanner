@@ -51,6 +51,11 @@ class Action
 	public function SetPreconditionTree(tree_:Tree)
 	{
 		precondition = tree_;
+		trace("______________________________________START");
+		precondition.Recurse(function(node_) {
+			trace(Type.getClassName(Type.getClass(node_)));
+		});
+		trace("______________________________________END");
 	}
 	
 	public function SetEffectTree(tree_:Tree)

@@ -29,4 +29,9 @@ class TreeNode
 		parent = parent_;
 	}
 	
+	public function GetChildren():Array<TreeNode>
+	{
+		return children;
+	}
+	
 }
