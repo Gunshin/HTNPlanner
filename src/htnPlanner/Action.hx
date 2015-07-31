@@ -48,14 +48,17 @@ class Action
 		return parameters.get(name_);
 	}
 	
+	public function SetParameters(values_:Array<String>)
+	{
+		for (i in values_)
+		{
+			
+		}
+	}
+	
 	public function SetPreconditionTree(tree_:Tree)
 	{
 		precondition = tree_;
-		trace("______________________________________START");
-		precondition.Recurse(function(node_) {
-			trace(Type.getClassName(Type.getClass(node_)));
-		});
-		trace("______________________________________END");
 	}
 	
 	public function SetEffectTree(tree_:Tree)
@@ -68,9 +71,20 @@ class Action
 		return name;
 	}
 	
-	public function GetParameters():Map<String, Parameter>
+	public function GetParameterMap():Map<String, Parameter>
 	{
 		return parameters;
+	}
+	
+	public function GetParameters():Array<Parameter>
+	{
+		var params:Array<Parameter> = new Array<Parameter>();
+		for (key in parameters.keys())
+		{
+			params.push(parameters.get(key));
+		}
+		
+		return params;
 	}
 	
 	public function Evaluate(state_:State, domain_:Domain):Bool

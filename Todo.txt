@@ -1,16 +1,6 @@
 
-need to add problem.init correctly. currently everything is being added as a relation, needs to be evaluated through a tree
+currently doing planner.GetAllActionsforState. have not finished the action generation.
 
+when gathering objects for generating states, i need to grab all objects of the subtypes too. need to create some way to do this.
+problem.GetObjectsOfType
 
-domain.pddl parsing finished. precondition and effect have not been finished however as they have not been set to evaluate yet. need to take each node
-and compare it to predicates and primitives. biggest problem will likely be foreach.
-
-
-problem.pddl:
-	currently adding the object list to intial states relation list, not sure if this is the smart thing to do. will this object list change during
-	plan generation?
-	
-
-Task Manager:
-	Change Int type to Float
-	Support single precondition array with and/or

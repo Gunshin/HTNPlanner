@@ -30,7 +30,12 @@ class Parameter
 		return value;
 	}
 	
-	public function SetValue(value_:String, type_:String, domain:Domain)
+	public function SetValue(value_:String)
+	{
+		value = value_;
+	}
+	
+	/*public function SetValue(value_:String, type_:String, domain:Domain)
 	{
 		if (domain.ResolveInheritance(type_, nameType.b))
 		{
@@ -41,6 +46,6 @@ class Parameter
 			//dont really need to throw here
 			throw "tried to set parameter with type: " + type_ + " when expecting: " + nameType.b;
 		}
-	}
+	}*/
 	
 }

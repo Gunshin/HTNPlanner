@@ -14,13 +14,13 @@ class TreeNodeInt extends TreeNode
 	
 	public function AddValues(params_:Array<String>)
 	{
-		trace("PARAMS_: " + params_.toString());
+		//trace("PARAMS_: " + params_.toString());
 		for (i in 0...params_.length)
 		{
 			
 			if (params_[i].length != 0)
 			{
-				trace("INSERTED: " + i);
+				//trace("INSERTED: " + i);
 				children.insert(i, new TreeNodeIntValue(params_[i]));
 			}
 			

@@ -25,6 +25,8 @@ class Domain
 	
 	var constants:Array<Pair> = new Array<Pair>();
 	
+	var properties:Map<String, Bool> = new Map<String, Bool>();
+	
 	public function new(domainFilePath_:String) 
 	{
 		domainTree = new RawTree();
@@ -59,14 +61,15 @@ class Domain
 	
 	function ParseRequirements(node_:RawTreeNode)
 	{
-		
 		var split:Array<String> = node_.value.split(" ");
 		
 		for (i in 1...split.length)
 		{
 			requirements.push(split[i]);
+			Requirements.HasRequirement(split[i]);
 		}
 		
+		properties.set("requirements", true);
 	}
 	
 	function ParseTypes(node_:RawTreeNode)
@@ -77,11 +80,15 @@ class Domain
 		}
 		
 		types = new Types(node_);
+		
+		properties.set("types", true);
 	}
 	
 	function ParseConstants(node_:RawTreeNode)
 	{
 		constants = Utilities.GenerateValueTypeMap(node_.value.split(" ").slice(1));
+		
+		properties.set("constants", true);
 	}
 	
 	function ParsePredicates(parentNode_:RawTreeNode)
@@ -95,6 +102,7 @@ class Domain
 			predicates.set(predicate.GetName(), predicate);
 		}
 		
+		properties.set("predicates", true);
 	}
 	
 	function ParseFunctions(parentNode_:RawTreeNode)
@@ -106,6 +114,8 @@ class Domain
 			var newFunction:Function = new Function(i.value);
 			functions.set(newFunction.GetName(), newFunction);
 		}
+		
+		properties.set("functions", true);
 	}
 	
 	function ParseActions(actionNodes_:Array<RawTreeNode>)
@@ -152,6 +162,8 @@ class Domain
 			actions.set(action.GetName(), action);
 		}
 		
+		
+		properties.set("actions", true);
 	}
 	
 	public function ResolveInheritance(typeChecking_:String, typeCheckAgainst_:String):Bool
@@ -191,9 +203,21 @@ class Domain
 		return actions.get(name_);
 	}
 	
+	public function GetAllActionNames():Iterator<String>
+	{
+		return actions.keys();
+	}
+	
 	public function GetFunction(name_:String):Function
 	{
 		return functions.get(name_);
 	}
+	
+	public function HasProperty(string_:String):Bool
+	{
+		return properties.exists(string_);
+	}
+	
+
 	
 }

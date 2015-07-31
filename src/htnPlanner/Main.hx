@@ -18,8 +18,10 @@ class Main
 	{
 		domain = new Domain(domainLocation);
 		problem = new Problem(problemLocation, domain);
-		
+		problem.GetClonedInitialState().Print();
 		trace(problem.EvaluateMetric(problem.GetClonedInitialState()));
+		
+		trace(problem.EvaluateGoal(problem.GetClonedInitialState()));
 		
 		/*var action = domain.GetAction("drive");
 		

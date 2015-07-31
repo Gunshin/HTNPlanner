@@ -35,16 +35,13 @@ class Tree
 	}
 	
 	function Recursive(func_:TreeNode-> Void, currentNode_:TreeNode)
-	{
-		trace("DOWN");
-		
+	{		
 		for (i in currentNode_.GetChildren())
 		{
 			Recursive(func_, i);
 		}
 		
 		func_(currentNode_);
-		trace("UP");
 	}
 	
 	public static function ConvertRawTreeNodeToTree(rawNode_:RawTreeNode, domain_:Domain):Tree
@@ -57,45 +54,38 @@ class Tree
 	
 	static function RecursiveGenerateTree(rawNode_:RawTreeNode, domain_:Domain):TreeNode
 	{
-		//trace("entered");
+		// get/generate the children
 		var children:Array<TreeNode> = new Array<TreeNode>();
 		for (i in rawNode_.children)
 		{
-			
 			children.push(RecursiveGenerateTree(i, domain_));
-			/*var conditionNode:TreeNode = ConvertRawNode(i, domain_);
-			conditionNodeParent_.AddChild(conditionNode);
-			conditionNode.SetParent(conditionNodeParent_);
-			
-			RecursiveGenerateTree(i, conditionNode, domain_);*/
 		}
 		
-		//trace("children");
-		
+		return GenerateNode(rawNode_, children, domain_);
+	}
+	
+	static function GenerateNode(rawNode_:RawTreeNode, children_:Array<TreeNode>, domain_:Domain):TreeNode
+	{
 		var currentNode:TreeNode = ConvertRawNode(rawNode_, domain_);
-		for (i in children)
+		for (i in children_)
 		{
 			currentNode.AddChild(i);
 			i.SetParent(currentNode);
 		}
 		
-		//trace("added");
-		
+		// after we have added the children, insert any values for TreeNodeInt, into the correct place
 		if (Std.is(currentNode, TreeNodeInt))
 		{
 			var treeNode:TreeNodeInt = cast(currentNode, TreeNodeInt);
 			treeNode.AddValues(rawNode_.value.split(" ").slice(1));
 		}
 		
-		//trace("returning");
-		
 		return currentNode;
-		
 	}
 	
 	static function ConvertRawNode(rawNode_:RawTreeNode, domain_:Domain):TreeNode
 	{
-		trace("rawnode.value: " + rawNode_.value);
+		//trace("rawnode.value: " + rawNode_.value);
 		
 		var newNode:TreeNode = null;
 		
@@ -136,6 +126,8 @@ class Tree
 			case "<=":
 				newNode = new TreeNodeIntLessThanOrEqual();
 			case "assign":
+				newNode = new TreeNodeIntAssign();
+			case "=":
 				newNode = new TreeNodeIntAssign();
 			case "increase":
 				newNode = new TreeNodeIntIncrease();

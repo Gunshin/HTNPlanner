@@ -22,6 +22,8 @@ class Problem
 	var goal:Tree = null;
 	
 	var metric:Tree = null;
+	
+	var properties:Map<String, Bool> = new Map<String, Bool>();
 
 	public function new(problemFilePath_:String, domain_:Domain) 
 	{
@@ -54,27 +56,52 @@ class Problem
 	function ParseObjects(node_:RawTreeNode)
 	{
 		objects = Utilities.GenerateValueTypeMap(node_.value.split(" ").slice(1));
+		
+		properties.set("objects", true);
 	}
 	
 	function ParseInit(node_:RawTreeNode)
 	{
-		var children:Array<RawTreeNode> = node_.children;
+		var andNode:RawTreeNode = new RawTreeNode(node_);
+		andNode.value = "and";
+		andNode.children = node_.children;
 		
-		for (i in children)
-		{
-			initialState.AddRelation(i.value);
-		}
+		node_.children = new Array<RawTreeNode>();
+		node_.children.push(andNode);
+		
+		var tree:Tree = Tree.ConvertRawTreeNodeToTree(andNode, domain);
+		tree.Execute(null, initialState, domain);
+		
+		properties.set("init", true);
 	}
 	
 	function ParseGoal(node_:RawTreeNode)
 	{
 		// for now just leaving goal as a tree that can be evaluated
 		goal = Tree.ConvertRawTreeNodeToTree(node_.children[0], domain);
+		
+		properties.set("goal", true);
 	}
 	
 	function ParseMetric(node_:RawTreeNode)
 	{
 		metric = Tree.ConvertRawTreeNodeToTree(node_.children[0], domain);
+		
+		properties.set("metric", true);
+		
+		if (Utilities.Compare(node_.value.split(" ")[1], "minimize") == 0)
+		{
+			properties.set("minimize", true);
+		}
+		else
+		{
+			properties.set("maximize", true);
+		}
+	}
+	
+	public function EvaluateGoal(state_:State):Bool
+	{
+		return goal.Evaluate(null, state_, domain);
 	}
 	
 	public function EvaluateMetric(state_:State):Int
@@ -84,9 +111,22 @@ class Problem
 	
 	public function GetClonedInitialState():State
 	{
-		
 		return initialState.Clone();
+	}
+	
+	public function HasProperty(string_:String):Bool
+	{
+		return properties.exists(string_);
+	}
+	
+	public function GetObjectsOfType(type_:String):Array<Pair>
+	{
+		// this includes all subclass types aswell
+		var types:Array<String> = new Array<String>();
 		
+		return objects.filter(function(object) {
+			return Utilities.Compare(type_, object.b) == 0;
+		});
 	}
 	
 }

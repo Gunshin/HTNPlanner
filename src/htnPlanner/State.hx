@@ -93,7 +93,9 @@ class State
 	{
 		var fo:FileOutput = File.append("output.txt", false);
 		fo.writeString("\n\n\n\n\n\n\n\n");
-		fo.writeString(relations.toString());
+		fo.writeString("{ relations: " + relations.toString() + " }");
+		fo.writeString("\n");
+		fo.writeString("{ functions: " + functions.toString() + " }");
 		fo.flush();
 		fo.close();
 	}

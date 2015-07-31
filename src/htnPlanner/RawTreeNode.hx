@@ -10,9 +10,6 @@ class RawTreeNode
 	public var parentNode:RawTreeNode = null;
 	public var children:Array<RawTreeNode> = new Array<RawTreeNode>();
 
-	
-	public var evaluatedVar:String = null;
-
 	public function new(parentNode_:RawTreeNode)
 	{
 		parentNode = parentNode_;
