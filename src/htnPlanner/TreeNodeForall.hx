@@ -27,7 +27,7 @@ class TreeNodeForall extends TreeNode
 		
 		for (i in objects)
 		{
-			parameterNode.SetValue(i, parameterNode.GetType(), domain_);
+			parameterNode.SetValue(i);
 			
 			if (!forallTree.Evaluate(parameters_, state_, domain_))
 			{
@@ -46,7 +46,7 @@ class TreeNodeForall extends TreeNode
 		
 		for (i in objects)
 		{
-			parameterNode.SetValue(i, parameterNode.GetType(), domain_);
+			parameterNode.SetValue(i);
 			
 			forallTree.Execute(parameters_, state_, domain_);
 		}

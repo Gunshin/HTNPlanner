@@ -1,6 +1,5 @@
 package htnPlanner;
 import haxe.ds.StringMap;
-import haxe.Int64;
 import sys.io.FileOutput;
 
 import sys.FileSystem;
@@ -13,7 +12,7 @@ import sys.io.FileInput;
  */
 class Utilities
 {
-	public inline static function Compare(a_:String, b_:String):Int 
+	static public inline function Compare(a_:String, b_:String):Int 
     {
         return if ( a_ < b_ ) -1 else if ( a_ > b_ ) 1 else 0;
     }
@@ -22,7 +21,7 @@ class Utilities
 	 * Checks to see if arrayA_ contains the elements of arrayB_
 	 * 
 	 */
-	public static function ContainsStringArray(arrayA_:Array<String>, arrayB_:Array<String>):Bool
+	static public function ContainsStringArray(arrayA_:Array<String>, arrayB_:Array<String>):Bool
 	{
 		if (arrayA_ == null || arrayB_ == null)
 		{
@@ -49,7 +48,7 @@ class Utilities
 	/*
 	 * returns -1 if element is not contained in array, otherwise returns its index
 	 */
-	public static function Contains(array_:Array<String>, element_:String):Int
+	static public function Contains(array_:Array<String>, element_:String):Int
 	{
 		for (i in 0...array_.length)
 		{
@@ -62,7 +61,7 @@ class Utilities
 		return -1;
 	}
 	
-	public static function GetScope(string_:String, start_:Int):String
+	static public function GetScope(string_:String, start_:Int):String
 	{
 		var value:String = "";
 		
@@ -93,14 +92,14 @@ class Utilities
 		return value;
 	}
 	
-	public static function GetScopeContents(string_:String, start_:Int):String
+	static public function GetScopeContents(string_:String, start_:Int):String
 	{
 		var scope:String = GetScope(string_, start_);
 		
 		return scope.substr(1, scope.length - 2);
 	}
 	
-	public static function GetNamedScope(name_:String, string_:String):String
+	static public function GetNamedScope(name_:String, string_:String):String
 	{
 		var index:Int = string_.indexOf(name_);
 		
@@ -115,7 +114,7 @@ class Utilities
 		return GetScope(string_, startIndexOfScope);
 	}
 	
-	public static function GenerateValueTypeMap(strings_:Array<String>):Array<Pair>
+	static public function GenerateValueTypeMap(strings_:Array<String>):Array<Pair>
 	{
 		var returnPairs:Array<Pair> = new Array<Pair>();
 		
@@ -168,7 +167,7 @@ class Utilities
 		return returnPairs;
 	}
 	
-	public static function CleanFileImport(filePath_:String):String
+	static public function CleanFileImport(filePath_:String):String
 	{
 		var fileContent:String = File.getContent(filePath_);
 
@@ -208,27 +207,22 @@ class Utilities
 	}
 	
 	//http://www.cse.yorku.ca/~oz/hash.html
-	public static function StringHash(string_:String):Int64
+	static public function StringHash(string_:String):Int
 	{
-		
-		var hash:Int64 = 0;
-		
-		var c:Int64 = 0;
+		var hash:Int = 0;
 		
         for(i in 0...string_.length)
 		{
-			c = Int64.ofInt(string_.charCodeAt(i));
-            hash = c + (hash << 6) + (hash << 16) - hash;
+            hash = string_.charCodeAt(i) + (hash << 6) + (hash << 16) - hash;
 		}
 		
         return hash;
 	}
 	
 	//same as above but using an interger array instead
-	public static function IntArrayHash(array_:Array<Int64>):Int64
+	static public function IntArrayHash(array_:Array<Int>):Int
 	{
-		
-		var hash:Int64 = 0;
+		var hash:Int = 0;
 			
         for(i in array_)
 		{

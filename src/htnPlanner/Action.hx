@@ -32,7 +32,7 @@ class Action
 		parameters.set(name_, new Parameter(name_, type_, null));
 	}
 	
-	public function SetParameter(name_:String, value_:String, type_:String, domain:Domain)
+	public function SetParameter(name_:String, value_:String)
 	{
 		var param:Parameter = GetParameter(name_);
 		if (param == null)
@@ -40,7 +40,7 @@ class Action
 			throw "param is invalid";
 		}
 		
-		param.SetValue(value_, type_, domain);
+		param.SetValue(value_);
 	}
 	
 	function GetParameter(name_:String):Parameter
@@ -48,11 +48,11 @@ class Action
 		return parameters.get(name_);
 	}
 	
-	public function SetParameters(values_:Array<String>)
+	public function SetParameters(values_:Array<Pair>)
 	{
 		for (i in values_)
 		{
-			
+			SetParameter(i.a, i.b);
 		}
 	}
 	

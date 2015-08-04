@@ -16,7 +16,7 @@ class Types
 	
 	public function new(rawNode:RawTreeNode) 
 	{
-		var strings:Array<String> = rawNode.value.split(" ");
+		var strings:Array<String> = rawNode.value.split(" ").slice(1);
 		
 		var currentSetOfValues:Array<String> = new Array<String>();
 		
@@ -54,6 +54,8 @@ class Types
 							SetSuperType(i, StringTools.trim(strings[index]));
 						}
 						
+						AddType(strings[index]); // add super type since some plans do not specify super types as a type (we would miss it without this)
+						
 						currentSetOfValues = new Array<String>(); // reset the array (why is there no clear function? T_T)
 						
 						indicator = false;
@@ -67,7 +69,10 @@ class Types
 	
 	public function AddType(type_:String)
 	{
-		types.push(type_);
+		if (Utilities.Contains(types, type_) == -1) // if its not in the list
+		{
+			types.push(type_);
+		}
 	}
 	
 	public function SetSuperType(type_:String, superType_:String)
@@ -78,6 +83,22 @@ class Types
 	public function GetSuperType(type_:String):String
 	{
 		return typesHierarchy.get(type_);
+	}
+	
+	public function GetTypesHierarchy(type_:String):Array<String>
+	{
+		var typeList:Array<String> = new Array<String>();
+		typeList.push(type_);
+		
+		var type:String = typesHierarchy.get(type_);
+		while (type != null)
+		{
+			typeList.push(type);
+			
+			type = typesHierarchy.get(type);
+		}
+		
+		return typeList;
 	}
 	
 	public function Exists(type_:String):Bool
@@ -93,4 +114,8 @@ class Types
 		return false;
 	}
 	
+	public function GetAllTypes():Array<String>
+	{
+		return types;
+	}
 }

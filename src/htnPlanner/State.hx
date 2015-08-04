@@ -3,8 +3,6 @@ package htnPlanner;
 import sys.io.File;
 import sys.io.FileOutput;
 
-import haxe.Int64;
-
 import haxe.ds.HashMap;
 import haxe.ds.StringMap;
 
@@ -117,9 +115,9 @@ class State
 		return newState;
 	}
 	
-	public function GenerateStateHash():Int64
+	public function GenerateStateHash():Int
 	{
-		var array:Array<Int64> = new Array<Int64>();
+		var array:Array<Int> = new Array<Int>();
 		
 		for (i in relations.keys())
 		{
@@ -131,8 +129,54 @@ class State
 			array.push(Utilities.StringHash(i + GetFunction(i)));
 		}
 		
-		var hash:Int64 = Utilities.IntArrayHash(array);
+		var hash:Int = Utilities.IntArrayHash(array);
 		
 		return hash;
+	}
+	
+	public function ToString():String
+	{
+		var string:String = "[relations:[";
+		
+		for (i in relations.keys())
+		{
+			string += "[" + i + "],";
+		}
+		
+		string += "], functions:[";
+		
+		for (i in functions.keys())
+		{
+			string += "[" + i + ":" + functions.get(i) + "],";
+		}
+		
+		string += "]]";
+		
+		return string;
+	}
+	
+	public function CompareState(state_:State):Array<String>
+	{
+		
+		var nonMatching:Array<String> = new Array<String>();
+		
+		for (key in relations.keys())
+		{
+			if (!state_.Exists(key))
+			{
+				nonMatching.push(key);
+			}
+		}
+		
+		for (key in functions.keys())
+		{
+			if (state_.GetFunction(key) != GetFunction(key))
+			{
+				nonMatching.push(key + ": " + GetFunction(key));
+			}
+		}
+		
+		return nonMatching;
+		
 	}
 }

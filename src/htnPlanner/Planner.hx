@@ -1,8 +1,6 @@
 package htnPlanner;
 
 import haxe.ds.HashMap;
-import haxe.Int64;
-
 
 /**
  * ...
@@ -11,7 +9,7 @@ import haxe.Int64;
 class Planner
 {
 	
-	var closedStates:Map<Int64, PlannerNode> = new Map<Int, State>();
+	var closedStates:Map<Int, PlannerNode> = new Map<Int, PlannerNode>();
 	
 	var domain:Domain = null;
 	var problem:Problem = null;
@@ -24,7 +22,7 @@ class Planner
 		
 	}
 	
-	public function FindPlan(domain_:Domain, problem_:Problem):String
+	public function FindPlan(domain_:Domain, problem_:Problem):Array<PlannerActionNode>
 	{
 		domain = domain_;
 		problem = problem_;
@@ -46,22 +44,45 @@ class Planner
 			}
 		}
 		
-		var currentState:PlannerNode = new PlannerNode(problem_.GetClonedInitialState(), null);
+		var currentState:PlannerNode = new PlannerNode(problem_.GetClonedInitialState(), null, null);
 		
 		var openList:Array<PlannerNode> = new Array<PlannerNode>();
 		openList.push(currentState);
 		
-		while (!problem_.EvaluateGoal(currentState) || openList.length == 0)
+		while (!problem_.EvaluateGoal(currentState.state) && openList.length != 0)
 		{
 			currentState = GetNextState(openList);
+			openList.remove(currentState);
 			
-			var successiveStates:Array<PlannerNode> = GetAllSuccessiveStates(currentState.state);
+			var successiveStates:Array<PlannerNode> = GetAllSuccessiveStates(currentState);
+			
+			trace("found successive states: " + successiveStates.length + " _ openList count: " + openList.length);
 			
 			for (i in successiveStates)
 			{
 				openList.push(i);
 			}
 		}
+		
+		trace("exiting");
+		
+		return BacktrackPlan(currentState);
+		
+	}
+	
+	function BacktrackPlan(plannerNode_:PlannerNode):Array<PlannerActionNode>
+	{
+		var backwardsActionSet:Array<PlannerActionNode> = new Array<PlannerActionNode>();
+		
+		var currentNode:PlannerNode = plannerNode_;
+		while (currentNode.plannerActionNode != null)
+		{
+			backwardsActionSet.push(currentNode.plannerActionNode);
+			
+			currentNode = currentNode.parent;
+		}
+		backwardsActionSet.reverse();
+		return backwardsActionSet;
 		
 	}
 	
@@ -72,11 +93,11 @@ class Planner
 		if (hasMetric)
 		{
 			var lowestNode:PlannerNode = null;
-			for (i in openList_)
+			for (node in openList_)
 			{
-				if (lowestNode == null || metricComparator(i, lowestNode))
+				if (lowestNode == null || metricComparator(node.metric, lowestNode.metric))
 				{
-					lowestNode = i;
+					lowestNode = node;
 				}
 			}
 			
@@ -87,30 +108,38 @@ class Planner
 			returnNode = openList_[0];
 		}
 		
-		openList_.remove(returnNode);
-		
 		return returnNode;
 	}
 	
-	function GetAllSuccessiveStates(state_:State):Array<PlannerNode>
+	function GetAllSuccessiveStates(stateNode_:PlannerNode):Array<PlannerNode>
 	{
 		var states:Array<PlannerNode> = new Array<PlannerNode>();
 		
-		var actions:Array<Action> = GetAllActionsForState(state_, domain);
+		var actions:Array<PlannerActionNode> = GetAllActionsForState(stateNode_.state);
 		
-		for (i in actions)
+		//trace("found actions applicable on state: " + actions.length);
+		//trace("hash: " + closedStates.toString());
+		
+		for (actionNode in actions)
 		{
-			var newState:State = state_.Clone();
-			i.Execute(newState, domain);
+			//trace("starting");
+			actionNode.action.SetParameters(actionNode.params);
+			var newState:State = actionNode.action.Execute(stateNode_.state, domain);
+			//trace(newState.Exists("has-cabin location0"));
+			//trace("ended");
 			
-			var hash:Int64 = newState.GenerateStateHash();
+			//trace(actionNode.action.GetName() + " _ " + actionNode.params.toString() + " _ " + stateNode_.state.CompareState(newState).toString() );
+			
+			var hash:Int = newState.GenerateStateHash();
+			//trace(!closedStates.exists(hash) + " _ " + hash);
 			if (!closedStates.exists(hash))
 			{
-				var plannerNode:PlannerNode = new PlannerNode(newState, state_);
+				var plannerNode:PlannerNode = new PlannerNode(newState, stateNode_, actionNode);
 				closedStates.set(hash, plannerNode);
 				states.push(plannerNode);
 			}
 		}
+		
 		
 		return states;
 	}
@@ -119,20 +148,26 @@ class Planner
 	{
 		var actions:Array<PlannerActionNode> = new Array<PlannerActionNode>();
 		
-		for (i in domain.GetAllActionNames())
+		for (actionName in domain.GetAllActionNames())
 		{
-			var action:Action = domain.GetAction(i);
+			var action:Action = domain.GetAction(actionName);
+			//trace("running on action: " + action.GetName());
 			
 			var params:Array<Parameter> = action.GetParameters();
 			
-			var values:Array<Array<Pair>> = new Array<Array<Pair>>();
+			var values:Array<Array<String>> = new Array<Array<String>>();
 			var valuesIndex:Array<Int> = new Array<Int>();
 			for (param in 0...params.length)
 			{
-				var objects:Array<Pair> = problem.GetObjectsOfType(params[param].GetType());
+				var objects:Array<String> = problem.GetObjectsOfType(params[param].GetType());
+				
+				//trace("found object count: " + objects.length + " _ for type: " + params[param].GetType());
+				
 				values[param] = objects;
 				valuesIndex[param] = 0;
 			}
+			
+			//trace("_________________: " + (valuesIndex[values.length - 1] != values[values.length - 1].length) + " _ " + valuesIndex[values.length - 1] + " _ " + values[values.length - 1].length);
 			
 			// the idea behind this while loop is to generate a series of all the possible combinations
 			// i am doing this with the same process that a number system increases. only when a digit has
@@ -140,16 +175,21 @@ class Planner
 			while (valuesIndex[values.length - 1] != values[values.length - 1].length) // this checks to see if the most significant has hit its limit
 			{
 				// add the current index values to the set and store it
-				var valuesSet:Array<String> = new Array<String>();
+				var valuesSet:Array<Pair> = new Array<Pair>();
 				for (i in 0...values.length)
 				{
-					valuesSet.push(values[i][valuesIndex[i]]);
+					valuesSet.push(new Pair(params[i].GetName(), values[i][valuesIndex[i]]));
+					params[i].SetValue(values[i][valuesIndex[i]]);
 				}
+				
+				//trace("attempting with value set: " + valuesSet.toString());
 				
 				if (action.Evaluate(state_, domain))
 				{
-					actions.push(action);
+					actions.push(new PlannerActionNode(action, valuesSet));
 				}
+				
+				//trace(valuesIndex.toString() + " _______ " + values.toString());
 				
 				for (i in 0...valuesIndex.length)
 				{
@@ -157,6 +197,12 @@ class Planner
 					if (valuesIndex[i] != values[i].length) // if this value has not hit the limit, do not increase any futher values
 					{
 						break;
+					}
+					
+					// since it passed the above, it did hit the limit, so reset to 0
+					if (i != valuesIndex.length - 1) // we also need to make sure we dont reset the most significant. if we do, we enter a forever loop
+					{
+						valuesIndex[i] = 0;
 					}
 				}
 				

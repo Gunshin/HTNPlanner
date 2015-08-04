@@ -66,7 +66,8 @@ class Domain
 		for (i in 1...split.length)
 		{
 			requirements.push(split[i]);
-			Requirements.HasRequirement(split[i]);
+			trace("need to re-enable requirements checking");
+			//Requirements.HasRequirement(split[i]);
 		}
 		
 		properties.set("requirements", true);
@@ -218,6 +219,13 @@ class Domain
 		return properties.exists(string_);
 	}
 	
+	public function GetTypes():Types
+	{
+		return types;
+	}
 
-	
+	public function GetConstants():Array<Pair>
+	{
+		return constants;
+	}
 }

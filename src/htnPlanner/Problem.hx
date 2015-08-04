@@ -17,7 +17,7 @@ class Problem
 	var domain:Domain = null;
 	
 	var initialState:State = new State();
-	var objects:Array<Pair> = new Array<Pair>();
+	var objects:Map<String, Array<String>> = new Map<String, Array<String>>();
 	
 	var goal:Tree = null;
 	
@@ -47,7 +47,7 @@ class Problem
 		ParseGoal(problemTree.GetBaseNode().GetChildrenWithContainingValue(":goal")[0]);
 		
 		var metric:Array<RawTreeNode> = problemTree.GetBaseNode().GetChildrenWithContainingValue(":metric");
-		if (metric != null)
+		if (metric.length > 0)
 		{
 			ParseMetric(metric[0]);
 		}
@@ -55,7 +55,35 @@ class Problem
 	
 	function ParseObjects(node_:RawTreeNode)
 	{
-		objects = Utilities.GenerateValueTypeMap(node_.value.split(" ").slice(1));
+		for (type in domain.GetTypes().GetAllTypes())
+		{
+			objects.set(type, new Array<String>());
+		}
+		
+		var objArray:Array<Pair> = Utilities.GenerateValueTypeMap(node_.value.split(" ").slice(1));
+		
+		for (obj in objArray)
+		{
+			var typeList:Array<String> = domain.GetTypes().GetTypesHierarchy(obj.b);
+			
+			for (type in typeList)
+			{
+				var objectsArray:Array<String> = objects.get(type);
+				objectsArray.push(obj.a);
+			}
+		}
+		
+		// we also need to iterate through the domains constant list if it has one, and add it to the object list (for now)
+		for (constant in domain.GetConstants())
+		{
+			var typeList:Array<String> = domain.GetTypes().GetTypesHierarchy(constant.b);
+			
+			for (type in typeList)
+			{
+				var objectsArray:Array<String> = objects.get(type);
+				objectsArray.push(constant.a);
+			}
+		}
 		
 		properties.set("objects", true);
 	}
@@ -119,14 +147,10 @@ class Problem
 		return properties.exists(string_);
 	}
 	
-	public function GetObjectsOfType(type_:String):Array<Pair>
+	public function GetObjectsOfType(type_:String):Array<String>
 	{
-		// this includes all subclass types aswell
-		var types:Array<String> = new Array<String>();
-		
-		return objects.filter(function(object) {
-			return Utilities.Compare(type_, object.b) == 0;
-		});
+		return objects.get(type_);
 	}
+	
 	
 }

@@ -7,8 +7,8 @@ package htnPlanner;
 class Main 
 {
 	
-	var domainLocation:String = "pddlexamples/domains/classical/settlers/domain.pddl";
-	var problemLocation:String = "pddlexamples/domains/classical/settlers/p01_pfile1.pddl";
+	var domainLocation:String = "pddlexamples/Driverlog_pddl/driverlog.pddl";
+	var problemLocation:String = "pddlexamples/Driverlog_pddl/pfile01.pddl";
 	var domain:Domain;
 	var problem:Problem;
 
@@ -16,12 +16,17 @@ class Main
 	
 	public function new() 
 	{
+		
 		domain = new Domain(domainLocation);
 		problem = new Problem(problemLocation, domain);
-		problem.GetClonedInitialState().Print();
-		trace(problem.EvaluateMetric(problem.GetClonedInitialState()));
 		
-		trace(problem.EvaluateGoal(problem.GetClonedInitialState()));
+		var planner:Planner = new Planner();
+		var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem);
+		
+		for (i in array)
+		{
+			trace(i.action.GetName() + " _ " + i.params.toString());
+		}
 		
 		/*var action = domain.GetAction("drive");
 		

@@ -17,4 +17,9 @@ class Pair
 		b = b_;
 	}
 	
+	public function toString():String
+	{
+		return a + ":" + b;
+	}
+	
 }

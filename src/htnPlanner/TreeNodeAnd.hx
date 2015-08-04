@@ -33,9 +33,7 @@ class TreeNodeAnd extends TreeNode
 			
 			if (value_ != null)
 			{
-				
 				state_.AddRelation(value_);
-				
 			}
 		}
 		

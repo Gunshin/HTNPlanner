@@ -1,6 +1,3 @@
 
-currently doing planner.GetAllActionsforState. have not finished the action generation.
 
-when gathering objects for generating states, i need to grab all objects of the subtypes too. need to create some way to do this.
-problem.GetObjectsOfType
-
+need to change plan output so that the parameters are in the correct order in actions.
