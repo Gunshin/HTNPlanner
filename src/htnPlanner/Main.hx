@@ -1,5 +1,7 @@
 package htnPlanner;
 
+import haxe.Timer;
+
 /**
  * ...
  * @author Michael Stephens
@@ -7,8 +9,8 @@ package htnPlanner;
 class Main 
 {
 	
-	var domainLocation:String = "pddlexamples/Driverlog_pddl/driverlog.pddl";
-	var problemLocation:String = "pddlexamples/Driverlog_pddl/pfile01.pddl";
+	var domainLocation:String = "pddlexamples/IPC3/Tests1/DriverLog/Strips/driverlog.pddl";
+	var problemLocation:String = "pddlexamples/IPC3/Tests1/DriverLog/Strips/pfile1";
 	var domain:Domain;
 	var problem:Problem;
 
@@ -20,8 +22,12 @@ class Main
 		domain = new Domain(domainLocation);
 		problem = new Problem(problemLocation, domain);
 		
+		var start = Timer.stamp();
+		
 		var planner:Planner = new Planner();
 		var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem);
+		
+		trace(Timer.stamp() - start);
 		
 		for (i in array)
 		{

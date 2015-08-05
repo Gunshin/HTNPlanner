@@ -169,6 +169,11 @@ class Utilities
 	
 	static public function CleanFileImport(filePath_:String):String
 	{
+		if (!FileSystem.exists(filePath_))
+		{
+			throw "File: " + filePath_ + " does not exist! wrong path?";
+		}
+		
 		var fileContent:String = File.getContent(filePath_);
 
 		var lines:Array<String> = fileContent.split("\n");

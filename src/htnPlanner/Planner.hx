@@ -22,6 +22,10 @@ class Planner
 		
 	}
 	
+	#if debug_output
+	var iteration:Int = 0;
+	#end
+	
 	public function FindPlan(domain_:Domain, problem_:Problem):Array<PlannerActionNode>
 	{
 		domain = domain_;
@@ -56,15 +60,19 @@ class Planner
 			
 			var successiveStates:Array<PlannerNode> = GetAllSuccessiveStates(currentState);
 			
-			trace("found successive states: " + successiveStates.length + " _ openList count: " + openList.length);
+			#if debug_output
+			if (iteration++ >= 1000)
+			{
+				iteration = 0;
+				trace("openListCount: " + openList.length);
+			}
+			#end
 			
 			for (i in successiveStates)
 			{
 				openList.push(i);
 			}
 		}
-		
-		trace("exiting");
 		
 		return BacktrackPlan(currentState);
 		

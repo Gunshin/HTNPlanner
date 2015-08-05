@@ -57,6 +57,8 @@ class Domain
 			ParseConstants(constantsNodes[0]);
 		}
 		
+		AddStandardFunctions();
+		
 	}
 	
 	function ParseRequirements(node_:RawTreeNode)
@@ -117,6 +119,14 @@ class Domain
 		}
 		
 		properties.set("functions", true);
+	}
+	
+	function AddStandardFunctions()
+	{
+		var totalTime:Function = new Function("total-time");
+		functions.set("total-time", totalTime);
+		
+		properties.set("standard_functions", true);
 	}
 	
 	function ParseActions(actionNodes_:Array<RawTreeNode>)
@@ -228,4 +238,5 @@ class Domain
 	{
 		return constants;
 	}
+	
 }
