@@ -16,4 +16,21 @@ class PlannerActionNode
 		params = params_;
 	}
 	
+	public function GetActionTransform():String
+	{
+		var final:String = action.GetName();
+		for (layoutName in action.GetLayout())
+		{
+			for (varName in params)
+			{
+				if (Utilities.Compare(varName.a, layoutName) == 0)
+				{
+					final += " " + varName.b;
+				}
+			}
+		}
+		
+		return StringTools.trim(final);
+	}
+	
 }

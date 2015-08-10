@@ -103,8 +103,6 @@ class Planner
 			
 			var hash:Int = newState.GenerateStateHash();
 			
-			//trace(actionNode.action.GetName() + " _ " + actionNode.params.toString() + " _ " + stateNode_.state.CompareState(newState).toString() );
-			
 			//trace(!closedStates.exists(hash) + " _ " + hash);
 			if (!closedStates.exists(hash))
 			{

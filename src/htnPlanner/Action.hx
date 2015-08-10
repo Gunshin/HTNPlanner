@@ -11,6 +11,7 @@ class Action
 {
 	var name:String = null;
 	var parameters:Map<String, Parameter> = new StringMap<Parameter>();
+	var parameterLayout:Array<String> = new Array<String>();
 	var precondition:Tree = null;
 	var effect:Tree = null;
 
@@ -18,9 +19,7 @@ class Action
 	{
 		name = name_;
 	}
-	
-	//public function Eva
-	
+		
 	public function AddParameter(name_:String, type_:String)
 	{
 		var param:Parameter = GetParameter(name_);
@@ -30,6 +29,7 @@ class Action
 		}
 		
 		parameters.set(name_, new Parameter(name_, type_, null));
+		parameterLayout.push(name_);
 	}
 	
 	public function SetParameter(name_:String, value_:String)
@@ -102,6 +102,11 @@ class Action
 	public function toString():String
 	{
 		return name;
+	}
+	
+	public function GetLayout():Array<String>
+	{
+		return parameterLayout;
 	}
 	
 }
