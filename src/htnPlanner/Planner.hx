@@ -1,5 +1,6 @@
 package htnPlanner;
 
+import de.polygonal.ds.Heap;
 import haxe.ds.HashMap;
 
 /**
@@ -15,8 +16,7 @@ class Planner
 	var problem:Problem = null;
 	
 	var hasMetric:Bool = false;
-	var metricComparator:Int -> Int -> Bool = null;
-
+	
 	public function new() 
 	{
 		
@@ -26,37 +26,25 @@ class Planner
 	var iteration:Int = 0;
 	#end
 	
+	var thingy:State = null;
+	var plannerNodeThingy:PlannerNode = null;
+	
 	public function FindPlan(domain_:Domain, problem_:Problem):Array<PlannerActionNode>
 	{
 		domain = domain_;
 		problem = problem_;
 		
 		hasMetric = problem.HasProperty("metric");
-		if (hasMetric)
-		{
-			if (problem.HasProperty("minimize"))
-			{
-				metricComparator = function(valueA_, valueB_) {
-					return valueA_ < valueB_;
-				};
-			}
-			else
-			{
-				metricComparator = function(valueA_, valueB_) {
-					return valueA_ > valueB_;
-				};
-			}
-		}
 		
-		var currentState:PlannerNode = new PlannerNode(problem_.GetClonedInitialState(), null, null);
+		var currentState:PlannerNode = new PlannerNode(problem_.GetClonedInitialState(), null, null, 0);
 		
-		var openList:Array<PlannerNode> = new Array<PlannerNode>();
-		openList.push(currentState);
+		var openList:Heap<PlannerNode> = new Heap<PlannerNode>();
+		openList.add(currentState);
 		
-		while (!problem_.EvaluateGoal(currentState.state) && openList.length != 0)
+		while (!problem_.EvaluateGoal(currentState.state) && openList.size() != 0)
 		{
 			currentState = GetNextState(openList);
-			openList.remove(currentState);
+			//trace(currentState.depth);
 			
 			var successiveStates:Array<PlannerNode> = GetAllSuccessiveStates(currentState);
 			
@@ -64,15 +52,18 @@ class Planner
 			if (iteration++ >= 1000)
 			{
 				iteration = 0;
-				trace("openListCount: " + openList.length);
+				trace("openListCount: " + openList.size() + " _ " + openList.top().depth);
 			}
 			#end
 			
 			for (i in successiveStates)
 			{
-				openList.push(i);
+				openList.add(i);
 			}
+			
 		}
+		
+		trace("openListcount exit: " + openList.size());
 		
 		return BacktrackPlan(currentState);
 		
@@ -94,29 +85,9 @@ class Planner
 		
 	}
 	
-	function GetNextState(openList_:Array<PlannerNode>):PlannerNode
+	function GetNextState(openList_:Heap<PlannerNode>):PlannerNode
 	{
-		var returnNode:PlannerNode = null;
-		
-		if (hasMetric)
-		{
-			var lowestNode:PlannerNode = null;
-			for (node in openList_)
-			{
-				if (lowestNode == null || metricComparator(node.metric, lowestNode.metric))
-				{
-					lowestNode = node;
-				}
-			}
-			
-			returnNode = lowestNode;
-		}
-		else
-		{
-			returnNode = openList_[0];
-		}
-		
-		return returnNode;
+		return openList_.pop();
 	}
 	
 	function GetAllSuccessiveStates(stateNode_:PlannerNode):Array<PlannerNode>
@@ -125,24 +96,27 @@ class Planner
 		
 		var actions:Array<PlannerActionNode> = GetAllActionsForState(stateNode_.state);
 		
-		//trace("found actions applicable on state: " + actions.length);
-		//trace("hash: " + closedStates.toString());
-		
 		for (actionNode in actions)
 		{
-			//trace("starting");
 			actionNode.action.SetParameters(actionNode.params);
 			var newState:State = actionNode.action.Execute(stateNode_.state, domain);
-			//trace(newState.Exists("has-cabin location0"));
-			//trace("ended");
+			
+			var hash:Int = newState.GenerateStateHash();
 			
 			//trace(actionNode.action.GetName() + " _ " + actionNode.params.toString() + " _ " + stateNode_.state.CompareState(newState).toString() );
 			
-			var hash:Int = newState.GenerateStateHash();
 			//trace(!closedStates.exists(hash) + " _ " + hash);
 			if (!closedStates.exists(hash))
 			{
-				var plannerNode:PlannerNode = new PlannerNode(newState, stateNode_, actionNode);
+				var plannerNode:PlannerNode = new PlannerNode(newState, stateNode_, actionNode, stateNode_.depth + 1);
+				//trace(plannerNode.depth);
+				
+				if (hasMetric)
+				{
+					plannerNode.SetMetric(problem.EvaluateMetric(plannerNode.state));
+					//trace("p: " + plannerNode.GetMetric() + " _ " + plannerNode.position);
+				}
+				
 				closedStates.set(hash, plannerNode);
 				states.push(plannerNode);
 			}

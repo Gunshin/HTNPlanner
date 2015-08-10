@@ -179,4 +179,10 @@ class State
 		return nonMatching;
 		
 	}
+	
+	public function Equals(state_:State):Bool
+	{
+		return CompareState(state_).length == 0 && state_.CompareState(this).length == 0;
+	}
+	
 }

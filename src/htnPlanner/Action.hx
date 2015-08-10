@@ -99,4 +99,9 @@ class Action
 		return cloned;
 	}
 	
+	public function toString():String
+	{
+		return name;
+	}
+	
 }
