@@ -49,6 +49,8 @@ class State
 	
 	var functions:BST<FunctionWrapper> = new BST<FunctionWrapper>();
 	var functionsMap:Map<String, FunctionWrapper> = new Map<String, FunctionWrapper>();
+	
+	var objects:Map<String, Array<String>> = new Map<String, Array<String>>();
 
 	public function new() 
 	{
@@ -159,6 +161,8 @@ class State
 			newState.SetFunction(i, GetFunction(i));
 		}
 		
+		newState.SetObjects(objects);
+		
 		return newState;
 	}
 	
@@ -181,7 +185,53 @@ class State
 		return hash;
 	}
 	
-	public function ToString():String
+	public function SetObjectsRaw(objArray_:Array<Pair>, domain_:Domain)
+	{
+		for (type in domain_.GetTypes().GetAllTypes())
+		{
+			objects.set(type, new Array<String>());
+		}
+		
+		for (obj in objArray_)
+		{
+			var typeList:Array<String> = domain_.GetTypes().GetTypesHierarchy(obj.b);
+			
+			for (type in typeList)
+			{
+				var objectsArray:Array<String> = objects.get(type);
+				objectsArray.push(obj.a);
+			}
+		}
+		
+		// we also need to iterate through the domains constant list if it has one, and add it to the object list (for now)
+		for (constant in domain_.GetConstants())
+		{
+			var typeList:Array<String> = domain_.GetTypes().GetTypesHierarchy(constant.b);
+			
+			for (type in typeList)
+			{
+				var objectsArray:Array<String> = objects.get(type);
+				objectsArray.push(constant.a);
+			}
+		}
+	}
+	
+	public function SetObjects(objects_:Map<String, Array<String>>)
+	{
+		objects = new Map<String, Array<String>>();
+		
+		for (key in objects_.keys())
+		{
+			objects.set(key, objects_.get(key));
+		}
+	}
+	
+	public function GetObjectsOfType(type_:String):Array<String>
+	{
+		return objects.get(type_);
+	}
+	
+	public function toString():String
 	{
 		var string:String = "[relations:[";
 		
@@ -194,7 +244,7 @@ class State
 		
 		for (i in functionsMap.keys())
 		{
-			string += "[" + i + ":" + functionsMap.get(i) + "],";
+			string += "[" + i + ":" + functionsMap.get(i).value + "],";
 		}
 		
 		string += "]]";

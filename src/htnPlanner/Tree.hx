@@ -54,6 +54,8 @@ class Tree
 	
 	static function RecursiveGenerateTree(rawNode_:RawTreeNode, domain_:Domain):TreeNode
 	{
+		var currentNode:TreeNode = ConvertRawNode(rawNode_, domain_);
+		
 		// get/generate the children
 		var children:Array<TreeNode> = new Array<TreeNode>();
 		for (i in rawNode_.children)
@@ -61,13 +63,7 @@ class Tree
 			children.push(RecursiveGenerateTree(i, domain_));
 		}
 		
-		return GenerateNode(rawNode_, children, domain_);
-	}
-	
-	static function GenerateNode(rawNode_:RawTreeNode, children_:Array<TreeNode>, domain_:Domain):TreeNode
-	{
-		var currentNode:TreeNode = ConvertRawNode(rawNode_, domain_);
-		for (i in children_)
+		for (i in children)
 		{
 			currentNode.AddChild(i);
 			i.SetParent(currentNode);
@@ -106,6 +102,12 @@ class Tree
 			return newNode;
 		}
 		
+		if (Utilities.Compare(firstTerm.charAt(0), "?") == 0)
+		{
+			newNode = new TreeNodeParameter(firstTerm);
+			return newNode;
+		}
+		
 		switch(firstTerm)
 		{
 			case "and":
@@ -117,6 +119,8 @@ class Tree
 			case "forall":
 				newNode = new TreeNodeForall(rawNode_.children, domain_);
 				rawNode_.children = new Array<RawTreeNode>(); // we dont want to iterate through the children and add them to THIS tree
+			case "when":
+				newNode = new TreeNodeWhen();
 			case ">":
 				newNode = new TreeNodeIntMoreThan();
 			case ">=":
@@ -129,6 +133,8 @@ class Tree
 				newNode = new TreeNodeIntAssign();
 			case "=":
 				newNode = new TreeNodeIntAssign();
+			case "==":
+				newNode = new TreeNodeIntEquivalent();
 			case "increase":
 				newNode = new TreeNodeIntIncrease();
 			case "decrease":
@@ -142,7 +148,7 @@ class Tree
 			case "/":
 				newNode = new TreeNodeIntDivide();
 			default:
-				throw "we do not know what this node is!: " + firstTerm;
+				throw "we do not know what this node is!: " + firstTerm + " _ raw term: " + rawNode_.parentNode.value;
 		}
 		
 		return newNode;

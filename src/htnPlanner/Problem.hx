@@ -17,7 +17,6 @@ class Problem
 	var domain:Domain = null;
 	
 	var initialState:State = new State();
-	var objects:Map<String, Array<String>> = new Map<String, Array<String>>();
 	
 	var goal:Tree = null;
 	
@@ -55,35 +54,9 @@ class Problem
 	
 	function ParseObjects(node_:RawTreeNode)
 	{
-		for (type in domain.GetTypes().GetAllTypes())
-		{
-			objects.set(type, new Array<String>());
-		}
-		
 		var objArray:Array<Pair> = Utilities.GenerateValueTypeMap(node_.value.split(" ").slice(1));
 		
-		for (obj in objArray)
-		{
-			var typeList:Array<String> = domain.GetTypes().GetTypesHierarchy(obj.b);
-			
-			for (type in typeList)
-			{
-				var objectsArray:Array<String> = objects.get(type);
-				objectsArray.push(obj.a);
-			}
-		}
-		
-		// we also need to iterate through the domains constant list if it has one, and add it to the object list (for now)
-		for (constant in domain.GetConstants())
-		{
-			var typeList:Array<String> = domain.GetTypes().GetTypesHierarchy(constant.b);
-			
-			for (type in typeList)
-			{
-				var objectsArray:Array<String> = objects.get(type);
-				objectsArray.push(constant.a);
-			}
-		}
+		initialState.SetObjectsRaw(objArray, domain);
 		
 		properties.set("objects", true);
 	}
@@ -146,11 +119,5 @@ class Problem
 	{
 		return properties.exists(string_);
 	}
-	
-	public function GetObjectsOfType(type_:String):Array<String>
-	{
-		return objects.get(type_);
-	}
-	
 	
 }

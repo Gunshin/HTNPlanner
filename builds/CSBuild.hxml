@@ -1,0 +1,23 @@
+-cs bin/CS
+-D net-ver=40
+-D dll
+-cp src
+-cp ds/src
+-lib polygonal-printf
+pathPlanner.ActionOutput
+pathPlanner.AStar
+pathPlanner.DebugLogger
+pathPlanner.DistanceNode
+pathPlanner.GraphGridMap
+pathPlanner.GraphGridMapMinimalist
+pathPlanner.GraphHierarchical
+pathPlanner.GraphStructureIndirect
+pathPlanner.HPAStar
+pathPlanner.IGraphStructure
+pathPlanner.IPathfinder
+pathPlanner.JPSM
+pathPlanner.JPSO
+pathPlanner.JPSPlus
+pathPlanner.Node
+pathPlanner.NodeHierarchical
+pathPlanner.PathUtility

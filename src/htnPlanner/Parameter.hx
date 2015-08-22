@@ -35,6 +35,11 @@ class Parameter
 		value = value_;
 	}
 	
+	public function toString():String
+	{
+		return nameType.toString() + " = " + value;
+	}
+	
 	/*public function SetValue(value_:String, type_:String, domain:Domain)
 	{
 		if (domain.ResolveInheritance(type_, nameType.b))

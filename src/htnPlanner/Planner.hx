@@ -45,6 +45,8 @@ class Planner
 		{
 			currentState = GetNextState(openList);
 			//trace(currentState.depth);
+			//if(currentState.plannerActionNode != null)
+			//trace("used action: " + currentState.plannerActionNode.action.GetName() + " _ params: " + currentState.plannerActionNode.params.toString());
 			
 			var successiveStates:Array<PlannerNode> = GetAllSuccessiveStates(currentState);
 			
@@ -95,9 +97,12 @@ class Planner
 		var states:Array<PlannerNode> = new Array<PlannerNode>();
 		
 		var actions:Array<PlannerActionNode> = GetAllActionsForState(stateNode_.state);
+		//trace("action count: " + actions.length);
 		
 		for (actionNode in actions)
 		{
+			//trace("action: " + actionNode.action.GetName());
+			
 			actionNode.action.SetParameters(actionNode.params);
 			var newState:State = actionNode.action.Execute(stateNode_.state, domain);
 			
@@ -139,13 +144,15 @@ class Planner
 			var valuesIndex:Array<Int> = new Array<Int>();
 			for (param in 0...params.length)
 			{
-				var objects:Array<String> = problem.GetObjectsOfType(params[param].GetType());
+				var objects:Array<String> = state_.GetObjectsOfType(params[param].GetType());
 				
 				//trace("found object count: " + objects.length + " _ for type: " + params[param].GetType());
 				
 				values[param] = objects;
 				valuesIndex[param] = 0;
 			}
+			
+			//trace(values.toString());
 			
 			//trace("_________________: " + (valuesIndex[values.length - 1] != values[values.length - 1].length) + " _ " + valuesIndex[values.length - 1] + " _ " + values[values.length - 1].length);
 			
@@ -162,7 +169,7 @@ class Planner
 					params[i].SetValue(values[i][valuesIndex[i]]);
 				}
 				
-				//trace("attempting with value set: " + valuesSet.toString());
+				//trace("attempting: " + action.GetName() + " with value set: " + valuesSet.toString() + " with result: " + action.Evaluate(state_, domain));
 				
 				if (action.Evaluate(state_, domain))
 				{

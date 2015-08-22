@@ -1,10 +1,12 @@
-package htnPlanner;
+package test;
 
 import de.polygonal.ds.BinaryTreeNode;
 import de.polygonal.ds.BST;
 import de.polygonal.ds.Comparable;
 
 import haxe.Timer;
+
+import htnPlanner.*;
 
 class Wrapper implements Comparable<Wrapper>
 {
@@ -28,8 +30,9 @@ class Wrapper implements Comparable<Wrapper>
 class Main 
 {
 	
-	var domainLocation:String = "pddlexamples/IPC3/Tests1/DriverLog/HardNumeric/driverlogHardNumeric.pddl";
-	var problemLocation:String = "pddlexamples/IPC3/Tests1/DriverLog/HardNumeric/pfile3";
+	//var domainLocation:String = "pddlexamples/Driverlog_pddl/driverlog.pddl";
+	var domainLocation:String = "pddlexamples/runescape/domain.pddl";
+	var problemLocation:String = "pddlexamples/runescape/p1.pddl";
 	var domain:Domain;
 	var problem:Problem;
 	
@@ -54,6 +57,15 @@ class Main
 		
 		domain = new Domain(domainLocation);
 		problem = new Problem(problemLocation, domain);
+		
+		/*var state:State = problem.GetClonedInitialState();
+		
+		var bank:Action = domain.GetAction("Bank_All");
+		
+		trace(state.toString());
+		bank.SetParameter("?bank", "bank_area");
+		trace(bank.Evaluate(state, domain));
+		trace(bank.Execute(state, domain).toString());*/
 		
 		var start = Timer.stamp();
 		

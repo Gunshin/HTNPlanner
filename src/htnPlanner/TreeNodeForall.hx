@@ -40,7 +40,7 @@ class TreeNodeForall extends TreeNode
 	
 	override public function Execute(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):String
 	{		
-		var objects:Array<String> = state_.GetMatching(parameterNode.GetType());
+		var objects:Array<String> = state_.GetObjectsOfType(parameterNode.GetType());
 		
 		parameters_.set(parameterNode.GetName(), parameterNode);
 		
