@@ -13,7 +13,7 @@ import haxe.Timer;
 
 import htnPlanner.*;
 
-class Wrapper implements Comparable<Wrapper>
+/*class Wrapper implements Comparable<Wrapper>
 {
 	public var value:String = null;
 	
@@ -43,7 +43,7 @@ class HeapNode implements Heapable<HeapNode>
 		return other.depth - depth;
 	}
 	
-}
+}*/
 
 /**
  * ...
@@ -117,7 +117,7 @@ class Main
 		trace(bank.Evaluate(state, domain));
 		trace(bank.Execute(state, domain).toString());*/
 		
-		var start = Timer.stamp();
+		/*var start = Timer.stamp();
 		
 		var planner:Planner = new Planner();
 		var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem);
@@ -129,7 +129,7 @@ class Main
 		for (i in 0...array.length)
 		{
 			trace(array[i].GetActionTransform());
-		}
+		}*/
 		
 		/*var scoped:Array<String> = Utilities.GetScopedContents(Utilities.CleanFileImport(domainLocation));
 		trace("________________________________________________________");
