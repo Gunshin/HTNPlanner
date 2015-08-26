@@ -2,6 +2,8 @@
 -cp ../src
 -lib polygonal-ds
 -lib polygonal-printf
+-D debug_output
+-main test.Main
 htnPlanner.Domain
 htnPlanner.Problem
 htnPlanner.Planner

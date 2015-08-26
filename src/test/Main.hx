@@ -2,7 +2,12 @@ package test;
 
 import de.polygonal.ds.BinaryTreeNode;
 import de.polygonal.ds.BST;
+import de.polygonal.ds.Heap;
 import de.polygonal.ds.Comparable;
+import de.polygonal.ds.Heapable;
+
+import haxe.Int64;
+import haxe.ds.HashMap;
 
 import haxe.Timer;
 
@@ -23,6 +28,23 @@ class Wrapper implements Comparable<Wrapper>
 	}
 }
 
+class HeapNode implements Heapable<HeapNode>
+{	
+	public var position:Int;
+	public var depth:Int;
+	
+	public function new(depth_:Int) 
+	{
+		depth = depth_;
+	}
+	
+	public function compare(other:HeapNode):Int
+	{
+		return other.depth - depth;
+	}
+	
+}
+
 /**
  * ...
  * @author Michael Stephens
@@ -31,6 +53,7 @@ class Main
 {
 	
 	//var domainLocation:String = "pddlexamples/Driverlog_pddl/driverlog.pddl";
+	//var problemLocation:String = "pddlexamples/Driverlog_pddl/pfile01.pddl";
 	var domainLocation:String = "pddlexamples/runescape/domain.pddl";
 	var problemLocation:String = "pddlexamples/runescape/p1.pddl";
 	var domain:Domain;
@@ -38,6 +61,33 @@ class Main
 	
 	public function new()
 	{
+		
+		/*var array:Array<Heap<PlannerNode>> = new Array<Heap<PlannerNode>>();
+		for (i in 0...1000)
+		{
+			array[i] = new Heap<HeapNode>();
+			for (a in 0...1000000)
+			{
+				array[i].add(new HeapNode(a));
+			}
+			trace(i);
+		}*/
+		
+		/*var test:Heap<PlannerNode> = new Heap<PlannerNode>();
+		for (a in 0...1000000)
+		{
+			test.add(new PlannerNode(null, null, null, 0));
+		}*/
+		
+		/*var closedStates:Map<Int, PlannerNode> = new Map<Int, PlannerNode>();
+		for (a in 0...1000000)
+		{
+			closedStates.set(a, new PlannerNode(null, null, null, 0));
+			if (a % 1000 == 0)
+			{
+				trace(a);
+			}
+		}*/
 		
 		/*var bst:BST<Wrapper> = new BST<Wrapper>();
 		
