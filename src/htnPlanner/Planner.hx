@@ -26,9 +26,6 @@ class Planner
 	var iteration:Int = 0;
 	#end
 	
-	var thingy:State = null;
-	var plannerNodeThingy:PlannerNode = null;
-	
 	public function FindPlan(domain_:Domain, problem_:Problem):Array<PlannerActionNode>
 	{
 		domain = domain_;
@@ -44,10 +41,6 @@ class Planner
 		while (!problem_.EvaluateGoal(currentState.state) && openList.size() != 0)
 		{
 			currentState = GetNextState(openList);
-			//trace(currentState.depth);
-			//if(currentState.plannerActionNode != null)
-			//trace("used action: " + currentState.plannerActionNode.action.GetName() + " _ params: " + currentState.plannerActionNode.params.toString());
-			
 			var successiveStates:Array<PlannerNode> = GetAllSuccessiveStates(currentState);
 			
 			#if debug_output
@@ -68,6 +61,7 @@ class Planner
 		trace("openListcount exit: " + openList.size());
 		
 		return BacktrackPlan(currentState);
+		return null;
 		
 	}
 	

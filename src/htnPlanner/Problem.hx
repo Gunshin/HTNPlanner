@@ -56,8 +56,6 @@ class Problem
 	{
 		var objArray:Array<Pair> = Utilities.GenerateValueTypeMap(node_.children);
 		
-		trace(objArray.toString());
-		
 		initialState.SetObjectsRaw(objArray, domain);
 		
 		properties.set("objects", true);

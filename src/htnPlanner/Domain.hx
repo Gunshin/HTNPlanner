@@ -171,9 +171,7 @@ class Domain
 	{
 		
 		for (i in actionNodes_)
-		{
-			trace("i: " + i.children[0].value);
-			
+		{			
 			var action:Action = new Action(i.children[0].value);
 			
 			// all subsequent parameter, precondition and effect are children of ":action". the name is child[0], so we want to skip it

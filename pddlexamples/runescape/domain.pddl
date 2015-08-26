@@ -2,8 +2,8 @@
     (:requirements :fluents :typing)
     (:types
         resource - item
-        wood - resource
-        bank - area
+        wood plank - resource
+        bank sawmill - area
         number
     )
 	(:constants
@@ -12,6 +12,7 @@
     (:predicates
         (at ?place - area)
         (contains ?area - area ?resource - resource)
+		(conversion ?resource_a ?resource_b - resource)
     )
     (:functions
         (banked ?item - item)
@@ -38,6 +39,21 @@
         (and
             (decrease (inventory_left) (?count))
             (increase (inventory_has_item ?resource) (?count))
+        )
+    )
+	
+	(:action Create_Plank
+        :parameters (?resource - wood ?plank - plank ?area - sawmill ?count - number)
+        :precondition 
+        (and 
+			(at ?area)
+            (>= (inventory_has_item ?resource) (?count))
+			(conversion ?resource ?plank)
+        )
+        :effect 
+        (and
+            (decrease (inventory_has_item ?resource) (?count))
+			(increase (inventory_has_item ?plank) (?count))
         )
     )
 	
