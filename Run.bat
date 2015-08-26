@@ -1,3 +1,3 @@
 @echo off
-bin\cpp\Main-debug.exe
+java -jar bin\java\Main-Debug.jar
 pause

@@ -69,13 +69,6 @@ class Tree
 			i.SetParent(currentNode);
 		}
 		
-		// after we have added the children, insert any values for TreeNodeInt, into the correct place
-		if (Std.is(currentNode, TreeNodeInt))
-		{
-			var treeNode:TreeNodeInt = cast(currentNode, TreeNodeInt);
-			treeNode.AddValues(rawNode_.value.split(" ").slice(1));
-		}
-		
 		return currentNode;
 	}
 	
@@ -91,14 +84,14 @@ class Tree
 		var predicate:Predicate = domain_.GetPredicate(firstTerm);
 		if (predicate != null)
 		{
-			newNode = new TreeNodePredicate(predicate, terms.slice(1));
+			newNode = new TreeNodePredicate(predicate, rawNode_.children);
 			return newNode;
 		}
 		
 		var func:Function = domain_.GetFunction(firstTerm);
 		if (func != null)
 		{
-			newNode = new TreeNodeFunction(func, terms.slice(1));
+			newNode = new TreeNodeFunction(func, rawNode_.children);
 			return newNode;
 		}
 		
@@ -112,47 +105,69 @@ class Tree
 		{
 			case "and":
 				newNode = new TreeNodeAnd();
+				return newNode;
 			case "not":
 				newNode = new TreeNodeNot();
+				return newNode;
 			case "imply":
 				newNode = new TreeNodeImply();
+				return newNode;
 			case "forall":
 				newNode = new TreeNodeForall(rawNode_.children, domain_);
 				rawNode_.children = new Array<RawTreeNode>(); // we dont want to iterate through the children and add them to THIS tree
+				return newNode;
 			case "when":
 				newNode = new TreeNodeWhen();
+				return newNode;
 			case ">":
 				newNode = new TreeNodeIntMoreThan();
+				return newNode;
 			case ">=":
 				newNode = new TreeNodeIntMoreThanOrEqual();
+				return newNode;
 			case "<":
 				newNode = new TreeNodeIntLessThan();
+				return newNode;
 			case "<=":
 				newNode = new TreeNodeIntLessThanOrEqual();
+				return newNode;
 			case "assign":
 				newNode = new TreeNodeIntAssign();
+				return newNode;
 			case "=":
 				newNode = new TreeNodeIntAssign();
+				return newNode;
 			case "==":
 				newNode = new TreeNodeIntEquivalent();
+				return newNode;
 			case "increase":
 				newNode = new TreeNodeIntIncrease();
+				return newNode;
 			case "decrease":
 				newNode = new TreeNodeIntDecrease();
+				return newNode;
 			case "+":
 				newNode = new TreeNodeIntAdd();
+				return newNode;
 			case "-":
 				newNode = new TreeNodeIntMinus();
+				return newNode;
 			case "*":
 				newNode = new TreeNodeIntMultiply();
+				return newNode;
 			case "/":
 				newNode = new TreeNodeIntDivide();
-			default:
-				throw "we do not know what this node is!: " + firstTerm + " _ raw term: " + rawNode_.parentNode.value;
+				return newNode;
 		}
 		
-		return newNode;
+		//we do not know what this term is, so it could be a value. Best way to check is to see if it has any children, as values do not
+		if (rawNode_.children.length == 0)
+		{
+			newNode = new TreeNodeIntValue(firstTerm);
+			return newNode;
+		}
 		
+		throw "we do not know what this node is!: " + firstTerm + " _ raw term: " + rawNode_.parentNode.value;
 	}
 	
 }

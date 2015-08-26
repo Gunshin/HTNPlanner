@@ -37,4 +37,9 @@ class RawTreeNode
 		
 	}
 	
+	public function toString():String
+	{
+		return "{value:" + value + ", children: " + children.toString + "}";
+	}
+	
 }

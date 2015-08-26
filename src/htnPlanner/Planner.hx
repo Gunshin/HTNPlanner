@@ -169,7 +169,7 @@ class Planner
 					params[i].SetValue(values[i][valuesIndex[i]]);
 				}
 				
-				//trace("attempting: " + action.GetName() + " with value set: " + valuesSet.toString() + " with result: " + action.Evaluate(state_, domain));
+				//trace("attempting: " + action.GetName() + " with value set: " + valuesSet.toString() + " with result: ");// + action.Evaluate(state_, domain));
 				
 				if (action.Evaluate(state_, domain))
 				{

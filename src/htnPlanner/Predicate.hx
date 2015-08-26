@@ -13,9 +13,9 @@ class Predicate
 	// predicates are usually defined by a keyword followed by the parameters eg. "at ?x - locatable ?l - location"
 	var name:String = null;
 	
-	public function new(predicateValue_:String) 
+	public function new(node_:RawTreeNode) 
 	{
-		ParseValue(predicateValue_);
+		ParseValue(node_);
 	}
 	
 	public function Construct(parameterMap_:Map<String, Parameter>, templateValue_:Array<String>):String
@@ -38,12 +38,11 @@ class Predicate
 		return constructedValue;
 	}
 	
-	function ParseValue(string_:String)
+	function ParseValue(node_:RawTreeNode)
 	{
-		var split:Array<String> = string_.split(" ");
-		var pairs:Array<Pair> = Utilities.GenerateValueTypeMap(split.slice(1));
+		var pairs:Array<Pair> = Utilities.GenerateValueTypeMap(node_.children);
 		
-		name = split[0];
+		name = node_.value;
 	}
 	
 	public function GetName():String

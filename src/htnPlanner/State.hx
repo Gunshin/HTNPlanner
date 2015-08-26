@@ -194,8 +194,12 @@ class State
 		
 		for (obj in objArray_)
 		{
-			var typeList:Array<String> = domain_.GetTypes().GetTypesHierarchy(obj.b);
+			if (!domain_.GetTypes().Exists(obj.b))
+			{
+				throw "obj: " + obj.a + " and its type: " + obj.b + " do not exist in the domain types";
+			}
 			
+			var typeList:Array<String> = domain_.GetTypes().GetTypesHierarchy(obj.b);
 			for (type in typeList)
 			{
 				var objectsArray:Array<String> = objects.get(type);

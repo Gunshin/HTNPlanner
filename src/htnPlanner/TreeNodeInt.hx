@@ -12,21 +12,6 @@ class TreeNodeInt extends TreeNode
 		super();
 	}
 	
-	public function AddValues(params_:Array<String>)
-	{
-		//trace("PARAMS_: " + params_.toString());
-		for (i in 0...params_.length)
-		{
-			
-			if (params_[i].length != 0)
-			{
-				//trace("INSERTED: " + i);
-				children.insert(i, new TreeNodeIntValue(params_[i]));
-			}
-			
-		}
-	}
-	
 	override public function Evaluate(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):Bool
 	{
 		return ComparisonEvaluate(GetValueFromChild(0, parameters_, state_, domain_), GetValueFromChild(1, parameters_, state_, domain_));

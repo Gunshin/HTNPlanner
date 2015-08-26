@@ -16,22 +16,20 @@ class Types
 	
 	public function new(rawNode:RawTreeNode) 
 	{
-		var strings:Array<String> = rawNode.value.split(" ").slice(1);
-		
 		var currentSetOfValues:Array<String> = new Array<String>();
 		
 		// this indicator is used to define a type being set for values. it is flipped when a "-" is met
 		var indicator:Bool = false;
 		
 		var index:Int = 0;
-		while (index < strings.length) // dont ask about god damn while loops since someone on the haxe development team had the bright idea of 
+		while (index < rawNode.children.length) // dont ask about god damn while loops since someone on the haxe development team had the bright idea of 
 		// not allowing normal for loops. cant use foreach since they dont allow manual changing of the iterator
 		{
 			// check to see if the current element is empty
-			if (Utilities.Compare(strings[index], "") != 0)
+			if (Utilities.Compare(rawNode.children[index].value, "") != 0)
 			{
 				// indicator value declaring that the next element is a type
-				if (Utilities.Compare(strings[index], "-") == 0)
+				if (Utilities.Compare(rawNode.children[index].value, "-") == 0)
 				{
 					indicator = true;
 				}
@@ -41,8 +39,8 @@ class Types
 					if (!indicator)
 					{
 						// indicator has not been set yet, so the next value is not the type
-						currentSetOfValues.push(strings[index]);
-						AddType(strings[index]);
+						currentSetOfValues.push(rawNode.children[index].value);
+						AddType(rawNode.children[index].value);
 					}
 					else
 					{
@@ -51,10 +49,10 @@ class Types
 						for (i in currentSetOfValues)
 						{
 							// need to trim since the endline character might be included here
-							SetSuperType(i, StringTools.trim(strings[index]));
+							SetSuperType(i, StringTools.trim(rawNode.children[index].value));
 						}
 						
-						AddType(strings[index]); // add super type since some plans do not specify super types as a type (we would miss it without this)
+						AddType(rawNode.children[index].value); // add super type since some plans do not specify super types as a type (we would miss it without this)
 						
 						currentSetOfValues = new Array<String>(); // reset the array (why is there no clear function? T_T)
 						

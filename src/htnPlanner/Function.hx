@@ -11,9 +11,9 @@ class Function
 	
 	var name:String = null;
 	
-	public function new(functionValue_:String) 
+	public function new(node_:RawTreeNode) 
 	{
-		ParseValue(functionValue_);
+		ParseValue(node_);
 	}
 	
 	public function Construct(parameterMap_:Map<String, Parameter>, templateValue_:Array<String>):String
@@ -36,16 +36,14 @@ class Function
 		return constructedValue;
 	}
 	
-	function ParseValue(string_:String)
-	{
-		var split:Array<String> = string_.split(" ");
-		
-		if (split.length > 1)
+	function ParseValue(node_:RawTreeNode)
+	{		
+		if (node_.children.length > 0)
 		{
-			var pairs:Array<Pair> = Utilities.GenerateValueTypeMap(split.slice(1)); // this gives the parameters, not sure if i want to do anything with it yet
+			var pairs:Array<Pair> = Utilities.GenerateValueTypeMap(node_.children); // this gives the parameters, not sure if i want to do anything with it yet
 		}
 		
-		name = split[0];
+		name = node_.value;
 	}
 	
 	public function GetName():String

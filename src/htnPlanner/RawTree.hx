@@ -1,7 +1,5 @@
 package htnPlanner;
 
-typedef RecursiveParseEval = { returnNode:RawTreeNode, start:Int, end:Int };
-
 /**
  * ...
  * @author Michael Stephens
@@ -17,7 +15,7 @@ class RawTree
 	
 	public function SetupFromString(scope_:String)
 	{
-		baseNode = RecursiveParse(0, scope_.substr(1, scope_.length - 2), null).returnNode;
+		baseNode = RecursiveParse(scope_, null);
 	}
 	
 	public function SetupFromNode(node_:RawTreeNode)
@@ -25,7 +23,45 @@ class RawTree
 		baseNode = node_;
 	}
 	
-	function RecursiveParse(start_:Int, string_:String, currentParentNode_:RawTreeNode):RecursiveParseEval
+	function RecursiveParse(string_:String, currentParentNode_:RawTreeNode):RawTreeNode
+	{
+		var newNode:RawTreeNode = new RawTreeNode(currentParentNode_);
+		
+		//trace("string_: " + string_);
+		
+		var elements:Array<String> = Utilities.GetScopedContents(string_);
+		
+		//trace("length: " + elements.length + " ___ " + elements.toString());
+		
+		newNode.value = elements[0];
+		
+		for (elementIndex in 1...elements.length)
+		{
+			var child:RawTreeNode = RecursiveParse(elements[elementIndex], newNode);
+			newNode.children.push(child);
+		}
+		
+		return newNode;
+	}
+	
+	public function Recurse(func_:RawTreeNode-> Void)
+	{
+		Recursive(func_, baseNode);
+	}
+	
+	function Recursive(func_:RawTreeNode-> Void, currentNode_:RawTreeNode)
+	{
+		trace("entered");
+		for (i in currentNode_.children)
+		{
+			Recursive(func_, i);
+		}
+		
+		func_(currentNode_);
+		trace("exiting");
+	}
+	
+	/*function RecursiveParse(start_:Int, string_:String, currentParentNode_:RawTreeNode):RecursiveParseEval
 	{
 		var value:String = "";
 		var newNode:RawTreeNode = new RawTreeNode(currentParentNode_);
@@ -55,7 +91,7 @@ class RawTree
 		newNode.value = StringTools.trim(value);
 		
 		return {returnNode:newNode, start:start_, end:i + 1};
-	}
+	}*/
 	
 	public function GetBaseNode():RawTreeNode
 	{

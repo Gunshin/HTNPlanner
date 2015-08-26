@@ -52,8 +52,8 @@ class HeapNode implements Heapable<HeapNode>
 class Main 
 {
 	
-	//var domainLocation:String = "pddlexamples/Driverlog_pddl/driverlog.pddl";
-	//var problemLocation:String = "pddlexamples/Driverlog_pddl/pfile01.pddl";
+	//var domainLocation:String = "pddlexamples/IPC3/Tests2/Rovers/Numeric/NumRover.pddl";
+	//var problemLocation:String = "pddlexamples/IPC3/Tests2/Rovers/Numeric/pfile1";
 	var domainLocation:String = "pddlexamples/runescape/domain.pddl";
 	var problemLocation:String = "pddlexamples/runescape/p1.pddl";
 	var domain:Domain;
@@ -130,6 +130,14 @@ class Main
 		{
 			trace(array[i].GetActionTransform());
 		}
+		
+		/*var scoped:Array<String> = Utilities.GetScopedContents(Utilities.CleanFileImport(domainLocation));
+		trace("________________________________________________________");
+		for ( i in scoped)
+		{
+			trace("\n\n\n\n\n\n\n");
+			trace(i);
+		}*/
 		
 	}
 	

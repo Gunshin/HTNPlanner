@@ -92,11 +92,71 @@ class Utilities
 		return value;
 	}
 	
-	static public function GetScopeContents(string_:String, start_:Int):String
+	static public function GetScopedContents(string_:String):Array<String>
 	{
-		var scope:String = GetScope(string_, start_);
+		var returnee:Array<String> = new Array<String>();
 		
-		return scope.substr(1, scope.length - 2);
+		if (string_.charAt(0) == '(')
+		{
+			string_ = string_.substring(1, string_.length);
+		}
+		
+		if (string_.charAt(string_.length - 1) == ')')
+		{
+			string_ = string_.substring(0, string_.length - 1);
+		}
+		
+		var split:Array<String> = string_.split(" ");
+		
+		/*for (s in split)
+		{
+			trace(s);
+		}*/
+		
+		var tempElementHolder:Array<String> = new Array<String>();
+		var holdElements:Bool = false;
+		var depth:Int = 0;
+		
+		for (element in split)
+		{
+			
+			if (element.charAt(0) == '(' && element.charAt(element.length - 1) != ')')
+			{
+				holdElements = true;
+				depth++;
+				tempElementHolder.push(element);
+			}
+			else if (element.charAt(0) != '(' && element.charAt(element.length - 1) == ')')
+			{
+				depth--;
+				tempElementHolder.push(element);
+				
+				if (depth == 0)
+				{
+					holdElements = false;
+					
+					var fullElement:String = "";
+					for (ele in tempElementHolder)
+					{
+						fullElement += " " + ele;
+					}
+					
+					returnee.push(StringTools.trim(fullElement));
+					tempElementHolder = new Array<String>();
+				}
+			}
+			else if (holdElements)
+			{
+				tempElementHolder.push(element);
+			}
+			else if (Compare(element, "") != 0)
+			{
+				returnee.push(element);
+			}
+			
+		}
+		
+		return returnee;
 	}
 	
 	static public function GetNamedScope(name_:String, string_:String):String
@@ -114,7 +174,7 @@ class Utilities
 		return GetScope(string_, startIndexOfScope);
 	}
 	
-	static public function GenerateValueTypeMap(strings_:Array<String>):Array<Pair>
+	static public function GenerateValueTypeMap(nodes_:Array<RawTreeNode>):Array<Pair>
 	{
 		var returnPairs:Array<Pair> = new Array<Pair>();
 		
@@ -125,14 +185,14 @@ class Utilities
 		var indicator:Bool = false;
 		
 		var index:Int = 0;
-		while (index < strings_.length) // dont ask about god damn while loops since someone on the haxe development team had the bright idea of 
+		while (index < nodes_.length) // dont ask about god damn while loops since someone on the haxe development team had the bright idea of 
 		// not allowing normal for loops. cant use foreach since they dont allow manual changing of the iterator
 		{
 			// check to see if the current element is empty
-			if (Utilities.Compare(strings_[index], "") != 0)
+			if (Utilities.Compare(nodes_[index].value, "") != 0)
 			{
 				// indicator value declaring that the next element is a type
-				if (Utilities.Compare(strings_[index], "-") == 0)
+				if (Utilities.Compare(nodes_[index].value, "-") == 0)
 				{
 					indicator = true;
 				}
@@ -142,7 +202,7 @@ class Utilities
 					if (!indicator)
 					{
 						// indicator has not been set yet, so the next value is not the type
-						currentSetOfValues.push(strings_[index]);
+						currentSetOfValues.push(nodes_[index].value);
 					}
 					else
 					{
@@ -151,7 +211,7 @@ class Utilities
 						for (i in currentSetOfValues)
 						{
 							// need to trim since the endline character might be included here
-							returnPairs.push(new Pair(i, StringTools.trim(strings_[index])));
+							returnPairs.push(new Pair(i, StringTools.trim(nodes_[index].value)));
 						}
 						
 						currentSetOfValues = new Array<String>(); // reset the array (why is there no clear function? T_T)
@@ -184,12 +244,37 @@ class Utilities
 		{
 			if (i.length > 1 || !StringTools.isSpace(i, 0))
 			{
-				var commentlessLine:String = StripComments(StringTools.trim(i));
-				finalString += " " + commentlessLine;
+				var line:String = StripComments(StringTools.trim(i));
+				line = AddNeccessarySpaces(line);
+				finalString += " " + line;
 			}
 		}
 		
 		return StringTools.trim(finalString);
+	}
+	
+	static function AddNeccessarySpaces(string_:String):String
+	{
+		
+		var returnee:String = "";
+		
+		for (index in 0...string_.length)
+		{
+			returnee += string_.charAt(index);
+			
+			if (index + 1 < string_.length)
+			{
+				// if we have two closing or opening brackets together for scope closure, add spaces between them
+				if ((string_.charAt(index) == '(' && string_.charAt(index + 1) == '(') ||
+					(string_.charAt(index) == ')' && string_.charAt(index + 1) == ')')
+				)
+				{
+					returnee += " ";
+				}
+			}
+		}
+		
+		return returnee;
 	}
 	
 	static function StripComments(string_:String):String

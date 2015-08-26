@@ -20,6 +20,7 @@ class Domain
 	var predicates:Map<String, Predicate> = new StringMap<Predicate>();
 	
 	var functions:Map<String, Function> = new StringMap<Function>();
+	var evaluator:Map<String, Bool> = new StringMap<Bool>();
 	
 	var actions:Map<String, Action> = new StringMap<Action>();
 	
@@ -31,6 +32,10 @@ class Domain
 	{
 		domainTree = new RawTree();
 		domainTree.SetupFromString(Utilities.CleanFileImport(domainFilePath_));
+		
+		/*domainTree.Recurse(function(node) {
+			trace(node.value);
+		});*/
 		
 		// this gets the scope of the domain name, which only returns an array with a single element as there
 		// are never 2 definitions for the domain name. We then split this value into two strings due to the value
@@ -84,12 +89,14 @@ class Domain
 		
 		types = new Types(node_);
 		
+		trace("types: " + types.GetAllTypes().toString());
+		
 		properties.set("types", true);
 	}
 	
 	function ParseConstants(node_:RawTreeNode)
 	{
-		constants = Utilities.GenerateValueTypeMap(node_.value.split(" ").slice(1));
+		constants = Utilities.GenerateValueTypeMap(node_.children);
 		
 		properties.set("constants", true);
 	}
@@ -101,7 +108,7 @@ class Domain
 		
 		for (i in predicateNodes)
 		{
-			var predicate:Predicate = new Predicate(i.value);
+			var predicate:Predicate = new Predicate(i);
 			predicates.set(predicate.GetName(), predicate);
 		}
 		
@@ -114,7 +121,7 @@ class Domain
 		
 		for (i in functionNodes)
 		{
-			var newFunction:Function = new Function(i.value);
+			var newFunction:Function = new Function(i);
 			functions.set(newFunction.GetName(), newFunction);
 		}
 		
@@ -123,10 +130,41 @@ class Domain
 	
 	function AddStandardFunctions()
 	{
-		var totalTime:Function = new Function("total-time");
-		functions.set("total-time", totalTime);
+		AddFunction("total-time");
+		
+		AddEvaluator("and");
+		AddEvaluator("not");
+		AddEvaluator("imply");
+		AddEvaluator("forall");
+		AddEvaluator("when");
+		AddEvaluator(">");
+		AddEvaluator(">=");
+		AddEvaluator("<");
+		AddEvaluator("<=");
+		AddEvaluator("assign");
+		AddEvaluator("=");
+		AddEvaluator("==");
+		AddEvaluator("increase");
+		AddEvaluator("decrease");
+		AddEvaluator("+");
+		AddEvaluator("-");
+		AddEvaluator("*");
+		AddEvaluator("/");
 		
 		properties.set("standard_functions", true);
+	}
+	
+	function AddFunction(name_:String)
+	{
+		var node:RawTreeNode = new RawTreeNode(null);
+		node.value = name_;
+		var func:Function = new Function(node);
+		functions.set(name_, func);
+	}
+	
+	function AddEvaluator(name_:String)
+	{
+		evaluator.set(name_, true);
 	}
 	
 	function ParseActions(actionNodes_:Array<RawTreeNode>)
@@ -134,36 +172,34 @@ class Domain
 		
 		for (i in actionNodes_)
 		{
-			var split:Array<String> = i.value.split(" ").filter(function(input) {
-				return input.length > 0;
-			});
+			trace("i: " + i.children[0].value);
 			
-			var action:Action = new Action(StringTools.trim(split[1]));
+			var action:Action = new Action(i.children[0].value);
 			
-			// index 0 is ":action" whilst index 1 is the name of the action, as shown above
-			var index:Int = 2;
-			while (index < split.length)
+			// all subsequent parameter, precondition and effect are children of ":action". the name is child[0], so we want to skip it
+			var index:Int = 1;
+			while (index < i.children.length)
 			{
 				// we do index - 2 below because of the 2 indexs we have to skip
 				// this gives us a corresponding child node with correct scope for each key word such as parameters.
 				
-				if (Utilities.Compare(split[index], ":parameters") == 0)
+				if (Utilities.Compare(i.children[index].value, ":parameters") == 0)
 				{
-					var pairs:Array<Pair> = Utilities.GenerateValueTypeMap(i.children[index - 2].value.split(" "));
+					var pairs:Array<Pair> = Utilities.GenerateValueTypeMap([i.children[index + 1]].concat(i.children[index + 1].children));
 					
 					for (a in pairs)
 					{
 						action.AddParameter(a.a, a.b);
 					}
 				}
-				else if (Utilities.Compare(split[index], ":precondition") == 0)
+				else if (Utilities.Compare(i.children[index].value, ":precondition") == 0)
 				{
-					var preconditionNode:RawTreeNode = i.children[index - 2];
+					var preconditionNode:RawTreeNode = i.children[index + 1];
 					action.SetPreconditionTree(Tree.ConvertRawTreeNodeToTree(preconditionNode, this));
 				}
-				else if (Utilities.Compare(split[index], ":effect") == 0)
+				else if (Utilities.Compare(i.children[index].value, ":effect") == 0)
 				{
-					var effectNode:RawTreeNode = i.children[index - 2];
+					var effectNode:RawTreeNode = i.children[index + 1];
 					action.SetEffectTree(Tree.ConvertRawTreeNodeToTree(effectNode, this));
 				}
 				

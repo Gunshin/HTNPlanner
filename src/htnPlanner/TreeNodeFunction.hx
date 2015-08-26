@@ -7,13 +7,17 @@ package htnPlanner;
 class TreeNodeFunction extends TreeNode
 {
 	var func:Function = null;
-	var paramNames:Array<String> = null;
+	var paramNames:Array<String> = new Array<String>();
 
-	public function new(func_:Function, paramNames_:Array<String>) 
+	public function new(func_:Function, params_:Array<RawTreeNode>) 
 	{
 		super();
 		func = func_;
-		paramNames = paramNames_;
+		
+		for (param in params_)
+		{
+			paramNames.push(param.value);
+		}
 	}
 	
 	override public function Evaluate(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):Bool
