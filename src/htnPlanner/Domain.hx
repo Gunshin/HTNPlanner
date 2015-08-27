@@ -200,6 +200,13 @@ class Domain
 					var effectNode:RawTreeNode = i.children[index + 1];
 					action.SetEffectTree(Tree.ConvertRawTreeNodeToTree(effectNode, this));
 				}
+				else if (Utilities.Compare(i.children[index].value, ":values") == 0)
+				{
+					var pairs:Array<Pair> = Utilities.GenerateValueTypeMap([i.children[index + 1]].concat(i.children[index + 1].children));
+					
+					//for now only one value type is accepted
+					var value:Value = new Value(pairs[0].a);
+				}
 				
 				index++;
 			}

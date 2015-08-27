@@ -14,6 +14,7 @@ class Action
 	var parameterLayout:Array<String> = new Array<String>();
 	var precondition:Tree = null;
 	var effect:Tree = null;
+	
 
 	public function new(name_:String)
 	{
@@ -89,7 +90,7 @@ class Action
 	
 	public function Evaluate(state_:State, domain_:Domain):Bool
 	{
-		return precondition.Evaluate(parameters, state_, domain_);
+		return precondition.Evaluate(parameters, values, state_, domain_);
 	}
 	
 	public function Execute(state_:State, domain_:Domain):State
@@ -107,6 +108,16 @@ class Action
 	public function GetLayout():Array<String>
 	{
 		return parameterLayout;
+	}
+	
+	public function GetValue(name_:String):Value
+	{
+		return values.get(name_);
+	}
+	
+	public function SetValue(value_:Value):Void
+	{
+		values.set(value_.GetName(), value_);
 	}
 	
 }

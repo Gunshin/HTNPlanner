@@ -27,11 +27,6 @@
 		(conversion logs log_plank)
 		(conversion oak oak_plank)
 		(conversion willow willow_plank)
-		
-		(= (one) 1)
-		(= (five) 5)
-		(= (ten) 10)
-		(= (twenty) 20)
     )
     (:goal
         (and

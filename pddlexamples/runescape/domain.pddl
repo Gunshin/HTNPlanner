@@ -6,9 +6,6 @@
         bank sawmill - area
         number
     )
-	(:constants
-		one five ten twenty - number
-	)
     (:predicates
         (at ?place - area)
         (contains ?area - area ?resource - resource)
@@ -20,45 +17,43 @@
         (inventory_max)
         (inventory_left)
         (inventory_has_item ?item - item)
-		
-		(one)
-		(five)
-		(ten)
-		(twenty)
     )
     
     (:action Cut_Down_Tree
-        :parameters (?resource - wood ?area - area ?count - number)
+        :parameters (?resource - wood ?area - area)
+		:values (~count - integer-range)
         :precondition 
         (and 
 			(at ?area)
             (contains ?area ?resource)
-            (>= (inventory_left) (?count))
+            (>= (inventory_left) (~count))
         )
         :effect 
         (and
-            (decrease (inventory_left) (?count))
-            (increase (inventory_has_item ?resource) (?count))
+            (decrease (inventory_left) (~count))
+            (increase (inventory_has_item ?resource) (~count))
         )
     )
 	
 	(:action Create_Plank
-        :parameters (?resource - wood ?plank - plank ?area - sawmill ?count - number)
+        :parameters (?resource - wood ?plank - plank ?area - sawmill)
+		:values (~count - integer-range)
         :precondition 
         (and 
 			(at ?area)
-            (>= (inventory_has_item ?resource) (?count))
+            (>= (inventory_has_item ?resource) (~count))
 			(conversion ?resource ?plank)
         )
         :effect 
         (and
-            (decrease (inventory_has_item ?resource) (?count))
-			(increase (inventory_has_item ?plank) (?count))
+            (decrease (inventory_has_item ?resource) (~count))
+			(increase (inventory_has_item ?plank) (~count))
         )
     )
 	
 	(:action Bank_Item
-        :parameters (?bank - bank ?item - item ?count - number)
+        :parameters (?bank - bank ?item - item)
+		:values (?count - integer-range)
         :precondition 
         (and 
             (at ?bank)
