@@ -2,6 +2,13 @@ package htnPlanner;
 
 import de.polygonal.ds.Heap;
 import haxe.ds.HashMap;
+import htnPlanner.Planner.ValuesType;
+
+enum ValuesType
+{
+	EParam;
+	EValue;
+}
 
 /**
  * ...
@@ -9,7 +16,6 @@ import haxe.ds.HashMap;
  */
 class Planner
 {
-	
 	var closedStates:Map<Int, PlannerNode> = new Map<Int, PlannerNode>();
 	
 	var domain:Domain = null;
@@ -97,7 +103,7 @@ class Planner
 		{
 			//trace("action: " + actionNode.action.GetName());
 			
-			actionNode.action.SetParameters(actionNode.params);
+			actionNode.action.GetData().Set(actionNode.params, actionNode.valuesType);
 			var newState:State = actionNode.action.Execute(stateNode_.state, domain);
 			
 			var hash:Int = newState.GenerateStateHash();
@@ -132,18 +138,38 @@ class Planner
 			var action:Action = domain.GetAction(actionName);
 			//trace("running on action: " + action.GetName());
 			
-			var params:Array<Parameter> = action.GetParameters();
+			var actionParams:Array<Parameter> = action.GetData().GetParameters();
 			
-			var values:Array<Array<String>> = new Array<Array<String>>();
+			var values:Array<Array<Pair>> = new Array<Array<Pair>>();
+			var valuesType:Array<ValuesType> = new Array<ValuesType>();
 			var valuesIndex:Array<Int> = new Array<Int>();
-			for (param in 0...params.length)
+			for (paramIndex in 0...actionParams.length)
 			{
-				var objects:Array<String> = state_.GetObjectsOfType(params[param].GetType());
+				var objects:Array<String> = state_.GetObjectsOfType(actionParams[paramIndex].GetType());
+				values[paramIndex] = new Array<Pair>();
 				
-				//trace("found object count: " + objects.length + " _ for type: " + params[param].GetType());
+				for (obj in objects)
+				{
+					values[paramIndex].push(new Pair(actionParams[paramIndex].GetName(), obj));
+				}
 				
-				values[param] = objects;
-				valuesIndex[param] = 0;
+				valuesType[paramIndex] = ValuesType.EParam;
+				valuesIndex[paramIndex] = 0;
+			}
+			
+			var actionValues:Array<Value> = action.GetData().GetValues();
+			for (valueIndex in 0...actionValues.length)
+			{
+				var insertionIndex:Int = actionParams.length + valueIndex;
+				values[insertionIndex] = new Array<Pair>();
+				
+				for (i in actionValues[valueIndex].GetPossibleValues()) // need to include the upper bound
+				{
+					values[insertionIndex].push(new Pair(actionValues[valueIndex].GetName(), i));
+				}
+				
+				valuesType[insertionIndex] = ValuesType.EValue;
+				valuesIndex[insertionIndex] = 0;
 			}
 			
 			//trace(values.toString());
@@ -159,15 +185,24 @@ class Planner
 				var valuesSet:Array<Pair> = new Array<Pair>();
 				for (i in 0...values.length)
 				{
-					valuesSet.push(new Pair(params[i].GetName(), values[i][valuesIndex[i]]));
-					params[i].SetValue(values[i][valuesIndex[i]]);
+					valuesSet.push(values[i][valuesIndex[i]]);
+					switch(valuesType[i])
+					{
+						case EParam:
+							actionParams[i].SetValue(values[i][valuesIndex[i]].b);
+							
+						case EValue:
+							actionValues[i - actionParams.length].SetValue(values[i][valuesIndex[i]].b);
+						
+					}
+					
 				}
 				
 				//trace("attempting: " + action.GetName() + " with value set: " + valuesSet.toString() + " with result: ");// + action.Evaluate(state_, domain));
 				
 				if (action.Evaluate(state_, domain))
 				{
-					actions.push(new PlannerActionNode(action, valuesSet));
+					actions.push(new PlannerActionNode(action, valuesSet, valuesType));
 				}
 				
 				//trace(valuesIndex.toString() + " _______ " + values.toString());

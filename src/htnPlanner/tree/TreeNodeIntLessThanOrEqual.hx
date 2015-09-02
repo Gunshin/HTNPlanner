@@ -1,10 +1,11 @@
-package htnPlanner;
+package htnPlanner.tree;
+import htnPlanner.tree.TreeNodeInt;
 
 /**
  * ...
  * @author Michael Stephens
  */
-class TreeNodeIntLessThan extends TreeNodeInt
+class TreeNodeIntLessThanOrEqual extends TreeNodeInt
 {
 	// i decided to make this a class so it is clear where all of the evaluation and execution code is.
 	// could have just made the comparisonEvaluate function anonymous and pass it to the super class.
@@ -16,7 +17,7 @@ class TreeNodeIntLessThan extends TreeNodeInt
 	
 	override public function ComparisonEvaluate(valueA_:Int, valueB_:Int):Bool
 	{
-		return valueA_ < valueB_;
+		return valueA_ <= valueB_;
 	}
 	
 }

@@ -1,4 +1,5 @@
-package htnPlanner;
+package htnPlanner.tree;
+import htnPlanner.tree.TreeNodeInt;
 
 /**
  * ...

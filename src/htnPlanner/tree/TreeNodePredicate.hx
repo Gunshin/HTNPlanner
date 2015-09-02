@@ -1,4 +1,5 @@
-package htnPlanner;
+package htnPlanner.tree;
+import htnPlanner.tree.TreeNode;
 
 /**
  * ...
@@ -22,14 +23,14 @@ class TreeNodePredicate extends TreeNode
 		}
 	}
 	
-	override public function Evaluate(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):Bool
+	override public function Evaluate(data_:ActionData, state_:State, domain_:Domain):Bool
 	{
-		var predicateValue:String = predicate.Construct(parameters_, paramNames);
+		var predicateValue:String = predicate.Construct(data_, paramNames);
 		return state_.Exists(predicateValue);
 	}
 	
-	override public function Execute(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):String
+	override public function Execute(data_:ActionData, state_:State, domain_:Domain):String
 	{
-		return predicate.Construct(parameters_, paramNames);
+		return predicate.Construct(data_, paramNames);
 	}
 }

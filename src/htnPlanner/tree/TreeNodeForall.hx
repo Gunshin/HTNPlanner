@@ -1,4 +1,6 @@
-package htnPlanner;
+package htnPlanner.tree;
+import htnPlanner.tree.Tree;
+import htnPlanner.tree.TreeNode;
 
 /**
  * ...
@@ -19,17 +21,17 @@ class TreeNodeForall extends TreeNode
 		forallTree = Tree.ConvertRawTreeNodeToTree(children_[1], domain_);
 	}
 	
-	override public function Evaluate(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):Bool
+	override public function Evaluate(data_:ActionData, state_:State, domain_:Domain):Bool
 	{
 		var objects:Array<String> = state_.GetMatching(parameterNode.GetType());
 		
-		parameters_.set(parameterNode.GetName(), parameterNode);
+		data_.GetParameterMap().set(parameterNode.GetName(), parameterNode);
 		
 		for (i in objects)
 		{
 			parameterNode.SetValue(i);
 			
-			if (!forallTree.Evaluate(parameters_, state_, domain_))
+			if (!forallTree.Evaluate(data_, state_, domain_))
 			{
 				return false;
 			}
@@ -38,17 +40,17 @@ class TreeNodeForall extends TreeNode
 		return true;
 	}
 	
-	override public function Execute(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):String
+	override public function Execute(data_:ActionData, state_:State, domain_:Domain):String
 	{		
 		var objects:Array<String> = state_.GetObjectsOfType(parameterNode.GetType());
 		
-		parameters_.set(parameterNode.GetName(), parameterNode);
+		data_.GetParameterMap().set(parameterNode.GetName(), parameterNode);
 		
 		for (i in objects)
 		{
 			parameterNode.SetValue(i);
 			
-			forallTree.Execute(parameters_, state_, domain_);
+			forallTree.Execute(data_, state_, domain_);
 		}
 		
 		return null;

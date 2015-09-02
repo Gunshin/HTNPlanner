@@ -1,3 +1,5 @@
 
 
-need to change plan output so that the parameters are in the correct order in actions.
+add values to planneractionnode output
+
+:values does not take into account more than one value, and the values specific type currently

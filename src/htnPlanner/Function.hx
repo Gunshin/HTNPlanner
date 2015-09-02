@@ -16,7 +16,7 @@ class Function
 		ParseValue(node_);
 	}
 	
-	public function Construct(parameterMap_:Map<String, Parameter>, templateValue_:Array<String>):String
+	public function Construct(data_:ActionData, templateValue_:Array<String>):String
 	{
 		var constructedValue:String = name;
 		
@@ -25,7 +25,7 @@ class Function
 			// if the first character is not a '?', then this value is not a parameter name. Therefor just add the value if it isnt.
 			if (Utilities.Compare(i.charAt(0), "?") == 0)
 			{
-				constructedValue += " " + parameterMap_.get(i).GetValue();
+				constructedValue += " " + data_.GetParameterMap().get(i).GetValue();
 			}
 			else
 			{
@@ -49,5 +49,17 @@ class Function
 	public function GetName():String
 	{
 		return name;
+	}
+	
+	public function ConstructRaw(templateValue_:Array<String>):String
+	{
+		var constructedValue:String = name;
+		
+		for (i in templateValue_)
+		{
+			constructedValue += " " + i;
+		}
+		
+		return constructedValue;
 	}
 }

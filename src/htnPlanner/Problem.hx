@@ -2,6 +2,7 @@ package htnPlanner;
 
 import haxe.ds.HashMap;
 import haxe.ds.StringMap;
+import htnPlanner.tree.Tree;
 
 /**
  * ...
@@ -50,6 +51,8 @@ class Problem
 		{
 			ParseMetric(metric[0]);
 		}
+		
+		trace("Problem loaded");
 	}
 	
 	function ParseObjects(node_:RawTreeNode)

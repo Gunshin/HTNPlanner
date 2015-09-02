@@ -1,7 +1,5 @@
 package htnPlanner;
-
-import haxe.ds.HashMap;
-import haxe.ds.StringMap;
+import htnPlanner.tree.Tree;
 
 /**
  * ...
@@ -10,8 +8,9 @@ import haxe.ds.StringMap;
 class Action
 {
 	var name:String = null;
-	var parameters:Map<String, Parameter> = new StringMap<Parameter>();
-	var parameterLayout:Array<String> = new Array<String>();
+	
+	var data:ActionData = new ActionData();
+	
 	var precondition:Tree = null;
 	var effect:Tree = null;
 	
@@ -19,42 +18,6 @@ class Action
 	public function new(name_:String)
 	{
 		name = name_;
-	}
-		
-	public function AddParameter(name_:String, type_:String)
-	{
-		var param:Parameter = GetParameter(name_);
-		if (param != null)
-		{
-			throw "param already exists";
-		}
-		
-		parameters.set(name_, new Parameter(name_, type_, null));
-		parameterLayout.push(name_);
-	}
-	
-	public function SetParameter(name_:String, value_:String)
-	{
-		var param:Parameter = GetParameter(name_);
-		if (param == null)
-		{
-			throw "param is invalid";
-		}
-		
-		param.SetValue(value_);
-	}
-	
-	function GetParameter(name_:String):Parameter
-	{
-		return parameters.get(name_);
-	}
-	
-	public function SetParameters(values_:Array<Pair>)
-	{
-		for (i in values_)
-		{
-			SetParameter(i.a, i.b);
-		}
 	}
 	
 	public function SetPreconditionTree(tree_:Tree)
@@ -72,31 +35,15 @@ class Action
 		return name;
 	}
 	
-	public function GetParameterMap():Map<String, Parameter>
-	{
-		return parameters;
-	}
-	
-	public function GetParameters():Array<Parameter>
-	{
-		var params:Array<Parameter> = new Array<Parameter>();
-		for (key in parameters.keys())
-		{
-			params.push(parameters.get(key));
-		}
-		
-		return params;
-	}
-	
 	public function Evaluate(state_:State, domain_:Domain):Bool
 	{
-		return precondition.Evaluate(parameters, values, state_, domain_);
+		return precondition.Evaluate(data, state_, domain_);
 	}
 	
 	public function Execute(state_:State, domain_:Domain):State
 	{
 		var cloned:State = state_.Clone();
-		effect.Execute(parameters, cloned, domain_);
+		effect.Execute(data, cloned, domain_);
 		return cloned;
 	}
 	
@@ -105,19 +52,19 @@ class Action
 		return name;
 	}
 	
-	public function GetLayout():Array<String>
+	public function GetData():ActionData
 	{
-		return parameterLayout;
+		return data;
 	}
 	
-	public function GetValue(name_:String):Value
+	public function GetEffectTree():Tree
 	{
-		return values.get(name_);
+		return effect;
 	}
 	
-	public function SetValue(value_:Value):Void
+	public function GetPreconditionTree():Tree
 	{
-		values.set(value_.GetName(), value_);
+		return precondition;
 	}
 	
 }

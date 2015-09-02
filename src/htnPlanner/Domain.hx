@@ -2,6 +2,7 @@ package htnPlanner;
 
 import haxe.ds.HashMap;
 import haxe.ds.StringMap;
+import htnPlanner.tree.Tree;
 
 /**
  * ...
@@ -64,6 +65,7 @@ class Domain
 		
 		AddStandardFunctions();
 		
+		trace("Domain loaded");
 	}
 	
 	function ParseRequirements(node_:RawTreeNode)
@@ -88,8 +90,6 @@ class Domain
 		}
 		
 		types = new Types(node_);
-		
-		trace("types: " + types.GetAllTypes().toString());
 		
 		properties.set("types", true);
 	}
@@ -187,7 +187,7 @@ class Domain
 					
 					for (a in pairs)
 					{
-						action.AddParameter(a.a, a.b);
+						action.GetData().AddParameter(a.a, a.b);
 					}
 				}
 				else if (Utilities.Compare(i.children[index].value, ":precondition") == 0)
@@ -203,9 +203,15 @@ class Domain
 				else if (Utilities.Compare(i.children[index].value, ":values") == 0)
 				{
 					var pairs:Array<Pair> = Utilities.GenerateValueTypeMap([i.children[index + 1]].concat(i.children[index + 1].children));
+					var value:Value = null;
+					switch(pairs[0].b)
+					{
+						case "integer-range":
+							value = new ValueIntRange(pairs[0].a);
+					}
 					
 					//for now only one value type is accepted
-					var value:Value = new Value(pairs[0].a);
+					action.GetData().AddValue(value);
 				}
 				
 				index++;

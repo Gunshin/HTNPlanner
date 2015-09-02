@@ -1,4 +1,4 @@
-package htnPlanner;
+package htnPlanner.tree;
 
 /**
  * ...
@@ -19,14 +19,14 @@ class Tree
 		return baseNode;
 	}
 	
-	public function Evaluate(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):Bool
+	public function Evaluate(data_:ActionData, state_:State, domain_:Domain):Bool
 	{
-		return baseNode.Evaluate(parameters_, state_, domain_);
+		return baseNode.Evaluate(data_, state_, domain_);
 	}
 	
-	public function Execute(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):String
+	public function Execute(data_:ActionData, state_:State, domain_:Domain):String
 	{
-		return baseNode.Execute(parameters_, state_, domain_);
+		return baseNode.Execute(data_, state_, domain_);
 	}
 	
 	public function Recurse(func_:TreeNode-> Void)
@@ -101,6 +101,12 @@ class Tree
 			return newNode;
 		}
 		
+		if (Utilities.Compare(firstTerm.charAt(0), "~") == 0)
+		{
+			newNode = new TreeNodeValue(firstTerm);
+			return newNode;
+		}
+		
 		switch(firstTerm)
 		{
 			case "and":
@@ -163,7 +169,7 @@ class Tree
 		//we do not know what this term is, so it could be a value. Best way to check is to see if it has any children, as values do not
 		if (rawNode_.children.length == 0)
 		{
-			newNode = new TreeNodeIntValue(firstTerm);
+			newNode = new TreeNodeIntFunctionValue(firstTerm);
 			return newNode;
 		}
 		

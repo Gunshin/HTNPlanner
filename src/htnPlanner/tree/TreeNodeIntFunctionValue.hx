@@ -1,10 +1,11 @@
-package htnPlanner;
+package htnPlanner.tree;
+import htnPlanner.tree.TreeNodeInt;
 
 /**
  * ...
  * @author Michael Stephens
  */
-class TreeNodeIntValue extends TreeNodeInt
+class TreeNodeIntFunctionValue extends TreeNodeInt
 {
 
 	var value:String = null;
@@ -16,12 +17,12 @@ class TreeNodeIntValue extends TreeNodeInt
 		value = value_;
 	}
 	
-	override public function Evaluate(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):Bool
+	override public function Evaluate(data_:ActionData, state_:State, domain_:Domain):Bool
 	{
 		throw "This function should not be getting called.";
 	}
 	
-	override public function Execute(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):String
+	override public function Execute(data_:ActionData, state_:State, domain_:Domain):String
 	{
 		return value;
 	}

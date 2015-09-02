@@ -1,4 +1,4 @@
-package htnPlanner;
+package htnPlanner.tree;
 
 /**
  * ...
@@ -12,11 +12,11 @@ class TreeNodeAnd extends TreeNode
 		super();
 	}
 	
-	override public function Evaluate(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):Bool
+	override public function Evaluate(data_:ActionData, state_:State, domain_:Domain):Bool
 	{
 		for (i in children)
 		{
-			if (!i.Evaluate(parameters_, state_, domain_))
+			if (!i.Evaluate(data_, state_, domain_))
 			{
 				return false;
 			}
@@ -24,12 +24,12 @@ class TreeNodeAnd extends TreeNode
 		return true;
 	}
 	
-	override public function Execute(parameters_:Map<String, Parameter>, state_:State, domain_:Domain):String
+	override public function Execute(data_:ActionData, state_:State, domain_:Domain):String
 	{
 		for (i in children)
 		{
 			// incase the child is a predicate. predicates do not affect the state on their own.
-			var value_:String = i.Execute(parameters_, state_, domain_);
+			var value_:String = i.Execute(data_, state_, domain_);
 			
 			if (value_ != null)
 			{

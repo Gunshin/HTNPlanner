@@ -6,38 +6,30 @@ package htnPlanner;
  */
 class Value
 {
-	var name:String = null;
-	var lowerBound:Int = 0;
-	var upperBound:Int = 0;
+	var name:String = null;	
 	
-	public function new(name_:String) 
+	var value:String = null;
+	
+	public function new(name_:String)
 	{
 		name = name_;
+	}
+	
+	public function GetPossibleValues():Array<String> { throw "must override this function"; }
+	
+	public function SetValue(value_:String)
+	{
+		value = value_;
+	}
+	
+	public function GetValue():String
+	{
+		return value;
 	}
 	
 	public function GetName():String
 	{
 		return name;
-	}
-	
-	public function SetLowerBound(lower_:Int)
-	{
-		lowerBound = lower_;
-	}
-	
-	public function GetLowerBound():Int
-	{
-		return lowerBound;
-	}
-	
-	public function SetUpperBound(upper_:Int)
-	{
-		upperBound = upper_;
-	}
-	
-	public function GetUpperBound():Int
-	{
-		return upperBound;
 	}
 	
 }
