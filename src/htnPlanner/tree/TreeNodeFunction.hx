@@ -40,4 +40,15 @@ class TreeNodeFunction extends TreeNode
 	{
 		return func.ConstructRaw(paramNames);
 	}
+	
+	override public function GetRawName():String
+	{
+		return func.GetName();
+	}
+	
+	override public function GetRawTreeString():String
+	{
+		var returnee:String = func.ConstructRaw(paramNames);
+		return returnee;
+	}
 }

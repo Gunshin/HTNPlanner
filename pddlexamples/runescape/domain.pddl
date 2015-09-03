@@ -26,7 +26,16 @@
         (and 
 			(at ?area)
             (contains ?area ?resource)
-            (>= (inventory_left) (~count))
+            (or
+				(and
+					(>= (inventory_left) (~count))
+					(> (~count) 0)
+				)
+				(and
+					(> (~count) 50)
+					(< (~count) 60)
+				)
+			)
         )
         :effect 
         (and
@@ -43,6 +52,7 @@
 			(at ?area)
             (>= (inventory_has_item ?resource) (~count))
 			(conversion ?resource ?plank)
+			(> (~count) 0)
         )
         :effect 
         (and
@@ -59,6 +69,7 @@
             (at ?bank)
             (< (inventory_left) (inventory_max))
 			(>= (inventory_has_item ?item) (~count))
+			(> (~count) 0)
         )
         :effect 
         (and

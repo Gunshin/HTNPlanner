@@ -15,7 +15,7 @@ class TreeNodeForall extends TreeNode
 	{
 		super();
 		
-		var pair:Pair = Utilities.GenerateValueTypeMap([children_[0]].concat(children_[0].children))[0];
+		var pair:Pair<String, String> = Utilities.GenerateValueTypeMap([children_[0]].concat(children_[0].children))[0];
 		parameterNode = new Parameter(pair.a, pair.b, "");
 		
 		forallTree = Tree.ConvertRawTreeNodeToTree(children_[1], domain_);
@@ -56,5 +56,9 @@ class TreeNodeForall extends TreeNode
 		return null;
 	}
 	
+	override public function GetRawName():String
+	{
+		return "forall";
+	}
 	
 }

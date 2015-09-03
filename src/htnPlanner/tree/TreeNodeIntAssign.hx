@@ -26,4 +26,10 @@ class TreeNodeIntAssign extends TreeNodeInt
 		
 		return null;
 	}
+	
+	override public function GetRawName():String
+	{
+		return "=";
+	}
+
 }

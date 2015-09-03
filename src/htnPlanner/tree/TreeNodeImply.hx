@@ -24,4 +24,9 @@ class TreeNodeImply extends TreeNode
 		return null;
 	}
 	
+	override public function GetRawName():String
+	{
+		return "imply";
+	}
+
 }

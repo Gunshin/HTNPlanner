@@ -27,8 +27,6 @@ class ValueIntRange extends Value
 		return vals;
 	}
 	
-	
-	
 	public function SetLowerBound(lower_:Int)
 	{
 		lowerBound = lower_;

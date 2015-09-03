@@ -185,7 +185,7 @@ class State
 		return hash;
 	}
 	
-	public function SetObjectsRaw(objArray_:Array<Pair>, domain_:Domain)
+	public function SetObjectsRaw(objArray_:Array<Pair<String, String>>, domain_:Domain)
 	{
 		for (type in domain_.GetTypes().GetAllTypes())
 		{

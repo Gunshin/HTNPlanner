@@ -116,7 +116,7 @@ class ActionData
 		return parameters.get(name_);
 	}
 	
-	public function SetParameters(values_:Array<Pair>)
+	public function SetParameters(values_:Array<Pair<String, String>>)
 	{
 		for (i in values_)
 		{
@@ -124,7 +124,11 @@ class ActionData
 		}
 	}
 	
-	public function Set(values_:Array<Pair>, types_:Array<ValuesType>)
+	/*
+	 * This is needed because we have both parameters and values being stored in the same set 'values_', and
+	 * we need to differentiate between them
+	 */
+	public function Set(values_:Array<Pair<String, String>>, types_:Array<ValuesType>)
 	{
 		for (i in 0...values_.length)
 		{

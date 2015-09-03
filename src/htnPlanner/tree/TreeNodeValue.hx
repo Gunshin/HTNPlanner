@@ -27,4 +27,14 @@ class TreeNodeValue extends TreeNode
 		return data_.GetValue(valueName).GetValue();
 	}
 	
+	override public function GetRawName():String
+	{
+		return valueName;
+	}
+	
+	override public function GetRawTreeString():String
+	{
+		return valueName;
+	}
+	
 }

@@ -22,4 +22,9 @@ class TreeNodeIntMultiply extends TreeNodeInt
 	{
 		return Std.string(GetValueFromChild(0, data_, state_, domain_) * GetValueFromChild(1, data_, state_, domain_));
 	}
+	
+	override public function GetRawName():String
+	{
+		return "*";
+	}
 }

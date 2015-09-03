@@ -25,7 +25,7 @@ class Domain
 	
 	var actions:Map<String, Action> = new StringMap<Action>();
 	
-	var constants:Array<Pair> = new Array<Pair>();
+	var constants:Array<Pair<String, String>> = new Array<Pair<String, String>>();
 	
 	var properties:Map<String, Bool> = new Map<String, Bool>();
 	
@@ -183,7 +183,7 @@ class Domain
 				
 				if (Utilities.Compare(i.children[index].value, ":parameters") == 0)
 				{
-					var pairs:Array<Pair> = Utilities.GenerateValueTypeMap([i.children[index + 1]].concat(i.children[index + 1].children));
+					var pairs:Array<Pair<String, String>> = Utilities.GenerateValueTypeMap([i.children[index + 1]].concat(i.children[index + 1].children));
 					
 					for (a in pairs)
 					{
@@ -202,7 +202,7 @@ class Domain
 				}
 				else if (Utilities.Compare(i.children[index].value, ":values") == 0)
 				{
-					var pairs:Array<Pair> = Utilities.GenerateValueTypeMap([i.children[index + 1]].concat(i.children[index + 1].children));
+					var pairs:Array<Pair<String, String>> = Utilities.GenerateValueTypeMap([i.children[index + 1]].concat(i.children[index + 1].children));
 					var value:Value = null;
 					switch(pairs[0].b)
 					{
@@ -281,7 +281,7 @@ class Domain
 		return types;
 	}
 
-	public function GetConstants():Array<Pair>
+	public function GetConstants():Array<Pair<String, String>>
 	{
 		return constants;
 	}

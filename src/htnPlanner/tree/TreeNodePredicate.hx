@@ -33,4 +33,15 @@ class TreeNodePredicate extends TreeNode
 	{
 		return predicate.Construct(data_, paramNames);
 	}
+	
+	override public function GetRawName():String
+	{
+		return predicate.GetName();
+	}
+	
+	override public function GetRawTreeString():String
+	{
+		var returnee:String = predicate.ConstructRaw(paramNames);
+		return returnee;
+	}
 }

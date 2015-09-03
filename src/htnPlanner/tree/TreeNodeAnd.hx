@@ -40,5 +40,22 @@ class TreeNodeAnd extends TreeNode
 		return null;
 	}
 	
+	override public function GenerateRangeOfValues(data_:ActionData, state_:State, domain_:Domain):Array<String>
+	{
+		for (i in children)
+		{
+			switch(i.GetRawName())
+			{
+				
+				case "==":
+					
+				
+			}
+		}
+	}
 	
+	override public function GetRawName():String
+	{
+		return "and";
+	}
 }

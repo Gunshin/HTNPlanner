@@ -6,12 +6,12 @@ package htnPlanner;
  */
 class Parameter
 {
-	var nameType:Pair = null;
+	var nameType:Pair<String, String> = null;
 	var value:String = null;
 
 	public function new(name_:String, type_:String, value_:String) 
 	{
-		nameType = new Pair(name_, type_);
+		nameType = new Pair<String, String>(name_, type_);
 		value = value_;
 	}
 	

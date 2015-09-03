@@ -27,4 +27,13 @@ class TreeNodeParameter extends TreeNode
 		return Std.string(state_.GetFunction(data_.GetParameterMap().get(paramName).GetValue()));
 	}
 	
+	override public function GetRawName():String
+	{
+		return paramName;
+	}
+	
+	override public function GetRawTreeString():String
+	{
+		return paramName;
+	}
 }

@@ -28,4 +28,9 @@ class TreeNodeWhen extends TreeNode
 		return null;
 	}
 	
+	override public function GetRawName():String
+	{
+		return "when";
+	}
+	
 }

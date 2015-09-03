@@ -140,13 +140,13 @@ class Planner
 			
 			var actionParams:Array<Parameter> = action.GetData().GetParameters();
 			
-			var values:Array<Array<Pair>> = new Array<Array<Pair>>();
+			var values:Array<Array<Pair<String, String>>> = new Array<Array<Pair<String, String>>>();
 			var valuesType:Array<ValuesType> = new Array<ValuesType>();
 			var valuesIndex:Array<Int> = new Array<Int>();
 			for (paramIndex in 0...actionParams.length)
 			{
 				var objects:Array<String> = state_.GetObjectsOfType(actionParams[paramIndex].GetType());
-				values[paramIndex] = new Array<Pair>();
+				values[paramIndex] = new Array<Pair<String, String>>();
 				
 				for (obj in objects)
 				{
@@ -161,7 +161,7 @@ class Planner
 			for (valueIndex in 0...actionValues.length)
 			{
 				var insertionIndex:Int = actionParams.length + valueIndex;
-				values[insertionIndex] = new Array<Pair>();
+				values[insertionIndex] = new Array<Pair<String, String>>();
 				
 				for (i in actionValues[valueIndex].GetPossibleValues()) // need to include the upper bound
 				{
@@ -182,7 +182,7 @@ class Planner
 			while (valuesIndex[values.length - 1] != values[values.length - 1].length) // this checks to see if the most significant has hit its limit
 			{
 				// add the current index values to the set and store it
-				var valuesSet:Array<Pair> = new Array<Pair>();
+				var valuesSet:Array<Pair<String, String>> = new Array<Pair<String, String>>();
 				for (i in 0...values.length)
 				{
 					valuesSet.push(values[i][valuesIndex[i]]);

@@ -19,6 +19,8 @@ class TreeNode
 	
 	public function Execute(data_:ActionData, state_:State, domain_:Domain):String { throw "must override this function"; }
 	
+	public function GenerateRangeOfValues():Array<String> { throw "must override this function"; }
+	
 	public function AddChild(child_:TreeNode)
 	{
 		children.push(child_);
@@ -37,6 +39,45 @@ class TreeNode
 	public function GetParent():TreeNode
 	{
 		return parent;
+	}
+	
+	/*
+	 * This function returns the raw name defining this node eg. TreeNodeIntEquivalent returns "=="
+	 */
+	public function GetRawName():String
+	{
+		throw "must override this function";
+	}
+	
+	/*
+	 * This function is for recreating the raw tree for this node and its children. If you need the value for debug purposes.
+	 */
+	public function GetRawTreeString():String
+	{
+		var returnee:String = GetRawName() + " ";
+		for (i in children)
+		{
+			returnee += "(" + i.GetRawTreeString() + ") ";
+		}
+		
+		return returnee;
+	}
+	
+	/*
+	 * Filtered version of the above
+	 */
+	public function GetRawTreeStringFiltered(filter_:TreeNode -> Bool):String
+	{
+		var returnee:String = GetRawName() + " ";
+		for (i in children)
+		{
+			if (filter_(i))
+			{
+				returnee += "(" + i.GetRawTreeString() + ") ";
+			}
+		}
+		
+		return returnee;
 	}
 	
 }

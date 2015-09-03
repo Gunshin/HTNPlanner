@@ -9,6 +9,8 @@ import htnPlanner.Planner;
 import htnPlanner.PlannerActionNode;
 
 import htnPlanner.Utilities;
+import htnPlanner.tree.Tree;
+import htnPlanner.tree.TreeNode;
 import htnPlanner.tree.TreeNodeFunction;
 import htnPlanner.tree.TreeNodeInt;
 import htnPlanner.tree.TreeNodeValue;
@@ -32,21 +34,70 @@ class Main
 		var domain = new Domain(domainLocation);
 		var problem = new Problem(problemLocation, domain);
 		
+		var nodes:Array<TreeNode> = new Array<TreeNode>();
+		domain.GetAction("Cut_Down_Tree").GetPreconditionTree().Recurse(
+			function(node)
+			{
+				if (Utilities.Compare(node.GetRawName(), "and") == 0 || Utilities.Compare(node.GetRawName(), "or") == 0)
+				{
+					var count:Int = 0;
+					
+					for (child in node.GetChildren())
+					{
+						Tree.Recursive(
+							function(testNode)
+							{
+								if (Utilities.Compare(testNode.GetRawName(), "~count") == 0)
+								{
+									count++;
+									return false;
+								}
+								
+								return true;
+							}
+						, child);
+					}
+					
+					if (count > 1)
+					{
+						nodes.push(node);
+					}
+				}
+				
+				return true;
+			}
+		);
+		
+		trace(nodes.length);
 		
 		var prec:Array<String> = new Array<String>();
-		domain.GetAction("Cut_Down_Tree").GetPreconditionTree().Recurse(function(node) {
-			if (Std.is(node, TreeNodeValue))
-			{
-				var treeNode:TreeNodeValue = cast(node, TreeNodeValue);
-				var parent:TreeNodeInt = cast(treeNode.GetParent(), TreeNodeInt);
-				trace(Type.getClassName(Type.getClass(parent)));
-				var p:Dynamic = cast(parent, Type.getClass(parent));
-				//var p:String = parent.
-				
-			}
-		});
 		
-		trace(prec);
+		for (node in nodes)
+		{
+			prec.push(node.GetRawTreeStringFiltered(
+				function(child)
+				{
+					var flag:Bool = false;
+					Tree.Recursive(
+						function(testNode)
+						{
+							if (Utilities.Compare(testNode.GetRawName(), "~count") == 0)
+							{
+								flag = true;
+							}
+							
+							return true;
+						}
+					, child);
+					return flag;
+				}
+			));
+		}
+		
+		for (ele in prec)
+		{
+			trace(ele);
+		}
 		
 		//domain.GetAction("Cut_Down_Tree").GetData().GetValue("~count").SetLowerBound(1);
 		//domain.GetAction("Cut_Down_Tree").GetData().GetValue("~count").SetUpperBound(28);

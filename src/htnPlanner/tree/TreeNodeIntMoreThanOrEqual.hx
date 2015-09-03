@@ -20,4 +20,8 @@ class TreeNodeIntMoreThanOrEqual extends TreeNodeInt
 		return valueA_ >= valueB_;
 	}
 	
+	override public function GetRawName():String
+	{
+		return ">=";
+	}
 }

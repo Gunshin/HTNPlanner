@@ -57,7 +57,7 @@ class Problem
 	
 	function ParseObjects(node_:RawTreeNode)
 	{
-		var objArray:Array<Pair> = Utilities.GenerateValueTypeMap(node_.children);
+		var objArray:Array<Pair<String, String>> = Utilities.GenerateValueTypeMap(node_.children);
 		
 		initialState.SetObjectsRaw(objArray, domain);
 		

@@ -10,10 +10,10 @@ class PlannerActionNode
 {
 	
 	public var action:Action = null;
-	public var params:Array<Pair> = null;
+	public var params:Array<Pair<String, String>> = null;
 	public var valuesType:Array<ValuesType> = null;
 
-	public function new(action_:Action, params_:Array<Pair>, valuesType_:Array<ValuesType>) 
+	public function new(action_:Action, params_:Array<Pair<String, String>>, valuesType_:Array<ValuesType>) 
 	{
 		action = action_;
 		params = params_;

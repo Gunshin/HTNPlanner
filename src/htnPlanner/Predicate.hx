@@ -40,7 +40,7 @@ class Predicate
 	
 	function ParseValue(node_:RawTreeNode)
 	{
-		var pairs:Array<Pair> = Utilities.GenerateValueTypeMap(node_.children);
+		var pairs:Array<Pair<String, String>> = Utilities.GenerateValueTypeMap(node_.children);
 		
 		name = node_.value;
 	}
@@ -48,5 +48,17 @@ class Predicate
 	public function GetName():String
 	{
 		return name;
+	}
+	
+	public function ConstructRaw(templateValue_:Array<String>):String
+	{
+		var constructedValue:String = name;
+		
+		for (i in templateValue_)
+		{
+			constructedValue += " " + i;
+		}
+		
+		return constructedValue;
 	}
 }

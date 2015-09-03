@@ -40,7 +40,7 @@ class Function
 	{		
 		if (node_.children.length > 0)
 		{
-			var pairs:Array<Pair> = Utilities.GenerateValueTypeMap(node_.children); // this gives the parameters, not sure if i want to do anything with it yet
+			var pairs:Array<Pair<String, String>> = Utilities.GenerateValueTypeMap(node_.children); // this gives the parameters, not sure if i want to do anything with it yet
 		}
 		
 		name = node_.value;

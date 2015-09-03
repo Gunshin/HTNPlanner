@@ -174,9 +174,9 @@ class Utilities
 		return GetScope(string_, startIndexOfScope);
 	}
 	
-	static public function GenerateValueTypeMap(nodes_:Array<RawTreeNode>):Array<Pair>
+	static public function GenerateValueTypeMap(nodes_:Array<RawTreeNode>):Array<Pair<String, String>>
 	{
-		var returnPairs:Array<Pair> = new Array<Pair>();
+		var returnPairs:Array<Pair<String, String>> = new Array<Pair<String, String>>();
 		
 		// used to cache which values are the same, so that when a type is hit, we can set them correctly
 		var currentSetOfValues:Array<String> = new Array<String>();

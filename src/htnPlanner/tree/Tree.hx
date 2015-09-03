@@ -29,19 +29,31 @@ class Tree
 		return baseNode.Execute(data_, state_, domain_);
 	}
 	
-	public function Recurse(func_:TreeNode-> Void)
+	public function Recurse(func_:TreeNode-> Bool)
 	{
 		Recursive(func_, baseNode);
 	}
 	
-	function Recursive(func_:TreeNode-> Void, currentNode_:TreeNode)
-	{		
-		for (i in currentNode_.GetChildren())
+	/*
+	 * The function TreeNode -> Bool has the return type 'Bool' so we can prematurely stop the recursion if neccessary.
+	 * A return value of true is continue, false is stop
+	 */
+	static public function Recursive(func_:TreeNode -> Bool, currentNode_:TreeNode):Bool
+	{
+		if (!func_(currentNode_))
 		{
-			Recursive(func_, i);
+			return false;
 		}
 		
-		func_(currentNode_);
+		for (i in currentNode_.GetChildren())
+		{
+			if (!Recursive(func_, i))
+			{
+				return false;
+			}
+		}
+		
+		return true;
 	}
 	
 	public static function ConvertRawTreeNodeToTree(rawNode_:RawTreeNode, domain_:Domain):Tree
@@ -111,6 +123,9 @@ class Tree
 		{
 			case "and":
 				newNode = new TreeNodeAnd();
+				return newNode;
+			case "or":
+				newNode = new TreeNodeOr();
 				return newNode;
 			case "not":
 				newNode = new TreeNodeNot();

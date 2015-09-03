@@ -27,4 +27,13 @@ class TreeNodeIntFunctionValue extends TreeNodeInt
 		return value;
 	}
 	
+	override public function GetRawName():String
+	{
+		return value;
+	}
+	
+	override public function GetRawTreeString():String
+	{
+		return value;
+	}
 }

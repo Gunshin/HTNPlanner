@@ -4,7 +4,7 @@ package htnPlanner.tree;
  * ...
  * @author Michael Stephens
  */
-class TreeNodeIntAdd extends TreeNodeInt
+class TreeNodeOr extends TreeNode
 {
 
 	public function new() 
@@ -14,17 +14,23 @@ class TreeNodeIntAdd extends TreeNodeInt
 	
 	override public function Evaluate(data_:ActionData, state_:State, domain_:Domain):Bool
 	{
-		throw "This function should not be getting called.";
+		for (i in children)
+		{
+			if (i.Evaluate(data_, state_, domain_))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	override public function Execute(data_:ActionData, state_:State, domain_:Domain):String
 	{
-		return Std.string(GetValueFromChild(0, data_, state_, domain_) + GetValueFromChild(1, data_, state_, domain_));
+		throw "cannot use an 'or' within an effect execution (makes no sense)";
 	}
 	
 	override public function GetRawName():String
 	{
-		return "+";
+		return "or";
 	}
-
 }
