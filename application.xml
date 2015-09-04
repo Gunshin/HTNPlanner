@@ -3,10 +3,10 @@
 	<!-- NMML reference: https://gist.github.com/1763850 -->
 	
 	<!-- metadata, make sure 'package' is at least 3 segments (ie. com.mycompany.myproject) -->
-	<meta title="HTNPlanner" package="htnPlanner" version="1.0.0" company="Michael Stephens" />
+	<meta title="HaxePlanner" package="planner" version="1.0.0" company="Michael Stephens" />
 	
 	<!-- output -->
-	<app main="HTNPlanner" file="htnPlanner" path="bin" />
+	<app main="HaxePlanner" file="planner" path="bin" />
 	
 	<!-- classpath, haxe libs -->
 	<source path="src" />

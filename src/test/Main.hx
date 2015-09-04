@@ -1,19 +1,19 @@
 package test;
 
 import haxe.Timer;
-import htnPlanner.Action;
+import planner.pddl.Action;
 
-import htnPlanner.Domain;
-import htnPlanner.Problem;
-import htnPlanner.Planner;
-import htnPlanner.PlannerActionNode;
+import planner.pddl.Domain;
+import planner.pddl.Problem;
+import planner.pddl.Planner;
+import planner.pddl.PlannerActionNode;
 
-import htnPlanner.Utilities;
-import htnPlanner.tree.Tree;
-import htnPlanner.tree.TreeNode;
-import htnPlanner.tree.TreeNodeFunction;
-import htnPlanner.tree.TreeNodeInt;
-import htnPlanner.tree.TreeNodeValue;
+import planner.pddl.Utilities;
+import planner.pddl.tree.Tree;
+import planner.pddl.tree.TreeNode;
+import planner.pddl.tree.TreeNodeFunction;
+import planner.pddl.tree.TreeNodeInt;
+import planner.pddl.tree.TreeNodeValue;
 
 /**
  * ...

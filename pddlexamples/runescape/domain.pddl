@@ -30,6 +30,7 @@
 				(and
 					(>= (inventory_left) (~count))
 					(> (~count) 0)
+					(> (~count) -10)
 				)
 				(and
 					(> (~count) 50)
