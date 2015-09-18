@@ -1,4 +1,6 @@
 package planner.pddl;
+import planner.pddl.tree.TreeNode;
+import planner.pddl.tree.Tree;
 
 /**
  * ...
@@ -6,47 +8,65 @@ package planner.pddl;
  */
 class ValueIntRange extends Value
 {
-
-	var lowerBound:Int = 0;
-	var upperBound:Int = 0;
 	
-	public function new(name_:String) 
+	var baseNode:TreeNode = null;
+	
+	public function new(name_:String, action_:Action) 
 	{
 		super(name_);
-	}
-	
-	override public function GetPossibleValues():Array<String>
-	{
-		var vals:Array<String> = new Array<String>();
 		
-		for (i in lowerBound...upperBound + 1)
-		{
-			vals.push(Std.string(i));
-		}
+		baseNode = FindBaseNode(action_);
+		trace(baseNode.GetRawTreeString());
+	}
+	
+	override public function GetPossibleValues(state_:State, domain_:Domain):Array<String>
+	{
+		var range:Array<String> = baseNode.GenerateRangeOfValues(name, state_, domain_);
 		
-		return vals;
+		trace(range);
+		
+		return range;
 	}
-	
-	public function SetLowerBound(lower_:Int)
+
+	static public function FindBaseNode(action_:Action):TreeNode
 	{
-		lowerBound = lower_;
+		var baseNode:TreeNode = null;
+		action_.GetPreconditionTree().Recurse(
+			function(node)
+			{
+				if (Utilities.Compare(node.GetRawName(), "and") == 0 || Utilities.Compare(node.GetRawName(), "or") == 0)
+				{
+					var count:Int = 0;
+					
+					for (child in node.GetChildren())
+					{
+						Tree.Recursive(
+							function(testNode)
+							{
+								if (Utilities.Compare(testNode.GetRawName(), "~count") == 0)
+								{
+									count++;
+									return false;
+								}
+								
+								return true;
+							}
+						, child);
+					}
+					
+					if (count > 1)
+					{
+						baseNode = node;
+						return false;
+					}
+				}
+				
+				return true;
+			}
+		);
+		
+		return baseNode;
 	}
-	
-	public function GetLowerBound():Int
-	{
-		return lowerBound;
-	}
-	
-	public function SetUpperBound(upper_:Int)
-	{
-		upperBound = upper_;
-	}
-	
-	public function GetUpperBound():Int
-	{
-		return upperBound;
-	}
-	
 	
 	
 }

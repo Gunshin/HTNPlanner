@@ -24,8 +24,8 @@ class Main
 	
 	//var domainLocation:String = "pddlexamples/IPC3/Tests2/Rovers/Numeric/NumRover.pddl";
 	//var problemLocation:String = "pddlexamples/IPC3/Tests2/Rovers/Numeric/pfile1";
-	var domainLocation:String = "pddlexamples/runescape/domain.pddl";
-	var problemLocation:String = "pddlexamples/runescape/p1.pddl";
+	var domainLocation:String = "pddlexamples/runescape/domain2.pddl";
+	var problemLocation:String = "pddlexamples/runescape/p2.pddl";
 	
 	public function new()
 	{
@@ -34,75 +34,7 @@ class Main
 		var domain = new Domain(domainLocation);
 		var problem = new Problem(problemLocation, domain);
 		
-		var nodes:Array<TreeNode> = new Array<TreeNode>();
-		domain.GetAction("Cut_Down_Tree").GetPreconditionTree().Recurse(
-			function(node)
-			{
-				if (Utilities.Compare(node.GetRawName(), "and") == 0 || Utilities.Compare(node.GetRawName(), "or") == 0)
-				{
-					var count:Int = 0;
-					
-					for (child in node.GetChildren())
-					{
-						Tree.Recursive(
-							function(testNode)
-							{
-								if (Utilities.Compare(testNode.GetRawName(), "~count") == 0)
-								{
-									count++;
-									return false;
-								}
-								
-								return true;
-							}
-						, child);
-					}
-					
-					if (count > 1)
-					{
-						nodes.push(node);
-					}
-				}
-				
-				return true;
-			}
-		);
-		
-		trace(nodes.length);
-		
-		var prec:Array<String> = new Array<String>();
-		
-		for (node in nodes)
-		{
-			prec.push(node.GetRawTreeStringFiltered(
-				function(child)
-				{
-					var flag:Bool = false;
-					Tree.Recursive(
-						function(testNode)
-						{
-							if (Utilities.Compare(testNode.GetRawName(), "~count") == 0)
-							{
-								flag = true;
-							}
-							
-							return true;
-						}
-					, child);
-					return flag;
-				}
-			));
-		}
-		
-		for (ele in prec)
-		{
-			trace(ele);
-		}
-		
-		//domain.GetAction("Cut_Down_Tree").GetData().GetValue("~count").SetLowerBound(1);
-		//domain.GetAction("Cut_Down_Tree").GetData().GetValue("~count").SetUpperBound(28);
-		
-		/*var start = Timer.stamp();
+		var start = Timer.stamp();
 		
 		var planner:Planner = new Planner();
 		var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem);
@@ -114,7 +46,7 @@ class Main
 		for (i in 0...array.length)
 		{
 			trace(array[i].GetActionTransform());
-		}*/
+		}
 		
 	}
 	

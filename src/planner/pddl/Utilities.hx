@@ -298,6 +298,8 @@ class Utilities
 		return commentFree;
 	}
 	
+	
+	
 	//http://www.cse.yorku.ca/~oz/hash.html
 	static public function StringHash(string_:String):Int
 	{

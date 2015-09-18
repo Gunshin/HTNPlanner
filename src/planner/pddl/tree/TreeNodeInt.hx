@@ -35,6 +35,8 @@ class TreeNodeInt extends TreeNode
 		return value;
 	}
 	
+	
+	
 	public function ComparisonEvaluate(valueA_:Int, valueB_:Int):Bool { throw "must override this function"; }	
 	
 	override public function Execute(data_:ActionData, state_:State, domain_:Domain):String { throw "must override this function"; }

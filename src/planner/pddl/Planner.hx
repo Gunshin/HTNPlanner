@@ -143,9 +143,9 @@ class Planner
 			
 			var actionParams:Array<Parameter> = action.GetData().GetParameters();
 			
-			var values:Array<Array<Pair<String, String>>> = new Array<Array<Pair<String, String>>>();
-			var valuesType:Array<ValuesType> = new Array<ValuesType>();
-			var valuesIndex:Array<Int> = new Array<Int>();
+			var values:Array<Array<Pair<String, String>>> = new Array<Array<Pair<String, String>>>(); // all possible values for all parameters eg. values[parameter][valueOfParameter]
+			var valuesType:Array<ValuesType> = new Array<ValuesType>();// states what type the value is since each values[parameter] could be either an actual parameter, or a value. god damn this naming
+			var valuesIndex:Array<Int> = new Array<Int>(); // when the action generation starts further down, this keeps track of what point we are at
 			for (paramIndex in 0...actionParams.length)
 			{
 				var objects:Array<String> = state_.GetObjectsOfType(actionParams[paramIndex].GetType());
@@ -166,7 +166,7 @@ class Planner
 				var insertionIndex:Int = actionParams.length + valueIndex;
 				values[insertionIndex] = new Array<Pair<String, String>>();
 				
-				for (i in actionValues[valueIndex].GetPossibleValues()) // need to include the upper bound
+				for (i in actionValues[valueIndex].GetPossibleValues(state_, domain)) // need to include the upper bound
 				{
 					values[insertionIndex].push(new Pair(actionValues[valueIndex].GetName(), i));
 				}

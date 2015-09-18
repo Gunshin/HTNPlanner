@@ -1,8 +1,18 @@
 
 
-add values to planneractionnode output
+- add values to planneractionnode output
 
-:values does not take into account more than one value, and the values specific type currently
+- :values does not take into account more than one value, and the values specific type currently
+
+- values cannot have 2 seperate values existing in the same evaluation node hierarchy eg:
+	(> (~count) (~arc))
+	must ignore this and look for other evaluations
+	
+- must add comparisons for values eg.
+	(and
+		(< (has ?item) 20) ;; <<<< must be evaluated first
+		(== (~count) 10)
+	)
 
 
 
@@ -49,6 +59,10 @@ decrease
 
 must evaluate any nodes contained within this node, which do not include our target value eg. '~count'
 
+must add support for multiple value evaluation eg:
+	(== (~count) (* 2 (~arc)))
+	(< (~count) (~arc))
+
 should i seperate the evaluation to allow me to verify whether the non value preconditions are allowed first? ----------------------------------------------
 
 should i make the sets global and not per function? --------------------------------------------------------------------------------------------------------
@@ -69,14 +83,6 @@ and:
 			)
 			gives:
 				[1, ..., 29]
-		eg.:
-			(and
-				(== (~count) 20)
-				(> (~count) 0)
-				(< (~count) 10)
-			)
-			gives:
-				[20, 1, ..., 9]
 		eg.
 			(or
 				(and
@@ -101,10 +107,10 @@ and:
 or:
 	- concats any arrays passed back up by its children, and returns it
 		(or
+			(== (~count) (* 2 (inventory_count)))
 			(and
-				(<= (~count 10))
+				(<= (~count) 10)
 				(> (~count) 0)
-				(== (~count) (* 2 (~arc)))
 			)
 			(and
 				(> (~count) 50)
@@ -112,7 +118,7 @@ or:
 			)
 		)
 		gives:
-			[1, ..., 10, 51, ..., 59]
+			[~count = 2 * ~arc, 1, ..., 10, 51, ..., 59]
 
 			
 			

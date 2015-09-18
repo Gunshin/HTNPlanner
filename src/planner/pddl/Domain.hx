@@ -175,8 +175,38 @@ class Domain
 		{			
 			var action:Action = new Action(i.children[0].value);
 			
+			var childrenWithNameRemoved:Array<RawTreeNode> = i.children.slice(1);
+			
+			var preconditionNode:RawTreeNode = ActionGetChild(":precondition", childrenWithNameRemoved);
+			action.SetPreconditionTree(Tree.ConvertRawTreeNodeToTree(preconditionNode, this));
+			
+			var effectNode:RawTreeNode = ActionGetChild(":effect", childrenWithNameRemoved);
+			action.SetEffectTree(Tree.ConvertRawTreeNodeToTree(effectNode, this));
+			
+			var parameterNode:RawTreeNode = ActionGetChild(":parameters", childrenWithNameRemoved);
+			var pairs:Array<Pair<String, String>> = Utilities.GenerateValueTypeMap([parameterNode].concat(parameterNode.children));
+			for (a in pairs)
+			{
+				action.GetData().AddParameter(a.a, a.b);
+			}
+			
+			var valueNode:RawTreeNode = ActionGetChild(":values", childrenWithNameRemoved);
+			if (valueNode != null)
+			{
+				var pairs:Array<Pair<String, String>> = Utilities.GenerateValueTypeMap([valueNode].concat(valueNode.children));
+				var value:Value = null;
+				switch(pairs[0].b)
+				{
+					case "integer-range":
+						value = new ValueIntRange(pairs[0].a, action);
+				}
+				
+				//for now only one value type is accepted
+				action.GetData().AddValue(value);
+			}
+			
 			// all subsequent parameter, precondition and effect are children of ":action". the name is child[0], so we want to skip it
-			var index:Int = 1;
+			/*var index:Int = 1;
 			while (index < i.children.length)
 			{
 				// we do index - 2 below because of the 2 indexs we have to skip
@@ -216,13 +246,26 @@ class Domain
 				}
 				
 				index++;
-			}
+			}*/
 			
 			actions.set(action.GetName(), action);
 		}
 		
 		
 		properties.set("actions", true);
+	}
+	
+	static function ActionGetChild(child_name_:String, children_:Array<RawTreeNode>):RawTreeNode
+	{
+		for (i in 0...children_.length)
+		{
+			if (Utilities.Compare(child_name_, children_[i].value) == 0)
+			{
+				return children_[i + 1];
+			}
+		}
+		
+		return null;
 	}
 	
 	public function ResolveInheritance(typeChecking_:String, typeCheckAgainst_:String):Bool

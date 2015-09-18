@@ -26,16 +26,9 @@
         (and 
 			(at ?area)
             (contains ?area ?resource)
-            (or
-				(and
-					(>= (inventory_left) (~count))
-					(> (~count) 0)
-					(> (~count) -10)
-				)
-				(and
-					(> (~count) 50)
-					(< (~count) 60)
-				)
+			(and
+				(> (~count) 0)
+				(< (~count) 20)
 			)
         )
         :effect 

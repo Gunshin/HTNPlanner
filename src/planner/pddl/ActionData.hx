@@ -67,6 +67,11 @@ class ActionData
 		return valuesLayout;
 	}
 	
+	public function HasValue(name_:String):Bool
+	{
+		return values.exists(name_);
+	}
+	
 	public function GetParameterLayout():Array<String>
 	{
 		return parameterLayout;
