@@ -35,23 +35,36 @@ class TreeNodeOr extends TreeNode
 		{
 			if (Utilities.Compare(child.GetRawName(), "==") == 0)
 			{
-				var firstChildHasTargetValue:Bool = false;
+				var value_count:Int = 0;
 				Tree.Recursive(function(node_)
 				{
-					if (Utilities.Compare(node_.GetRawName(), valueName_) == 0)
+					if (Utilities.Compare(node_.GetRawName().charAt(0), "~") == 0)
 					{
-						firstChildHasTargetValue = true;
-						return false; // stop recursion
+						value_count++;
 					}
+					return true; //search through the hole structure
+				}, child);
+				
+				if (value_count == 1)
+				{
+					var firstChildHasTargetValue:Bool = false;
+					Tree.Recursive(function(node_)
+					{
+						if (Utilities.Compare(node_.GetRawName(), valueName_) == 0)
+						{
+							firstChildHasTargetValue = true;
+							return false; // stop recursion
+						}
+						
+						return true; //continue recursion
+					}, child.children[0]);
 					
-					return true; //continue recursion
-				}, child.children[0]);
-				
-				var nodeInt:TreeNodeInt = cast(child, TreeNodeInt);
-				var indexToGetValue:Int = !firstChildHasTargetValue ? 0 : 1;
-				var value:Int = nodeInt.GetValueFromChild(indexToGetValue, null, state_, domain_);
-				
-				returnee.push(Std.string(value));
+					var nodeInt:TreeNodeInt = cast(child, TreeNodeInt);
+					var indexToGetValue:Int = !firstChildHasTargetValue ? 0 : 1;
+					var value:Int = nodeInt.GetValueFromChild(indexToGetValue, null, state_, domain_);
+					
+					returnee.push(Std.string(value));
+				}
 			}
 			else
 			{

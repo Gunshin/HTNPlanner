@@ -1,18 +1,8 @@
 
 
-- add values to planneractionnode output
-
-- :values does not take into account more than one value, and the values specific type currently
-
 - values cannot have 2 seperate values existing in the same evaluation node hierarchy eg:
 	(> (~count) (~arc))
 	must ignore this and look for other evaluations
-	
-- must add comparisons for values eg.
-	(and
-		(< (has ?item) 20) ;; <<<< must be evaluated first
-		(== (~count) 10)
-	)
 
 
 

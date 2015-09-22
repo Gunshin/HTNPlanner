@@ -170,11 +170,9 @@ class Domain
 	
 	function ParseActions(actionNodes_:Array<RawTreeNode>)
 	{
-		
 		for (i in actionNodes_)
 		{			
 			var action:Action = new Action(i.children[0].value);
-			
 			var childrenWithNameRemoved:Array<RawTreeNode> = i.children.slice(1);
 			
 			var preconditionNode:RawTreeNode = ActionGetChild(":precondition", childrenWithNameRemoved);
@@ -195,58 +193,17 @@ class Domain
 			{
 				var pairs:Array<Pair<String, String>> = Utilities.GenerateValueTypeMap([valueNode].concat(valueNode.children));
 				var value:Value = null;
-				switch(pairs[0].b)
+				for (pair in pairs)
 				{
-					case "integer-range":
-						value = new ValueIntRange(pairs[0].a, action);
-				}
-				
-				//for now only one value type is accepted
-				action.GetData().AddValue(value);
-			}
-			
-			// all subsequent parameter, precondition and effect are children of ":action". the name is child[0], so we want to skip it
-			/*var index:Int = 1;
-			while (index < i.children.length)
-			{
-				// we do index - 2 below because of the 2 indexs we have to skip
-				// this gives us a corresponding child node with correct scope for each key word such as parameters.
-				
-				if (Utilities.Compare(i.children[index].value, ":parameters") == 0)
-				{
-					var pairs:Array<Pair<String, String>> = Utilities.GenerateValueTypeMap([i.children[index + 1]].concat(i.children[index + 1].children));
-					
-					for (a in pairs)
-					{
-						action.GetData().AddParameter(a.a, a.b);
-					}
-				}
-				else if (Utilities.Compare(i.children[index].value, ":precondition") == 0)
-				{
-					var preconditionNode:RawTreeNode = i.children[index + 1];
-					action.SetPreconditionTree(Tree.ConvertRawTreeNodeToTree(preconditionNode, this));
-				}
-				else if (Utilities.Compare(i.children[index].value, ":effect") == 0)
-				{
-					var effectNode:RawTreeNode = i.children[index + 1];
-					action.SetEffectTree(Tree.ConvertRawTreeNodeToTree(effectNode, this));
-				}
-				else if (Utilities.Compare(i.children[index].value, ":values") == 0)
-				{
-					var pairs:Array<Pair<String, String>> = Utilities.GenerateValueTypeMap([i.children[index + 1]].concat(i.children[index + 1].children));
-					var value:Value = null;
-					switch(pairs[0].b)
+					trace("Running on: " + pair.a);
+					switch(pair.b)
 					{
 						case "integer-range":
-							value = new ValueIntRange(pairs[0].a);
+							trace("Adding value: " + pair.a);
+							action.GetData().AddValue(new ValueIntRange(pair.a, action));
 					}
-					
-					//for now only one value type is accepted
-					action.GetData().AddValue(value);
 				}
-				
-				index++;
-			}*/
+			}
 			
 			actions.set(action.GetName(), action);
 		}

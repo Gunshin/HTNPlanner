@@ -21,14 +21,23 @@
     
     (:action Cut_Down_Tree
         :parameters (?resource - wood ?area - area)
-		:values (~count - integer-range)
+		:values (~count ~test - integer-range)
         :precondition 
         (and 
 			(at ?area)
             (contains ?area ?resource)
-			(and
-				(> (~count) 0)
-				(<= (~count) (inventory_left))
+			(== (~test) (* 2 (~count)))
+			(or
+				(and
+					(> (~count) 0)
+					(<= (~count) (inventory_left))
+				)
+			)
+			(or
+				(and
+					(> (~test) 0)
+					(<= (~test) 10)
+				)
 			)
         )
         :effect 

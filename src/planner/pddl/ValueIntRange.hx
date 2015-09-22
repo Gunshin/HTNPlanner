@@ -14,8 +14,8 @@ class ValueIntRange extends Value
 	public function new(name_:String, action_:Action) 
 	{
 		super(name_);
-		
-		baseNode = FindBaseNode(action_);
+		trace("running");
+		baseNode = FindBaseNode(action_, name);
 		trace(baseNode.GetRawTreeString());
 	}
 	
@@ -23,12 +23,12 @@ class ValueIntRange extends Value
 	{
 		var range:Array<String> = baseNode.GenerateRangeOfValues(name, state_, domain_);
 		
-		trace(range);
+		trace(name + ": " + range);
 		
 		return range;
 	}
 
-	static public function FindBaseNode(action_:Action):TreeNode
+	static public function FindBaseNode(action_:Action, name_:String):TreeNode
 	{
 		var baseNode:TreeNode = null;
 		action_.GetPreconditionTree().Recurse(
@@ -43,7 +43,7 @@ class ValueIntRange extends Value
 						Tree.Recursive(
 							function(testNode)
 							{
-								if (Utilities.Compare(testNode.GetRawName(), "~count") == 0)
+								if (Utilities.Compare(testNode.GetRawName(), name_) == 0)
 								{
 									count++;
 									return false;

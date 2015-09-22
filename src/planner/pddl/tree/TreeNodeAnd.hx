@@ -49,64 +49,98 @@ class TreeNodeAnd extends TreeNode
 		var max:Null<Int> = null;
 		var min:Null<Int> = null;
 		
+		var has_value_range:Bool = false;
+		
 		for (child in children)
 		{
-			
-			var firstChildHasTargetValue:Bool = false;
-			Tree.Recursive(function(node_)
+			if(Utilities.Compare(child.GetRawName(), "and") == 0 || Utilities.Compare(child.GetRawName(), "or") == 0)
 			{
-				if (Utilities.Compare(node_.GetRawName(), valueName_) == 0)
+				returnee = returnee.concat(child.GenerateRangeOfValues(valueName_, state_, domain_));
+			}
+			else
+			{
+				// we do this so that we do not attempt to grab from statements that contain multiple values
+				// eg. (< (~count) (~arc))
+				var value_count:Int = 0;
+				var contains_target_value:Bool = false;
+				Tree.Recursive(function(node_)
 				{
-					firstChildHasTargetValue = true;
-					return false; // stop recursion
-				}
+					if (Utilities.Compare(node_.GetRawName().charAt(0), "~") == 0)
+					{
+						value_count++;
+					}
+					if (Utilities.Compare(node_.GetRawName(), valueName_) == 0)
+					{
+						contains_target_value = true;
+					}
+					return true; //search through the hole structure
+				}, child);
 				
-				return true; //continue recursion
-			}, child.children[0]);
-			
-			var nodeInt:TreeNodeInt = cast(child, TreeNodeInt);
-			var indexToGetValue:Int = !firstChildHasTargetValue ? 0 : 1;
-			var value:Int = nodeInt.GetValueFromChild(indexToGetValue, null, state_, domain_);
-			
-			var isMin:Bool = false;
-			switch(child.GetRawName())
-			{
-				case "==":
-					throw "Not implemented yet";
-				case ">":
-					isMin = firstChildHasTargetValue;
-					value += 1;
-				case ">=":
-					isMin = firstChildHasTargetValue;
-				case "<":
-					isMin = !firstChildHasTargetValue;
-				case "<=":
-					isMin = !firstChildHasTargetValue;
-					value += 1;
-			}
-			
-			if (isMin && (min == null || value < min))
-			{
-				min = value;
-			}
-			else if(!isMin && (max == null || value > max))
-			{
-				max = value;
+				// we can only gain a set of values from a statement that contains one value
+				if (value_count == 1 && contains_target_value)
+				{
+					has_value_range = true;
+					
+					var firstChildHasTargetValue:Bool = false;
+					Tree.Recursive(function(node_)
+					{
+						if (Utilities.Compare(node_.GetRawName(), valueName_) == 0)
+						{
+							firstChildHasTargetValue = true;
+							return false; // stop recursion
+						}
+						
+						return true; //continue recursion
+					}, child.children[0]);
+					
+					var nodeInt:TreeNodeInt = cast(child, TreeNodeInt);
+					var indexToGetValue:Int = !firstChildHasTargetValue ? 0 : 1;
+					var value:Int = nodeInt.GetValueFromChild(indexToGetValue, null, state_, domain_);
+					
+					var isMin:Bool = false;
+					switch(child.GetRawName())
+					{
+						case "==":
+							throw "Dont add '==' statements for value ranges to 'and'. Only add to 'or'";
+						case ">":
+							isMin = firstChildHasTargetValue;
+							value += 1;
+						case ">=":
+							isMin = firstChildHasTargetValue;
+						case "<":
+							isMin = !firstChildHasTargetValue;
+						case "<=":
+							isMin = !firstChildHasTargetValue;
+							value += 1;
+					}
+					
+					if (isMin && (min == null || value < min))
+					{
+						min = value;
+					}
+					else if(!isMin && (max == null || value > max))
+					{
+						max = value;
+					}
+				}
 			}
 		}
 		
-		if (min == null)
+		if (has_value_range)
 		{
-			throw "Min is null";
-		}
-		else if (max == null)
-		{
-			throw "Max is null";
-		}
-		
-		for (num in min...max)
-		{
-			returnee.push(Std.string(num));
+			if (min == null)
+			{
+				throw "Min is null";
+			}
+			else if (max == null)
+			{
+				throw "Max is null";
+			}
+			
+			for (num in min...max)
+			{
+				returnee.push(Std.string(num));
+			}
 		}
 		
 		return returnee;
