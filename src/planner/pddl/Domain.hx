@@ -195,11 +195,9 @@ class Domain
 				var value:Value = null;
 				for (pair in pairs)
 				{
-					trace("Running on: " + pair.a);
 					switch(pair.b)
 					{
 						case "integer-range":
-							trace("Adding value: " + pair.a);
 							action.GetData().AddValue(new ValueIntRange(pair.a, action));
 					}
 				}

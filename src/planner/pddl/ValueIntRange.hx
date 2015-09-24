@@ -14,16 +14,16 @@ class ValueIntRange extends Value
 	public function new(name_:String, action_:Action) 
 	{
 		super(name_);
-		trace("running");
+		//trace("running");
 		baseNode = FindBaseNode(action_, name);
-		trace(baseNode.GetRawTreeString());
+		//trace(baseNode.GetRawTreeString());
 	}
 	
 	override public function GetPossibleValues(state_:State, domain_:Domain):Array<String>
 	{
 		var range:Array<String> = baseNode.GenerateRangeOfValues(name, state_, domain_);
 		
-		trace(name + ": " + range);
+		//trace(name + ": " + range);
 		
 		return range;
 	}

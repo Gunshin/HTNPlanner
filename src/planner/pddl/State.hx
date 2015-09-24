@@ -231,7 +231,7 @@ class State
 			objects.set(key, objects_.get(key));
 		}
 	}
-	
+
 	public function GetObjectsOfType(type_:String):Array<String>
 	{
 		return objects.get(type_);

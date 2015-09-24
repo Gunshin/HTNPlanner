@@ -4,7 +4,6 @@
         resource - item
         wood plank - resource
         bank sawmill - area
-        number
     )
     (:predicates
         (at ?place - area)
@@ -21,24 +20,13 @@
     
     (:action Cut_Down_Tree
         :parameters (?resource - wood ?area - area)
-		:values (~count ~test - integer-range)
+		:values (~count - integer-range)
         :precondition 
         (and 
 			(at ?area)
             (contains ?area ?resource)
-			(== (~test) (* 2 (~count)))
-			(or
-				(and
-					(> (~count) 0)
-					(<= (~count) (inventory_left))
-				)
-			)
-			(or
-				(and
-					(> (~test) 0)
-					(<= (~test) 10)
-				)
-			)
+			(> (~count) 0)
+			(<= (~count) (inventory_left))
         )
         :effect 
         (and
