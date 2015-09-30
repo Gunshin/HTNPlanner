@@ -22,22 +22,32 @@ import planner.pddl.tree.TreeNodeValue;
 class Main 
 {
 	
-	//var domainLocation:String = "pddlexamples/IPC3/Tests2/Rovers/Numeric/NumRover.pddl";
-	//var problemLocation:String = "pddlexamples/IPC3/Tests2/Rovers/Numeric/pfile1";
-	var domainLocation:String = "pddlexamples/runescape/domain2.pddl";
-	var problemLocation:String = "pddlexamples/runescape/p2.pddl";
+	var domainLocation:Array<String> = [
+	"pddlexamples/IPC3/Tests2/Rovers/Numeric/NumRover.pddl",
+	"pddlexamples/runescape/domain2.pddl",
+	"pddlexamples/IPC3/Tests3/Settlers/Numeric/Settlers.pddl",
+	];
+	var problemLocation:Array<String> = [
+	"pddlexamples/IPC3/Tests2/Rovers/Numeric/pfile1",
+	"pddlexamples/runescape/p2.pddl",
+	"pddlexamples/IPC3/Tests3/Settlers/Numeric/pfile1",
+	];
+	//var domainLocation:String = ;
+	//var problemLocation:String = ;
 	
 	public function new()
 	{
 		//UnitTests();
 		
-		var domain = new Domain(domainLocation);
-		var problem = new Problem(problemLocation, domain);
+		var domainIndex:Int = 2;
+		
+		var domain = new Domain(domainLocation[domainIndex]);
+		var problem = new Problem(problemLocation[domainIndex], domain);
 		
 		var start = Timer.stamp();
 		
 		var planner:Planner = new Planner();
-		var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem);
+		var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, true);
 		
 		trace(Timer.stamp() - start);
 		
@@ -64,7 +74,7 @@ class Main
 		
 		trace("Starting Plan Test");		
 		var planner:Planner = new Planner();
-		var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem);
+		var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, true);
 		
 		Assert((array.length == 2), "Plan length is wrong");
 		var compareArray:Array<String> = [

@@ -31,6 +31,7 @@
     (:goal
         (and
 			(== (inventory_has_item logs) 15)
+			;;(< (inventory_has_item logs) 28)
         )
     )
 )

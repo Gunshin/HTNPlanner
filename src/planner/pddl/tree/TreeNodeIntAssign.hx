@@ -2,7 +2,9 @@ package planner.pddl.tree;
 import planner.pddl.ActionData;
 import planner.pddl.Domain;
 import planner.pddl.State;
+import planner.pddl.StateHeuristic;
 import planner.pddl.tree.TreeNodeInt;
+import planner.pddl.HeuristicData.FunctionChange;
 
 /**
  * ...
@@ -26,6 +28,20 @@ class TreeNodeIntAssign extends TreeNodeInt
 		var functionOneID:String = children[0].Execute(data_, state_, domain_);
 		
 		state_.SetFunction(functionOneID, GetValueFromChild(1, data_, state_, domain_));
+		
+		return null;
+	}
+	
+	override public function HeuristicEvaluate(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):Bool 
+	{
+		throw "This function should not be getting called.";
+	}
+	
+	override public function HeuristicExecute(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):String 
+	{
+		var functionOneID:String = children[0].HeuristicExecute(data_, heuristic_data_, state_, domain_);
+		
+		heuristic_data_.function_changes.push(new FunctionChange(functionOneID, HeuristicGetValueFromChild(1, data_, heuristic_data_, state_, domain_)));
 		
 		return null;
 	}

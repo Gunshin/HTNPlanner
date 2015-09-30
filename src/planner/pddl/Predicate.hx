@@ -23,7 +23,6 @@ class Predicate
 	public function Construct(data_:ActionData, templateValue_:Array<String>):String
 	{
 		var constructedValue:String = name;
-		
 		for (i in templateValue_)
 		{
 			// if the first character is not a '?', then this value is not a parameter name. Therefor just add the value if it isnt.

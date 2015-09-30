@@ -91,11 +91,11 @@ class Problem
 	
 	function ParseMetric(node_:RawTreeNode)
 	{
-		metric = Tree.ConvertRawTreeNodeToTree(node_.children[0], domain);
+		metric = Tree.ConvertRawTreeNodeToTree(node_.children[1], domain);
 		
 		properties.set("metric", true);
 		
-		if (Utilities.Compare(node_.value.split(" ")[1], "minimize") == 0)
+		if (Utilities.Compare(node_.children[0].value, "minimize") == 0)
 		{
 			properties.set("minimize", true);
 		}
@@ -108,6 +108,11 @@ class Problem
 	public function EvaluateGoal(state_:State):Bool
 	{
 		return goal.Evaluate(null, state_, domain);
+	}
+	
+	public function HeuristicEvaluateGoal(state_:StateHeuristic):Bool
+	{
+		return goal.HeuristicEvaluate(null, null, state_, domain);
 	}
 	
 	public function EvaluateMetric(state_:State):Int

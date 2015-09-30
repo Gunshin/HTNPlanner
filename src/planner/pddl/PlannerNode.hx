@@ -11,18 +11,20 @@ class PlannerNode implements Heapable<PlannerNode>
 	public var value:Float;
 	public var position:Int;
 	public var depth:Int;
+	public var estimate:Int;
 
 	public var state:State = null;
 	public var parent:PlannerNode = null;
 	
 	public var plannerActionNode:PlannerActionNode = null;
 	
-	public function new(state_:State, parent_:PlannerNode, plannerActionNode_:PlannerActionNode, depth_:Int) 
+	public function new(state_:State, parent_:PlannerNode, plannerActionNode_:PlannerActionNode, depth_:Int, estimate_:Int) 
 	{
 		state = state_;
 		parent = parent_;
 		plannerActionNode = plannerActionNode_;
 		depth = depth_;
+		estimate = estimate_;
 	}
 	
 	public function SetMetric(metric_:Float)
@@ -37,7 +39,7 @@ class PlannerNode implements Heapable<PlannerNode>
 	
 	public function compare(other:PlannerNode):Int
 	{
-		return other.depth - depth == 0 ? other.value - value < 0 ? -1 : 1 : other.depth - depth < 0 ? -1 : 1;
+		return (other.depth + other.estimate) - (depth + estimate) == 0 ? other.value - value < 0 ? -1 : 1 : (other.depth + other.estimate) - (depth + estimate) < 0 ? -1 : 1;
 	}
 	
 }

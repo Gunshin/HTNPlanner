@@ -63,6 +63,41 @@ class TreeNodeForall extends TreeNode
 		return null;
 	}
 	
+	override public function HeuristicEvaluate(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):Bool 
+	{
+		var objects:Array<String> = state_.GetMatching(parameterNode.GetType());
+		
+		data_.GetParameterMap().set(parameterNode.GetName(), parameterNode);
+		
+		for (i in objects)
+		{
+			parameterNode.SetValue(i);
+			
+			if (!forallTree.HeuristicEvaluate(data_, heuristic_data_, state_, domain_))
+			{
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	override public function HeuristicExecute(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):String 
+	{
+		var objects:Array<String> = state_.GetObjectsOfType(parameterNode.GetType());
+		
+		data_.GetParameterMap().set(parameterNode.GetName(), parameterNode);
+		
+		for (i in objects)
+		{
+			parameterNode.SetValue(i);
+			
+			forallTree.HeuristicExecute(data_, heuristic_data_, state_, domain_);
+		}
+		
+		return null;
+	}
+	
 	override public function GetRawName():String
 	{
 		return "forall";

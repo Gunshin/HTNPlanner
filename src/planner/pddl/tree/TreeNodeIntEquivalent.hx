@@ -3,7 +3,7 @@ import planner.pddl.tree.TreeNodeInt;
 
 /**
  * ...
- * @author 
+ * @author Michael Stephens
  */
 class TreeNodeIntEquivalent extends TreeNodeInt
 {
@@ -18,6 +18,14 @@ class TreeNodeIntEquivalent extends TreeNodeInt
 	override public function ComparisonEvaluate(valueA_:Int, valueB_:Int):Bool
 	{
 		return valueA_ == valueB_;
+	}
+	
+	override public function HeuristicComparisonEvaluate(valueA_:Pair<Int, Int>, valueB_:Pair<Int, Int>):Bool 
+	{
+		// search for overlap
+		// since the pairs will always be well formed, eg. .a <= .b
+		// the following is enough to determine overlap
+		return valueA_.a <= valueB_.b && valueB_.a <= valueA_.b;
 	}
 	
 	override public function GetRawName():String

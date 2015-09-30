@@ -36,6 +36,16 @@ class TreeNodeFunction extends TreeNode
 		return func.Construct(data_, paramNames);
 	}
 	
+	override public function HeuristicEvaluate(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):Bool 
+	{
+		throw "Should not be evaluating functions. Use Execute instead which will pass back the variable name";
+	}
+	
+	override public function HeuristicExecute(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):String 
+	{
+		return func.Construct(data_, paramNames);
+	}
+	
 	public function GetParamNames():Array<String>
 	{
 		return paramNames;
