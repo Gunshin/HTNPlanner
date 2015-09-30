@@ -4,6 +4,7 @@ import planner.pddl.Domain;
 import planner.pddl.Predicate;
 import planner.pddl.RawTreeNode;
 import planner.pddl.State;
+import planner.pddl.StateHeuristic;
 import planner.pddl.tree.TreeNode;
 
 /**
@@ -35,6 +36,17 @@ class TreeNodePredicate extends TreeNode
 	}
 	
 	override public function Execute(data_:ActionData, state_:State, domain_:Domain):String
+	{
+		return predicate.Construct(data_, paramNames);
+	}
+	
+	override public function HeuristicEvaluate(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):Bool 
+	{
+		var predicateValue:String = predicate.Construct(data_, paramNames);
+		return state_.Exists(predicateValue);
+	}
+	
+	override public function HeuristicExecute(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):String 
 	{
 		return predicate.Construct(data_, paramNames);
 	}

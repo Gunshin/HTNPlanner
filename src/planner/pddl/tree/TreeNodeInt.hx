@@ -1,6 +1,7 @@
 package planner.pddl.tree;
 import planner.pddl.ActionData;
 import planner.pddl.Domain;
+import planner.pddl.Pair;
 import planner.pddl.State;
 import planner.pddl.tree.TreeNode;
 
@@ -35,10 +36,47 @@ class TreeNodeInt extends TreeNode
 		return value;
 	}
 	
+	override public function HeuristicEvaluate(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):Bool 
+	{
+		return HeuristicComparisonEvaluate(HeuristicGetValueFromChild(0, data_, heuristic_data_, state_, domain_), HeuristicGetValueFromChild(1, data_, heuristic_data_, state_, domain_));
+	}
 	
+	public function HeuristicGetValueFromChild(childIndex_:Int, data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):Pair<Int, Int>
+	{
+		var childOneExecute:String = children[childIndex_].HeuristicExecute(data_, heuristic_data_, state_, domain_);
+		
+		var bounds:Pair<Int, Int> = null;
+		
+		var split:Array<String> = childOneExecute.split(Pair.seperator);
+		if (split[0] == childOneExecute)
+		{
+			// this value may just be a standard number, so set both max and min to it
+			var num:Null<Int> = Std.parseInt(split[0]);
+			
+			if (num != null)
+			{
+				bounds = new Pair(num, num);
+			}
+			else
+			{
+				bounds = state_.GetFunctionBounds(childOneExecute);
+			}
+		}
+		else
+		{
+			bounds = new Pair(Std.parseInt(split[0]), Std.parseInt(split[1]));
+		}
+		
+		
+		return bounds;
+	}
 	
 	public function ComparisonEvaluate(valueA_:Int, valueB_:Int):Bool { throw "must override this function"; }	
 	
+	public function HeuristicComparisonEvaluate(valueA_:Pair<Int, Int>, valueB_:Pair<Int, Int>):Bool { throw "must override this function"; }	
+		
 	override public function Execute(data_:ActionData, state_:State, domain_:Domain):String { throw "must override this function"; }
+	
+	override public function HeuristicExecute(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):String { throw "must override this function"; }
 	
 }

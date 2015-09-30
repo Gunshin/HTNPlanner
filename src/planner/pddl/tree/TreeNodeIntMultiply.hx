@@ -26,6 +26,19 @@ class TreeNodeIntMultiply extends TreeNodeInt
 		return Std.string(GetValueFromChild(0, data_, state_, domain_) * GetValueFromChild(1, data_, state_, domain_));
 	}
 	
+	override public function HeuristicEvaluate(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):Bool 
+	{
+		throw "This function should not be getting called.";
+	}
+	
+	override public function HeuristicExecute(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):String 
+	{
+		var a:Pair<Int, Int> = HeuristicGetValueFromChild(0, data_, heuristic_data_, state_, domain_);
+		var b:Pair<Int, Int> = HeuristicGetValueFromChild(1, data_, heuristic_data_, state_, domain_);
+		
+		return Std.string(new Pair(a.a * b.a, a.b * b.b));
+	}
+	
 	override public function GetRawName():String
 	{
 		return "*";

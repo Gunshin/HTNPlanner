@@ -1,9 +1,6 @@
 
 
-- values cannot have 2 seperate values existing in the same evaluation node hierarchy eg:
-	(> (~count) (~arc))
-	must ignore this and look for other evaluations
-
+- Still do not use a closed list in planner
 
 
 >=

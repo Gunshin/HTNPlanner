@@ -268,7 +268,9 @@ class Utilities
 			{
 				// if we have two closing or opening brackets together for scope closure, add spaces between them
 				if ((string_.charAt(index) == '(' && string_.charAt(index + 1) == '(') ||
-					(string_.charAt(index) == ')' && string_.charAt(index + 1) == ')')
+					(string_.charAt(index) == ')' && string_.charAt(index + 1) == ')') ||
+					(string_.charAt(index) == ')' && string_.charAt(index + 1) == '(') ||
+					(string_.charAt(index) == '(' && string_.charAt(index + 1) == ')')
 				)
 				{
 					returnee += " ";

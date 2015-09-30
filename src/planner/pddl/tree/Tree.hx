@@ -36,6 +36,16 @@ class Tree
 		return baseNode.Execute(data_, state_, domain_);
 	}
 	
+	public function HeuristicEvaluate(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):Bool
+	{
+		return baseNode.HeuristicEvaluate(data_, heuristic_data_, state_, domain_);
+	}
+	
+	public function HeuristicExecute(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):String
+	{
+		return baseNode.HeuristicExecute(data_, heuristic_data_, state_, domain_);
+	}
+	
 	public function Recurse(func_:TreeNode-> Bool)
 	{
 		Recursive(func_, baseNode);

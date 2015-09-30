@@ -2,6 +2,7 @@ package planner.pddl.tree;
 import planner.pddl.ActionData;
 import planner.pddl.Domain;
 import planner.pddl.State;
+import planner.pddl.StateHeuristic;
 
 /**
  * ...
@@ -25,6 +26,28 @@ class TreeNodeOr extends TreeNode
 			}
 		}
 		return false;
+	}
+	
+	override public function Execute(data_:ActionData, state_:State, domain_:Domain):String
+	{
+		throw "cannot use an 'or' within an effect execution (makes no sense)";
+	}
+	
+	override public function HeuristicEvaluate(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):Bool 
+	{
+		for (i in children)
+		{
+			if (i.HeuristicEvaluate(data_, heuristic_data_, state_, domain_))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	override public function HeuristicExecute(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):String 
+	{
+		throw "cannot use an 'or' within an effect execution (makes no sense)";
 	}
 	
 	override public function GenerateRangeOfValues(valueName_:String, state_:State, domain_:Domain):Array<String>
@@ -75,10 +98,6 @@ class TreeNodeOr extends TreeNode
 		return returnee;
 	}
 	
-	override public function Execute(data_:ActionData, state_:State, domain_:Domain):String
-	{
-		throw "cannot use an 'or' within an effect execution (makes no sense)";
-	}
 	
 	override public function GetRawName():String
 	{

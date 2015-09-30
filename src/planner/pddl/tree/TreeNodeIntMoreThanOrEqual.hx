@@ -20,6 +20,13 @@ class TreeNodeIntMoreThanOrEqual extends TreeNodeInt
 		return valueA_ >= valueB_;
 	}
 	
+	override public function HeuristicComparisonEvaluate(valueA_:Pair<Int, Int>, valueB_:Pair<Int, Int>):Bool 
+	{
+		// for more than or equal to, we are searching to see if the largest value
+		// of a, more than or equal to than the smallest value of b
+		return valueA_.b >= valueB_.a;
+	}
+	
 	override public function GetRawName():String
 	{
 		return ">=";

@@ -2,6 +2,7 @@ package planner.pddl.tree;
 import planner.pddl.ActionData;
 import planner.pddl.Domain;
 import planner.pddl.State;
+import planner.pddl.StateHeuristic;
 
 /**
  * ...
@@ -24,6 +25,11 @@ class TreeNode
 	
 	public function GenerateRangeOfValues(valueName_:String, state_:State, domain_:Domain):Array<String> { throw "must override this function"; }
 	
+	public function HeuristicEvaluate(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):Bool { throw "must override this function"; }
+	
+	public function HeuristicExecute(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):String { throw "must override this function"; }
+	
+	
 	public function AddChild(child_:TreeNode)
 	{
 		children.push(child_);
@@ -44,16 +50,18 @@ class TreeNode
 		return parent;
 	}
 	
-	/*
+	/**
 	 * This function returns the raw name defining this node eg. TreeNodeIntEquivalent returns "=="
+	 * @return
 	 */
 	public function GetRawName():String
 	{
 		throw "must override this function";
 	}
 	
-	/*
+	/**
 	 * This function is for recreating the raw tree for this node and its children. If you need the value for debug purposes.
+	 * @return
 	 */
 	public function GetRawTreeString():String
 	{
@@ -66,8 +74,9 @@ class TreeNode
 		return returnee;
 	}
 	
-	/*
+	/**
 	 * Filtered version of the above
+	 * @return
 	 */
 	public function GetRawTreeStringFiltered(filter_:TreeNode -> Bool):String
 	{

@@ -1,151 +1,75 @@
 package planner.pddl;
 
-import de.polygonal.ds.Heap;
-import haxe.ds.HashMap;
 import planner.pddl.Planner.ValuesType;
-import planner.pddl.Action;
-import planner.pddl.Domain;
-import planner.pddl.Pair;
-
-enum ValuesType
-{
-	EParam;
-	EValue;
-}
 
 /**
  * ...
  * @author Michael Stephens
  */
-class Planner
-{
-	var closedStates:Map<Int, PlannerNode> = new Map<Int, PlannerNode>();
-	
+class Heuristic
+{	
 	var domain:Domain = null;
 	var problem:Problem = null;
-	
-	var heuristic:Heuristic = null;
-	
-	var hasMetric:Bool = false;
-	
-	public function new() 
-	{
-		
-	}
-	
-	#if debug_output
-	var iteration:Int = 0;
-	#end
-	
-	public function FindPlan(domain_:Domain, problem_:Problem, use_heuristic_:Bool):Array<PlannerActionNode>
+
+	public function new(domain_:Domain, problem_:Problem) 
 	{
 		domain = domain_;
 		problem = problem_;
-		
-		if (use_heuristic_)
-		{
-			heuristic = new Heuristic(domain, problem);
-		}
-		
-		hasMetric = problem.HasProperty("metric");
-		
-		var currentState:PlannerNode = new PlannerNode(problem_.GetClonedInitialState(), null, null, 0, 0);
-		
-		var openList:Heap<PlannerNode> = new Heap<PlannerNode>();
-		
-		do
-		{
-			var successiveStates:Array<PlannerNode> = GetAllSuccessiveStates(currentState);
-			
-			#if debug_output
-			if (iteration++ >= 1000)
-			{
-				iteration = 0;
-				trace("openListCount: " + openList.size() + " _ " + openList.top().depth + " _ " + openList.top().estimate);
-			}
-			#end
-			
-			for (i in successiveStates)
-			{
-				openList.add(i);
-			}
-			
-			currentState = GetNextState(openList);
-			//trace("iter: current_state: " + currentState.depth + " _ " + currentState.estimate + " _____ " + problem_.EvaluateGoal(currentState.state));
-		}
-		while (!problem_.EvaluateGoal(currentState.state) && openList.size() != 0);
-		
-		trace("openListcount exit: " + openList.size());
-		
-		return BacktrackPlan(currentState);
 	}
 	
-	function BacktrackPlan(plannerNode_:PlannerNode):Array<PlannerActionNode>
+	/**
+	 * 
+	 * get all applicable actions
+	 * apply applicable actions
+	 * 
+	 * @param	initial_state_
+	 * @return
+	 */
+	public function RunHeuristic(initial_state_:State):Int
 	{
-		var backwardsActionSet:Array<PlannerActionNode> = new Array<PlannerActionNode>();
+		//trace("init: " + initial_state_.toString());
+		var heuristic_state:StateHeuristic = new StateHeuristic();
+		initial_state_.CopyTo(heuristic_state);
 		
-		var currentNode:PlannerNode = plannerNode_;
-		while (currentNode.plannerActionNode != null)
+		var depth:Int = 0;
+		
+		while (!problem.HeuristicEvaluateGoal(heuristic_state))
 		{
-			backwardsActionSet.push(currentNode.plannerActionNode);
+			ApplyActions(heuristic_state, GetAllActionsForState(heuristic_state));
 			
-			currentNode = currentNode.parent;
-		}
-		backwardsActionSet.reverse();
-		return backwardsActionSet;
-		
-	}
-	
-	function GetNextState(openList_:Heap<PlannerNode>):PlannerNode
-	{
-		return openList_.pop();
-	}
-	
-	function GetAllSuccessiveStates(parent_state_:PlannerNode):Array<PlannerNode>
-	{
-		var states:Array<PlannerNode> = new Array<PlannerNode>();
-		
-		var actions:Array<PlannerActionNode> = GetAllActionsForState(parent_state_.state);
-		//trace("action count: " + actions.length);
-		
-		for (actionNode in actions)
-		{
+			//trace("heur: " + heuristic_state.toString());
+			depth++;
 			
-			actionNode.action.GetData().Set(actionNode.params, actionNode.valuesType);
-			var newState:State = actionNode.action.Execute(parent_state_.state, domain);
-			
-			var hash:Int = newState.GenerateStateHash();
-			
-			if (!closedStates.exists(hash))
+			//trace("running: " + depth);
+			if (depth > 30)
 			{
-				var heuristic_estimate:Int = 0;
-				if (heuristic != null)
-				{
-					heuristic_estimate = heuristic.RunHeuristic(newState);
-				}
-				
-				var plannerNode:PlannerNode = new PlannerNode(newState, parent_state_, actionNode, parent_state_.depth + 1, heuristic_estimate);
-				
-				if (hasMetric)
-				{
-					plannerNode.SetMetric(problem.EvaluateMetric(plannerNode.state));
-					//trace("p: " + plannerNode.GetMetric() + " _ " + plannerNode.position);
-				}
-				
-				closedStates.set(hash, plannerNode);
-				states.push(plannerNode);
-				
-				//trace("action: " + actionNode.action.GetName() + " _ " + actionNode.params.toString() + " _ " + plannerNode.depth + " _ " + plannerNode.estimate);
+				break;
 			}
-			
 		}
 		
+		//trace("FOUND: " + depth);
 		
-		return states;
+		return depth;
 	}
 	
+	function ApplyActions(heuristic_state_:StateHeuristic, actions_:Array<PlannerActionNode>)
+	{
+		var heuristic_data:HeuristicData = new HeuristicData();
+		
+		//trace("action count: " + actions_.length);
+		for (actionNode in actions_)
+		{			
+			actionNode.action.GetData().Set(actionNode.params, actionNode.valuesType);			
+			actionNode.action.HeuristicExecute(heuristic_data, heuristic_state_, domain);
+		}
+		
+		for (i in heuristic_data.function_changes)
+		{
+			heuristic_state_.SetFunctionBounds(i.name, i.bounds);
+		}
+	}
 	
-	function GetAllActionsForState(state_:State):Array<PlannerActionNode>
+	function GetAllActionsForState(state_:StateHeuristic):Array<PlannerActionNode>
 	{
 		var actions:Array<PlannerActionNode> = new Array<PlannerActionNode>();
 		
@@ -158,8 +82,7 @@ class Planner
 			for (combination in combinations_result.b)
 			{
 				action.GetData().Set(combination, combinations_result.a);
-				
-				if (action.Evaluate(state_, domain))
+				if (action.HeuristicEvaluate(null, state_, domain))
 				{
 					actions.push(new PlannerActionNode(action, combination, combinations_result.a));
 				}
@@ -255,5 +178,4 @@ class Planner
 		
 		return returnee;
 	}
-	
 }
