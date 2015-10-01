@@ -247,12 +247,30 @@ class Utilities
 			if (i.length > 1 || !StringTools.isSpace(i, 0))
 			{
 				var line:String = StripComments(StringTools.trim(i));
+				line = RemoveIrritatingCharacters(line);
 				line = AddNeccessarySpaces(line);
 				finalString += " " + line;
 			}
 		}
 		
 		return StringTools.trim(finalString);
+	}
+	
+	static function RemoveIrritatingCharacters(string_:String):String
+	{
+		var returnee:String = "";
+		
+		for (index in 0...string_.length)
+		{
+			if (!
+				(string_.charAt(index) == '\t')
+			)
+			{
+				returnee += string_.charAt(index);
+			}
+		}
+		
+		return returnee;
 	}
 	
 	static function AddNeccessarySpaces(string_:String):String
@@ -267,10 +285,15 @@ class Utilities
 			if (index + 1 < string_.length)
 			{
 				// if we have two closing or opening brackets together for scope closure, add spaces between them
-				if ((string_.charAt(index) == '(' && string_.charAt(index + 1) == '(') ||
+				/*if ((string_.charAt(index) == '(' && string_.charAt(index + 1) == '(') ||
 					(string_.charAt(index) == ')' && string_.charAt(index + 1) == ')') ||
 					(string_.charAt(index) == ')' && string_.charAt(index + 1) == '(') ||
 					(string_.charAt(index) == '(' && string_.charAt(index + 1) == ')')
+				)*/
+				if ((!StringTools.isSpace(string_, index) && string_.charAt(index + 1) == '(') ||
+					(!StringTools.isSpace(string_, index) && string_.charAt(index + 1) == ')') ||
+					(string_.charAt(index) == '(' && !StringTools.isSpace(string_, index + 1)) ||
+					(string_.charAt(index) == ')' && !StringTools.isSpace(string_, index + 1))
 				)
 				{
 					returnee += " ";

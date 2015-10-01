@@ -1,5 +1,9 @@
 package planner.pddl;
 
+import sys.io.File;
+import sys.io.FileOutput;
+
+
 /**
  * ...
  * @author Michael Stephens
@@ -39,7 +43,7 @@ class RawTreeNode
 	
 	public function toString():String
 	{
-		return "{value:" + value + ", children: " + children.toString + "}";
+		return "{\"value\":\"" + value + "\", \"children\": " + children.toString() + "}";
 	}
 	
 }

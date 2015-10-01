@@ -26,11 +26,13 @@ class Main
 	"pddlexamples/IPC3/Tests2/Rovers/Numeric/NumRover.pddl",
 	"pddlexamples/runescape/domain2.pddl",
 	"pddlexamples/IPC3/Tests3/Settlers/Numeric/Settlers.pddl",
+	"pddlexamples/IPC3/Tests1/DriverLog/HardNumeric/driverlogHardNumeric.pddl"
 	];
 	var problemLocation:Array<String> = [
 	"pddlexamples/IPC3/Tests2/Rovers/Numeric/pfile1",
 	"pddlexamples/runescape/p2.pddl",
 	"pddlexamples/IPC3/Tests3/Settlers/Numeric/pfile1",
+	"pddlexamples/IPC3/Tests1/DriverLog/HardNumeric/pfile3"
 	];
 	//var domainLocation:String = ;
 	//var problemLocation:String = ;
@@ -39,17 +41,17 @@ class Main
 	{
 		//UnitTests();
 		
-		var domainIndex:Int = 2;
+		var domainIndex:Int = 3;
 		
 		var domain = new Domain(domainLocation[domainIndex]);
 		var problem = new Problem(problemLocation[domainIndex], domain);
 		
-		var start = Timer.stamp();
+		var start:Float = Sys.cpuTime();
 		
 		var planner:Planner = new Planner();
-		var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, true);
+		var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, false);
 		
-		trace(Timer.stamp() - start);
+		trace((Sys.cpuTime() - start));
 		
 		trace("length: " + array.length);
 		
@@ -57,6 +59,11 @@ class Main
 		{
 			trace(array[i].GetActionTransform());
 		}
+		
+		/*while (true)
+		{
+			trace(Timer.stamp());
+		}*/
 		
 	}
 	
