@@ -1,6 +1,7 @@
 package planner.pddl.tree;
 import planner.pddl.ActionData;
 import planner.pddl.Domain;
+import planner.pddl.heuristic.HeuristicData;
 import planner.pddl.State;
 
 /**
@@ -91,7 +92,7 @@ class TreeNodeAnd extends TreeNode
 				// eg. (< (~count) (~arc))
 				var value_count:Int = 0;
 				var contains_target_value:Bool = false;
-				Tree.Recursive(function(node_)
+				Tree.Recursive(child, function(node_)
 				{
 					if (Utilities.Compare(node_.GetRawName().charAt(0), "~") == 0)
 					{
@@ -102,7 +103,7 @@ class TreeNodeAnd extends TreeNode
 						contains_target_value = true;
 					}
 					return true; //search through the hole structure
-				}, child);
+				});
 				
 				// we can only gain a set of values from a statement that contains one value
 				if (value_count == 1 && contains_target_value)
@@ -110,7 +111,7 @@ class TreeNodeAnd extends TreeNode
 					has_value_range = true;
 					
 					var firstChildHasTargetValue:Bool = false;
-					Tree.Recursive(function(node_)
+					Tree.Recursive(child.children[0], function(node_)
 					{
 						if (Utilities.Compare(node_.GetRawName(), valueName_) == 0)
 						{
@@ -119,7 +120,7 @@ class TreeNodeAnd extends TreeNode
 						}
 						
 						return true; //continue recursion
-					}, child.children[0]);
+					});
 					
 					var nodeInt:TreeNodeInt = cast(child, TreeNodeInt);
 					var indexToGetValue:Int = !firstChildHasTargetValue ? 0 : 1;

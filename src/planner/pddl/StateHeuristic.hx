@@ -48,6 +48,13 @@ class StateHeuristic extends State
 		return true;
 	}
 	
+	override public function SetFunction(functionID_:String, value_:Int) 
+	{
+		super.SetFunction(functionID_, value_);
+		
+		SetFunctionBounds(functionID_, new Pair<Int, Int>(value_, value_));
+	}
+	
 	public function SetFunctionBounds(functionID_:String, bounds_:Pair<Int, Int>)
 	{
 		if (!functions_bounds.exists(functionID_))
@@ -85,4 +92,5 @@ class StateHeuristic extends State
 		
 		return functions_bounds.get(functionID_);
 	}
+
 }

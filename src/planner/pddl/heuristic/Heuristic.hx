@@ -1,6 +1,10 @@
-package planner.pddl;
+package planner.pddl.heuristic;
 
 import planner.pddl.Planner.ValuesType;
+import planner.pddl.StateHeuristic;
+
+import planner.pddl.tree.Tree;
+import planner.pddl.tree.TreeNode;
 
 /**
  * ...
@@ -30,43 +34,84 @@ class Heuristic
 		//trace("init: " + initial_state_.toString());
 		var heuristic_state:StateHeuristic = new StateHeuristic();
 		initial_state_.CopyTo(heuristic_state);
+		var current_node:HeuristicNode = new HeuristicNode(heuristic_state, GetAllActionsForState(heuristic_state), new HeuristicData());
 		
+		var state_list:Array<HeuristicNode> = new Array<HeuristicNode>();
+		state_list.push(current_node);
+		
+		// first generate the full graph to ensure we can fulfill the goal
 		var depth:Int = 0;
 		
-		while (!problem.HeuristicEvaluateGoal(heuristic_state))
+		while (!problem.HeuristicEvaluateGoal(current_node.state))
 		{
-			ApplyActions(heuristic_state, GetAllActionsForState(heuristic_state));
+			var successor_state:StateHeuristic = ApplyActions(current_node);
+			current_node = new HeuristicNode(successor_state, GetAllActionsForState(successor_state), new HeuristicData());
+			state_list.push(current_node);
 			
-			//trace("heur: " + heuristic_state.toString());
 			depth++;
 			
-			//trace("running: " + depth);
 			if (depth > 30)
 			{
-				break;
+				return depth;
 			}
 		}
 		
-		//trace("FOUND: " + depth);
+		// now lets extract the relaxed plan
+		var action_count:Int = 0;
 		
-		return depth;
+		// first we need to grab all of the individual goal nodes
+		var goal_nodes:Array<TreeNode> = new Array<TreeNode>();
+		Tree.RecursiveExplore(problem.GetGoalTree().GetBaseNode(), function(node_)
+		{
+			if (domain.GetPredicate(node_.GetRawName()) != null)
+			{
+				goal_nodes.push(node_);
+				return true;
+			}
+			
+			return false;
+		});
+		
+		var completed_nodes:Array<TreeNode> = new Array<TreeNode>();
+		while (goal_nodes.length > 0)
+		{
+			var current_goal_node:TreeNode = goal_nodes.pop();
+			var earliest_state:StateHeuristic = state_list[state_list.length - 1]; // set it to the last one as default
+			for (index in (state_list.length - 2)...0)
+			{
+				var s_h_n:HeuristicNode = state_list[index];
+				if (current_goal_node.HeuristicEvaluate(null, null, s_h_n.state, domain))
+				{
+					earliest_state = s_h_n;
+				}
+			}
+			
+		}
+		
+		
+		
+		//trace("FOUND: " + depth);
+		return action_count;
 	}
 	
-	function ApplyActions(heuristic_state_:StateHeuristic, actions_:Array<PlannerActionNode>)
+	function ApplyActions(current_node_:HeuristicNode):StateHeuristic
 	{
-		var heuristic_data:HeuristicData = new HeuristicData();
+		var new_state:StateHeuristic = new StateHeuristic();
+		current_node_.state.CopyTo(new_state);
 		
 		//trace("action count: " + actions_.length);
-		for (actionNode in actions_)
+		for (actionNode in current_node_.actions_applied_to_state)
 		{			
 			actionNode.action.GetData().Set(actionNode.params, actionNode.valuesType);			
-			actionNode.action.HeuristicExecute(heuristic_data, heuristic_state_, domain);
+			actionNode.action.HeuristicExecute(current_node_.heuristic_data, new_state, domain);
 		}
 		
-		for (i in heuristic_data.function_changes)
+		for (i in current_node_.heuristic_data.function_changes)
 		{
-			heuristic_state_.SetFunctionBounds(i.name, i.bounds);
+			new_state.SetFunctionBounds(i.name, i.bounds);
 		}
+		
+		return new_state;
 	}
 	
 	function GetAllActionsForState(state_:StateHeuristic):Array<PlannerActionNode>

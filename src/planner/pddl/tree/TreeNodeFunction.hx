@@ -2,6 +2,7 @@ package planner.pddl.tree;
 import planner.pddl.ActionData;
 import planner.pddl.Domain;
 import planner.pddl.Function;
+import planner.pddl.heuristic.HeuristicData;
 import planner.pddl.RawTreeNode;
 import planner.pddl.State;
 import planner.pddl.tree.TreeNode;

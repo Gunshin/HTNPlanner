@@ -40,7 +40,7 @@ class ValueIntRange extends Value
 					
 					for (child in node.GetChildren())
 					{
-						Tree.Recursive(
+						Tree.Recursive(child, 
 							function(testNode)
 							{
 								if (Utilities.Compare(testNode.GetRawName(), name_) == 0)
@@ -51,7 +51,7 @@ class ValueIntRange extends Value
 								
 								return true;
 							}
-						, child);
+						);
 					}
 					
 					if (count > 1)

@@ -1,7 +1,8 @@
 package planner.pddl.tree;
+import planner.pddl.heuristic.HeuristicData;
 import planner.pddl.ActionData;
 import planner.pddl.Domain;
-import planner.pddl.HeuristicData.FunctionChange;
+import planner.pddl.heuristic.HeuristicData.FunctionChange;
 import planner.pddl.Pair;
 import planner.pddl.State;
 import planner.pddl.StateHeuristic;

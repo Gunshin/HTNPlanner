@@ -115,6 +115,11 @@ class Problem
 		return goal.HeuristicEvaluate(null, null, state_, domain);
 	}
 	
+	public function GetGoalTree():Tree
+	{
+		return goal;
+	}
+	
 	public function EvaluateMetric(state_:State):Int
 	{
 		return Std.parseInt(metric.Execute(null, state_, domain));

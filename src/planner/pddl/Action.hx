@@ -1,4 +1,5 @@
 package planner.pddl;
+import planner.pddl.heuristic.HeuristicData;
 import planner.pddl.tree.Tree;
 
 /**

@@ -1,4 +1,4 @@
-package planner.pddl;
+package planner.pddl.heuristic;
 
 class FunctionChange
 {

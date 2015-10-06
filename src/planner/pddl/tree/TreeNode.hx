@@ -1,6 +1,7 @@
 package planner.pddl.tree;
 import planner.pddl.ActionData;
 import planner.pddl.Domain;
+import planner.pddl.heuristic.HeuristicData;
 import planner.pddl.State;
 import planner.pddl.StateHeuristic;
 
@@ -90,6 +91,11 @@ class TreeNode
 		}
 		
 		return returnee;
+	}
+	
+	public function toString():String
+	{
+		return GetRawName();
 	}
 	
 }

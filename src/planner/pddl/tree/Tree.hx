@@ -2,6 +2,7 @@ package planner.pddl.tree;
 import planner.pddl.ActionData;
 import planner.pddl.Domain;
 import planner.pddl.Function;
+import planner.pddl.heuristic.HeuristicData;
 import planner.pddl.Predicate;
 import planner.pddl.RawTreeNode;
 import planner.pddl.State;
@@ -48,14 +49,16 @@ class Tree
 	
 	public function Recurse(func_:TreeNode-> Bool)
 	{
-		Recursive(func_, baseNode);
+		Recursive(baseNode, func_);
 	}
 	
-	/*
+	/**
 	 * The function TreeNode -> Bool has the return type 'Bool' so we can prematurely stop the recursion if neccessary.
-	 * A return value of true is continue, false is stop
+	 * A return value of true is continue, false is stop.
+	 * 
+	 * This differs from RecursiveExplore in that the return value dictates whether we should completely stop searching.
 	 */
-	static public function Recursive(func_:TreeNode -> Bool, currentNode_:TreeNode):Bool
+	static public function Recursive(currentNode_:TreeNode, func_:TreeNode -> Bool):Bool
 	{
 		if (!func_(currentNode_))
 		{
@@ -64,7 +67,7 @@ class Tree
 		
 		for (i in currentNode_.GetChildren())
 		{
-			if (!Recursive(func_, i))
+			if (!Recursive(i, func_))
 			{
 				return false;
 			}
@@ -73,7 +76,26 @@ class Tree
 		return true;
 	}
 	
-	public static function ConvertRawTreeNodeToTree(rawNode_:RawTreeNode, domain_:Domain):Tree
+	/**
+	 * This function differs from Recursive in that the return value dictates whether we should continue exploring
+	 * the branch we are currently on.
+	 */
+	static public function RecursiveExplore(currentNode_:TreeNode, func_:TreeNode -> Bool):Bool
+	{
+		if (func_(currentNode_)) //if our function tells us to stop, do not explore the children and just return false, so the current nodes siblings are still explored
+		{
+			return false;
+		}
+		
+		for (i in currentNode_.GetChildren())
+		{
+			Recursive(i, func_);
+		}
+		
+		return false;
+	}
+	
+	static public function ConvertRawTreeNodeToTree(rawNode_:RawTreeNode, domain_:Domain):Tree
 	{		
 		var baseNode:TreeNode = RecursiveGenerateTree(rawNode_, domain_);
 		

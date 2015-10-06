@@ -1,6 +1,7 @@
 package planner.pddl.tree;
 import planner.pddl.ActionData;
 import planner.pddl.Domain;
+import planner.pddl.heuristic.HeuristicData;
 import planner.pddl.State;
 import planner.pddl.StateHeuristic;
 
@@ -59,19 +60,19 @@ class TreeNodeOr extends TreeNode
 			if (Utilities.Compare(child.GetRawName(), "==") == 0)
 			{
 				var value_count:Int = 0;
-				Tree.Recursive(function(node_)
+				Tree.Recursive(child, function(node_)
 				{
 					if (Utilities.Compare(node_.GetRawName().charAt(0), "~") == 0)
 					{
 						value_count++;
 					}
 					return true; //search through the hole structure
-				}, child);
+				});
 				
 				if (value_count == 1)
 				{
 					var firstChildHasTargetValue:Bool = false;
-					Tree.Recursive(function(node_)
+					Tree.Recursive(child.children[0], function(node_)
 					{
 						if (Utilities.Compare(node_.GetRawName(), valueName_) == 0)
 						{
@@ -80,7 +81,7 @@ class TreeNodeOr extends TreeNode
 						}
 						
 						return true; //continue recursion
-					}, child.children[0]);
+					});
 					
 					var nodeInt:TreeNodeInt = cast(child, TreeNodeInt);
 					var indexToGetValue:Int = !firstChildHasTargetValue ? 0 : 1;

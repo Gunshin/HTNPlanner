@@ -2,6 +2,7 @@ package planner.pddl;
 
 import de.polygonal.ds.Heap;
 import haxe.ds.HashMap;
+import planner.pddl.heuristic.Heuristic;
 import planner.pddl.Planner.ValuesType;
 import planner.pddl.Action;
 import planner.pddl.Domain;
