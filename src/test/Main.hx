@@ -29,10 +29,10 @@ class Main
 	"pddlexamples/IPC3/Tests1/DriverLog/HardNumeric/driverlogHardNumeric.pddl"
 	];
 	var problemLocation:Array<String> = [
-	"pddlexamples/IPC3/Tests2/Rovers/Numeric/pfile1",
+	"pddlexamples/IPC3/Tests2/Rovers/Numeric/pfile2",
 	"pddlexamples/runescape/p2.pddl",
 	"pddlexamples/IPC3/Tests3/Settlers/Numeric/pfile1",
-	"pddlexamples/IPC3/Tests1/DriverLog/HardNumeric/pfile3"
+	"pddlexamples/IPC3/Tests1/DriverLog/HardNumeric/pfile4"
 	];
 	//var domainLocation:String = ;
 	//var problemLocation:String = ;
@@ -41,26 +41,12 @@ class Main
 	{
 		//UnitTests();
 		
-		var domainIndex:Int = 0;
+		var domainIndex:Int = 3;
 		
 		var domain = new Domain(domainLocation[domainIndex]);
 		var problem = new Problem(problemLocation[domainIndex], domain);
 		
-		var goal_nodes:Array<TreeNode> = new Array<TreeNode>();
-		Tree.RecursiveExplore(problem.GetGoalTree().GetBaseNode(), function(node_)
-		{
-			if (domain.GetPredicate(node_.GetRawName()) != null)
-			{
-				goal_nodes.push(node_);
-				return true;
-			}
-			
-			return false;
-		});
-		
-		trace(goal_nodes.toString());
-		
-		/*var start:Float = Sys.cpuTime();
+		var start:Float = Sys.cpuTime();
 		
 		var planner:Planner = new Planner();
 		var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, true);
@@ -72,7 +58,7 @@ class Main
 		for (i in 0...array.length)
 		{
 			trace(array[i].GetActionTransform());
-		}*/
+		}
 		
 		/*while (true)
 		{

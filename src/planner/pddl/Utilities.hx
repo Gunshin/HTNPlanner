@@ -246,7 +246,7 @@ class Utilities
 		{
 			if (i.length > 1 || !StringTools.isSpace(i, 0))
 			{
-				var line:String = StripComments(StringTools.trim(i));
+				var line:String = StripComments(StringTools.trim(i).toLowerCase());
 				line = RemoveIrritatingCharacters(line);
 				line = AddNeccessarySpaces(line);
 				finalString += " " + line;

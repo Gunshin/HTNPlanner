@@ -71,26 +71,29 @@ class Heuristic
 			
 			return false;
 		});
-		
+		//trace(state_list);
 		var completed_nodes:Array<TreeNode> = new Array<TreeNode>();
 		while (goal_nodes.length > 0)
 		{
 			var current_goal_node:TreeNode = goal_nodes.pop();
-			var earliest_state:StateHeuristic = state_list[state_list.length - 1]; // set it to the last one as default
-			for (index in (state_list.length - 2)...0)
+			//var earliest_state:StateHeuristic = state_list[state_list.length - 1]; // set it to the last one as default
+			var earliest_index:Int = state_list.length - 1;
+			for (index in (state_list.length - 1)...0)
 			{
 				var s_h_n:HeuristicNode = state_list[index];
+				trace((s_h_n != null) + " _ " /*+ (s_h_n.state != null) + " _ " + s_h_n.actions_applied_to_state*/);
 				if (current_goal_node.HeuristicEvaluate(null, null, s_h_n.state, domain))
 				{
-					earliest_state = s_h_n;
+					earliest_index = index;
+				}
+				else // since we have hit the point that the goal is no longer satisfied, exit the for loop
+				{
+					break;
 				}
 			}
-			
-		}
+			action_count += earliest_index;
+		}		
 		
-		
-		
-		//trace("FOUND: " + depth);
 		return action_count;
 	}
 	
