@@ -46,7 +46,7 @@ class Main
 		var domain = new Domain(domainLocation[domainIndex]);
 		var problem = new Problem(problemLocation[domainIndex], domain);
 		
-		var start:Float = Sys.cpuTime();
+		/*var start:Float = Sys.cpuTime();
 		
 		var planner:Planner = new Planner();
 		var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, true);
@@ -58,11 +58,6 @@ class Main
 		for (i in 0...array.length)
 		{
 			trace(array[i].GetActionTransform());
-		}
-		
-		/*while (true)
-		{
-			trace(Timer.stamp());
 		}*/
 		
 	}

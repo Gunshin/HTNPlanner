@@ -23,6 +23,14 @@ class PlannerActionNode
 		valuesType = valuesType_;
 	}
 	
+	/**
+	 * This function is a quick way to setup the action with the params in this node so that the action can be evaluated or executed
+	 */
+	public function Set()
+	{
+		action.GetData().Set(params, valuesType);
+	}
+	
 	public function GetActionTransform():String
 	{
 		var final:String = action.GetName();

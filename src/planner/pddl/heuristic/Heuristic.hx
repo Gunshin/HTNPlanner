@@ -57,7 +57,7 @@ class Heuristic
 		}
 		
 		// now lets extract the relaxed plan
-		var action_count:Int = 0;
+		var concrete_actions:Array<PlannerActionNode> = new Array<PlannerActionNode>();
 		
 		// first we need to grab all of the individual goal nodes
 		var goal_nodes:Array<TreeNode> = new Array<TreeNode>();
@@ -71,8 +71,11 @@ class Heuristic
 			
 			return false;
 		});
-		//trace(state_list);
-		var completed_nodes:Array<TreeNode> = new Array<TreeNode>();
+		
+		// next lets set the goal nodes into the respective layers, so that we can traverse backwards
+		// through the layers and check against anything enabled by such layer
+		var goal_node_layers:Array<Array<TreeNode>> = new Array<Array<TreeNode>>();
+		
 		while (goal_nodes.length > 0)
 		{
 			var current_goal_node:TreeNode = goal_nodes.pop();
@@ -81,7 +84,6 @@ class Heuristic
 			for (index in (state_list.length - 1)...0)
 			{
 				var s_h_n:HeuristicNode = state_list[index];
-				trace((s_h_n != null) + " _ " /*+ (s_h_n.state != null) + " _ " + s_h_n.actions_applied_to_state*/);
 				if (current_goal_node.HeuristicEvaluate(null, null, s_h_n.state, domain))
 				{
 					earliest_index = index;
@@ -91,8 +93,60 @@ class Heuristic
 					break;
 				}
 			}
-			action_count += earliest_index;
-		}		
+			
+			if (goal_node_layers[earliest_index] == null)
+			{
+				goal_node_layers[earliest_index] = new Array<TreeNode>();
+			}
+			
+			goal_node_layers[earliest_index].push(current_goal_node);
+		}
+		
+		// now that things have been set into layers, the idea is that we traverse backwards through the layers findiong actions that provide the effects needed
+		// in the next goal_node_layers.
+		
+		for (index in (state_list.length - 1)...1)// we only go down to 1, as layer 0 are the initial predicates provided to start the heuristic with, and have already been fulfilled
+		{
+			if (goal_node_layers[index].length > 0)// just to guarantee that we only do this action expansion on a layer that needs something satisfied
+			{
+				var goal_node_checking_state:StateHeuristic = new StateHeuristic();
+				var s_h_n:HeuristicNode = state_list[index - 1]; // index - 1 since we need to use actions from the previous layer
+				
+				for (action_node in s_h_n.actions_applied_to_state)
+				{
+					var heuristic_data_for_looking:HeuristicData = new HeuristicData();
+					action_node.Set();
+					action_node.action.HeuristicExecute(heuristic_data_for_looking, s_h_n.state, domain);
+					
+					//need to apply the predicates to the state
+					for (i in heuristic_data_for_looking.predicates.keys())
+					{
+						goal_node_checking_state.AddRelation(i);
+					}
+					
+					var goal_nodes_to_remove:Array<TreeNode> = new Array<TreeNode>();
+					// now lets check to see if any of the predicates we are looking for were satisfied
+					for (goal_node in goal_node_layers[index])
+					{
+						if (goal_node.HeuristicEvaluate(null, null, goal_node_checking_state, domain))
+						{
+							// we found a successful satisfaction due to this action
+							goal_nodes_to_remove.push(goal_node); //lets add it to a list for safe removal
+							
+							//lets find any and all preconditions of this action that need satisfying and add them to the goal list
+							
+							
+							goal_node_layers[index - 1].push(
+							
+							// lets also record this action node
+							concrete_actions.push(action_node);
+						}
+						
+					}
+				}
+			}
+			
+		}
 		
 		return action_count;
 	}
@@ -104,14 +158,19 @@ class Heuristic
 		
 		//trace("action count: " + actions_.length);
 		for (actionNode in current_node_.actions_applied_to_state)
-		{			
-			actionNode.action.GetData().Set(actionNode.params, actionNode.valuesType);			
+		{
+			actionNode.Set();
 			actionNode.action.HeuristicExecute(current_node_.heuristic_data, new_state, domain);
 		}
 		
 		for (i in current_node_.heuristic_data.function_changes)
 		{
 			new_state.SetFunctionBounds(i.name, i.bounds);
+		}
+		
+		for (i in current_node_.heuristic_data.predicates.keys())
+		{
+			new_state.AddRelation(i);
 		}
 		
 		return new_state;

@@ -20,6 +20,15 @@ class Domain
 	var types:Types = null;
 	
 	var predicates:Map<String, Predicate> = new StringMap<Predicate>();
+	/**
+	 * This variable is for storing links between predicates and where they are applied in actions preconditions. 
+	 */
+	var predicate_action_precondition:Map<String, Array<Action>> = new Map<String, Array<Action>>();
+	
+	/**
+	 * This variable is for storing links between predicates and where they are applied in actions effects. 
+	 */
+	var predicate_action_effect:Map<String, Array<Action>> = new Map<String, Array<Action>>();
 	
 	var functions:Map<String, Function> = new StringMap<Function>();
 	var evaluator:Map<String, Bool> = new StringMap<Bool>();
@@ -65,6 +74,8 @@ class Domain
 		}
 		
 		AddStandardFunctions();
+		
+		LinkActionsToPredicates();
 		
 		trace("Domain loaded");
 	}
@@ -208,6 +219,61 @@ class Domain
 		
 		
 		properties.set("actions", true);
+	}
+	
+	function LinkActionsToPredicates()
+	{
+		for (action_name in actions.keys())
+		{
+			var action:Action = actions.get(action_name);
+			
+			for (predicate_name in predicates.keys())
+			{
+				Tree.Recursive(action.GetPreconditionTree().GetBaseNode(), 
+					function(node_)
+					{
+						if (Utilities.Compare(node_.GetRawName(), predicate_name) == 0)
+						{
+							GetActionsWithPredicatePrecondition(predicate_name).push(action);
+							return false;
+						}
+						return true;
+					}
+				);
+				
+				Tree.Recursive(action.GetEffectTree().GetBaseNode(), 
+					function(node_)
+					{
+						if (Utilities.Compare(node_.GetRawName(), predicate_name) == 0)
+						{
+							GetActionsWithPredicateEffect(predicate_name).push(action);
+							return false;
+						}
+						return true;
+					}
+				);
+			}
+		}
+	}
+	
+	public function GetActionsWithPredicateEffect(predicate_name_:String):Array<Action>
+	{
+		if (!predicate_action_effect.exists(predicate_name_))
+		{
+			predicate_action_effect.set(predicate_name_, new Array<Action>());
+		}
+		
+		return predicate_action_effect.get(predicate_name_);
+	}
+	
+	public function GetActionsWithPredicatePrecondition(predicate_name_:String):Array<Action>
+	{
+		if (!predicate_action_precondition.exists(predicate_name_))
+		{
+			predicate_action_precondition.set(predicate_name_, new Array<Action>());
+		}
+		
+		return predicate_action_precondition.get(predicate_name_);
 	}
 	
 	static function ActionGetChild(child_name_:String, children_:Array<RawTreeNode>):RawTreeNode

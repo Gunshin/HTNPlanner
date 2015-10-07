@@ -62,4 +62,9 @@ class TreeNodePredicate extends TreeNode
 		var returnee:String = predicate.ConstructRaw(paramNames);
 		return returnee;
 	}
+	
+	override public function toString():String
+	{
+		return GetRawTreeString();
+	}
 }

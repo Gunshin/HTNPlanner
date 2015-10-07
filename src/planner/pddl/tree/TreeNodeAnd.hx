@@ -65,7 +65,7 @@ class TreeNodeAnd extends TreeNode
 			
 			if (value_ != null)
 			{
-				state_.AddRelation(value_);
+				heuristic_data_.predicates.set(value_, true);
 			}
 		}
 		
