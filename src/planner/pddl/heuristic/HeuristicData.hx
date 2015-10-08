@@ -30,4 +30,9 @@ class HeuristicData
 	{
 		
 	}
+	
+	public function toString():String
+	{
+		return "{{function_changes:" + function_changes.toString() + "}, {predicates:" + predicates.toString() + "}}";
+	}
 }

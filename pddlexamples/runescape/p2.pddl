@@ -27,11 +27,13 @@
 		(conversion logs log_plank)
 		(conversion oak oak_plank)
 		(conversion willow willow_plank)
+		
+		(connected bank_area logs_area)
+		(connected logs_area willow_area)
     )
     (:goal
         (and
-			(== (inventory_has_item logs) 15)
-			;;(< (inventory_has_item logs) 28)
+			(at willow_area)
         )
     )
 )

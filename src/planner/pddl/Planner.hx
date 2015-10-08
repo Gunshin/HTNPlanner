@@ -57,7 +57,6 @@ class Planner
 		do
 		{
 			var successiveStates:Array<PlannerNode> = GetAllSuccessiveStates(currentState);
-			
 			#if debug_output
 			if (iteration++ >= 1000)
 			{
@@ -74,7 +73,7 @@ class Planner
 			currentState = GetNextState(openList);
 			//trace("iter: current_state: " + currentState.depth + " _ " + currentState.estimate + " _____ " + problem_.EvaluateGoal(currentState.state));
 		}
-		while (!problem_.EvaluateGoal(currentState.state) && openList.size() != 0);
+		while (currentState != null && !problem_.EvaluateGoal(currentState.state));
 		
 		trace("openListcount exit: " + openList.size());
 		
@@ -104,10 +103,10 @@ class Planner
 	
 	function GetAllSuccessiveStates(parent_state_:PlannerNode):Array<PlannerNode>
 	{
+		//trace(parent_state_.state);
 		var states:Array<PlannerNode> = new Array<PlannerNode>();
 		
 		var actions:Array<PlannerActionNode> = GetAllActionsForState(parent_state_.state);
-		//trace("action count: " + actions.length);
 		
 		for (actionNode in actions)
 		{
@@ -123,6 +122,7 @@ class Planner
 				if (heuristic != null)
 				{
 					heuristic_estimate = heuristic.RunHeuristic(newState);
+					//trace("ran heuristic: " + actionNode + "\n" + newState + "\n" + heuristic_estimate);
 				}
 				
 				var plannerNode:PlannerNode = new PlannerNode(newState, parent_state_, actionNode, parent_state_.depth + 1, heuristic_estimate);

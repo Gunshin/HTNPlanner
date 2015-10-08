@@ -15,56 +15,93 @@ import planner.pddl.tree.TreeNode;
 class TreeNodePredicate extends TreeNode
 {
 	
-	var predicate:Predicate = null;
-	var paramNames:Array<String> = new Array<String>();
+	var name:String = null;
+	var param_names:Array<String> = new Array<String>();
 
-	public function new(predicate_:Predicate, params_:Array<RawTreeNode>) 
+	public function new(name_:String, params_:Array<String>) 
 	{
 		super();
 		
-		predicate = predicate_;
+		name = name_;
 		
-		for (param in params_)
-		{
-			paramNames.push(param.value);
-		}
+		param_names = params_;
 	}
 	
 	override public function Evaluate(data_:ActionData, state_:State, domain_:Domain):Bool
 	{
-		var predicateValue:String = predicate.Construct(data_, paramNames);
-		return state_.Exists(predicateValue);
+		return state_.Exists(Construct(data_));
 	}
 	
 	override public function Execute(data_:ActionData, state_:State, domain_:Domain):String
 	{
-		return predicate.Construct(data_, paramNames);
+		return Construct(data_);
 	}
 	
 	override public function HeuristicEvaluate(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):Bool 
 	{
-		var predicateValue:String = predicate.Construct(data_, paramNames);
-		return state_.Exists(predicateValue);
+		return state_.Exists(Construct(data_));
 	}
 	
 	override public function HeuristicExecute(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):String 
 	{
-		return predicate.Construct(data_, paramNames);
+		return Construct(data_);
 	}
 	
 	override public function GetRawName():String
 	{
-		return predicate.GetName();
+		return name;
 	}
 	
 	override public function GetRawTreeString():String
 	{
-		var returnee:String = predicate.ConstructRaw(paramNames);
+		var returnee:String = ConstructRaw(param_names);
 		return returnee;
 	}
 	
 	override public function toString():String
 	{
 		return GetRawTreeString();
+	}
+	
+	public function Construct(data_:ActionData):String
+	{
+		var constructedValue:String = name;
+		for (i in param_names)
+		{
+			// if the first character is not a '?', then this value is not a parameter name. Therefor just add the value if it isnt.
+			if (Utilities.Compare(i.charAt(0), "?") == 0)
+			{
+				constructedValue += " " + data_.GetParameterMap().get(i).GetValue();
+			}
+			else
+			{
+				constructedValue += " " + i;
+			}
+		}
+		
+		return constructedValue;
+	}
+	
+	public function ConstructRaw(templateValue_:Array<String>):String
+	{
+		var constructedValue:String = name;
+		
+		for (i in templateValue_)
+		{
+			constructedValue += " " + i;
+		}
+		
+		return constructedValue;
+	}
+	
+	public function BuildConcretePredicate(action_data_:ActionData):TreeNodePredicate
+	{
+		var params:Array<String> = new Array<String>();
+		for (param in param_names)
+		{
+			params.push(action_data_.GetParameterMap().get(param).GetValue());
+		}
+		
+		return new TreeNodePredicate(name, params);
 	}
 }

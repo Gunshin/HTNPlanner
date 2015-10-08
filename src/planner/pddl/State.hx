@@ -182,10 +182,14 @@ class State
 			{
 				relations.insert(relationsMap.get(key));
 			}
-			relations.root().inorder(function(treeNode_, dynamic_) {
-				array.push(Utilities.StringHash(treeNode_.val.value));
-				return true;
-			});
+			
+			if (relations.size() > 0)
+			{
+				relations.root().inorder(function(treeNode_, dynamic_) {
+					array.push(Utilities.StringHash(treeNode_.val.value));
+					return true;
+				});
+			}
 		}
 		
 		{
@@ -194,11 +198,13 @@ class State
 			{
 				functions.insert(functionsMap.get(key));
 			}
-			
-			functions.root().inorder(function(treeNode_, dynamic_) {
-				array.push(Utilities.StringHash(treeNode_.val.func + treeNode_.val.value));
-				return true;
-			});
+			if (functions.size() > 0)
+			{
+				functions.root().inorder(function(treeNode_, dynamic_) {
+					array.push(Utilities.StringHash(treeNode_.val.func + treeNode_.val.value));
+					return true;
+				});
+			}
 		}
 		
 		var hash:Int = Utilities.IntArrayHash(array);
@@ -258,21 +264,22 @@ class State
 	
 	public function toString():String
 	{
-		var string:String = "[relations:[";
+		var string:String = "{relations:[";
 		
 		for (i in relationsMap.keys())
 		{
-			string += "[" + i + "],";
+			string += "{" + i + "},";
 		}
 		
+		string = string.substr(0, string.length - 1);
 		string += "], functions:[";
 		
 		for (i in functionsMap.keys())
 		{
-			string += "[" + i + ":" + functionsMap.get(i).value + "],";
+			string += "{" + i + ":" + functionsMap.get(i).value + "},";
 		}
 		
-		string += "]]";
+		string += "]}";
 		
 		return string;
 	}

@@ -9,6 +9,7 @@
         (at ?place - area)
         (contains ?area - area ?resource - resource)
 		(conversion ?resource_a ?resource_b - resource)
+		(connected ?a ?b - area)
     )
     (:functions
         (banked ?item - item)
@@ -41,6 +42,7 @@
         (and 
             (at ?from)
             (not (at ?to))
+			(connected ?from ?to)
         )
         :effect 
         (and

@@ -59,4 +59,9 @@ class PlannerActionNode
 		return StringTools.trim(final);
 	}
 	
+	public function toString():String
+	{
+		return "{{action:" + action.toString() + "}, {params:" + params.toString() + "}, {value_types:" + valuesType.toString() + "}}";
+	}
+	
 }

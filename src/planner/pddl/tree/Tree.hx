@@ -132,10 +132,15 @@ class Tree
 		var terms:Array<String> = rawNode_.value.split(" ");
 		var firstTerm:String = terms[0];
 		
-		var predicate:Predicate = domain_.GetPredicate(firstTerm);
-		if (predicate != null)
+		if (domain_.PredicatExists(firstTerm))
 		{
-			newNode = new TreeNodePredicate(predicate, rawNode_.children);
+			var params:Array<String> = new Array<String>();
+			for (raw_node in rawNode_.children)
+			{
+				params.push(raw_node.value);
+			}
+			
+			newNode = new TreeNodePredicate(firstTerm, params);
 			return newNode;
 		}
 		

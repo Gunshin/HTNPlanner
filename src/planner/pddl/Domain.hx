@@ -19,7 +19,7 @@ class Domain
 	
 	var types:Types = null;
 	
-	var predicates:Map<String, Predicate> = new StringMap<Predicate>();
+	var predicates:Map<String, Bool> = new StringMap<Bool>();
 	/**
 	 * This variable is for storing links between predicates and where they are applied in actions preconditions. 
 	 */
@@ -115,13 +115,11 @@ class Domain
 	
 	function ParsePredicates(parentNode_:RawTreeNode)
 	{
-		
 		var predicateNodes:Array<RawTreeNode> = parentNode_.children;
 		
 		for (i in predicateNodes)
 		{
-			var predicate:Predicate = new Predicate(i);
-			predicates.set(predicate.GetName(), predicate);
+			predicates.set(i.value, true);
 		}
 		
 		properties.set("predicates", true);
@@ -316,9 +314,9 @@ class Domain
 		
 	}
 	
-	public function GetPredicate(name_:String):Predicate
+	public function PredicatExists(name_:String):Bool
 	{
-		return predicates.get(name_);
+		return predicates.exists(name_);
 	}
 	
 	public function GetAction(name_:String):Action

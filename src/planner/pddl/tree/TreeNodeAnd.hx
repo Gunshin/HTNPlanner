@@ -110,6 +110,7 @@ class TreeNodeAnd extends TreeNode
 				{
 					has_value_range = true;
 					
+					// look and see if the left side of the statemen contains the target value
 					var firstChildHasTargetValue:Bool = false;
 					Tree.Recursive(child.children[0], function(node_)
 					{

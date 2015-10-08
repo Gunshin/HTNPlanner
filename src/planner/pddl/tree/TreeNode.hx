@@ -98,4 +98,9 @@ class TreeNode
 		return GetRawName();
 	}
 	
+	public function Clone():TreeNode
+	{
+		throw "This node has not implemented this";
+	}
+	
 }

@@ -24,18 +24,18 @@ class Main
 	
 	var domainLocation:Array<String> = [
 	"pddlexamples/IPC3/Tests2/Rovers/Numeric/NumRover.pddl",
-	"pddlexamples/runescape/domain2.pddl",
+	"pddlexamples/runescape/domain.pddl",
 	"pddlexamples/IPC3/Tests3/Settlers/Numeric/Settlers.pddl",
-	"pddlexamples/IPC3/Tests1/DriverLog/HardNumeric/driverlogHardNumeric.pddl"
+	"pddlexamples/IPC3/Tests1/DriverLog/Strips/driverlog.pddl",
+	"pddlexamples/test/domain.pddl"
 	];
 	var problemLocation:Array<String> = [
-	"pddlexamples/IPC3/Tests2/Rovers/Numeric/pfile2",
-	"pddlexamples/runescape/p2.pddl",
+	"pddlexamples/IPC3/Tests2/Rovers/Numeric/pfile1",
+	"pddlexamples/runescape/p1.pddl",
 	"pddlexamples/IPC3/Tests3/Settlers/Numeric/pfile1",
-	"pddlexamples/IPC3/Tests1/DriverLog/HardNumeric/pfile4"
+	"pddlexamples/IPC3/Tests1/DriverLog/Strips/pfile3",
+	"pddlexamples/test/p1.pddl"
 	];
-	//var domainLocation:String = ;
-	//var problemLocation:String = ;
 	
 	public function new()
 	{
@@ -46,7 +46,7 @@ class Main
 		var domain = new Domain(domainLocation[domainIndex]);
 		var problem = new Problem(problemLocation[domainIndex], domain);
 		
-		/*var start:Float = Sys.cpuTime();
+		var start:Float = Sys.cpuTime();
 		
 		var planner:Planner = new Planner();
 		var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, true);
@@ -58,7 +58,7 @@ class Main
 		for (i in 0...array.length)
 		{
 			trace(array[i].GetActionTransform());
-		}*/
+		}
 		
 	}
 	

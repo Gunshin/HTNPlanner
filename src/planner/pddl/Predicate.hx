@@ -13,7 +13,7 @@ class Predicate
 	//var templateValue:Array<String> = new Array<String>();
 
 	// predicates are usually defined by a keyword followed by the parameters eg. "at ?x - locatable ?l - location"
-	var name:String = null;
+	/*var name:String = null;
 	
 	public function new(node_:RawTreeNode) 
 	{
@@ -61,5 +61,5 @@ class Predicate
 		}
 		
 		return constructedValue;
-	}
+	}*/
 }
