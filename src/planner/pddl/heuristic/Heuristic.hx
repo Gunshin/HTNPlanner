@@ -60,9 +60,16 @@ class Heuristic
 			
 			depth++;
 			
-			if (depth > 30)
+			if (depth > 20)
 			{
-				return depth;
+				var total_action_count:Int = 0;
+				
+				for (state in state_list)
+				{
+					total_action_count += state.actions_applied_to_state.length;
+				}
+				trace("returning with no heuristic found: " + (total_action_count * 20));
+				return total_action_count * 20;
 			}
 		}
 		

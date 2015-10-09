@@ -38,6 +38,8 @@ class Planner
 	var iteration:Int = 0;
 	#end
 	
+	var current_lowest_total_cost_seen:Int = 99999999;
+	
 	public function FindPlan(domain_:Domain, problem_:Problem, use_heuristic_:Bool):Array<PlannerActionNode>
 	{
 		domain = domain_;
@@ -71,7 +73,8 @@ class Planner
 			}
 			
 			currentState = GetNextState(openList);
-			//trace("iter: current_state: " + currentState.depth + " _ " + currentState.estimate + " _____ " + problem_.EvaluateGoal(currentState.state));
+			trace(current_lowest_total_cost_seen);
+			//trace("iter: current_state: " + currentState.depth + " _ " + currentState.estimate + " _____ " + problem_.EvaluateGoal(currentState.state) + "\n" + currentState);
 		}
 		while (currentState != null && !problem_.EvaluateGoal(currentState.state));
 		
@@ -107,7 +110,7 @@ class Planner
 		var states:Array<PlannerNode> = new Array<PlannerNode>();
 		
 		var actions:Array<PlannerActionNode> = GetAllActionsForState(parent_state_.state);
-		
+		//trace("action count: " + actions.length);
 		for (actionNode in actions)
 		{
 			
@@ -126,6 +129,10 @@ class Planner
 				}
 				
 				var plannerNode:PlannerNode = new PlannerNode(newState, parent_state_, actionNode, parent_state_.depth + 1, heuristic_estimate);
+				if (plannerNode.depth + plannerNode.estimate < current_lowest_total_cost_seen)
+				{
+					current_lowest_total_cost_seen = plannerNode.depth + plannerNode.estimate;
+				}
 				
 				if (hasMetric)
 				{
