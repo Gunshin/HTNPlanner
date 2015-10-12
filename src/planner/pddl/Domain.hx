@@ -200,6 +200,7 @@ class Domain
 			var valueNode:RawTreeNode = ActionGetChild(":values", childrenWithNameRemoved);
 			if (valueNode != null)
 			{
+				
 				var pairs:Array<Pair<String, String>> = Utilities.GenerateValueTypeMap([valueNode].concat(valueNode.children));
 				var value:Value = null;
 				for (pair in pairs)

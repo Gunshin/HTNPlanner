@@ -19,9 +19,9 @@ class ValueIntRange extends Value
 		//trace(baseNode.GetRawTreeString());
 	}
 	
-	override public function GetPossibleValues(state_:State, domain_:Domain):Array<String>
+	override public function GetPossibleValues(data_:ActionData, state_:State, domain_:Domain):Array<String>
 	{
-		var range:Array<String> = baseNode.GenerateRangeOfValues(name, state_, domain_);
+		var range:Array<String> = baseNode.GenerateRangeOfValues(data_, name, state_, domain_);
 		
 		//trace(name + ": " + range);
 		

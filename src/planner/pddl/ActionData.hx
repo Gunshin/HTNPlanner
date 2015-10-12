@@ -3,8 +3,6 @@ package planner.pddl;
 import haxe.ds.HashMap;
 import haxe.ds.StringMap;
 
-import planner.pddl.Planner.ValuesType;
-
 /**
  * ...
  * @author Michael Stephens
@@ -49,6 +47,14 @@ class ActionData
 		}
 		
 		value.SetValue(value_);
+	}
+	
+	public function SetValues(values_:Array<Pair<String, String>>)
+	{
+		for (i in values_)
+		{
+			SetValue(i.a, i.b);
+		}
 	}
 	
 	public function GetValues():Array<Value>
@@ -126,25 +132,6 @@ class ActionData
 		for (i in values_)
 		{
 			SetParameter(i.a, i.b);
-		}
-	}
-	
-	/*
-	 * This is needed because we have both parameters and values being stored in the same set 'values_', and
-	 * we need to differentiate between them
-	 */
-	public function Set(values_:Array<Pair<String, String>>, types_:Array<ValuesType>)
-	{
-		for (i in 0...values_.length)
-		{
-			switch(types_[i])
-			{
-				case ValuesType.EParam:
-					SetParameter(values_[i].a, values_[i].b);
-					
-				case ValuesType.EValue:
-					SetValue(values_[i].a, values_[i].b);
-			}
 		}
 	}
 	

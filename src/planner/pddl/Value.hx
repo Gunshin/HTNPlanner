@@ -15,7 +15,7 @@ class Value
 		name = name_;
 	}
 	
-	public function GetPossibleValues(state_:State, domain_:Domain):Array<String> { throw "must override this function"; }
+	public function GetPossibleValues(data_:ActionData, state_:State, domain_:Domain):Array<String> { throw "must override this function"; }
 	
 	public function SetValue(value_:String)
 	{

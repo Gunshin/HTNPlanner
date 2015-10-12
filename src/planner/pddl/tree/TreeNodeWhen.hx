@@ -20,7 +20,12 @@ class TreeNodeWhen extends TreeNode
 	
 	override public function Evaluate(data_:ActionData, state_:State, domain_:Domain):Bool
 	{
-		throw "This function should not be getting called.";
+		if (children[0].Evaluate(data_, state_, domain_))
+		{
+			return children[1].Evaluate(data_, state_, domain_);
+		}
+		
+		return false;
 	}
 	
 	override public function Execute(data_:ActionData, state_:State, domain_:Domain):String

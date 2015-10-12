@@ -51,7 +51,7 @@ class TreeNodeOr extends TreeNode
 		throw "cannot use an 'or' within an effect execution (makes no sense)";
 	}
 	
-	override public function GenerateRangeOfValues(valueName_:String, state_:State, domain_:Domain):Array<String>
+	override public function GenerateRangeOfValues(data_:ActionData, valueName_:String, state_:State, domain_:Domain):Array<String>
 	{
 		var returnee:Array<String> = new Array<String>();
 		
@@ -85,14 +85,14 @@ class TreeNodeOr extends TreeNode
 					
 					var nodeInt:TreeNodeInt = cast(child, TreeNodeInt);
 					var indexToGetValue:Int = !firstChildHasTargetValue ? 0 : 1;
-					var value:Int = nodeInt.GetValueFromChild(indexToGetValue, null, state_, domain_);
+					var value:Int = nodeInt.GetValueFromChild(indexToGetValue, data_, state_, domain_);
 					
 					returnee.push(Std.string(value));
 				}
 			}
 			else
 			{
-				returnee = returnee.concat(child.GenerateRangeOfValues(valueName_, state_, domain_));
+				returnee = returnee.concat(child.GenerateRangeOfValues(data_, valueName_, state_, domain_));
 			}
 		}
 		

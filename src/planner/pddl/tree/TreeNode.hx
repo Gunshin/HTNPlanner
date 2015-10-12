@@ -24,7 +24,7 @@ class TreeNode
 	
 	public function Execute(data_:ActionData, state_:State, domain_:Domain):String { throw "must override this function"; }
 	
-	public function GenerateRangeOfValues(valueName_:String, state_:State, domain_:Domain):Array<String> { throw "must override this function"; }
+	public function GenerateRangeOfValues(data_:ActionData, valueName_:String, state_:State, domain_:Domain):Array<String> { throw "must override this function"; }
 	
 	public function HeuristicEvaluate(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):Bool { throw "must override this function"; }
 	

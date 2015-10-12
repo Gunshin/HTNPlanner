@@ -3,7 +3,6 @@ import planner.pddl.Planner;
 
 import planner.pddl.Action;
 import planner.pddl.Pair;
-import planner.pddl.Planner.ValuesType;
 
 /**
  * ...
@@ -14,13 +13,13 @@ class PlannerActionNode
 	
 	public var action:Action = null;
 	public var params:Array<Pair<String, String>> = null;
-	public var valuesType:Array<ValuesType> = null;
+	public var values:Array<Pair<String, String>> = null;
 
-	public function new(action_:Action, params_:Array<Pair<String, String>>, valuesType_:Array<ValuesType>) 
+	public function new(action_:Action, params_:Array<Pair<String, String>>, values_:Array<Pair<String, String>>) 
 	{
 		action = action_;
 		params = params_;
-		valuesType = valuesType_;
+		values = values_;
 	}
 	
 	/**
@@ -28,7 +27,8 @@ class PlannerActionNode
 	 */
 	public function Set()
 	{
-		action.GetData().Set(params, valuesType);
+		action.GetData().SetParameters(params);
+		action.GetData().SetValues(values);
 	}
 	
 	public function GetActionTransform():String
@@ -61,7 +61,7 @@ class PlannerActionNode
 	
 	public function toString():String
 	{
-		return "{{action:" + action.toString() + "}, {params:" + params.toString() + "}, {value_types:" + valuesType.toString() + "}}";
+		return "{{action:" + action.toString() + "}, {params:" + params.toString() + "}, {values:" + values.toString() + "}}";
 	}
 	
 }

@@ -34,6 +34,8 @@ class TreeNodeFunction extends TreeNode
 	
 	override public function Execute(data_:ActionData, state_:State, domain_:Domain):String
 	{
+		//trace((data_ != null) + " _ " + (state_ != null) + " _ " + (domain_ != null));
+		//trace(paramNames);
 		return func.Construct(data_, paramNames);
 	}
 	

@@ -18,6 +18,7 @@
         (inventory_left)
         (inventory_has_item ?item - item)
     )
+	
     
     (:action Cut_Down_Tree
         :parameters (?resource - wood ?area - area)

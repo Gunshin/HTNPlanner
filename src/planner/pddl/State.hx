@@ -127,6 +127,11 @@ class State
 	
 	public function GetFunction(functionID_:String):Int
 	{
+		if (functionID_ == null)
+		{
+			throw "Function is null: ";
+		}
+		
 		if (!functionsMap.exists(functionID_))
 		{
 			SetFunction(functionID_, 0);

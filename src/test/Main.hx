@@ -28,7 +28,8 @@ class Main
 	"pddlexamples/IPC3/Tests3/Settlers/Numeric/Settlers.pddl",
 	"pddlexamples/IPC3/Tests1/DriverLog/Strips/driverlog.pddl",
 	"pddlexamples/test/domain.pddl",
-	"pddlexamples/benchmarksV1.1/TESTING/seq-agl/Barman/domain.pddl"
+	"pddlexamples/benchmarksV1.1/TESTING/seq-agl/Barman/domain.pddl",
+	"pddlexamples/runescape/quest_sequence.pddl"
 	];
 	var problemLocation:Array<String> = [
 	"pddlexamples/IPC3/Tests2/Rovers/Numeric/pfile1",
@@ -36,14 +37,15 @@ class Main
 	"pddlexamples/IPC3/Tests3/Settlers/Numeric/pfile1",
 	"pddlexamples/IPC3/Tests1/DriverLog/Strips/pfile3",
 	"pddlexamples/test/p1.pddl",
-	"pddlexamples/benchmarksV1.1/TESTING/seq-agl/Barman/p4-11-4-15.pddl"
+	"pddlexamples/benchmarksV1.1/TESTING/seq-agl/Barman/p4-11-4-15.pddl",
+	"pddlexamples/runescape/quest_sequence_p1.pddl"
 	];
 	
 	public function new()
 	{
 		//UnitTests();
 		
-		var domainIndex:Int = 5;
+		var domainIndex:Int = 6;
 		
 		var domain = new Domain(domainLocation[domainIndex]);
 		var problem = new Problem(problemLocation[domainIndex], domain);
