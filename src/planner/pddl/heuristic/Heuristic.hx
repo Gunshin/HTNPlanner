@@ -26,8 +26,11 @@ class Heuristic
 	
 	/**
 	 * 
-	 * get all applicable actions
-	 * apply applicable actions
+	 * I need to add in numeric goals exactly as i did predicates
+	 * when attempting to fulfill the goals, i need to select actions in the previous layer until it is satisfied,
+	 * eg. i could end up having 5 actions in the previous layer that contribute to the numeric. I need to add all
+	 * actions to the goal. I cannot use the same action multiple times. same parameter set though?
+	 * 
 	 * 
 	 * @param	initial_state_
 	 * @return
@@ -152,6 +155,16 @@ class Heuristic
 		return concrete_actions_count;
 	}
 	
+	/**
+	 * This function takes a the specified goal_node_ and adds it to the layers_ list at the lowest layer it can.
+	 * 
+	 * It does this by looking through the state_list_ and determining the earliest it was satisfied, and placing it in the corresponding
+	 * layers_ list.
+	 * @param	goal_node_
+	 * @param	state_list_
+	 * @param	layers_
+	 * @param	start_index_
+	 */
 	function AddGoalNodeToLayers(goal_node_:TreeNode, state_list_:Array<HeuristicNode>, layers_:Array<Array<TreeNode>>, start_index_:Int)
 	{
 		var earliest_index:Int = start_index_;

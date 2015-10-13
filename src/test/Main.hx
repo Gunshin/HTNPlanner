@@ -45,10 +45,18 @@ class Main
 	{
 		//UnitTests();
 		
+		
 		var domainIndex:Int = 6;
 		
 		var domain = new Domain(domainLocation[domainIndex]);
 		var problem = new Problem(problemLocation[domainIndex], domain);
+		
+		
+		var action:Action = domain.GetAction("complete_quest");
+		action.GetData().SetParameter("?quest", "cooks_assistant");
+		trace(action.Evaluate(problem.GetClonedInitialState(), domain));
+		trace(action.Execute(problem.GetClonedInitialState(), domain));
+		
 		
 		var start:Float = Sys.cpuTime();
 		

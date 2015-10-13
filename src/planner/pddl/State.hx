@@ -284,6 +284,7 @@ class State
 			string += "{" + i + ":" + functionsMap.get(i).value + "},";
 		}
 		
+		string = string.substr(0, string.length - 1);
 		string += "]}";
 		
 		return string;

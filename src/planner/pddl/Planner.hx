@@ -155,6 +155,8 @@ class Planner
 			var action:Action = domain_.GetAction(actionName);
 			
 			var parameter_combinations:Array<Array<Pair<String, String>>> = GetAllPossibleParameterCombinations(action, state_, domain_);
+			//trace(parameter_combinations);
+			//throw "";
 			// has an extra array since these combinations are used per parameter combination
 			var value_combinations:Array<Array<Array<Pair<String, String>>>> = GetAllPossibleValueCombinations(action, parameter_combinations, state_, domain_);
 			//trace(value_combinations);
@@ -162,16 +164,25 @@ class Planner
 			for (param_index in 0...parameter_combinations.length)
 			{
 				var param_combination:Array<Pair<String, String>> = parameter_combinations[param_index];
-				
 				action.GetData().SetParameters(param_combination);
-				for (val_combination in value_combinations[param_index])
+				if (value_combinations[param_index].length > 0)
 				{
-					action.GetData().SetValues(val_combination);
-					//trace(combination + "\n" + combinations_result.a);
-					
+					for (val_combination in value_combinations[param_index])
+					{
+						action.GetData().SetValues(val_combination);
+						//trace(combination + "\n" + combinations_result.a);
+						
+						if (action.Evaluate(state_, domain_))
+						{
+							actions.push(new PlannerActionNode(action, param_combination, val_combination));
+						}
+					}
+				}
+				else
+				{
 					if (action.Evaluate(state_, domain_))
 					{
-						actions.push(new PlannerActionNode(action, param_combination, val_combination));
+						actions.push(new PlannerActionNode(action, param_combination, null));
 					}
 				}
 			}

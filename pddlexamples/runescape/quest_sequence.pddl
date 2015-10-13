@@ -27,9 +27,9 @@
         (and
 			
 			(not (done ?quest))
-			(forall (?skill - skill) ;; check to see if we have all of the skill requirements
-                (>= (skill_level ?skill) (required_skill_level ?quest ?skill) )
-            )
+			;;(forall (?skill - skill) ;; check to see if we have all of the skill requirements
+                ;;(>= (skill_level ?skill) (required_skill_level ?quest ?skill) )
+            ;;)
 			(forall (?quest_required - quest) ;; check to see if we have all the precondition quests
 				(and 
 					(quest_required_to_do_quest ?quest ?quest_required) ;; if we need to do the ?quest_required, then check with below to make sure it has been done
@@ -45,19 +45,19 @@
         )
 	)
 	
-	(:action Get_XP
-		:parameters (?skill - skill)
-		:values (~count - integer-range)
-		:precondition
-		(and
-			(> (~count) 0)
-			(<= (~count) (- 99 (skill_level ?skill)))
-		)
-		:effect
-		(and
-			(increase (skill_level ?skill) ~count)
-			(increase (total-time) (~count))
-		)
-	)
+	;;(:action Get_XP
+		;;:parameters (?skill - skill)
+		;;:values (~count - integer-range)
+		;;:precondition
+		;;(and
+			;;(> (~count) 0)
+			;;(<= (~count) (- 99 (skill_level ?skill)))
+		;;)
+		;;:effect
+		;;(and
+			;;(increase (skill_level ?skill) ~count)
+			;;(increase (total-time) (~count))
+		;;)
+	;;)
 	
 )

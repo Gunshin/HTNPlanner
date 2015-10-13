@@ -27,8 +27,15 @@ class PlannerActionNode
 	 */
 	public function Set()
 	{
-		action.GetData().SetParameters(params);
-		action.GetData().SetValues(values);
+		if (params != null && params.length > 0)
+		{
+			action.GetData().SetParameters(params);
+		}
+		
+		if (values != null && values.length > 0)
+		{
+			action.GetData().SetValues(values);
+		}
 	}
 	
 	public function GetActionTransform():String
