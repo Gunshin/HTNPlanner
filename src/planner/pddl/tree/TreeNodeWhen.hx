@@ -25,7 +25,7 @@ class TreeNodeWhen extends TreeNode
 			return children[1].Evaluate(data_, state_, domain_);
 		}
 		
-		return false;
+		return true;
 	}
 	
 	override public function Execute(data_:ActionData, state_:State, domain_:Domain):String

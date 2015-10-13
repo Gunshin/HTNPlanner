@@ -25,7 +25,7 @@ class Function
 			// if the first character is not a '?', then this value is not a parameter name. Therefor just add the value if it isnt.
 			if (Utilities.Compare(i.charAt(0), "?") == 0)
 			{
-				constructedValue += " " + data_.GetParameterMap().get(i).GetValue();
+				constructedValue += " " + data_.GetParameter(i).GetValue();
 			}
 			else
 			{

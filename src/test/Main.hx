@@ -50,12 +50,12 @@ class Main
 		
 		var domain = new Domain(domainLocation[domainIndex]);
 		var problem = new Problem(problemLocation[domainIndex], domain);
+		//trace(problem.GetClonedInitialState());
 		
-		
-		var action:Action = domain.GetAction("complete_quest");
+		/*var action:Action = domain.GetAction("complete_quest");
 		action.GetData().SetParameter("?quest", "cooks_assistant");
 		trace(action.Evaluate(problem.GetClonedInitialState(), domain));
-		trace(action.Execute(problem.GetClonedInitialState(), domain));
+		trace(action.Execute(problem.GetClonedInitialState(), domain));*/
 		
 		
 		var start:Float = Sys.cpuTime();
@@ -83,7 +83,7 @@ class Main
 		var action:Action = domain.GetAction("Cut_Down_Tree");
 		
 		Assert((action != null), "Could not find action");
-		Assert((action.GetData().GetParameterMap().exists("?resource")), "Could not find parameter");
+		Assert((action.GetData().GetParameter("?resource") != null), "Could not find parameter");
 		Assert((action.GetData().GetValue("~count") != null), "Could not find value");
 		
 		trace("Starting Plan Test");		

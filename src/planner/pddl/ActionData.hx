@@ -116,13 +116,13 @@ class ActionData
 		var param:Parameter = GetParameter(name_);
 		if (param == null)
 		{
-			throw "param is invalid";
+			throw "param is null: " + name_ + " _ value: " + value_ + " ::: " + this;
 		}
 		
 		param.SetValue(value_);
 	}
 	
-	function GetParameter(name_:String):Parameter
+	public function GetParameter(name_:String):Parameter
 	{
 		return parameters.get(name_);
 	}
@@ -133,6 +133,11 @@ class ActionData
 		{
 			SetParameter(i.a, i.b);
 		}
+	}
+	
+	public function toString():String
+	{
+		return "{parameters:" + parameters + ", parameters_layout:" + parameterLayout + ", values:" + values + ", values_layout:" + valuesLayout + "}";
 	}
 	
 }

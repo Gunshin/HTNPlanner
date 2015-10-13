@@ -85,6 +85,11 @@ class Heuristic
 		// next lets set the goal nodes into the respective layers, so that we can traverse backwards
 		// through the layers and check against anything enabled by such layer
 		var goal_node_layers:Array<Array<TreeNode>> = new Array<Array<TreeNode>>();
+		for (index in 0...state_list.length)
+		{
+			goal_node_layers[index] = new Array<TreeNode>();
+		}
+		
 		for (goal_node in goal_nodes)
 		{
 			AddGoalNodeToLayers(goal_node, state_list, goal_node_layers, state_list.length - 1);
@@ -151,7 +156,7 @@ class Heuristic
 			
 			index--;
 		}
-		trace(concrete_actions_count);
+		//trace(concrete_actions_count);
 		return concrete_actions_count;
 	}
 	
@@ -179,11 +184,6 @@ class Heuristic
 			{
 				break;
 			}
-		}
-		
-		if (layers_[earliest_index] == null)
-		{
-			layers_[earliest_index] = new Array<TreeNode>();
 		}
 		
 		layers_[earliest_index].push(goal_node_);

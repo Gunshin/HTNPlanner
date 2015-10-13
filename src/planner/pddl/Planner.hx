@@ -66,7 +66,7 @@ class Planner
 			}
 			
 			currentState = GetNextState(openList);
-			trace(current_lowest_total_cost_seen);
+			//trace(current_lowest_total_cost_seen);
 			//trace("iter: current_state: " + currentState.depth + " _ " + currentState.estimate + " _____ " + problem_.EvaluateGoal(currentState.state) + "\n" + currentState);
 		}
 		while (currentState != null && !problem_.EvaluateGoal(currentState.state));
@@ -103,7 +103,7 @@ class Planner
 		var states:Array<PlannerNode> = new Array<PlannerNode>();
 		
 		var actions:Array<PlannerActionNode> = GetAllActionsForState(parent_state_.state, domain);
-		trace("action count: " + actions.length);
+		//trace("action count: " + actions.length);
 		for (actionNode in actions)
 		{
 			
@@ -155,22 +155,20 @@ class Planner
 			var action:Action = domain_.GetAction(actionName);
 			
 			var parameter_combinations:Array<Array<Pair<String, String>>> = GetAllPossibleParameterCombinations(action, state_, domain_);
-			//trace(parameter_combinations);
-			//throw "";
+			
 			// has an extra array since these combinations are used per parameter combination
 			var value_combinations:Array<Array<Array<Pair<String, String>>>> = GetAllPossibleValueCombinations(action, parameter_combinations, state_, domain_);
-			//trace(value_combinations);
 			
 			for (param_index in 0...parameter_combinations.length)
 			{
 				var param_combination:Array<Pair<String, String>> = parameter_combinations[param_index];
+				trace(param_combination);
 				action.GetData().SetParameters(param_combination);
 				if (value_combinations[param_index].length > 0)
 				{
 					for (val_combination in value_combinations[param_index])
 					{
 						action.GetData().SetValues(val_combination);
-						//trace(combination + "\n" + combinations_result.a);
 						
 						if (action.Evaluate(state_, domain_))
 						{

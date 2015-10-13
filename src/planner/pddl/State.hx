@@ -115,7 +115,6 @@ class State
 				matchingRelations.push(relation);
 			}
 		}
-		
 		return matchingRelations;
 	}
 	
@@ -277,7 +276,7 @@ class State
 		}
 		
 		string = string.substr(0, string.length - 1);
-		string += "], functions:[";
+		string += "],\n functions:[";
 		
 		for (i in functionsMap.keys())
 		{
@@ -285,7 +284,7 @@ class State
 		}
 		
 		string = string.substr(0, string.length - 1);
-		string += "]}";
+		string += "],\n objects:" + objects + "}";
 		
 		return string;
 	}

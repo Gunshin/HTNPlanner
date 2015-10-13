@@ -7,24 +7,39 @@
 		pirates_treasure prince_ali_rescue romeo_and_juliet - quest
 		rune_mysteries sheep_shearer shield_of_arrav - quest
 		the_restless_ghost vampire_slayer witches_potion - quest
+		
+		lunar_diplomacy the_fremenik_trials lost_city shilo_village - quest
+		jungle_potion druidic_ritual - quest
+		
     )
     (:init
-        (= (required_skill_level dorics_quest mining) 15)
+        ;;(= (required_skill_level dorics_quest mining) 15)
 		
-		(= (required_skill_level dragon_slayer defence) 30)
-		(= (required_skill_level dragon_slayer range) 40)
+		;;(= (required_skill_level dragon_slayer defence) 30)
+		;;(= (required_skill_level dragon_slayer range) 40)
 		
-		(= (required_skill_level the_knights_sword mining) 10)
+		;;(= (required_skill_level the_knights_sword mining) 10)
 		
-		(= (required_skill_level vampire_slayer range) 20)
+		;;(= (required_skill_level vampire_slayer range) 20)
+		
+		(quest_required_to_do_quest lunar_diplomacy the_fremenik_trials)
+		(quest_required_to_do_quest lunar_diplomacy lost_city)
+		(quest_required_to_do_quest lunar_diplomacy shilo_village)
+		(quest_required_to_do_quest lunar_diplomacy rune_mysteries)
+		
+		(quest_required_to_do_quest shilo_village jungle_potion)
+		
+		(quest_required_to_do_quest jungle_potion druidic_ritual)
+		
     )
     (:goal
         (and
             (done cooks_assistant)
-			;;(done black_knights_fortress)
-			;;(done dorics_quest)
-			;;(done dragon_slayer)
-			;;(done ernest_the_chicken)
+			(done black_knights_fortress)
+			(done dorics_quest)
+			(done dragon_slayer)
+			(done ernest_the_chicken)
+			(done lunar_diplomacy)
         )
     )
 	(:metric minimize (total-time))

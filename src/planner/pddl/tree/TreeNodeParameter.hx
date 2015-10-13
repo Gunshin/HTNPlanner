@@ -32,7 +32,7 @@ class TreeNodeParameter extends TreeNode
 	
 	override public function Execute(data_:ActionData, state_:State, domain_:Domain):String
 	{
-		return Std.string(state_.GetFunction(data_.GetParameterMap().get(paramName).GetValue()));
+		return Std.string(state_.GetFunction(data_.GetParameter(paramName).GetValue()));
 	}
 	
 	override public function HeuristicEvaluate(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):Bool 
@@ -42,7 +42,7 @@ class TreeNodeParameter extends TreeNode
 	
 	override public function HeuristicExecute(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):String 
 	{
-		return Std.string(state_.GetFunctionBounds(data_.GetParameterMap().get(paramName).GetValue()));
+		return Std.string(state_.GetFunctionBounds(data_.GetParameter(paramName).GetValue()));
 	}
 	
 	override public function GetRawName():String

@@ -31,10 +31,15 @@
                 ;;(>= (skill_level ?skill) (required_skill_level ?quest ?skill) )
             ;;)
 			(forall (?quest_required - quest) ;; check to see if we have all the precondition quests
-				(and 
-					(quest_required_to_do_quest ?quest ?quest_required) ;; if we need to do the ?quest_required, then check with below to make sure it has been done
-					(done ?quest_required)
-				)
+				;;(when
+					;;(and 
+						;;(quest_required_to_do_quest ?quest ?quest_required) ;; if we need to do the ?quest_required, then check with below to make sure it has been done
+					;;)
+					;;(and
+						;;(done ?quest_required)
+					;;)
+				;;)
+				(imply (quest_required_to_do_quest ?quest ?quest_required) (done ?quest_required))
             )
 			
         )

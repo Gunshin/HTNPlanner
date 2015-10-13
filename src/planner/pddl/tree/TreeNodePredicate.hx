@@ -71,7 +71,7 @@ class TreeNodePredicate extends TreeNode
 			// if the first character is not a '?', then this value is not a parameter name. Therefor just add the value if it isnt.
 			if (Utilities.Compare(i.charAt(0), "?") == 0)
 			{
-				constructedValue += " " + data_.GetParameterMap().get(i).GetValue();
+				constructedValue += " " + data_.GetParameter(i).GetValue();
 			}
 			else
 			{
@@ -99,7 +99,7 @@ class TreeNodePredicate extends TreeNode
 		var params:Array<String> = new Array<String>();
 		for (param in param_names)
 		{
-			params.push(action_data_.GetParameterMap().get(param).GetValue());
+			params.push(action_data_.GetParameter(param).GetValue());
 		}
 		
 		return new TreeNodePredicate(name, params);

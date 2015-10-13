@@ -31,8 +31,7 @@ class TreeNodeForall extends TreeNode
 	
 	override public function Evaluate(data_:ActionData, state_:State, domain_:Domain):Bool
 	{
-		var objects:Array<String> = state_.GetMatching(parameterNode.GetType());
-		
+		var objects:Array<String> = state_.GetObjectsOfType(parameterNode.GetType());
 		data_.GetParameterMap().set(parameterNode.GetName(), parameterNode);
 		
 		for (i in objects)
@@ -44,6 +43,7 @@ class TreeNodeForall extends TreeNode
 				return false;
 			}
 		}
+		data_.GetParameterMap().remove(parameterNode.GetName());
 		
 		return true;
 	}
@@ -60,13 +60,14 @@ class TreeNodeForall extends TreeNode
 			
 			forallTree.Execute(data_, state_, domain_);
 		}
+		data_.GetParameterMap().remove(parameterNode.GetName());
 		
 		return null;
 	}
 	
 	override public function HeuristicEvaluate(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):Bool 
 	{
-		var objects:Array<String> = state_.GetMatching(parameterNode.GetType());
+		var objects:Array<String> = state_.GetObjectsOfType(parameterNode.GetType());
 		
 		data_.GetParameterMap().set(parameterNode.GetName(), parameterNode);
 		
@@ -79,6 +80,7 @@ class TreeNodeForall extends TreeNode
 				return false;
 			}
 		}
+		data_.GetParameterMap().remove(parameterNode.GetName());
 		
 		return true;
 	}
@@ -95,6 +97,7 @@ class TreeNodeForall extends TreeNode
 			
 			forallTree.HeuristicExecute(data_, heuristic_data_, state_, domain_);
 		}
+		data_.GetParameterMap().remove(parameterNode.GetName());
 		
 		return null;
 	}
