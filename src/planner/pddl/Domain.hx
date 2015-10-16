@@ -315,7 +315,7 @@ class Domain
 		
 	}
 	
-	public function PredicatExists(name_:String):Bool
+	public function PredicateExists(name_:String):Bool
 	{
 		return predicates.exists(name_);
 	}

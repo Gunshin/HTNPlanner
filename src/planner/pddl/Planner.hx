@@ -162,7 +162,6 @@ class Planner
 			for (param_index in 0...parameter_combinations.length)
 			{
 				var param_combination:Array<Pair<String, String>> = parameter_combinations[param_index];
-				trace(param_combination);
 				action.GetData().SetParameters(param_combination);
 				if (value_combinations[param_index].length > 0)
 				{
@@ -182,6 +181,10 @@ class Planner
 					{
 						actions.push(new PlannerActionNode(action, param_combination, null));
 					}
+				}
+				if (action.GetData().GetParameter("?quest_required") != null)
+				{
+					throw "";
 				}
 			}
 			

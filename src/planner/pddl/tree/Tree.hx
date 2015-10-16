@@ -132,7 +132,7 @@ class Tree
 		var terms:Array<String> = rawNode_.value.split(" ");
 		var firstTerm:String = terms[0];
 		
-		if (domain_.PredicatExists(firstTerm))
+		if (domain_.PredicateExists(firstTerm))
 		{
 			var params:Array<String> = new Array<String>();
 			for (raw_node in rawNode_.children)

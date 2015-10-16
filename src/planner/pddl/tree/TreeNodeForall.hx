@@ -32,7 +32,9 @@ class TreeNodeForall extends TreeNode
 	override public function Evaluate(data_:ActionData, state_:State, domain_:Domain):Bool
 	{
 		var objects:Array<String> = state_.GetObjectsOfType(parameterNode.GetType());
-		data_.GetParameterMap().set(parameterNode.GetName(), parameterNode);
+		data_.AddExistingParameter(parameterNode);
+		
+		var flag:Bool = true;
 		
 		for (i in objects)
 		{
@@ -40,19 +42,21 @@ class TreeNodeForall extends TreeNode
 			
 			if (!forallTree.Evaluate(data_, state_, domain_))
 			{
-				return false;
+				flag = false;
+				break;
 			}
 		}
-		data_.GetParameterMap().remove(parameterNode.GetName());
 		
-		return true;
+		data_.RemoveParameter(parameterNode.GetName());
+		
+		return flag;
 	}
 	
 	override public function Execute(data_:ActionData, state_:State, domain_:Domain):String
 	{		
 		var objects:Array<String> = state_.GetObjectsOfType(parameterNode.GetType());
 		
-		data_.GetParameterMap().set(parameterNode.GetName(), parameterNode);
+		data_.AddExistingParameter(parameterNode);
 		
 		for (i in objects)
 		{
@@ -60,7 +64,7 @@ class TreeNodeForall extends TreeNode
 			
 			forallTree.Execute(data_, state_, domain_);
 		}
-		data_.GetParameterMap().remove(parameterNode.GetName());
+		data_.RemoveParameter(parameterNode.GetName());
 		
 		return null;
 	}
@@ -69,7 +73,9 @@ class TreeNodeForall extends TreeNode
 	{
 		var objects:Array<String> = state_.GetObjectsOfType(parameterNode.GetType());
 		
-		data_.GetParameterMap().set(parameterNode.GetName(), parameterNode);
+		data_.AddExistingParameter(parameterNode);
+		
+		var flag:Bool = true;
 		
 		for (i in objects)
 		{
@@ -77,19 +83,21 @@ class TreeNodeForall extends TreeNode
 			
 			if (!forallTree.HeuristicEvaluate(data_, heuristic_data_, state_, domain_))
 			{
-				return false;
+				flag = false;
+				break;
 			}
 		}
-		data_.GetParameterMap().remove(parameterNode.GetName());
 		
-		return true;
+		data_.RemoveParameter(parameterNode.GetName());
+		
+		return flag;
 	}
 	
 	override public function HeuristicExecute(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):String 
 	{
 		var objects:Array<String> = state_.GetObjectsOfType(parameterNode.GetType());
 		
-		data_.GetParameterMap().set(parameterNode.GetName(), parameterNode);
+		data_.AddExistingParameter(parameterNode);
 		
 		for (i in objects)
 		{
@@ -97,7 +105,8 @@ class TreeNodeForall extends TreeNode
 			
 			forallTree.HeuristicExecute(data_, heuristic_data_, state_, domain_);
 		}
-		data_.GetParameterMap().remove(parameterNode.GetName());
+		
+		data_.RemoveParameter(parameterNode.GetName());
 		
 		return null;
 	}
@@ -105,6 +114,11 @@ class TreeNodeForall extends TreeNode
 	override public function GetRawName():String
 	{
 		return "forall";
+	}
+	
+	public function GetSubTree():Tree
+	{
+		return forallTree;
 	}
 	
 }

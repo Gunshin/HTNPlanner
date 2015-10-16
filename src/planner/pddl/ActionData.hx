@@ -83,11 +83,6 @@ class ActionData
 		return parameterLayout;
 	}
 	
-	public function GetParameterMap():Map<String, Parameter>
-	{
-		return parameters;
-	}
-	
 	public function GetParameters():Array<Parameter>
 	{
 		var params:Array<Parameter> = new Array<Parameter>();
@@ -109,6 +104,24 @@ class ActionData
 		
 		parameters.set(name_, new Parameter(name_, type_, null));
 		parameterLayout.push(name_);
+	}
+	
+	public function AddExistingParameter(param_:Parameter)
+	{
+		var param:Parameter = GetParameter(param_.GetName());
+		if (param != null)
+		{
+			throw "param already exists";
+		}
+		
+		parameters.set(param_.GetName(), param_);
+		parameterLayout.push(param_.GetName());
+	}
+	
+	public function RemoveParameter(name_:String):Bool
+	{
+		parameterLayout.remove(name_);
+		return parameters.remove(name_);
 	}
 	
 	public function SetParameter(name_:String, value_:String)

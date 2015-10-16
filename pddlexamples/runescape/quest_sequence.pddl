@@ -7,6 +7,7 @@
     (:predicates
         (done ?quest - quest)
 		(quest_required_to_do_quest ?target_quest ?required_quest - quest)
+		(skill_required_to_do_quest ?target_quest - quest ?skill - skill
     )
     (:functions
         (skill_level ?skill - skill)
@@ -31,14 +32,6 @@
                 ;;(>= (skill_level ?skill) (required_skill_level ?quest ?skill) )
             ;;)
 			(forall (?quest_required - quest) ;; check to see if we have all the precondition quests
-				;;(when
-					;;(and 
-						;;(quest_required_to_do_quest ?quest ?quest_required) ;; if we need to do the ?quest_required, then check with below to make sure it has been done
-					;;)
-					;;(and
-						;;(done ?quest_required)
-					;;)
-				;;)
 				(imply (quest_required_to_do_quest ?quest ?quest_required) (done ?quest_required))
             )
 			
@@ -50,19 +43,19 @@
         )
 	)
 	
-	;;(:action Get_XP
-		;;:parameters (?skill - skill)
-		;;:values (~count - integer-range)
-		;;:precondition
-		;;(and
-			;;(> (~count) 0)
-			;;(<= (~count) (- 99 (skill_level ?skill)))
-		;;)
-		;;:effect
-		;;(and
-			;;(increase (skill_level ?skill) ~count)
-			;;(increase (total-time) (~count))
-		;;)
-	;;)
+	(:action Get_Minimum_XP
+		:parameters (?skill - skill ?quest - quest)
+		:precondition
+		(and
+			(skill_required_to_do_quest ?quest ?skill)
+			(< (skill_level ?skill) (required_skill_level ?quest ?skill))
+		)
+		:effect
+		(and
+			(= (skill_level ?skill) (required_skill_level ?quest ?skill))
+			(increase (total-time) (* 10 (- (required_skill_level ?quest ?skill) (skill_level ?skill))))
+			
+		)
+	)
 	
 )

@@ -4,6 +4,7 @@ import planner.pddl.ActionData;
 import planner.pddl.Pair;
 import planner.pddl.Predicate;
 import planner.pddl.StateHeuristic;
+import planner.pddl.tree.TreeNodeForall;
 
 import planner.pddl.tree.Tree;
 import planner.pddl.tree.TreeNode;
@@ -108,6 +109,7 @@ class Heuristic
 				{
 					if (!concrete_actions.exists(action_node))// only run on this action if it has not been added to the list
 					{
+						//grab the predicates that are needed
 						var heuristic_data_for_looking:HeuristicData = new HeuristicData();
 						action_node.Set();
 						action_node.action.HeuristicExecute(heuristic_data_for_looking, s_h_n.state, domain);
@@ -131,7 +133,7 @@ class Heuristic
 								var action_precondition_nodes_to_add:Array<TreeNode> = GetGoalNodes(action_node.action.GetPreconditionTree().GetBaseNode());
 								for (node in action_precondition_nodes_to_add)
 								{
-									if (domain.PredicatExists(node.GetRawName()))
+									if (domain.PredicateExists(node.GetRawName()))
 									{
 										var pred_node:TreeNodePredicate = cast(node, TreeNodePredicate);
 										var concrete_node:TreeNode = pred_node.BuildConcretePredicate(action_node.action.GetData());
@@ -156,7 +158,7 @@ class Heuristic
 			
 			index--;
 		}
-		//trace(concrete_actions_count);
+		trace(concrete_actions_count);
 		return concrete_actions_count;
 	}
 	
@@ -194,7 +196,24 @@ class Heuristic
 		var goal_nodes:Array<TreeNode> = new Array<TreeNode>();
 		Tree.RecursiveExplore(node_, function(node_)
 		{
-			if (domain.PredicatExists(node_.GetRawName()))
+			if (Utilities.Compare(node_.GetRawName(), "not") == 0)
+			{
+				return true;
+			}
+			
+			else if (Utilities.Compare(node_.GetRawName(), "forall") == 0)
+			{
+				goal_nodes.push(node_);
+				return true;
+			}
+			
+			else if (Utilities.Compare(node_.GetRawName(), "imply") == 0)
+			{
+				goal_nodes.push(node_);
+				return true;
+			}
+			
+			else if (domain.PredicateExists(node_.GetRawName()))
 			{
 				goal_nodes.push(node_);
 				return true;
@@ -203,6 +222,7 @@ class Heuristic
 			return false;
 		});
 		
+		trace(goal_nodes);
 		return goal_nodes;
 	}
 	
