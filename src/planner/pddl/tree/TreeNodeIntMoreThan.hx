@@ -27,6 +27,18 @@ class TreeNodeIntMoreThan extends TreeNodeInt
 		return valueA_.b > valueB_.a;
 	}
 	
+	override public function GenerateConcrete(action_data_:ActionData, state_:State, domain_:Domain):Array<TreeNode>
+	{
+		var concrete:TreeNodeIntMoreThan = new TreeNodeIntMoreThan();
+		
+		for (child in children)
+		{
+			concrete.AddChild(child.GenerateConcrete(action_data_, state_, domain_)[0]); // again, children only return copies of themselves
+		}
+		
+		return [concrete];
+	}
+	
 	override public function GetRawName():String
 	{
 		return ">";

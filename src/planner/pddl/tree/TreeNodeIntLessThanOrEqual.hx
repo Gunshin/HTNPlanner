@@ -27,6 +27,18 @@ class TreeNodeIntLessThanOrEqual extends TreeNodeInt
 		return valueA_.a <= valueB_.b;
 	}
 	
+	override public function GenerateConcrete(action_data_:ActionData, state_:State, domain_:Domain):Array<TreeNode>
+	{
+		var concrete:TreeNodeIntLessThanOrEqual = new TreeNodeIntLessThanOrEqual();
+		
+		for (child in children)
+		{
+			concrete.AddChild(child.GenerateConcrete(action_data_, state_, domain_)[0]); // again, children only return copies of themselves
+		}
+		
+		return [concrete];
+	}
+	
 	override public function GetRawName():String
 	{
 		return "<=";

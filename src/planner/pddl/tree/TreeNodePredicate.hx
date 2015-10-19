@@ -94,7 +94,7 @@ class TreeNodePredicate extends TreeNode
 		return constructedValue;
 	}
 	
-	public function BuildConcretePredicate(action_data_:ActionData):TreeNodePredicate
+	override public function GenerateConcrete(action_data_:ActionData, state_:State, domain_:Domain):Array<TreeNode>
 	{
 		var params:Array<String> = new Array<String>();
 		for (param in param_names)
@@ -102,6 +102,6 @@ class TreeNodePredicate extends TreeNode
 			params.push(action_data_.GetParameter(param).GetValue());
 		}
 		
-		return new TreeNodePredicate(name, params);
+		return [new TreeNodePredicate(name, params)];
 	}
 }

@@ -13,14 +13,19 @@
 		
     )
     (:init
-        ;;(= (required_skill_level dorics_quest mining) 15)
+		(skill_required_to_do_quest dorics_quest mining)
+        (= (required_skill_level dorics_quest mining) 15)
 		
-		;;(= (required_skill_level dragon_slayer defence) 30)
-		;;(= (required_skill_level dragon_slayer range) 40)
+		(skill_required_to_do_quest dragon_slayer defence)
+		(= (required_skill_level dragon_slayer defence) 30)
+		(skill_required_to_do_quest dragon_slayer range)
+		(= (required_skill_level dragon_slayer range) 40)
 		
-		;;(= (required_skill_level the_knights_sword mining) 10)
+		(skill_required_to_do_quest the_knights_sword mining)
+		(= (required_skill_level the_knights_sword mining) 10)
 		
-		;;(= (required_skill_level vampire_slayer range) 20)
+		(skill_required_to_do_quest vampire_slayer range)
+		(= (required_skill_level vampire_slayer range) 20)
 		
 		(quest_required_to_do_quest lunar_diplomacy the_fremenik_trials)
 		(quest_required_to_do_quest lunar_diplomacy lost_city)
@@ -39,7 +44,7 @@
 			(done dorics_quest)
 			(done dragon_slayer)
 			(done ernest_the_chicken)
-			(done lunar_diplomacy)
+			;;(done lunar_diplomacy)
         )
     )
 	(:metric minimize (total-time))

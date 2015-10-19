@@ -40,6 +40,8 @@ class TreeNodeForall extends TreeNode
 		{
 			parameterNode.SetValue(i);
 			
+			//trace(i + "___" + forallTree.Evaluate(data_, state_, domain_));
+			
 			if (!forallTree.Evaluate(data_, state_, domain_))
 			{
 				flag = false;
@@ -111,9 +113,36 @@ class TreeNodeForall extends TreeNode
 		return null;
 	}
 	
+	override public function GenerateConcrete(action_data_:ActionData, state_:State, domain_:Domain):Array<TreeNode>
+	{
+		var concretes:Array<TreeNode> = new Array<TreeNode>();
+		
+		var objects:Array<String> = state_.GetObjectsOfType(parameterNode.GetType());
+		action_data_.AddExistingParameter(parameterNode);
+		
+		for (i in objects)
+		{
+			parameterNode.SetValue(i);
+			concretes = concretes.concat(forallTree.GetBaseNode().GenerateConcrete(action_data_, state_, domain_));
+		}
+		
+		action_data_.RemoveParameter(parameterNode.GetName());
+		
+		return concretes;
+	}
+	
 	override public function GetRawName():String
 	{
 		return "forall";
+	}
+	
+	override public function GetRawTreeString():String
+	{
+		var returnee:String = GetRawName() + " ";
+		
+		returnee += "(" + forallTree.GetBaseNode().GetRawTreeString() + ") ";
+		
+		return returnee;
 	}
 	
 	public function GetSubTree():Tree

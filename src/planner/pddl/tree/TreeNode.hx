@@ -30,6 +30,8 @@ class TreeNode
 	
 	public function HeuristicExecute(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):String { throw "must override this function"; }
 	
+	public function GenerateConcrete(action_data_:ActionData, state_:State, domain_:Domain):Array<TreeNode> { throw "must override this function"; }
+	
 	
 	public function AddChild(child_:TreeNode)
 	{
@@ -95,7 +97,7 @@ class TreeNode
 	
 	public function toString():String
 	{
-		return GetRawName();
+		return GetRawTreeString();
 	}
 	
 	public function Clone():TreeNode

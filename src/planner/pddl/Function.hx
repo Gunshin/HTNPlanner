@@ -9,7 +9,7 @@ class Function
 	//this class is primarily here incase i want to do type checking on parameters and such
 	
 	
-	var name:String = null;
+	/*var name:String = null;
 	
 	public function new(node_:RawTreeNode) 
 	{
@@ -61,5 +61,5 @@ class Function
 		}
 		
 		return constructedValue;
-	}
+	}*/
 }

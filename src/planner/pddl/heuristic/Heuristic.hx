@@ -54,6 +54,7 @@ class Heuristic
 		
 		// first generate the full graph to ensure we can fulfill the goal
 		var depth:Int = 0;
+		//trace("\n\n\n\n");
 		
 		while (!problem.HeuristicEvaluateGoal(current_node.state))
 		{
@@ -62,6 +63,7 @@ class Heuristic
 			state_list.push(current_node);
 			
 			depth++;
+			//trace(current_node + "\n\n\n\n");
 			
 			if (depth > 20)
 			{
@@ -71,7 +73,8 @@ class Heuristic
 				{
 					total_action_count += state.actions_applied_to_state.length;
 				}
-				trace("returning with no heuristic found: " + (total_action_count * 20));
+				//trace("returning with no heuristic found: " + (total_action_count * 20));
+				//throw "";
 				return total_action_count * 20;
 			}
 		}
@@ -133,11 +136,11 @@ class Heuristic
 								var action_precondition_nodes_to_add:Array<TreeNode> = GetGoalNodes(action_node.action.GetPreconditionTree().GetBaseNode());
 								for (node in action_precondition_nodes_to_add)
 								{
-									if (domain.PredicateExists(node.GetRawName()))
+									// an array since a for loop can return many nodes when asked for a concrete version
+									var concrete_nodes:Array<TreeNode> = node.GenerateConcrete(action_node.action.GetData(), s_h_n.state, domain);
+									for (node in concrete_nodes)
 									{
-										var pred_node:TreeNodePredicate = cast(node, TreeNodePredicate);
-										var concrete_node:TreeNode = pred_node.BuildConcretePredicate(action_node.action.GetData());
-										AddGoalNodeToLayers(concrete_node, state_list, goal_node_layers, index - 1);
+										AddGoalNodeToLayers(node, state_list, goal_node_layers, index - 1);
 									}
 								}
 								
@@ -158,7 +161,7 @@ class Heuristic
 			
 			index--;
 		}
-		trace(concrete_actions_count);
+		//trace(concrete_actions_count);
 		return concrete_actions_count;
 	}
 	
@@ -196,33 +199,42 @@ class Heuristic
 		var goal_nodes:Array<TreeNode> = new Array<TreeNode>();
 		Tree.RecursiveExplore(node_, function(node_)
 		{
-			if (Utilities.Compare(node_.GetRawName(), "not") == 0)
+			if (Utilities.Compare(node_.GetRawName(), "not") == 0) // we want to ignore nots as i am not entirely sure how to handle them
 			{
 				return true;
 			}
 			
-			else if (Utilities.Compare(node_.GetRawName(), "forall") == 0)
+			else if (Utilities.Compare(node_.GetRawName(), "forall") == 0) // forall needs to be handled specifically as it owns its own tree and does different things
 			{
 				goal_nodes.push(node_);
 				return true;
 			}
 			
-			else if (Utilities.Compare(node_.GetRawName(), "imply") == 0)
+			else if (Utilities.Compare(node_.GetRawName(), "imply") == 0) // imply is also a special case we need to handle
 			{
 				goal_nodes.push(node_);
 				return true;
 			}
 			
-			else if (domain.PredicateExists(node_.GetRawName()))
+			else if (Utilities.Compare(node_.GetRawName(), "or") == 0) // same again, only one of the children needs to be true, not all
 			{
 				goal_nodes.push(node_);
 				return true;
 			}
+			
+			else if (domain.PredicateExists(node_.GetRawName())) // essentially all thats left to ignore is and's, meaning we need to catch predicates
+			{
+				goal_nodes.push(node_);
+				return true;
+			}
+			
+			// we do however, completely ignore TreeNodeInt branches currently, meaning the comparison operands are ignored. may need to change this,
+			// although the numeric side of them are handled a different way with the heuristic
 			
 			return false;
 		});
 		
-		trace(goal_nodes);
+		//trace(goal_nodes);
 		return goal_nodes;
 	}
 	

@@ -176,6 +176,21 @@ class TreeNodeAnd extends TreeNode
 		return returnee;
 	}
 	
+	override public function GenerateConcrete(action_data_:ActionData, state_:State, domain_:Domain):Array<TreeNode>
+	{
+		var concrete_and:TreeNodeAnd = new TreeNodeAnd();
+		
+		for (child in children)
+		{
+			for (conc in child.GenerateConcrete(action_data_, state_, domain_))
+			{
+				concrete_and.AddChild(conc);
+			}
+		}
+		
+		return [concrete_and];
+	}
+	
 	override public function GetRawName():String
 	{
 		return "and";

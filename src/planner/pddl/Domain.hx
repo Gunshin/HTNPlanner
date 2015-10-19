@@ -30,7 +30,7 @@ class Domain
 	 */
 	var predicate_action_effect:Map<String, Array<Action>> = new Map<String, Array<Action>>();
 	
-	var functions:Map<String, Function> = new StringMap<Function>();
+	var functions:Map<String, Bool> = new StringMap<Bool>();
 	var evaluator:Map<String, Bool> = new StringMap<Bool>();
 	
 	var actions:Map<String, Action> = new StringMap<Action>();
@@ -131,8 +131,7 @@ class Domain
 		
 		for (i in functionNodes)
 		{
-			var newFunction:Function = new Function(i);
-			functions.set(newFunction.GetName(), newFunction);
+			functions.set(i.value, true);
 		}
 		
 		properties.set("functions", true);
@@ -166,10 +165,7 @@ class Domain
 	
 	function AddFunction(name_:String)
 	{
-		var node:RawTreeNode = new RawTreeNode(null);
-		node.value = name_;
-		var func:Function = new Function(node);
-		functions.set(name_, func);
+		functions.set(name_, true);
 	}
 	
 	function AddEvaluator(name_:String)
@@ -330,9 +326,9 @@ class Domain
 		return actions.keys();
 	}
 	
-	public function GetFunction(name_:String):Function
+	public function FunctionExists(name_:String):Bool
 	{
-		return functions.get(name_);
+		return functions.exists(name_);
 	}
 	
 	public function HasProperty(string_:String):Bool

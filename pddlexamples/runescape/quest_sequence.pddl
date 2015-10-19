@@ -7,7 +7,7 @@
     (:predicates
         (done ?quest - quest)
 		(quest_required_to_do_quest ?target_quest ?required_quest - quest)
-		(skill_required_to_do_quest ?target_quest - quest ?skill - skill
+		(skill_required_to_do_quest ?target_quest - quest ?skill - skill)
     )
     (:functions
         (skill_level ?skill - skill)
@@ -28,9 +28,9 @@
         (and
 			
 			(not (done ?quest))
-			;;(forall (?skill - skill) ;; check to see if we have all of the skill requirements
-                ;;(>= (skill_level ?skill) (required_skill_level ?quest ?skill) )
-            ;;)
+			(forall (?skill - skill) ;; check to see if we have all of the skill requirements
+                (>= (skill_level ?skill) (required_skill_level ?quest ?skill) )
+            )
 			(forall (?quest_required - quest) ;; check to see if we have all the precondition quests
 				(imply (quest_required_to_do_quest ?quest ?quest_required) (done ?quest_required))
             )
@@ -54,8 +54,6 @@
 		(and
 			(= (skill_level ?skill) (required_skill_level ?quest ?skill))
 			(increase (total-time) (* 10 (- (required_skill_level ?quest ?skill) (skill_level ?skill))))
-			
 		)
 	)
-	
 )

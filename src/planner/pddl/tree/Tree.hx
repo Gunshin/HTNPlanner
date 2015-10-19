@@ -144,10 +144,15 @@ class Tree
 			return newNode;
 		}
 		
-		var func:Function = domain_.GetFunction(firstTerm);
-		if (func != null)
+		if (domain_.FunctionExists(firstTerm))
 		{
-			newNode = new TreeNodeFunction(func, rawNode_.children);
+			var params:Array<String> = new Array<String>();
+			for (raw_node in rawNode_.children)
+			{
+				params.push(raw_node.value);
+			}
+			
+			newNode = new TreeNodeFunction(firstTerm, params);
 			return newNode;
 		}
 		

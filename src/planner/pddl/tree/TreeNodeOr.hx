@@ -99,6 +99,21 @@ class TreeNodeOr extends TreeNode
 		return returnee;
 	}
 	
+	override public function GenerateConcrete(action_data_:ActionData, state_:State, domain_:Domain):Array<TreeNode>
+	{
+		var concrete_or:TreeNodeOr = new TreeNodeOr();
+		
+		for (child in children)
+		{
+			for (conc in child.GenerateConcrete(action_data_, state_, domain_))
+			{
+				concrete_or.AddChild(conc);
+			}
+		}
+		
+		return [concrete_or];
+	}
+	
 	
 	override public function GetRawName():String
 	{

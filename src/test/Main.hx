@@ -2,6 +2,7 @@ package test;
 
 import haxe.Timer;
 import planner.pddl.Action;
+import planner.pddl.State;
 
 import planner.pddl.Domain;
 import planner.pddl.Problem;
@@ -52,10 +53,27 @@ class Main
 		var problem = new Problem(problemLocation[domainIndex], domain);
 		//trace(problem.GetClonedInitialState());
 		
-		/*var action:Action = domain.GetAction("complete_quest");
-		action.GetData().SetParameter("?quest", "cooks_assistant");
-		trace(action.Evaluate(problem.GetClonedInitialState(), domain));
-		trace(action.Execute(problem.GetClonedInitialState(), domain));*/
+		/*var state:State = problem.GetClonedInitialState();
+
+		var action_g:Action = domain.GetAction("get_minimum_xp");
+		action_g.GetData().SetParameter("?quest", "dorics_quest");
+		action_g.GetData().SetParameter("?skill", "mining");
+		
+		trace(action_g.Evaluate(state, domain));
+		trace(state = action_g.Execute(state, domain));
+		
+		trace(state.GetFunction("skill_level mining"));
+		
+		var action_c:Action = domain.GetAction("complete_quest");
+		action_c.GetData().SetParameter("?quest", "dorics_quest");
+		
+		for ( child in action_c.GetPreconditionTree().GetBaseNode().GetChildren())
+		{
+			trace(child.Evaluate(action_c.GetData(), state, domain) + "\n" + child + "\n\n");
+		}*/
+		
+		//trace(action.Evaluate(state, domain));
+		//trace(action.Execute(state, domain));
 		
 		
 		var start:Float = Sys.cpuTime();

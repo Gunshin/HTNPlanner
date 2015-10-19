@@ -42,6 +42,11 @@ class TreeNodeIntFunctionValue extends TreeNodeInt
 		return value;
 	}
 	
+	override public function GenerateConcrete(action_data_:ActionData, state_:State, domain_:Domain):Array<TreeNode>
+	{
+		return [this]; // since this treenode will never change, just use this instead of instantiating a copy
+	}
+	
 	override public function GetRawName():String
 	{
 		return value;
