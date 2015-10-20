@@ -2,6 +2,9 @@
 
 - Still do not use a closed list in planner
 
+- Need to do function testing on domains so that i can set input parameters and states, and an expected outcome to see if it is correct.
+
+- 
 
 >=
 >

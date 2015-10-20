@@ -1,5 +1,8 @@
 package test;
 
+import sys.io.File;
+import sys.io.FileOutput;
+
 import haxe.Timer;
 import planner.pddl.Action;
 import planner.pddl.State;
@@ -75,8 +78,13 @@ class Main
 		//trace(action.Evaluate(state, domain));
 		//trace(action.Execute(state, domain));
 		
+		var fo:FileOutput = File.write("output.txt", false);
+		fo.writeString(problem.GetClonedInitialState().toString());
+		fo.flush();
+		fo.close();
 		
-		var start:Float = Sys.cpuTime();
+		
+		/*var start:Float = Sys.cpuTime();
 		
 		var planner:Planner = new Planner();
 		var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, true);
@@ -88,7 +96,7 @@ class Main
 		for (i in 0...array.length)
 		{
 			trace(array[i].GetActionTransform());
-		}
+		}*/
 		
 	}
 	

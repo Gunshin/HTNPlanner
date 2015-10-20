@@ -38,7 +38,7 @@ class Parameter
 	
 	public function toString():String
 	{
-		return nameType.toString() + " = " + value;
+		return "{\"name\":\"" + nameType.a + "\", \"type\":\"" + nameType.b + "\", \"value\":\"" + value + "\"}";
 	}
 	
 	/*public function SetValue(value_:String, type_:String, domain:Domain)

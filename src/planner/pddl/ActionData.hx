@@ -150,7 +150,41 @@ class ActionData
 	
 	public function toString():String
 	{
-		return "{parameters:" + parameters + ", parameters_layout:" + parameterLayout + ", values:" + values + ", values_layout:" + valuesLayout + "}";
+		var string:String = "{\"parameters\":[";
+		
+		for (param in parameters.keys())
+		{
+			string += parameters.get(param) + ",";
+		}
+		
+		string = string.substr(0, string.length - 1);
+		string += "], \"parameters_layout\":[";
+		
+		for (param in parameterLayout)
+		{
+			string += "\"" + param + "\",";
+		}
+		
+		string = string.substr(0, string.length - 1);
+		string += "], \"values\":[";
+		
+		for (value in values.keys())
+		{
+			string += values.get(value) + ",";
+		}
+		
+		string = string.substr(0, string.length - 1);
+		string += "], \"values_layout\":[";
+		
+		for (value in valuesLayout)
+		{
+			string += "\"" + value + "\",";
+		}
+		
+		string = string.substr(0, string.length - 1);
+		string += "]}";
+		
+		return string;
 	}
 	
 }

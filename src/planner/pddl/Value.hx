@@ -32,4 +32,9 @@ class Value
 		return name;
 	}
 	
+	public function toString():String
+	{
+		return "{\"name\":\"" + name + "\",\"value\":\"" + value + "\"}";
+	}
+	
 }
