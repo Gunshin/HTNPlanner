@@ -1,5 +1,6 @@
 package planner.pddl.tree;
 import planner.pddl.tree.TreeNodeInt;
+import planner.pddl.heuristic.HeuristicData;
 
 /**
  * ...

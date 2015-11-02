@@ -137,7 +137,7 @@ class Heuristic
 					//need to apply the functions to the state
 					for (i in heuristic_data_for_looking.function_changes)
 					{
-						goal_node_checking_state.AddRelation(i);
+						goal_node_checking_state.SetFunctionBounds(i.name, i.bounds);
 					}
 					
 					if (!concrete_actions.exists(action_node))// only run on this action if it has not been added to the list
