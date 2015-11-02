@@ -1,4 +1,5 @@
 package planner.pddl.tree;
+import planner.pddl.Pair;
 import planner.pddl.tree.TreeNodeInt;
 
 /**
@@ -38,6 +39,14 @@ class TreeNodeIntEquivalent extends TreeNodeInt
 		}
 		
 		return [concrete];
+	}
+	
+	override public function GetHeuristicBounds(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):Pair<Int, Int> 
+	{
+		var a:Pair<Int, Int> = HeuristicGetValueFromChild(0, data_, heuristic_data_, state_, domain_);
+		var b:Pair<Int, Int> = HeuristicGetValueFromChild(1, data_, heuristic_data_, state_, domain_);
+		
+		return new Pair(cast(Math.min(a.a, b.a), Int), cast(Math.max(a.b, b.b), Int));
 	}
 	
 	override public function GetRawName():String

@@ -39,6 +39,20 @@ class TreeNodeIntLessThan extends TreeNodeInt
 		return [concrete];
 	}
 	
+	override public function GetHeuristicBounds(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):Pair<Int, Int> 
+	{
+		var a:Pair<Int, Int> = HeuristicGetValueFromChild(0, data_, heuristic_data_, state_, domain_);
+		var b:Pair<Int, Int> = HeuristicGetValueFromChild(1, data_, heuristic_data_, state_, domain_);
+		
+		// the left side will always have the lowest plausible/viable value for this node to be satisfied,
+		// but in the case it is not satisfied, it could either be a.b or b.b with the highest value eg.
+		// {12, 15} < {8, 10} the left hand side must be lower than the right hand side,
+		// so it makes no sense to return the right hand side as the lower bound
+		
+		// b.b recieves a -1 because our a.a value is meant to be lower than b.b, not lower than or equal to
+		return new Pair(a.a, cast(Math.max(a.b, b.b - 1), Int));
+	}
+	
 	override public function GetRawName():String
 	{
 		return "<";

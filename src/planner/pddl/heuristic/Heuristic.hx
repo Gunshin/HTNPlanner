@@ -32,6 +32,19 @@ class Heuristic
 	 * eg. i could end up having 5 actions in the previous layer that contribute to the numeric. I need to add all
 	 * actions to the goal. I cannot use the same action multiple times. same parameter set though?
 	 * 
+	 * loop through actions
+	 * if action brings us closer to the bounds
+	 * and the bounds are not already satisfied
+	 * lower bound is closer to the upper bound
+	 * or upper bound is closer to the lower bound
+	 * add it to the list
+	 * 
+	 * (== (inventory_has_item logs) 15)
+	 * find the first action that enables this condition as usual
+	 * this works the same as standard predicates
+	 * add any action that pushes the bounds towards this goal state
+	 * treenodeint to return bounds?
+	 * 
 	 * 
 	 * @param	initial_state_
 	 * @return
@@ -110,18 +123,25 @@ class Heuristic
 				var s_h_n:HeuristicNode = state_list[index - 1]; // index - 1 since we need to use actions from the previous layer
 				for (action_node in s_h_n.actions_applied_to_state)
 				{
+					//grab the predicates that are needed
+					var heuristic_data_for_looking:HeuristicData = new HeuristicData();
+					action_node.Set();
+					action_node.action.HeuristicExecute(heuristic_data_for_looking, s_h_n.state, domain);
+					
+					//need to apply the predicates to the state
+					for (i in heuristic_data_for_looking.predicates.keys())
+					{
+						goal_node_checking_state.AddRelation(i);
+					}
+					
+					//need to apply the functions to the state
+					for (i in heuristic_data_for_looking.function_changes)
+					{
+						goal_node_checking_state.AddRelation(i);
+					}
+					
 					if (!concrete_actions.exists(action_node))// only run on this action if it has not been added to the list
 					{
-						//grab the predicates that are needed
-						var heuristic_data_for_looking:HeuristicData = new HeuristicData();
-						action_node.Set();
-						action_node.action.HeuristicExecute(heuristic_data_for_looking, s_h_n.state, domain);
-						
-						//need to apply the predicates to the state
-						for (i in heuristic_data_for_looking.predicates.keys())
-						{
-							goal_node_checking_state.AddRelation(i);
-						}
 						
 						var goal_nodes_to_remove:Array<TreeNode> = new Array<TreeNode>();
 						// now lets check to see if any of the predicates we are looking for were satisfied
@@ -150,12 +170,17 @@ class Heuristic
 							}
 						}
 						
+						// check to see if goal_node_checking_state's bounds are closer to state_list[index].state
+						// if they are, the
+						
+						
 						// safely remove the goal nodes so we do not attempt them again
 						for (goal_node in goal_nodes_to_remove)
 						{
 							goal_node_layers[index].remove(goal_node);
 						}
 					}
+					
 				}
 			}
 			

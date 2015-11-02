@@ -73,8 +73,10 @@ class TreeNodeInt extends TreeNode
 	
 	public function ComparisonEvaluate(valueA_:Int, valueB_:Int):Bool { throw "must override this function"; }	
 	
-	public function HeuristicComparisonEvaluate(valueA_:Pair<Int, Int>, valueB_:Pair<Int, Int>):Bool { throw "must override this function"; }	
-		
+	public function HeuristicComparisonEvaluate(valueA_:Pair<Int, Int>, valueB_:Pair<Int, Int>):Bool { throw "must override this function"; }
+	
+	public function GetHeuristicBounds(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):Pair<Int, Int> { throw "must override this function"; }
+	
 	override public function Execute(data_:ActionData, state_:State, domain_:Domain):String { throw "must override this function"; }
 	
 	override public function HeuristicExecute(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):String { throw "must override this function"; }
