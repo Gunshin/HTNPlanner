@@ -92,5 +92,69 @@ class StateHeuristic extends State
 		
 		return functions_bounds.get(functionID_);
 	}
+	
+	override public function toString():String
+	{
+		var string:String = "{\"relations\":[";
+		
+		for (i in relationsMap.keys())
+		{
+			var split:Array<String> = i.split(" ");
+			string += "{\"predicate\":\"" + split[0] + "\",\"parameters\":[";
+			
+			for (i in 1...split.length)
+			{
+				string += "\"" + split[i] + "\",";
+			}
+			
+			string = string.substr(0, string.length - 1);
+			string += "]},";
+		}
+		
+		string = string.substr(0, string.length - 1);
+		string += "],\n \"functions\":[";
+		
+		for (i in functionsMap.keys())
+		{
+			
+			var split:Array<String> = i.split(" ");
+			string += "{\"function\":\"" + split[0] + "\",\"parameters\":[";
+			
+			if (split.length > 1)
+			{
+				for (i in 1...split.length)
+				{
+					string += "\"" + split[i] + "\",";
+				}
+				
+				string = string.substr(0, string.length - 1);
+			}
+			
+			string += "],";
+			
+			string += "\"value\":" + functions_bounds.get(i) + "},";
+		}
+		
+		string = string.substr(0, string.length - 1);
+		string += "],\n \"objects\":[";
+		
+		for (i in objects.keys())
+		{
+			string += "{\"" + i + "\":[";
+			
+			var array:Array<String> = objects.get(i);
+			for (ele in array)
+			{
+				string += "\"" + ele + "\",";
+			}
+			string = string.substr(0, string.length - 1);
+			string += "]},";
+		}
+		
+		string = string.substr(0, string.length - 1);
+		string += "]}";
+		
+		return string;
+	}
 
 }

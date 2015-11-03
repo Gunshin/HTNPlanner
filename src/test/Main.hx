@@ -50,7 +50,7 @@ class Main
 		//UnitTests();
 		
 		
-		var domainIndex:Int = 0;
+		var domainIndex:Int = 2;
 		
 		var domain = new Domain(domainLocation[domainIndex]);
 		var problem = new Problem(problemLocation[domainIndex], domain);

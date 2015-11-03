@@ -79,7 +79,14 @@ class Heuristic
 			depth++;
 			//trace(current_node + "\n\n\n\n");
 			
-			if (depth > 20)
+			Utilities.WriteToFile("temp.json", "------------------", true);
+			for (layer in state_list)
+			{
+				Utilities.WriteToFile("temp.json", "\n"+layer, true);
+			}
+			Utilities.WriteToFile("temp.json", "\n------------------------\n\n", true);
+			
+			if (depth > 4)
 			{
 				var total_action_count:Int = 0;
 				
@@ -87,10 +94,15 @@ class Heuristic
 				{
 					total_action_count += state.actions_applied_to_state.length;
 				}
-				//trace("returning with no heuristic found: " + (total_action_count * 20));
+				
+				
+				trace("returning with no heuristic found: " + (total_action_count * 20));
+				throw "";
 				return total_action_count * 20;
 			}
 		}
+		
+		//Utilities.WriteToFile("state_list.json", ""+state_list, false);
 		
 		//trace(depth);
 		
@@ -111,8 +123,9 @@ class Heuristic
 		
 		for (goal_node in goal_nodes)
 		{
-			AddGoalNodeToLayers(goal_node, state_list, goal_node_layers, state_list.length - 1);
+			AddGoalNodeToLayers(goal_node, state_list, goal_node_layers);
 		}
+		
 		
 		// now that things have been set into layers, the idea is that we traverse backwards through the layers findiong actions that provide the effects needed
 		// in the next goal_node_layers.
@@ -121,6 +134,13 @@ class Heuristic
 		{
 			if (goal_node_layers[index].length > 0)// just to guarantee that we only do this action expansion on a layer that needs something satisfied
 			{
+				/*Utilities.WriteToFile("temp.json", "------------------", true);
+				for (layer in goal_node_layers)
+				{
+					Utilities.WriteToFile("temp.json", "\n"+layer, true);
+				}
+				Utilities.WriteToFile("temp.json", "\n------------------------\n\n", true);*/
+				
 				var goal_node_checking_state:StateHeuristic = new StateHeuristic();
 				var s_h_n:HeuristicNode = state_list[index - 1]; // index - 1 since we need to use actions from the previous layer
 				for (action_node in s_h_n.actions_applied_to_state)
@@ -196,18 +216,19 @@ class Heuristic
 							//lets find any and all preconditions of this action that need satisfying and add them to the goal list
 							var action_precondition_nodes_to_add:Array<TreeNode> = GetGoalNodes(action_node.action.GetPreconditionTree().GetBaseNode());
 							
-							Utilities.WriteToFile("temp.json", ""+action_node.GetActionTransform()+"\n"+ goal_nodes_to_remove + "\n" + action_precondition_nodes_to_add+"\n\n", true);
+							//Utilities.WriteToFile("temp.json", ""+action_node.GetActionTransform()+"\n"+ goal_nodes_to_remove + "\n", true);
 							
 							for (node in action_precondition_nodes_to_add)
 							{
 								// an array since a for loop can return many nodes when asked for a concrete version
 								var concrete_nodes:Array<TreeNode> = node.GenerateConcrete(action_node.action.GetData(), s_h_n.state, domain);
+								//Utilities.WriteToFile("temp.json", ""+concrete_nodes + "\n", true);
 								for (node in concrete_nodes)
 								{
-									AddGoalNodeToLayers(node, state_list, goal_node_layers, index - 1);
+									AddGoalNodeToLayers(node, state_list, goal_node_layers);
 								}
 							}
-							
+							//Utilities.WriteToFile("temp.json", "\n", true);
 							// lets also record this action node
 							concrete_actions.set(action_node, true);
 							concrete_actions_count++;
@@ -226,8 +247,15 @@ class Heuristic
 			index--;
 		}
 		
+		/*Utilities.WriteToFile("temp.json", "------------------", true);
+		for (layer in goal_node_layers)
+		{
+			Utilities.WriteToFile("temp.json", "\n"+layer, true);
+		}
+		Utilities.WriteToFile("temp.json", "\n------------------------\n\n", true);*/
+		
 		trace(concrete_actions_count);
-		throw "";
+		//throw "";
 		return concrete_actions_count;
 	}
 	
@@ -241,21 +269,23 @@ class Heuristic
 	 * @param	layers_
 	 * @param	start_index_
 	 */
-	function AddGoalNodeToLayers(goal_node_:TreeNode, state_list_:Array<HeuristicNode>, layers_:Array<Array<TreeNode>>, start_index_:Int)
+	function AddGoalNodeToLayers(goal_node_:TreeNode, state_list_:Array<HeuristicNode>, layers_:Array<Array<TreeNode>>)
 	{
-		var earliest_index:Int = start_index_;
-		for (index in start_index_...0)
+		var earliest_index:Int = 0;
+		for (index in 0...layers_.length)
 		{
 			var s_h_n:HeuristicNode = state_list_[index];
 			if (goal_node_.HeuristicEvaluate(null, null, s_h_n.state, domain))
 			{
 				earliest_index = index;
-			}
-			else // since we have hit the point that the goal is no longer satisfied, exit the for loop
-			{
 				break;
 			}
 		}
+		
+		/*if (Utilities.Compare(goal_node_.toString(), "at_lander general waypoint0") == 0)
+		{
+			trace(earliest_index);
+		}*/
 		
 		layers_[earliest_index].push(goal_node_);
 	}
