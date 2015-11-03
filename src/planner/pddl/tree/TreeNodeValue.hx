@@ -45,7 +45,7 @@ class TreeNodeValue extends TreeNode
 		//trace((data_ != null) + " _ " + (heuristic_data_ != null) + " _ " + (state_ != null) + " _ " + (domain_ != null));
 		//trace(valueName + " _ " + (data_.GetValue(valueName) != null));
 		var pos_values:Array<String> = data_.GetValue(valueName).GetPossibleValues(data_, state_, domain_);
-		return Std.string(new Pair<Int, Int>(Std.parseInt(pos_values[0]), Std.parseInt(pos_values[pos_values.length - 1])));
+		return new Pair<Int, Int>(Std.parseInt(pos_values[0]), Std.parseInt(pos_values[pos_values.length - 1])).ToPlainString();
 	}
 	
 	override public function GetRawName():String

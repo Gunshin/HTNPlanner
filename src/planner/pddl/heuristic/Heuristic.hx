@@ -9,6 +9,7 @@ import planner.pddl.tree.TreeNodeForall;
 import planner.pddl.tree.Tree;
 import planner.pddl.tree.TreeNode;
 import planner.pddl.tree.TreeNodePredicate;
+import planner.pddl.tree.TreeNodeInt;
 
 /**
  * ...
@@ -87,10 +88,11 @@ class Heuristic
 					total_action_count += state.actions_applied_to_state.length;
 				}
 				//trace("returning with no heuristic found: " + (total_action_count * 20));
-				//throw "";
 				return total_action_count * 20;
 			}
 		}
+		
+		trace(depth);
 		
 		// now lets extract the relaxed plan
 		var concrete_actions:Map<PlannerActionNode, Bool> = new Map<PlannerActionNode, Bool>();
@@ -134,11 +136,14 @@ class Heuristic
 						goal_node_checking_state.AddRelation(i);
 					}
 					
+					/*var original_function_values:Map<String, Pair<Int, Int>> = new Map<String, Pair<Int, Int>>();
+					
 					//need to apply the functions to the state
 					for (i in heuristic_data_for_looking.function_changes)
 					{
+						original_function_values.set(i.name, goal_node_checking_state.GetFunctionBounds(i.name));
 						goal_node_checking_state.SetFunctionBounds(i.name, i.bounds);
-					}
+					}*/
 					
 					if (!concrete_actions.exists(action_node))// only run on this action if it has not been added to the list
 					{
@@ -168,11 +173,46 @@ class Heuristic
 								concrete_actions.set(action_node, true);
 								concrete_actions_count++;
 							}
+							/*else if (Std.is(goal_node, TreeNodeInt))
+							{
+								
+								// check to see if the bounds are closer
+								var tree_node_int_goal:TreeNodeInt = cast(goal_node, TreeNodeInt);
+								var funcs:Array<String> = tree_node_int_goal.GetFunctionNames();
+								
+								var goal_node_bounds:Pair<Int, Int> = tree_node_int_goal.GetHeuristicBounds(action_node.action.GetData(), null, goal_node_checking_state, domain);
+								
+								for (func in funcs)
+								{						// check if the new function upper bound is closer to the goal states lower bound than the original upper bound
+									var check:Bool = 	(goal_node_bounds.a - original_function_values.get(func).b > goal_node_bounds.a - goal_node_checking_state.GetFunctionBounds(func).b) ||
+									
+														// check if the new function lower bound is closer to the goal states upper bound than the original lower bound
+														(goal_node_bounds.b - original_function_values.get(func).a < goal_node_bounds.b - goal_node_checking_state.GetFunctionBounds(func).a);
+									
+									if (check)
+									{
+										goal_nodes_to_remove.push(goal_node); //lets add it to a list for safe removal
+										
+										//lets find any and all preconditions of this action that need satisfying and add them to the goal list
+										var action_precondition_nodes_to_add:Array<TreeNode> = GetGoalNodes(action_node.action.GetPreconditionTree().GetBaseNode());
+										for (node in action_precondition_nodes_to_add)
+										{
+											// an array since a for loop can return many nodes when asked for a concrete version
+											var concrete_nodes:Array<TreeNode> = node.GenerateConcrete(action_node.action.GetData(), s_h_n.state, domain);
+											for (node in concrete_nodes)
+											{
+												AddGoalNodeToLayers(node, state_list, goal_node_layers, index - 1);
+											}
+										}
+										
+										// lets also record this action node
+										concrete_actions.set(action_node, true);
+										concrete_actions_count++;
+									}
+								}
+								
+							}*/
 						}
-						
-						// check to see if goal_node_checking_state's bounds are closer to state_list[index].state
-						// if they are, the
-						
 						
 						// safely remove the goal nodes so we do not attempt them again
 						for (goal_node in goal_nodes_to_remove)
@@ -186,7 +226,9 @@ class Heuristic
 			
 			index--;
 		}
-		//trace(concrete_actions_count);
+		
+		trace(concrete_actions_count);
+		throw "";
 		return concrete_actions_count;
 	}
 	
@@ -246,6 +288,17 @@ class Heuristic
 				goal_nodes.push(node_);
 				return true;
 			}
+			/*else if (
+			Utilities.Compare(node_.GetRawName(), "==") == 0 ||
+			Utilities.Compare(node_.GetRawName(), "<") == 0 ||
+			Utilities.Compare(node_.GetRawName(), "<=") == 0 ||
+			Utilities.Compare(node_.GetRawName(), ">") == 0 ||
+			Utilities.Compare(node_.GetRawName(), ">=") == 0
+			) // same again, only one of the children needs to be true, not all
+			{
+				goal_nodes.push(node_);
+				return true;
+			}*/
 			
 			else if (domain.PredicateExists(node_.GetRawName())) // essentially all thats left to ignore is and's, meaning we need to catch predicates
 			{

@@ -42,7 +42,7 @@ class TreeNodeParameter extends TreeNode
 	
 	override public function HeuristicExecute(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):String 
 	{
-		return Std.string(state_.GetFunctionBounds(data_.GetParameter(paramName).GetValue()));
+		return state_.GetFunctionBounds(data_.GetParameter(paramName).GetValue()).ToPlainString();
 	}
 	
 	override public function GetRawName():String

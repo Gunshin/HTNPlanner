@@ -33,7 +33,7 @@
     )
     (:goal
         (and
-			(at willow_area)
+			(== (inventory_has_item logs) 15)
         )
     )
 )

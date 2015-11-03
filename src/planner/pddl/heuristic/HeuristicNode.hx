@@ -22,7 +22,7 @@ class HeuristicNode
 	
 	public function toString():String
 	{
-		return "{{state:" + state.toString() + "}, {actions_applied_to_state:" + actions_applied_to_state.toString() + "}, {heuristic_data:" + heuristic_data.toString() + "}}";
+		return "{\"state\":" + state.toString() + ", \"actions_applied_to_state\":" + actions_applied_to_state.toString() + ", \"heuristic_data\":" + heuristic_data.toString() + "}";
 	}
 	
 }

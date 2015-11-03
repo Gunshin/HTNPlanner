@@ -65,7 +65,7 @@ class Action
 	
 	public function toString():String
 	{
-		return "{name:" + name + ", action_data:" + data + "}";
+		return "{\"name\":\"" + name + "\", \"action_data\":" + data + "}";
 	}
 	
 	public function GetData():ActionData

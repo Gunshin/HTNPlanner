@@ -293,12 +293,16 @@ class State
 			var split:Array<String> = i.split(" ");
 			string += "{\"function\":\"" + split[0] + "\",\"parameters\":[";
 			
-			for (i in 1...split.length)
+			if (split.length > 1)
 			{
-				string += "\"" + split[i] + "\",";
+				for (i in 1...split.length)
+				{
+					string += "\"" + split[i] + "\",";
+				}
+				
+				string = string.substr(0, string.length - 1);
 			}
 			
-			string = string.substr(0, string.length - 1);
 			string += "],";
 			
 			string += "\"value\":" + functionsMap.get(i).value + "},";

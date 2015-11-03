@@ -71,6 +71,23 @@ class TreeNodeInt extends TreeNode
 		return bounds;
 	}
 	
+	public function GetFunctionNames():Array<String>
+	{
+		
+		var returnee:Array<String> = new Array<String>();
+		
+		Tree.Recursive(this, function(node_) {
+			if (node_.GetRawName().charAt(0) == "?")
+			{
+				returnee.push(node_.GetRawName());
+			}
+			
+			return true;
+		});
+		
+		return returnee;
+	}
+	
 	public function ComparisonEvaluate(valueA_:Int, valueB_:Int):Bool { throw "must override this function"; }	
 	
 	public function HeuristicComparisonEvaluate(valueA_:Pair<Int, Int>, valueB_:Pair<Int, Int>):Bool { throw "must override this function"; }

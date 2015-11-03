@@ -10,6 +10,11 @@ class FunctionChange
 		name = name_;
 		bounds = bounds_;
 	}
+	
+	public function toString():String
+	{
+		return "{\"name\":\"" + name + "\", \"bounds\":" + bounds.toString() + "}";
+	}
 }
 
 /**
@@ -33,6 +38,23 @@ class HeuristicData
 	
 	public function toString():String
 	{
-		return "{{function_changes:" + function_changes.toString() + "}, {predicates:" + predicates.toString() + "}}";
+		var returnee:String = "{\"function_changes\":" + function_changes.toString() + ", \"predicates\":[";
+		
+		//really stupid that map does not contain a size function or variable
+		var count:Int = 0;
+		for (key in predicates.keys())
+		{
+			count++;
+			returnee += "{\"" + key + "\":\"" + predicates.get(key) + "\"},";
+		}
+		
+		if (count > 0)
+		{
+			returnee = returnee.substr(0, returnee.length - 1);
+		}
+		
+		returnee += "]}";
+		
+		return returnee;
 	}
 }

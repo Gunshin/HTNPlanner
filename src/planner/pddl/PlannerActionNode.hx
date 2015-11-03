@@ -68,7 +68,7 @@ class PlannerActionNode
 	
 	public function toString():String
 	{
-		return "{{action:" + action + "}, {params:" + params + "}, {values:" + values + "}}";
+		return "{\"action\":" + action + ", \"params\":" + params + ", \"values\":" + values + "}";
 	}
 	
 }

@@ -17,9 +17,14 @@ class Pair<U, V>
 		b = b_;
 	}
 	
-	public function toString():String
+	public function ToPlainString():String
 	{
 		return Std.string(a) + seperator + Std.string(b);
+	}
+	
+	public function toString():String
+	{
+		return "{\"a\":\"" + Std.string(a) + "\", \"b\":\"" + Std.string(b) + "\"}";
 	}
 	
 	public function Clone():Pair<U, V>

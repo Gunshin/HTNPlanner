@@ -27,8 +27,8 @@ class Main
 {
 	
 	var domainLocation:Array<String> = [
-	"pddlexamples/IPC3/Tests2/Rovers/Numeric/NumRover.pddl",
-	"pddlexamples/runescape/domain.pddl",
+	"pddlexamples/IPC3/Tests2/Rovers/Numeric/NumRover.pddl", // length 10
+	"pddlexamples/runescape/domain2.pddl",
 	"pddlexamples/IPC3/Tests3/Settlers/Numeric/Settlers.pddl",
 	"pddlexamples/IPC3/Tests1/DriverLog/Strips/driverlog.pddl",
 	"pddlexamples/test/domain.pddl",
@@ -37,7 +37,7 @@ class Main
 	];
 	var problemLocation:Array<String> = [
 	"pddlexamples/IPC3/Tests2/Rovers/Numeric/pfile1",
-	"pddlexamples/runescape/p1.pddl",
+	"pddlexamples/runescape/p2.pddl",
 	"pddlexamples/IPC3/Tests3/Settlers/Numeric/pfile1",
 	"pddlexamples/IPC3/Tests1/DriverLog/Strips/pfile3",
 	"pddlexamples/test/p1.pddl",
@@ -50,7 +50,7 @@ class Main
 		//UnitTests();
 		
 		
-		var domainIndex:Int = 6;
+		var domainIndex:Int = 0;
 		
 		var domain = new Domain(domainLocation[domainIndex]);
 		var problem = new Problem(problemLocation[domainIndex], domain);
@@ -78,13 +78,13 @@ class Main
 		//trace(action.Evaluate(state, domain));
 		//trace(action.Execute(state, domain));
 		
-		var fo:FileOutput = File.write("output.txt", false);
+		/*var fo:FileOutput = File.write("output.txt", false);
 		fo.writeString(problem.GetClonedInitialState().toString());
 		fo.flush();
-		fo.close();
+		fo.close();*/
 		
 		
-		/*var start:Float = Sys.cpuTime();
+		var start:Float = Sys.cpuTime();
 		
 		var planner:Planner = new Planner();
 		var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, true);
@@ -96,7 +96,7 @@ class Main
 		for (i in 0...array.length)
 		{
 			trace(array[i].GetActionTransform());
-		}*/
+		}
 		
 	}
 	
