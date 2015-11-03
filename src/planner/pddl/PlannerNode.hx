@@ -39,7 +39,7 @@ class PlannerNode implements Heapable<PlannerNode>
 	
 	public function compare(other:PlannerNode):Int
 	{
-		return 10 * (other.estimate - estimate) + (other.depth - depth);//(other.estimate) - (estimate) == 0 ? other.value - value < 0 ? -1 : 1 : (other.estimate) - (estimate) < 0 ? -1 : 1;
+		return (other.estimate+other.depth) - (estimate+depth);
 	}
 	
 }

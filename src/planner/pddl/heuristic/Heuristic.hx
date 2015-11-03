@@ -92,7 +92,7 @@ class Heuristic
 			}
 		}
 		
-		trace(depth);
+		//trace(depth);
 		
 		// now lets extract the relaxed plan
 		var concrete_actions:Map<PlannerActionNode, Bool> = new Map<PlannerActionNode, Bool>();
@@ -136,19 +136,19 @@ class Heuristic
 						goal_node_checking_state.AddRelation(i);
 					}
 					
-					/*var original_function_values:Map<String, Pair<Int, Int>> = new Map<String, Pair<Int, Int>>();
+					var original_function_values:Map<String, Pair<Int, Int>> = new Map<String, Pair<Int, Int>>();
 					
 					//need to apply the functions to the state
 					for (i in heuristic_data_for_looking.function_changes)
 					{
 						original_function_values.set(i.name, goal_node_checking_state.GetFunctionBounds(i.name));
 						goal_node_checking_state.SetFunctionBounds(i.name, i.bounds);
-					}*/
+					}
 					
 					if (!concrete_actions.exists(action_node))// only run on this action if it has not been added to the list
 					{
-						
 						var goal_nodes_to_remove:Array<TreeNode> = new Array<TreeNode>();
+						var satisfied_a_goal_node:Bool = false;
 						// now lets check to see if any of the predicates we are looking for were satisfied
 						for (goal_node in goal_node_layers[index])
 						{
@@ -157,23 +157,9 @@ class Heuristic
 								// we found a successful satisfaction due to this action
 								goal_nodes_to_remove.push(goal_node); //lets add it to a list for safe removal
 								
-								//lets find any and all preconditions of this action that need satisfying and add them to the goal list
-								var action_precondition_nodes_to_add:Array<TreeNode> = GetGoalNodes(action_node.action.GetPreconditionTree().GetBaseNode());
-								for (node in action_precondition_nodes_to_add)
-								{
-									// an array since a for loop can return many nodes when asked for a concrete version
-									var concrete_nodes:Array<TreeNode> = node.GenerateConcrete(action_node.action.GetData(), s_h_n.state, domain);
-									for (node in concrete_nodes)
-									{
-										AddGoalNodeToLayers(node, state_list, goal_node_layers, index - 1);
-									}
-								}
-								
-								// lets also record this action node
-								concrete_actions.set(action_node, true);
-								concrete_actions_count++;
+								satisfied_a_goal_node = true;
 							}
-							/*else if (Std.is(goal_node, TreeNodeInt))
+							else if (Std.is(goal_node, TreeNodeInt))
 							{
 								
 								// check to see if the bounds are closer
@@ -182,36 +168,49 @@ class Heuristic
 								
 								var goal_node_bounds:Pair<Int, Int> = tree_node_int_goal.GetHeuristicBounds(action_node.action.GetData(), null, goal_node_checking_state, domain);
 								
+								var function_is_closer:Bool = false;
+								
 								for (func in funcs)
-								{						// check if the new function upper bound is closer to the goal states lower bound than the original upper bound
-									var check:Bool = 	(goal_node_bounds.a - original_function_values.get(func).b > goal_node_bounds.a - goal_node_checking_state.GetFunctionBounds(func).b) ||
+								{							// check if the new function upper bound is closer to the goal states lower bound than the original upper bound
+									function_is_closer = 	((goal_node_bounds.a - original_function_values.get(func).b > goal_node_bounds.a - goal_node_checking_state.GetFunctionBounds(func).b) ||
 									
-														// check if the new function lower bound is closer to the goal states upper bound than the original lower bound
-														(goal_node_bounds.b - original_function_values.get(func).a < goal_node_bounds.b - goal_node_checking_state.GetFunctionBounds(func).a);
+															// check if the new function lower bound is closer to the goal states upper bound than the original lower bound
+															(goal_node_bounds.b - original_function_values.get(func).a < goal_node_bounds.b - goal_node_checking_state.GetFunctionBounds(func).a)) ||
+															function_is_closer;
 									
-									if (check)
-									{
-										goal_nodes_to_remove.push(goal_node); //lets add it to a list for safe removal
-										
-										//lets find any and all preconditions of this action that need satisfying and add them to the goal list
-										var action_precondition_nodes_to_add:Array<TreeNode> = GetGoalNodes(action_node.action.GetPreconditionTree().GetBaseNode());
-										for (node in action_precondition_nodes_to_add)
-										{
-											// an array since a for loop can return many nodes when asked for a concrete version
-											var concrete_nodes:Array<TreeNode> = node.GenerateConcrete(action_node.action.GetData(), s_h_n.state, domain);
-											for (node in concrete_nodes)
-											{
-												AddGoalNodeToLayers(node, state_list, goal_node_layers, index - 1);
-											}
-										}
-										
-										// lets also record this action node
-										concrete_actions.set(action_node, true);
-										concrete_actions_count++;
-									}
 								}
 								
-							}*/
+								if (function_is_closer)
+								{
+									
+									goal_nodes_to_remove.push(goal_node); //lets add it to a list for safe removal
+									
+									satisfied_a_goal_node = true;
+								}
+								
+							}
+						}
+						
+						if (satisfied_a_goal_node)
+						{
+							//lets find any and all preconditions of this action that need satisfying and add them to the goal list
+							var action_precondition_nodes_to_add:Array<TreeNode> = GetGoalNodes(action_node.action.GetPreconditionTree().GetBaseNode());
+							
+							Utilities.WriteToFile("temp.json", ""+action_node.GetActionTransform()+"\n"+ goal_nodes_to_remove + "\n" + action_precondition_nodes_to_add+"\n\n", true);
+							
+							for (node in action_precondition_nodes_to_add)
+							{
+								// an array since a for loop can return many nodes when asked for a concrete version
+								var concrete_nodes:Array<TreeNode> = node.GenerateConcrete(action_node.action.GetData(), s_h_n.state, domain);
+								for (node in concrete_nodes)
+								{
+									AddGoalNodeToLayers(node, state_list, goal_node_layers, index - 1);
+								}
+							}
+							
+							// lets also record this action node
+							concrete_actions.set(action_node, true);
+							concrete_actions_count++;
 						}
 						
 						// safely remove the goal nodes so we do not attempt them again
@@ -288,7 +287,7 @@ class Heuristic
 				goal_nodes.push(node_);
 				return true;
 			}
-			/*else if (
+			else if (
 			Utilities.Compare(node_.GetRawName(), "==") == 0 ||
 			Utilities.Compare(node_.GetRawName(), "<") == 0 ||
 			Utilities.Compare(node_.GetRawName(), "<=") == 0 ||
@@ -298,7 +297,7 @@ class Heuristic
 			{
 				goal_nodes.push(node_);
 				return true;
-			}*/
+			}
 			
 			else if (domain.PredicateExists(node_.GetRawName())) // essentially all thats left to ignore is and's, meaning we need to catch predicates
 			{

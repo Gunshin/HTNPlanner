@@ -1,0 +1,92 @@
+communicate_rock_data rover0 general waypoint3 waypoint1 waypoint0
+[communicated_rock_data waypoint3]
+[at ?r ?x,at_lander ?l ?y,have_rock_analysis ?r ?p,>= (energy ?r) (4) ,visible ?x ?y,available ?r,channel_free ?l]
+
+communicate_image_data rover0 general objective1 high_res waypoint1 waypoint0
+[communicated_image_data objective1 high_res]
+[at ?r ?x,at_lander ?l ?y,have_image ?r ?o ?m,visible ?x ?y,available ?r,channel_free ?l,>= (energy ?r) (6) ]
+
+communicate_soil_data rover0 general waypoint2 waypoint1 waypoint0
+[communicated_soil_data waypoint2]
+[at ?r ?x,at_lander ?l ?y,have_soil_analysis ?r ?p,visible ?x ?y,available ?r,channel_free ?l,>= (energy ?r) (4) ]
+
+sample_soil rover0 rover0store waypoint0
+[>= (energy rover0) (4) ,>= (energy rover0) (6) ,>= (energy rover0) (4) ]
+[at ?x ?p,>= (energy ?x) (3) ,at_soil_sample ?p,equipped_for_soil_analysis ?x,store_of ?s ?x,empty ?s]
+
+sample_soil rover0 rover0store waypoint2
+[have_soil_analysis rover0 waypoint2]
+[at ?x ?p,>= (energy ?x) (3) ,at_soil_sample ?p,equipped_for_soil_analysis ?x,store_of ?s ?x,empty ?s]
+
+sample_rock rover0 rover0store waypoint3
+[have_rock_analysis rover0 waypoint3]
+[at ?x ?p,>= (energy ?x) (5) ,at_rock_sample ?p,equipped_for_rock_analysis ?x,store_of ?s ?x,empty ?s]
+
+take_image rover0 waypoint0 objective1 camera0 high_res
+[have_image rover0 objective1 high_res]
+[calibrated ?i ?r,on_board ?i ?r,equipped_for_imaging ?r,supports ?i ?m,visible_from ?o ?p,at ?r ?p,>= (energy ?r) (1) ]
+
+communicate_rock_data rover0 general waypoint1 waypoint1 waypoint0
+[available rover0,channel_free general,available rover0,channel_free general,available rover0,channel_free general]
+[at ?r ?x,at_lander ?l ?y,have_rock_analysis ?r ?p,>= (energy ?r) (4) ,visible ?x ?y,available ?r,channel_free ?l]
+
+navigate rover0 waypoint2 waypoint1
+[at rover0 waypoint1,at rover0 waypoint1,at rover0 waypoint1]
+[can_traverse ?x ?y ?z,available ?x,at ?x ?y,visible ?y ?z,>= (energy ?x) (8) ]
+
+drop rover0 rover0store
+[empty rover0store,empty rover0store,empty rover0store]
+[store_of ?y ?x,full ?y]
+
+sample_soil rover0 rover0store waypoint0
+[>= (energy rover0) (3) ,>= (energy rover0) (3) ,>= (energy rover0) (5) ,>= (energy rover0) (1) ,>= (energy rover0) (4) ,>= (energy rover0) (8) ]
+[at ?x ?p,>= (energy ?x) (3) ,at_soil_sample ?p,equipped_for_soil_analysis ?x,store_of ?s ?x,empty ?s]
+
+sample_rock rover0 rover0store waypoint1
+[have_rock_analysis rover0 waypoint1]
+[at ?x ?p,>= (energy ?x) (5) ,at_rock_sample ?p,equipped_for_rock_analysis ?x,store_of ?s ?x,empty ?s]
+
+calibrate rover0 camera0 objective1 waypoint0
+[calibrated camera0 rover0]
+[equipped_for_imaging ?r,>= (energy ?r) (2) ,calibration_target ?i ?t,at ?r ?w,visible_from ?t ?w,on_board ?i ?r]
+
+communicate_soil_data rover0 general waypoint3 waypoint1 waypoint0
+[available rover0,channel_free general,available rover0]
+[at ?r ?x,at_lander ?l ?y,have_soil_analysis ?r ?p,visible ?x ?y,available ?r,channel_free ?l,>= (energy ?r) (4) ]
+
+navigate rover0 waypoint3 waypoint0
+[at rover0 waypoint0,at rover0 waypoint0]
+[can_traverse ?x ?y ?z,available ?x,at ?x ?y,visible ?y ?z,>= (energy ?x) (8) ]
+
+navigate rover0 waypoint3 waypoint1
+[at rover0 waypoint1]
+[can_traverse ?x ?y ?z,available ?x,at ?x ?y,visible ?y ?z,>= (energy ?x) (8) ]
+
+navigate rover0 waypoint1 waypoint2
+[at rover0 waypoint2,at rover0 waypoint2]
+[can_traverse ?x ?y ?z,available ?x,at ?x ?y,visible ?y ?z,>= (energy ?x) (8) ]
+
+navigate rover0 waypoint0 waypoint3
+[at rover0 waypoint3]
+[can_traverse ?x ?y ?z,available ?x,at ?x ?y,visible ?y ?z,>= (energy ?x) (8) ]
+
+drop rover0 rover0store
+[empty rover0store,empty rover0store]
+[store_of ?y ?x,full ?y]
+
+calibrate rover0 camera0 objective1 waypoint3
+[>= (energy rover0) (3) ,>= (energy rover0) (5) ,>= (energy rover0) (2) ,>= (energy rover0) (4) ,>= (energy rover0) (8) ,>= (energy rover0) (8) ,>= (energy rover0) (8) ,>= (energy rover0) (8) ]
+[equipped_for_imaging ?r,>= (energy ?r) (2) ,calibration_target ?i ?t,at ?r ?w,visible_from ?t ?w,on_board ?i ?r]
+
+communicate_soil_data rover0 general waypoint3 waypoint3 waypoint0
+[available rover0,channel_free general,available rover0,available rover0,available rover0,available rover0]
+[at ?r ?x,at_lander ?l ?y,have_soil_analysis ?r ?p,visible ?x ?y,available ?r,channel_free ?l,>= (energy ?r) (4) ]
+
+navigate rover0 waypoint3 waypoint0
+[at rover0 waypoint0,at rover0 waypoint0,at rover0 waypoint0]
+[can_traverse ?x ?y ?z,available ?x,at ?x ?y,visible ?y ?z,>= (energy ?x) (8) ]
+
+navigate rover0 waypoint3 waypoint1
+[at rover0 waypoint1,at rover0 waypoint1,at rover0 waypoint1]
+[can_traverse ?x ?y ?z,available ?x,at ?x ?y,visible ?y ?z,>= (energy ?x) (8) ]
+
