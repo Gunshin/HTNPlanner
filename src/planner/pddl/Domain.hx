@@ -57,6 +57,12 @@ class Domain
 		
 		ParseTypes(domainTree.GetBaseNode().GetChildrenWithContainingValue(":types")[0]);
 		
+		var constantsNodes:Array<RawTreeNode> = domainTree.GetBaseNode().GetChildrenWithContainingValue(":constants");
+		if (constantsNodes.length > 0)
+		{
+			ParseConstants(constantsNodes[0]);
+		}
+		
 		ParsePredicates(domainTree.GetBaseNode().GetChildrenWithContainingValue(":predicates")[0]);
 		
 		var functionsNodes:Array<RawTreeNode> = domainTree.GetBaseNode().GetChildrenWithContainingValue(":functions");
@@ -66,12 +72,6 @@ class Domain
 		}
 		
 		ParseActions(domainTree.GetBaseNode().GetChildrenWithContainingValue(":action"));
-		
-		var constantsNodes:Array<RawTreeNode> = domainTree.GetBaseNode().GetChildrenWithContainingValue(":constants");
-		if (constantsNodes.length > 0)
-		{
-			ParseConstants(constantsNodes[0]);
-		}
 		
 		AddStandardFunctions();
 		
@@ -344,6 +344,19 @@ class Domain
 	public function GetConstants():Array<Pair<String, String>>
 	{
 		return constants;
+	}
+	
+	public function ConstantExists(constant_:String):Bool
+	{
+		for (const in constants)
+		{
+			if (Utilities.Compare(const.a, constant_) == 0)
+			{
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 }

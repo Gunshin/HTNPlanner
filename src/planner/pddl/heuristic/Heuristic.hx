@@ -66,25 +66,46 @@ class Heuristic
 		var state_list:Array<HeuristicNode> = new Array<HeuristicNode>();
 		state_list.push(current_node);
 		
+		Utilities.WriteToFile("temp.json", "------------------\n", true);
+		for (action in current_node.actions_applied_to_state)
+		{
+			Utilities.WriteToFile("temp.json", action.GetActionTransform()+"\n", true);
+		}
+		for (goal_node in GetGoalNodes(problem.GetGoalTree().GetBaseNode()))
+		{
+			Utilities.WriteToFile("temp.json", ""+goal_node.HeuristicEvaluate(null, null, current_node.state, domain)+"\n", true);
+		}
+		
+		Utilities.WriteToFile("temp.json", ""+current_node.state.toString()+"\n", true);
+		Utilities.WriteToFile("temp.json", "\n------------------------\n\n", true);
+		
 		// first generate the full graph to ensure we can fulfill the goal
 		var depth:Int = 0;
 		//trace("\n\n\n\n");
 		
 		while (!problem.HeuristicEvaluateGoal(current_node.state))
 		{
-			var successor_state:StateHeuristic = ApplyActions(current_node);
+			var successor_state:StateHeuristic = ApplyActions(current_node, domain);
 			current_node = new HeuristicNode(successor_state, Planner.GetAllActionsForState(successor_state, domain), new HeuristicData());
 			state_list.push(current_node);
 			
 			depth++;
-			//trace(current_node + "\n\n\n\n");
 			
-			Utilities.WriteToFile("temp.json", "------------------", true);
-			for (layer in state_list)
+			trace(depth + " ________ " + current_node.state.GetFunctionBounds("available timber location0"));
+			
+			Utilities.WriteToFile("temp.json", "------------------\n", true);
+			for (action in current_node.actions_applied_to_state)
 			{
-				Utilities.WriteToFile("temp.json", "\n"+layer, true);
+				Utilities.WriteToFile("temp.json", action.GetActionTransform()+"\n", true);
 			}
+			for (goal_node in GetGoalNodes(problem.GetGoalTree().GetBaseNode()))
+			{
+				Utilities.WriteToFile("temp.json", ""+goal_node.HeuristicEvaluate(null, null, current_node.state, domain)+"\n", true);
+			}
+			
+			Utilities.WriteToFile("temp.json", ""+current_node.state.toString()+"\n", true);
 			Utilities.WriteToFile("temp.json", "\n------------------------\n\n", true);
+			
 			
 			if (depth > 4)
 			{
@@ -350,7 +371,7 @@ class Heuristic
 	 * @param	current_node_
 	 * @return Successor state
 	 */
-	function ApplyActions(current_node_:HeuristicNode):StateHeuristic
+	static public function ApplyActions(current_node_:HeuristicNode, domain_:Domain):StateHeuristic
 	{
 		var new_state:StateHeuristic = new StateHeuristic();
 		current_node_.state.CopyTo(new_state);
@@ -360,7 +381,7 @@ class Heuristic
 		{
 			actionNode.Set();
 			//trace(actionNode.params + "\n" + actionNode.valuesType);
-			actionNode.action.HeuristicExecute(current_node_.heuristic_data, new_state, domain);
+			actionNode.action.HeuristicExecute(current_node_.heuristic_data, new_state, domain_);
 		}
 		
 		for (i in current_node_.heuristic_data.function_changes)

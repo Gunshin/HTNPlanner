@@ -65,6 +65,11 @@ class StateHeuristic extends State
 		
 		var bounds:Pair<Int, Int> = functions_bounds.get(functionID_);
 		
+		if (functionID_ == "available timber location0")
+		{
+			trace("existing: " + bounds + " new: " + bounds_);
+		}
+		
 		if (bounds_.a < bounds.a)
 		{
 			bounds.a = bounds.a;

@@ -151,7 +151,6 @@ class Tree
 			{
 				params.push(raw_node.value);
 			}
-			
 			newNode = new TreeNodeFunction(firstTerm, params);
 			return newNode;
 		}
@@ -228,6 +227,14 @@ class Tree
 			case "/":
 				newNode = new TreeNodeIntDivide();
 				return newNode;
+		}
+		
+		
+		//could be a constant
+		if (domain_.ConstantExists(firstTerm))
+		{
+			newNode = new TreeNodeConstant(firstTerm);
+			return newNode;
 		}
 		
 		//we do not know what this term is, so it could be a value. Best way to check is to see if it has any children, as values do not
