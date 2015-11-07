@@ -48,7 +48,14 @@ class TreeNodeFunction extends TreeNode
 		var params:Array<String> = new Array<String>();
 		for (param in param_names)
 		{
-			params.push(action_data_.GetParameter(param).GetValue());
+			if (Utilities.Compare(param.charAt(0), "?") == 0)
+			{
+				params.push(action_data_.GetParameter(param).GetValue());
+			}
+			else
+			{
+				params.push(param);
+			}
 		}
 		
 		return [new TreeNodeFunction(name, params)];

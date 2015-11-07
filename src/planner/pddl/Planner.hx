@@ -136,7 +136,7 @@ class Planner
 				closedStates.set(hash, plannerNode);
 				states.push(plannerNode);
 				
-				//trace("action: " + actionNode.action.GetName() + " _ " + actionNode.params.toString() + " _ " + plannerNode.depth + " _ " + plannerNode.estimate);
+				trace("action: " + actionNode.action.GetName() + " _ " + actionNode.params.toString() + " _ " + plannerNode.depth + " _ " + plannerNode.estimate);
 			}
 			
 		}

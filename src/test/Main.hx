@@ -33,7 +33,8 @@ class Main
 	"pddlexamples/IPC3/Tests1/DriverLog/Strips/driverlog.pddl",
 	"pddlexamples/test/domain.pddl",
 	"pddlexamples/benchmarksV1.1/TESTING/seq-agl/Barman/domain.pddl",
-	"pddlexamples/runescape/quest_sequence.pddl"
+	"pddlexamples/runescape/quest_sequence.pddl",
+	"pddlexamples/test/Settlers.pddl"
 	];
 	var problemLocation:Array<String> = [
 	"pddlexamples/IPC3/Tests2/Rovers/Numeric/pfile1",
@@ -42,13 +43,15 @@ class Main
 	"pddlexamples/IPC3/Tests1/DriverLog/Strips/pfile3",
 	"pddlexamples/test/p1.pddl",
 	"pddlexamples/benchmarksV1.1/TESTING/seq-agl/Barman/p4-11-4-15.pddl",
-	"pddlexamples/runescape/quest_sequence_p1.pddl"
+	"pddlexamples/runescape/quest_sequence_p1.pddl",
+	"pddlexamples/test/pfile1"
 	];
 	
 	public function new()
 	{
 		//UnitTests();
-		
+		//Utilities.WriteToFile("output.txt", "", false);
+		//Utilities.WriteToFile("temp.json", "", false);
 		
 		var domainIndex:Int = 2;
 		

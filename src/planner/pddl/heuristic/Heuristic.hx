@@ -66,7 +66,7 @@ class Heuristic
 		var state_list:Array<HeuristicNode> = new Array<HeuristicNode>();
 		state_list.push(current_node);
 		
-		Utilities.WriteToFile("temp.json", "------------------\n", true);
+		/*Utilities.WriteToFile("temp.json", "------------------\n", true);
 		for (action in current_node.actions_applied_to_state)
 		{
 			Utilities.WriteToFile("temp.json", action.GetActionTransform()+"\n", true);
@@ -77,7 +77,7 @@ class Heuristic
 		}
 		
 		Utilities.WriteToFile("temp.json", ""+current_node.state.toString()+"\n", true);
-		Utilities.WriteToFile("temp.json", "\n------------------------\n\n", true);
+		Utilities.WriteToFile("temp.json", "\n------------------------\n\n", true);*/
 		
 		// first generate the full graph to ensure we can fulfill the goal
 		var depth:Int = 0;
@@ -86,14 +86,12 @@ class Heuristic
 		while (!problem.HeuristicEvaluateGoal(current_node.state))
 		{
 			var successor_state:StateHeuristic = ApplyActions(current_node, domain);
-			current_node = new HeuristicNode(successor_state, Planner.GetAllActionsForState(successor_state, domain), new HeuristicData());
+			current_node = new HeuristicNode(successor_state, GetAllActionsForState(successor_state, domain), new HeuristicData());
 			state_list.push(current_node);
 			
 			depth++;
 			
-			trace(depth + " ________ " + current_node.state.GetFunctionBounds("available timber location0"));
-			
-			Utilities.WriteToFile("temp.json", "------------------\n", true);
+			/*Utilities.WriteToFile("temp.json", "------------------\n", true);
 			for (action in current_node.actions_applied_to_state)
 			{
 				Utilities.WriteToFile("temp.json", action.GetActionTransform()+"\n", true);
@@ -104,10 +102,10 @@ class Heuristic
 			}
 			
 			Utilities.WriteToFile("temp.json", ""+current_node.state.toString()+"\n", true);
-			Utilities.WriteToFile("temp.json", "\n------------------------\n\n", true);
+			Utilities.WriteToFile("temp.json", "\n------------------------\n\n", true);*/
 			
 			
-			if (depth > 4)
+			if (depth > 20)
 			{
 				var total_action_count:Int = 0;
 				
@@ -117,8 +115,7 @@ class Heuristic
 				}
 				
 				
-				trace("returning with no heuristic found: " + (total_action_count * 20));
-				throw "";
+				//trace("returning with no heuristic found: " + (total_action_count * 20));
 				return total_action_count * 20;
 			}
 		}
@@ -275,7 +272,7 @@ class Heuristic
 		}
 		Utilities.WriteToFile("temp.json", "\n------------------------\n\n", true);*/
 		
-		trace(concrete_actions_count);
+		//trace(concrete_actions_count);
 		//throw "";
 		return concrete_actions_count;
 	}
@@ -302,11 +299,6 @@ class Heuristic
 				break;
 			}
 		}
-		
-		/*if (Utilities.Compare(goal_node_.toString(), "at_lander general waypoint0") == 0)
-		{
-			trace(earliest_index);
-		}*/
 		
 		layers_[earliest_index].push(goal_node_);
 	}
@@ -374,7 +366,7 @@ class Heuristic
 	static public function ApplyActions(current_node_:HeuristicNode, domain_:Domain):StateHeuristic
 	{
 		var new_state:StateHeuristic = new StateHeuristic();
-		current_node_.state.CopyTo(new_state);
+		current_node_.state.StateHeuristicCopyTo(new_state);
 		
 		//trace("action count: " + actions_.length);
 		for (actionNode in current_node_.actions_applied_to_state)
@@ -386,6 +378,7 @@ class Heuristic
 		
 		for (i in current_node_.heuristic_data.function_changes)
 		{
+			//Utilities.WriteToFile("output.txt", "setting function: " + i.name + " ____ " + i.bounds + "\n", true);
 			new_state.SetFunctionBounds(i.name, i.bounds);
 		}
 		
@@ -395,6 +388,53 @@ class Heuristic
 		}
 		
 		return new_state;
+	}
+	
+	static public function GetAllActionsForState(state_:StateHeuristic, domain_:Domain):Array<PlannerActionNode>
+	{
+		var actions:Array<PlannerActionNode> = new Array<PlannerActionNode>();
+		
+		for (actionName in domain_.GetAllActionNames())
+		{
+			var action:Action = domain_.GetAction(actionName);
+			
+			var parameter_combinations:Array<Array<Pair<String, String>>> = Planner.GetAllPossibleParameterCombinations(action, state_, domain_);
+			
+			// has an extra array since these combinations are used per parameter combination
+			var value_combinations:Array<Array<Array<Pair<String, String>>>> = Planner.GetAllPossibleValueCombinations(action, parameter_combinations, state_, domain_);
+			
+			for (param_index in 0...parameter_combinations.length)
+			{
+				var param_combination:Array<Pair<String, String>> = parameter_combinations[param_index];
+				action.GetData().SetParameters(param_combination);
+				if (value_combinations[param_index].length > 0)
+				{
+					for (val_combination in value_combinations[param_index])
+					{
+						action.GetData().SetValues(val_combination);
+						
+						if (action.HeuristicEvaluate(null, state_, domain_))
+						{
+							actions.push(new PlannerActionNode(action, param_combination, val_combination));
+						}
+					}
+				}
+				else
+				{
+					if (action.HeuristicEvaluate(null, state_, domain_))
+					{
+						actions.push(new PlannerActionNode(action, param_combination, null));
+					}
+				}
+				if (action.GetData().GetParameter("?quest_required") != null)
+				{
+					throw "";
+				}
+			}
+			
+		}
+		
+		return actions;
 	}
 
 }

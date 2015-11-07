@@ -1,3 +1,1345 @@
-{"relations":[{"predicate":"skill_required_to_do_quest","parameters":["dorics_quest","mining"]},{"predicate":"skill_required_to_do_quest","parameters":["dragon_slayer","range"]},{"predicate":"quest_required_to_do_quest","parameters":["lunar_diplomacy","shilo_village"]},{"predicate":"quest_required_to_do_quest","parameters":["jungle_potion","druidic_ritual"]},{"predicate":"skill_required_to_do_quest","parameters":["dragon_slayer","defence"]},{"predicate":"skill_required_to_do_quest","parameters":["the_knights_sword","mining"]},{"predicate":"skill_required_to_do_quest","parameters":["vampire_slayer","range"]},{"predicate":"quest_required_to_do_quest","parameters":["lunar_diplomacy","lost_city"]},{"predicate":"quest_required_to_do_quest","parameters":["lunar_diplomacy","rune_mysteries"]},{"predicate":"quest_required_to_do_quest","parameters":["shilo_village","jungle_potion"]},{"predicate":"quest_required_to_do_quest","parameters":["lunar_diplomacy","the_fremenik_trials"]}],
- "functions":[{"function":"quest_reward_xp","parameters":["dragon_slayer","strength"],"value":18650},{"function":"quest_reward_xp","parameters":["goblin_diplomacy","crafting"],"value":200},{"function":"quest_reward_xp","parameters":["dorics_quest","mining"],"value":1300},{"function":"quest_reward_xp","parameters":["the_restless_ghost","prayer"],"value":1125},{"function":"quest_reward_xp","parameters":["dragon_slayer","defence"],"value":18650},{"function":"required_skill_xp","parameters":["dragon_slayer","range"],"value":37224},{"function":"quest_reward_xp","parameters":["imp_catcher","magic"],"value":875},{"function":"quest_reward_xp","parameters":["sheep_shearer","crafting"],"value":150},{"function":"quest_reward_xp","parameters":["cooks_assistant","cooking"],"value":300},{"function":"required_skill_xp","parameters":["the_knights_sword","mining"],"value":1154},{"function":"quest_reward_xp","parameters":["witches_potion","magic"],"value":325},{"function":"required_skill_xp","parameters":["vampire_slayer","range"],"value":4470},{"function":"required_skill_xp","parameters":["dragon_slayer","defence"],"value":13363},{"function":"required_skill_xp","parameters":["dorics_quest","mining"],"value":2411},{"function":"quest_reward_xp","parameters":["vampire_slayer","attack"],"value":4825},{"function":"quest_reward_xp","parameters":["the_knights_sword","smithing"],"value":12725}],
- "objects":[{"skill":["attack","defence","strength","constitution","magic","range","slayer","prayer","mining","smithing","woodcutting","firemaking","fletching","runecrafting","farming","crafting","herblore","thieving","fishing","cooking","agility","construction","hunter"]},{"quest":["cooks_assistant","black_knights_fortress","demon_slayer","dorics_quest","dragon_slayer","ernest_the_chicken","goblin_diplomacy","imp_catcher","the_knights_sword","pirates_treasure","prince_ali_rescue","romeo_and_juliet","rune_mysteries","sheep_shearer","shield_of_arrav","the_restless_ghost","vampire_slayer","witches_potion","lunar_diplomacy","the_fremenik_trials","lost_city","shilo_village","jungle_potion","druidic_ritual"]}]}
+existing: {"a":"0", "b":"0"} new: {"a":"0", "b":"0"}
+finalised: {"a":"0", "b":"0"}
+D-----------------------------------------------------------------------------------------
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"0", "b":"0"}
+returning: {"a":"0", "b":"0"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: available timber location0 ::: {"a":"0", "b":"0"} _____ {"a":"1", "b":"1"}
+
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"1", "b":"1"}
+returning: {"a":"1", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"1", "b":"1"} _____ {"a":"1", "b":"1"}
+D-----------------------------------------------------------------------------------------
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"1", "b":"1"}
+returning: {"a":"1", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"1", "b":"1"} _____ {"a":"1", "b":"1"}
+setting function: available timber location0 ____ {"a":"1", "b":"1"}
+existing: {"a":"0", "b":"0"} new: {"a":"1", "b":"1"}
+finalised: {"a":"0", "b":"1"}
+setting function: labour ____ {"a":"2", "b":"2"}
+setting function: labour ____ {"a":"2", "b":"2"}
+
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"0", "b":"1"}
+returning: {"a":"0", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+TreeNodeIntMoreThanOrEqual.HeuristicComparisonEvaluate: 1 : 1 :: true
+existing: {"a":"0", "b":"0"} new: {"a":"0", "b":"1"}
+finalised: {"a":"0", "b":"1"}
+D-----------------------------------------------------------------------------------------
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"1", "b":"2"}
+returning: {"a":"1", "b":"2"}
+
+
+
+
+starting:::2
+2 :::: [2]
+returning: {"a":"2", "b":"2"}
+
+Increase.HeuristicExecute: labour ::: {"a":"1", "b":"2"} _____ {"a":"2", "b":"2"}
+
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"0", "b":"1"}
+returning: {"a":"0", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+D-----------------------------------------------------------------------------------------
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"0", "b":"1"}
+returning: {"a":"0", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: available timber location0 ::: {"a":"0", "b":"1"} _____ {"a":"1", "b":"1"}
+
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"1", "b":"2"}
+returning: {"a":"1", "b":"2"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"1", "b":"2"} _____ {"a":"1", "b":"1"}
+D-----------------------------------------------------------------------------------------
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"1", "b":"2"}
+returning: {"a":"1", "b":"2"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"1", "b":"2"} _____ {"a":"1", "b":"1"}
+setting function: labour ____ {"a":"3", "b":"4"}
+setting function: available timber location0 ____ {"a":"-1", "b":"0"}
+existing: {"a":"0", "b":"1"} new: {"a":"-1", "b":"0"}
+finalised: {"a":"0", "b":"1"}
+setting function: available timber location0 ____ {"a":"1", "b":"2"}
+existing: {"a":"0", "b":"1"} new: {"a":"1", "b":"2"}
+finalised: {"a":"0", "b":"2"}
+setting function: labour ____ {"a":"2", "b":"3"}
+setting function: labour ____ {"a":"2", "b":"3"}
+
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"0", "b":"2"}
+returning: {"a":"0", "b":"2"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+TreeNodeIntMoreThanOrEqual.HeuristicComparisonEvaluate: 2 : 1 :: true
+C-----------------------------------------------------------------------------------------C-----------------------------------------------------------------------------------------C-----------------------------------------------------------------------------------------A-----------------------------------------------------------------------------------------
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"1", "b":"2"}
+returning: {"a":"1", "b":"2"}
+
+
+
+
+starting:::2
+2 :::: [2]
+returning: {"a":"2", "b":"2"}
+
+Increase.HeuristicExecute: labour ::: {"a":"1", "b":"2"} _____ {"a":"2", "b":"2"}
+
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"0", "b":"1"}
+returning: {"a":"0", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+existing: {"a":"0", "b":"0"} new: {"a":"0", "b":"0"}
+finalised: {"a":"0", "b":"0"}
+existing: {"a":"0", "b":"0"} new: {"a":"-1", "b":"0"}
+finalised: {"a":"0", "b":"0"}
+B-----------------------------------------------------------------------------------------C-----------------------------------------------------------------------------------------
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"0", "b":"0"}
+returning: {"a":"0", "b":"0"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+TreeNodeIntMoreThanOrEqual.HeuristicComparisonEvaluate: 0 : 1 :: false
+C-----------------------------------------------------------------------------------------
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"0", "b":"1"}
+returning: {"a":"0", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+TreeNodeIntMoreThanOrEqual.HeuristicComparisonEvaluate: 1 : 1 :: true
+A-----------------------------------------------------------------------------------------
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"0", "b":"1"}
+returning: {"a":"0", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: available timber location0 ::: {"a":"0", "b":"1"} _____ {"a":"1", "b":"1"}
+
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"1", "b":"2"}
+returning: {"a":"1", "b":"2"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"1", "b":"2"} _____ {"a":"1", "b":"1"}
+existing: {"a":"0", "b":"0"} new: {"a":"1", "b":"2"}
+finalised: {"a":"0", "b":"2"}
+A-----------------------------------------------------------------------------------------
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"1", "b":"2"}
+returning: {"a":"1", "b":"2"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"1", "b":"2"} _____ {"a":"1", "b":"1"}
+A-----------------------------------------------------------------------------------------
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"0", "b":"0"}
+returning: {"a":"0", "b":"0"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: available timber location0 ::: {"a":"0", "b":"0"} _____ {"a":"1", "b":"1"}
+
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"1", "b":"1"}
+returning: {"a":"1", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"1", "b":"1"} _____ {"a":"1", "b":"1"}
+existing: {"a":"0", "b":"0"} new: {"a":"0", "b":"0"}
+finalised: {"a":"0", "b":"0"}
+existing: {"a":"0", "b":"0"} new: {"a":"1", "b":"1"}
+finalised: {"a":"0", "b":"1"}
+B-----------------------------------------------------------------------------------------
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"0", "b":"1"}
+returning: {"a":"0", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+TreeNodeIntMoreThanOrEqual.HeuristicComparisonEvaluate: 1 : 1 :: true
+C-----------------------------------------------------------------------------------------A-----------------------------------------------------------------------------------------
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"1", "b":"1"}
+returning: {"a":"1", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"1", "b":"1"} _____ {"a":"1", "b":"1"}
+existing: {"a":"1", "b":"1"} new: {"a":"1", "b":"1"}
+finalised: {"a":"1", "b":"1"}
+D-----------------------------------------------------------------------------------------
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"2", "b":"2"}
+returning: {"a":"2", "b":"2"}
+
+
+
+
+starting:::2
+2 :::: [2]
+returning: {"a":"2", "b":"2"}
+
+Increase.HeuristicExecute: labour ::: {"a":"2", "b":"2"} _____ {"a":"2", "b":"2"}
+
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"1", "b":"1"}
+returning: {"a":"1", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+D-----------------------------------------------------------------------------------------
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"1", "b":"1"}
+returning: {"a":"1", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: available timber location0 ::: {"a":"1", "b":"1"} _____ {"a":"1", "b":"1"}
+
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"2", "b":"2"}
+returning: {"a":"2", "b":"2"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"2", "b":"2"} _____ {"a":"1", "b":"1"}
+D-----------------------------------------------------------------------------------------
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"2", "b":"2"}
+returning: {"a":"2", "b":"2"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"2", "b":"2"} _____ {"a":"1", "b":"1"}
+setting function: labour ____ {"a":"4", "b":"4"}
+setting function: available timber location0 ____ {"a":"0", "b":"0"}
+existing: {"a":"1", "b":"1"} new: {"a":"0", "b":"0"}
+finalised: {"a":"1", "b":"1"}
+setting function: available timber location0 ____ {"a":"2", "b":"2"}
+existing: {"a":"1", "b":"1"} new: {"a":"2", "b":"2"}
+finalised: {"a":"1", "b":"2"}
+setting function: labour ____ {"a":"3", "b":"3"}
+setting function: labour ____ {"a":"3", "b":"3"}
+
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"1", "b":"2"}
+returning: {"a":"1", "b":"2"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+TreeNodeIntMoreThanOrEqual.HeuristicComparisonEvaluate: 2 : 1 :: true
+C-----------------------------------------------------------------------------------------C-----------------------------------------------------------------------------------------A-----------------------------------------------------------------------------------------
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"2", "b":"2"}
+returning: {"a":"2", "b":"2"}
+
+
+
+
+starting:::2
+2 :::: [2]
+returning: {"a":"2", "b":"2"}
+
+Increase.HeuristicExecute: labour ::: {"a":"2", "b":"2"} _____ {"a":"2", "b":"2"}
+
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"1", "b":"1"}
+returning: {"a":"1", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+existing: {"a":"0", "b":"0"} new: {"a":"0", "b":"0"}
+finalised: {"a":"0", "b":"0"}
+existing: {"a":"0", "b":"0"} new: {"a":"0", "b":"0"}
+finalised: {"a":"0", "b":"0"}
+B-----------------------------------------------------------------------------------------C-----------------------------------------------------------------------------------------
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"1", "b":"1"}
+returning: {"a":"1", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+TreeNodeIntMoreThanOrEqual.HeuristicComparisonEvaluate: 1 : 1 :: true
+A-----------------------------------------------------------------------------------------
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"1", "b":"1"}
+returning: {"a":"1", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: available timber location0 ::: {"a":"1", "b":"1"} _____ {"a":"1", "b":"1"}
+
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"2", "b":"2"}
+returning: {"a":"2", "b":"2"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"2", "b":"2"} _____ {"a":"1", "b":"1"}
+existing: {"a":"0", "b":"0"} new: {"a":"2", "b":"2"}
+finalised: {"a":"0", "b":"2"}
+A-----------------------------------------------------------------------------------------
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"2", "b":"2"}
+returning: {"a":"2", "b":"2"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"2", "b":"2"} _____ {"a":"1", "b":"1"}
+existing: {"a":"0", "b":"0"} new: {"a":"0", "b":"0"}
+finalised: {"a":"0", "b":"0"}
+D-----------------------------------------------------------------------------------------
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"0", "b":"0"}
+returning: {"a":"0", "b":"0"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: available timber location0 ::: {"a":"0", "b":"0"} _____ {"a":"1", "b":"1"}
+
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"2", "b":"2"}
+returning: {"a":"2", "b":"2"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"2", "b":"2"} _____ {"a":"1", "b":"1"}
+D-----------------------------------------------------------------------------------------
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"2", "b":"2"}
+returning: {"a":"2", "b":"2"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"2", "b":"2"} _____ {"a":"1", "b":"1"}
+setting function: available timber location0 ____ {"a":"1", "b":"1"}
+existing: {"a":"0", "b":"0"} new: {"a":"1", "b":"1"}
+finalised: {"a":"0", "b":"1"}
+setting function: labour ____ {"a":"3", "b":"3"}
+setting function: labour ____ {"a":"3", "b":"3"}
+
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"0", "b":"1"}
+returning: {"a":"0", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+TreeNodeIntMoreThanOrEqual.HeuristicComparisonEvaluate: 1 : 1 :: true
+existing: {"a":"0", "b":"0"} new: {"a":"0", "b":"1"}
+finalised: {"a":"0", "b":"1"}
+D-----------------------------------------------------------------------------------------
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"2", "b":"3"}
+returning: {"a":"2", "b":"3"}
+
+
+
+
+starting:::2
+2 :::: [2]
+returning: {"a":"2", "b":"2"}
+
+Increase.HeuristicExecute: labour ::: {"a":"2", "b":"3"} _____ {"a":"2", "b":"2"}
+
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"0", "b":"1"}
+returning: {"a":"0", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+D-----------------------------------------------------------------------------------------
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"0", "b":"1"}
+returning: {"a":"0", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: available timber location0 ::: {"a":"0", "b":"1"} _____ {"a":"1", "b":"1"}
+
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"2", "b":"3"}
+returning: {"a":"2", "b":"3"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"2", "b":"3"} _____ {"a":"1", "b":"1"}
+D-----------------------------------------------------------------------------------------
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"2", "b":"3"}
+returning: {"a":"2", "b":"3"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"2", "b":"3"} _____ {"a":"1", "b":"1"}
+setting function: labour ____ {"a":"4", "b":"5"}
+setting function: available timber location0 ____ {"a":"-1", "b":"0"}
+existing: {"a":"0", "b":"1"} new: {"a":"-1", "b":"0"}
+finalised: {"a":"0", "b":"1"}
+setting function: available timber location0 ____ {"a":"1", "b":"2"}
+existing: {"a":"0", "b":"1"} new: {"a":"1", "b":"2"}
+finalised: {"a":"0", "b":"2"}
+setting function: labour ____ {"a":"3", "b":"4"}
+setting function: labour ____ {"a":"3", "b":"4"}
+
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"0", "b":"2"}
+returning: {"a":"0", "b":"2"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+TreeNodeIntMoreThanOrEqual.HeuristicComparisonEvaluate: 2 : 1 :: true
+C-----------------------------------------------------------------------------------------C-----------------------------------------------------------------------------------------C-----------------------------------------------------------------------------------------A-----------------------------------------------------------------------------------------
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"2", "b":"3"}
+returning: {"a":"2", "b":"3"}
+
+
+
+
+starting:::2
+2 :::: [2]
+returning: {"a":"2", "b":"2"}
+
+Increase.HeuristicExecute: labour ::: {"a":"2", "b":"3"} _____ {"a":"2", "b":"2"}
+
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"0", "b":"1"}
+returning: {"a":"0", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+existing: {"a":"0", "b":"0"} new: {"a":"0", "b":"0"}
+finalised: {"a":"0", "b":"0"}
+existing: {"a":"0", "b":"0"} new: {"a":"-1", "b":"0"}
+finalised: {"a":"0", "b":"0"}
+B-----------------------------------------------------------------------------------------C-----------------------------------------------------------------------------------------
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"0", "b":"0"}
+returning: {"a":"0", "b":"0"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+TreeNodeIntMoreThanOrEqual.HeuristicComparisonEvaluate: 0 : 1 :: false
+C-----------------------------------------------------------------------------------------
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"0", "b":"1"}
+returning: {"a":"0", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+TreeNodeIntMoreThanOrEqual.HeuristicComparisonEvaluate: 1 : 1 :: true
+A-----------------------------------------------------------------------------------------
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"0", "b":"1"}
+returning: {"a":"0", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: available timber location0 ::: {"a":"0", "b":"1"} _____ {"a":"1", "b":"1"}
+
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"2", "b":"3"}
+returning: {"a":"2", "b":"3"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"2", "b":"3"} _____ {"a":"1", "b":"1"}
+existing: {"a":"0", "b":"0"} new: {"a":"1", "b":"2"}
+finalised: {"a":"0", "b":"2"}
+A-----------------------------------------------------------------------------------------
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"2", "b":"3"}
+returning: {"a":"2", "b":"3"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"2", "b":"3"} _____ {"a":"1", "b":"1"}
+A-----------------------------------------------------------------------------------------
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"0", "b":"0"}
+returning: {"a":"0", "b":"0"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: available timber location0 ::: {"a":"0", "b":"0"} _____ {"a":"1", "b":"1"}
+
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"2", "b":"2"}
+returning: {"a":"2", "b":"2"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"2", "b":"2"} _____ {"a":"1", "b":"1"}
+existing: {"a":"0", "b":"0"} new: {"a":"0", "b":"0"}
+finalised: {"a":"0", "b":"0"}
+existing: {"a":"0", "b":"0"} new: {"a":"1", "b":"1"}
+finalised: {"a":"0", "b":"1"}
+B-----------------------------------------------------------------------------------------
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"0", "b":"1"}
+returning: {"a":"0", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+TreeNodeIntMoreThanOrEqual.HeuristicComparisonEvaluate: 1 : 1 :: true
+C-----------------------------------------------------------------------------------------A-----------------------------------------------------------------------------------------
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"2", "b":"2"}
+returning: {"a":"2", "b":"2"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"2", "b":"2"} _____ {"a":"1", "b":"1"}
+existing: {"a":"2", "b":"2"} new: {"a":"2", "b":"2"}
+finalised: {"a":"2", "b":"2"}
+D-----------------------------------------------------------------------------------------
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"3", "b":"3"}
+returning: {"a":"3", "b":"3"}
+
+
+
+
+starting:::2
+2 :::: [2]
+returning: {"a":"2", "b":"2"}
+
+Increase.HeuristicExecute: labour ::: {"a":"3", "b":"3"} _____ {"a":"2", "b":"2"}
+
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"2", "b":"2"}
+returning: {"a":"2", "b":"2"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+D-----------------------------------------------------------------------------------------
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"2", "b":"2"}
+returning: {"a":"2", "b":"2"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: available timber location0 ::: {"a":"2", "b":"2"} _____ {"a":"1", "b":"1"}
+
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"3", "b":"3"}
+returning: {"a":"3", "b":"3"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"3", "b":"3"} _____ {"a":"1", "b":"1"}
+D-----------------------------------------------------------------------------------------
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"3", "b":"3"}
+returning: {"a":"3", "b":"3"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"3", "b":"3"} _____ {"a":"1", "b":"1"}
+setting function: labour ____ {"a":"5", "b":"5"}
+setting function: available timber location0 ____ {"a":"1", "b":"1"}
+existing: {"a":"2", "b":"2"} new: {"a":"1", "b":"1"}
+finalised: {"a":"2", "b":"2"}
+setting function: available timber location0 ____ {"a":"3", "b":"3"}
+existing: {"a":"2", "b":"2"} new: {"a":"3", "b":"3"}
+finalised: {"a":"2", "b":"3"}
+setting function: labour ____ {"a":"4", "b":"4"}
+setting function: labour ____ {"a":"4", "b":"4"}
+
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"2", "b":"3"}
+returning: {"a":"2", "b":"3"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+TreeNodeIntMoreThanOrEqual.HeuristicComparisonEvaluate: 3 : 1 :: true
+C-----------------------------------------------------------------------------------------C-----------------------------------------------------------------------------------------A-----------------------------------------------------------------------------------------
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"3", "b":"3"}
+returning: {"a":"3", "b":"3"}
+
+
+
+
+starting:::2
+2 :::: [2]
+returning: {"a":"2", "b":"2"}
+
+Increase.HeuristicExecute: labour ::: {"a":"3", "b":"3"} _____ {"a":"2", "b":"2"}
+
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"2", "b":"2"}
+returning: {"a":"2", "b":"2"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+existing: {"a":"0", "b":"0"} new: {"a":"0", "b":"0"}
+finalised: {"a":"0", "b":"0"}
+existing: {"a":"0", "b":"0"} new: {"a":"1", "b":"1"}
+finalised: {"a":"0", "b":"1"}
+B-----------------------------------------------------------------------------------------C-----------------------------------------------------------------------------------------
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"2", "b":"2"}
+returning: {"a":"2", "b":"2"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+TreeNodeIntMoreThanOrEqual.HeuristicComparisonEvaluate: 2 : 1 :: true
+A-----------------------------------------------------------------------------------------
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"2", "b":"2"}
+returning: {"a":"2", "b":"2"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: available timber location0 ::: {"a":"2", "b":"2"} _____ {"a":"1", "b":"1"}
+
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"3", "b":"3"}
+returning: {"a":"3", "b":"3"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"3", "b":"3"} _____ {"a":"1", "b":"1"}
+existing: {"a":"0", "b":"1"} new: {"a":"3", "b":"3"}
+finalised: {"a":"0", "b":"3"}
+A-----------------------------------------------------------------------------------------
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"3", "b":"3"}
+returning: {"a":"3", "b":"3"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"3", "b":"3"} _____ {"a":"1", "b":"1"}
+existing: {"a":"1", "b":"1"} new: {"a":"1", "b":"1"}
+finalised: {"a":"1", "b":"1"}
+D-----------------------------------------------------------------------------------------
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"3", "b":"3"}
+returning: {"a":"3", "b":"3"}
+
+
+
+
+starting:::2
+2 :::: [2]
+returning: {"a":"2", "b":"2"}
+
+Increase.HeuristicExecute: labour ::: {"a":"3", "b":"3"} _____ {"a":"2", "b":"2"}
+
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"1", "b":"1"}
+returning: {"a":"1", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+D-----------------------------------------------------------------------------------------
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"1", "b":"1"}
+returning: {"a":"1", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: available timber location0 ::: {"a":"1", "b":"1"} _____ {"a":"1", "b":"1"}
+
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"3", "b":"3"}
+returning: {"a":"3", "b":"3"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"3", "b":"3"} _____ {"a":"1", "b":"1"}
+D-----------------------------------------------------------------------------------------
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"3", "b":"3"}
+returning: {"a":"3", "b":"3"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"3", "b":"3"} _____ {"a":"1", "b":"1"}
+setting function: labour ____ {"a":"5", "b":"5"}
+setting function: available timber location0 ____ {"a":"0", "b":"0"}
+existing: {"a":"1", "b":"1"} new: {"a":"0", "b":"0"}
+finalised: {"a":"1", "b":"1"}
+setting function: available timber location0 ____ {"a":"2", "b":"2"}
+existing: {"a":"1", "b":"1"} new: {"a":"2", "b":"2"}
+finalised: {"a":"1", "b":"2"}
+setting function: labour ____ {"a":"4", "b":"4"}
+setting function: labour ____ {"a":"4", "b":"4"}
+
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"1", "b":"2"}
+returning: {"a":"1", "b":"2"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+TreeNodeIntMoreThanOrEqual.HeuristicComparisonEvaluate: 2 : 1 :: true
+C-----------------------------------------------------------------------------------------C-----------------------------------------------------------------------------------------A-----------------------------------------------------------------------------------------
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"3", "b":"3"}
+returning: {"a":"3", "b":"3"}
+
+
+
+
+starting:::2
+2 :::: [2]
+returning: {"a":"2", "b":"2"}
+
+Increase.HeuristicExecute: labour ::: {"a":"3", "b":"3"} _____ {"a":"2", "b":"2"}
+
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"1", "b":"1"}
+returning: {"a":"1", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+existing: {"a":"0", "b":"0"} new: {"a":"0", "b":"0"}
+finalised: {"a":"0", "b":"0"}
+existing: {"a":"0", "b":"0"} new: {"a":"0", "b":"0"}
+finalised: {"a":"0", "b":"0"}
+B-----------------------------------------------------------------------------------------C-----------------------------------------------------------------------------------------
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"1", "b":"1"}
+returning: {"a":"1", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+TreeNodeIntMoreThanOrEqual.HeuristicComparisonEvaluate: 1 : 1 :: true
+A-----------------------------------------------------------------------------------------
+
+
+starting:::available timber location0
+available timber location0 :::: [available timber location0]
+ran func: {"a":"1", "b":"1"}
+returning: {"a":"1", "b":"1"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: available timber location0 ::: {"a":"1", "b":"1"} _____ {"a":"1", "b":"1"}
+
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"3", "b":"3"}
+returning: {"a":"3", "b":"3"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"3", "b":"3"} _____ {"a":"1", "b":"1"}
+existing: {"a":"0", "b":"0"} new: {"a":"2", "b":"2"}
+finalised: {"a":"0", "b":"2"}
+A-----------------------------------------------------------------------------------------
+
+
+starting:::labour
+labour :::: [labour]
+ran func: {"a":"3", "b":"3"}
+returning: {"a":"3", "b":"3"}
+
+
+
+
+starting:::1
+1 :::: [1]
+returning: {"a":"1", "b":"1"}
+
+Increase.HeuristicExecute: labour ::: {"a":"3", "b":"3"} _____ {"a":"1", "b":"1"}

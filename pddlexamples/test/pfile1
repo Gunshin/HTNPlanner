@@ -1,0 +1,27 @@
+(define (problem settlers)
+(:domain civ)
+(:objects
+	location0 - place
+)
+(:init
+	(= (resource-use) 0)
+	(= (labour) 0)
+	(= (pollution) 0)
+	(mountain location0)
+	(woodland location0)
+	(by-coast location0)
+	(= (housing location0) 0)
+	(= (available wood location0) 0)
+	(= (available timber location0) 0)
+	(= (available ore location0) 0)
+	(= (available stone location0) 0)
+	(= (available iron location0) 0)
+	(= (available coal location0) 0)
+)
+(:goal (and
+	(has-coal-stack location0)
+	)
+)
+
+(:metric minimize (+ (+ (* 0 (pollution)) (* 0 (resource-use))) (* 2 (labour))))
+)

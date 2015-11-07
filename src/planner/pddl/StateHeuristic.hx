@@ -65,11 +65,6 @@ class StateHeuristic extends State
 		
 		var bounds:Pair<Int, Int> = functions_bounds.get(functionID_);
 		
-		if (functionID_ == "available timber location0")
-		{
-			trace("existing: " + bounds + " new: " + bounds_);
-		}
-		
 		if (bounds_.a < bounds.a)
 		{
 			bounds.a = bounds.a;
@@ -79,7 +74,6 @@ class StateHeuristic extends State
 			bounds.b = bounds_.b;
 		}
 		
-		//trace("function bounds count: " + functions_bounds.toString());
 	}
 	
 	/**
@@ -96,6 +90,18 @@ class StateHeuristic extends State
 		}
 		
 		return functions_bounds.get(functionID_);
+	}
+	
+	public function StateHeuristicCopyTo(state_to_be_copied_to_:StateHeuristic):State
+	{		
+		CopyTo(state_to_be_copied_to_);
+		
+		for (i in functions_bounds.keys())
+		{
+			state_to_be_copied_to_.SetFunctionBounds(i, GetFunctionBounds(i));
+		}
+		
+		return state_to_be_copied_to_;
 	}
 	
 	override public function toString():String
