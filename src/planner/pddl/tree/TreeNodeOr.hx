@@ -2,6 +2,7 @@ package planner.pddl.tree;
 import planner.pddl.ActionData;
 import planner.pddl.Domain;
 import planner.pddl.heuristic.HeuristicData;
+import planner.pddl.Pair;
 import planner.pddl.State;
 import planner.pddl.StateHeuristic;
 
@@ -51,7 +52,7 @@ class TreeNodeOr extends TreeNode
 		throw "cannot use an 'or' within an effect execution (makes no sense)";
 	}
 	
-	override public function GenerateRangeOfValues(data_:ActionData, valueName_:String, state_:State, domain_:Domain):Array<String>
+	override public function GenerateRangeOfValues(data_:ActionData, valueName_:String, state_:State, domain_:Domain, heuristic_version_:Bool):Array<String>
 	{
 		var returnee:Array<String> = new Array<String>();
 		
@@ -85,14 +86,20 @@ class TreeNodeOr extends TreeNode
 					
 					var nodeInt:TreeNodeInt = cast(child, TreeNodeInt);
 					var indexToGetValue:Int = !firstChildHasTargetValue ? 0 : 1;
-					var value:Int = nodeInt.GetValueFromChild(indexToGetValue, data_, state_, domain_);
+					var value:Pair<Int, Int> = heuristic_version_ ? 
+									nodeInt.HeuristicGetValueFromChild(indexToGetValue, data_, null, cast(state_, StateHeuristic), domain_) :
+									new Pair(nodeInt.GetValueFromChild(indexToGetValue, data_, state_, domain_), nodeInt.GetValueFromChild(indexToGetValue, data_, state_, domain_));
 					
-					returnee.push(Std.string(value));
+					for (inte in value.a ... value.b + 1)
+					{
+						returnee.push(Std.string(inte));
+					}
+					
 				}
 			}
 			else
 			{
-				returnee = returnee.concat(child.GenerateRangeOfValues(data_, valueName_, state_, domain_));
+				returnee = returnee.concat(child.GenerateRangeOfValues(data_, valueName_, state_, domain_, heuristic_version_));
 			}
 		}
 		

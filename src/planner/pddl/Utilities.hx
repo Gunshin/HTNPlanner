@@ -351,12 +351,17 @@ class Utilities
         return hash;
 	}
 	
-	/*static public function WriteToFile(file_path_:String, contents_:String, append_:Bool)
+	static public function WriteToFile(file_path_:String, contents_:String, append_:Bool)
 	{
 		var fo:FileOutput = append_ ? File.append(file_path_, false) : File.write(file_path_, false);
 		fo.writeString(contents_);
 		fo.flush();
 		fo.close();
-	}*/
+	}
+	
+	static public function Log(contents_:String)
+	{
+		WriteToFile("output.txt", contents_, true);
+	}
 	
 }

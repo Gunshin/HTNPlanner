@@ -58,7 +58,6 @@ class Heuristic
 			return 0;
 		}
 		
-		
 		//trace("init: " + initial_state_.toString());
 		var heuristic_state:StateHeuristic = new StateHeuristic();
 		initial_state_.CopyTo(heuristic_state);
@@ -66,18 +65,18 @@ class Heuristic
 		var state_list:Array<HeuristicNode> = new Array<HeuristicNode>();
 		state_list.push(current_node);
 		
-		/*Utilities.WriteToFile("temp.json", "------------------\n", true);
+		/*Utilities.Log("Heuristic.RunHeuristic: ------------------\n");
 		for (action in current_node.actions_applied_to_state)
 		{
-			Utilities.WriteToFile("temp.json", action.GetActionTransform()+"\n", true);
+			Utilities.Log("Heuristic.RunHeuristic: " + action.GetActionTransform()+"\n");
 		}
 		for (goal_node in GetGoalNodes(problem.GetGoalTree().GetBaseNode()))
 		{
-			Utilities.WriteToFile("temp.json", ""+goal_node.HeuristicEvaluate(null, null, current_node.state, domain)+"\n", true);
+			Utilities.Log("Heuristic.RunHeuristic: " + goal_node.HeuristicEvaluate(null, null, current_node.state, domain)+"\n");
 		}
 		
-		Utilities.WriteToFile("temp.json", ""+current_node.state.toString()+"\n", true);
-		Utilities.WriteToFile("temp.json", "\n------------------------\n\n", true);*/
+		Utilities.Log("Heuristic.RunHeuristic: " + current_node.state.toString()+"\n");
+		Utilities.Log("Heuristic.RunHeuristic: " + "\n------------------------\n\n");*/
 		
 		// first generate the full graph to ensure we can fulfill the goal
 		var depth:Int = 0;
@@ -88,22 +87,20 @@ class Heuristic
 			var successor_state:StateHeuristic = ApplyActions(current_node, domain);
 			current_node = new HeuristicNode(successor_state, GetAllActionsForState(successor_state, domain), new HeuristicData());
 			state_list.push(current_node);
-			
 			depth++;
 			
-			/*Utilities.WriteToFile("temp.json", "------------------\n", true);
+			/*Utilities.Log("Heuristic.RunHeuristic: " + "------------------\n");
 			for (action in current_node.actions_applied_to_state)
 			{
-				Utilities.WriteToFile("temp.json", action.GetActionTransform()+"\n", true);
+				Utilities.Log("Heuristic.RunHeuristic: " + action.GetActionTransform()+"\n");
 			}
 			for (goal_node in GetGoalNodes(problem.GetGoalTree().GetBaseNode()))
 			{
-				Utilities.WriteToFile("temp.json", ""+goal_node.HeuristicEvaluate(null, null, current_node.state, domain)+"\n", true);
+				Utilities.Log("Heuristic.RunHeuristic: " + goal_node.GetRawTreeString() + " :: " +goal_node.HeuristicEvaluate(null, null, current_node.state, domain)+"\n");
 			}
 			
-			Utilities.WriteToFile("temp.json", ""+current_node.state.toString()+"\n", true);
-			Utilities.WriteToFile("temp.json", "\n------------------------\n\n", true);*/
-			
+			Utilities.Log("Heuristic.RunHeuristic: " + current_node.state.toString()+"\n");
+			Utilities.Log("Heuristic.RunHeuristic: " + "\n------------------------\n\n");*/
 			
 			if (depth > 20)
 			{
@@ -116,16 +113,21 @@ class Heuristic
 				
 				
 				//trace("returning with no heuristic found: " + (total_action_count * 20));
+				//throw "";
 				return total_action_count * 20;
 			}
 		}
 		
+		
+		/*trace("passed");
+		throw "";*/
 		//Utilities.WriteToFile("state_list.json", ""+state_list, false);
 		
 		//trace(depth);
 		
 		// now lets extract the relaxed plan
 		var concrete_actions:Map<PlannerActionNode, Bool> = new Map<PlannerActionNode, Bool>();
+		var ordered_concrete_actions:Array<PlannerActionNode> = new Array<PlannerActionNode>();
 		var concrete_actions_count:Int = 0;
 		
 		// first we need to grab all of the individual goal nodes
@@ -234,21 +236,22 @@ class Heuristic
 							//lets find any and all preconditions of this action that need satisfying and add them to the goal list
 							var action_precondition_nodes_to_add:Array<TreeNode> = GetGoalNodes(action_node.action.GetPreconditionTree().GetBaseNode());
 							
-							//Utilities.WriteToFile("temp.json", ""+action_node.GetActionTransform()+"\n"+ goal_nodes_to_remove + "\n", true);
+							Utilities.Log(""+action_node.GetActionTransform()+"\n"+ goal_nodes_to_remove + "\n");
 							
 							for (node in action_precondition_nodes_to_add)
 							{
 								// an array since a for loop can return many nodes when asked for a concrete version
 								var concrete_nodes:Array<TreeNode> = node.GenerateConcrete(action_node.action.GetData(), s_h_n.state, domain);
-								//Utilities.WriteToFile("temp.json", ""+concrete_nodes + "\n", true);
+								Utilities.Log(""+concrete_nodes + "\n");
 								for (node in concrete_nodes)
 								{
 									AddGoalNodeToLayers(node, state_list, goal_node_layers);
 								}
 							}
-							//Utilities.WriteToFile("temp.json", "\n", true);
+							Utilities.Log("\n");
 							// lets also record this action node
 							concrete_actions.set(action_node, true);
+							ordered_concrete_actions.push(action_node);
 							concrete_actions_count++;
 						}
 						
@@ -265,15 +268,15 @@ class Heuristic
 			index--;
 		}
 		
-		/*Utilities.WriteToFile("temp.json", "------------------", true);
-		for (layer in goal_node_layers)
+		Utilities.Log("------------------");
+		for (action in ordered_concrete_actions)
 		{
-			Utilities.WriteToFile("temp.json", "\n"+layer, true);
+			Utilities.Log("\n"+action.GetActionTransform());
 		}
-		Utilities.WriteToFile("temp.json", "\n------------------------\n\n", true);*/
+		Utilities.Log("\n------------------------\n\n");
 		
-		//trace(concrete_actions_count);
-		//throw "";
+		trace(concrete_actions_count);
+		throw "";
 		return concrete_actions_count;
 	}
 	
@@ -372,13 +375,12 @@ class Heuristic
 		for (actionNode in current_node_.actions_applied_to_state)
 		{
 			actionNode.Set();
-			//trace(actionNode.params + "\n" + actionNode.valuesType);
 			actionNode.action.HeuristicExecute(current_node_.heuristic_data, new_state, domain_);
 		}
 		
 		for (i in current_node_.heuristic_data.function_changes)
 		{
-			//Utilities.WriteToFile("output.txt", "setting function: " + i.name + " ____ " + i.bounds + "\n", true);
+			//Utilities.Log("Heuristic.ApplyActions: setting function: " + i.name + " ____ " + i.bounds + "\n");
 			new_state.SetFunctionBounds(i.name, i.bounds);
 		}
 		
@@ -393,7 +395,6 @@ class Heuristic
 	static public function GetAllActionsForState(state_:StateHeuristic, domain_:Domain):Array<PlannerActionNode>
 	{
 		var actions:Array<PlannerActionNode> = new Array<PlannerActionNode>();
-		
 		for (actionName in domain_.GetAllActionNames())
 		{
 			var action:Action = domain_.GetAction(actionName);
@@ -401,23 +402,30 @@ class Heuristic
 			var parameter_combinations:Array<Array<Pair<String, String>>> = Planner.GetAllPossibleParameterCombinations(action, state_, domain_);
 			
 			// has an extra array since these combinations are used per parameter combination
-			var value_combinations:Array<Array<Array<Pair<String, String>>>> = Planner.GetAllPossibleValueCombinations(action, parameter_combinations, state_, domain_);
+			var value_combinations:Array<Array<Array<Pair<String, String>>>> = Planner.GetAllPossibleValueCombinations(action, parameter_combinations, state_, domain_, true);
 			
+			//Utilities.Log("Heuristic.GetAllActionsForState: " + action.GetName() + " :: " + value_combinations + "\n");
 			for (param_index in 0...parameter_combinations.length)
 			{
 				var param_combination:Array<Pair<String, String>> = parameter_combinations[param_index];
 				action.GetData().SetParameters(param_combination);
 				if (value_combinations[param_index].length > 0)
 				{
+					//Utilities.Log("Heuristic.GetAllActionsForState 1: " + value_combinations[param_index] + "\n");
 					for (val_combination in value_combinations[param_index])
 					{
+						//Utilities.Log("Heuristic.GetAllActionsForState 1.1: \n");
 						action.GetData().SetValues(val_combination);
-						
+						//Utilities.Log("Heuristic.GetAllActionsForState 1.2: \n");
 						if (action.HeuristicEvaluate(null, state_, domain_))
 						{
+							//Utilities.Log("Heuristic.GetAllActionsForState 1.21: \n");
 							actions.push(new PlannerActionNode(action, param_combination, val_combination));
+							//Utilities.Log("Heuristic.GetAllActionsForState 1.22: \n");
 						}
+						//Utilities.Log("Heuristic.GetAllActionsForState 1.3: \n");
 					}
+					//Utilities.Log("Heuristic.GetAllActionsForState 2: \n");
 				}
 				else
 				{
@@ -426,14 +434,11 @@ class Heuristic
 						actions.push(new PlannerActionNode(action, param_combination, null));
 					}
 				}
-				if (action.GetData().GetParameter("?quest_required") != null)
-				{
-					throw "";
-				}
 			}
-			
+			//Utilities.Log("Heuristic.GetAllActionsForState 3: \n");
 		}
 		
+		//Utilities.Log(actions + "\n");
 		return actions;
 	}
 

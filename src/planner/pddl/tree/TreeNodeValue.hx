@@ -16,6 +16,8 @@ class TreeNodeValue extends TreeNode
 	
 	var valueName:String = null;
 	
+	
+	
 	public function new(valueName_:String) 
 	{
 		super();
@@ -44,8 +46,18 @@ class TreeNodeValue extends TreeNode
 	{
 		//trace((data_ != null) + " _ " + (heuristic_data_ != null) + " _ " + (state_ != null) + " _ " + (domain_ != null));
 		//trace(valueName + " _ " + (data_.GetValue(valueName) != null));
-		var pos_values:Array<String> = data_.GetValue(valueName).GetPossibleValues(data_, state_, domain_);
-		return new Pair<Int, Int>(Std.parseInt(pos_values[0]), Std.parseInt(pos_values[pos_values.length - 1])).ToPlainString();
+		//var pos_values:Array<String> = data_.GetValue(valueName).GetPossibleValues(data_, state_, domain_, true);
+		var value:Int = Std.parseInt(data_.GetValue(valueName).GetValue());
+		return new Pair<Int, Int>(value, value).ToPlainString();//new Pair<Int, Int>(Std.parseInt(pos_values[0]), Std.parseInt(pos_values[pos_values.length - 1])).ToPlainString();
+	}
+	
+	override public function GenerateConcrete(action_data_:ActionData, state_:State, domain_:Domain):Array<TreeNode>
+	{
+		// since at runtime, this value node will only have 1 value for its current action, we can replace the concrete version with
+		// a raw value aswell
+		var concrete:TreeNodeIntFunctionValue = new TreeNodeIntFunctionValue(action_data_.GetValue(valueName).GetValue());
+		
+		return [concrete];
 	}
 	
 	override public function GetRawName():String

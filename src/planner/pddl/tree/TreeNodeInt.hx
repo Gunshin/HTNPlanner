@@ -28,11 +28,20 @@ class TreeNodeInt extends TreeNode
 		var childOneExecute:String = children[childIndex_].Execute(data_, state_, domain_);
 		
 		var value:Null<Int> = Std.parseInt(childOneExecute); // if it is an int, great! it might be a function though
+		//trace(childIndex_ + " _ " + children + " ____ " + childOneExecute);
 		if (value == null)
 		{
-			value = state_.GetFunction(childOneExecute);
+			if (childOneExecute.charAt(0) == "~")
+			{
+				trace(Std.parseInt(data_.GetValue(childOneExecute).GetValue()));
+				value = Std.parseInt(data_.GetValue(childOneExecute).GetValue());
+			}
+			else
+			{
+				value = state_.GetFunction(childOneExecute);
+			}
+			
 		}
-		
 		return value;
 	}
 	
@@ -61,18 +70,21 @@ class TreeNodeInt extends TreeNode
 			
 			if (num != null)
 			{
+				//Utilities.Log("TreeNodeInt.HeuristicGetValueFromChild: a\n");
 				bounds = new Pair(num, num);
 			}
 			else
 			{
 				bounds = state_.GetFunctionBounds(childOneExecute);
+				//Utilities.Log("TreeNodeInt.HeuristicGetValueFromChild: b\n");
 			}
 		}
 		else
 		{
+			//Utilities.Log("TreeNodeInt.HeuristicGetValueFromChild: c\n");
 			bounds = new Pair(Std.parseInt(split[0]), Std.parseInt(split[1]));
 		}
-		
+		//Utilities.Log("TreeNodeInt.HeuristicGetValueFromChild: " + GetRawTreeString() + " === " + childOneExecute + " ___ " + bounds +"\n");
 		return bounds;
 	}
 	

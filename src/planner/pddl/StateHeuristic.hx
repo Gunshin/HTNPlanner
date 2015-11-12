@@ -65,9 +65,11 @@ class StateHeuristic extends State
 		
 		var bounds:Pair<Int, Int> = functions_bounds.get(functionID_);
 		
+		//Utilities.Log("StateHeuristic.SetFunctionBounds: " + functionID_ + " :: " + bounds_ + " -> " + bounds + "\n");
+		
 		if (bounds_.a < bounds.a)
 		{
-			bounds.a = bounds.a;
+			bounds.a = bounds_.a;
 		}
 		if (bounds_.b > bounds.b)
 		{

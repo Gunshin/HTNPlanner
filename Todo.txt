@@ -4,7 +4,16 @@
 
 - Need to do function testing on domains so that i can set input parameters and states, and an expected outcome to see if it is correct.
 
-- 
+- relaxed plan generation and extraction
+	- after done once, check to see if the plan is viable due to various numeric issues
+	- if issues have been found, add the issues to the goal tree? temporary goal tree?
+	- a temporary goal tree could be satisfied at some point in the plan, without being needed
+		to be satisfied at the end
+		
+		
+- metrics are not taken into account at all with heuristic or planner
+
+
 
 >=
 >

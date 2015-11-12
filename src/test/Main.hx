@@ -50,14 +50,30 @@ class Main
 	public function new()
 	{
 		//UnitTests();
-		//Utilities.WriteToFile("output.txt", "", false);
-		//Utilities.WriteToFile("temp.json", "", false);
+		Utilities.WriteToFile("output.txt", "", false);
+		Utilities.WriteToFile("temp.json", "", false);
 		
-		var domainIndex:Int = 2;
+		var domainIndex:Int = 7;
 		
 		var domain = new Domain(domainLocation[domainIndex]);
 		var problem = new Problem(problemLocation[domainIndex], domain);
 		
+		
+		/*var start:State = problem.GetClonedInitialState();
+		start.SetFunction("available timber location0", 10);
+		start.AddRelation("has-sawmill location0");
+		
+		var saw:Action = domain.GetAction("saw-wood");
+		
+		saw.GetData().SetParameter("?p", "location0");
+		saw.GetData().SetValue("~count", "7");
+		
+		trace(saw.Evaluate(start, domain));
+
+		for (child in saw.GetPreconditionTree().GetBaseNode().GetChildren())
+		{
+			trace(child.GetRawTreeString() + " ___: " + child.Evaluate(saw.GetData(), start, domain));
+		}*/
 		var start:Float = Sys.cpuTime();
 		
 		var planner:Planner = new Planner();

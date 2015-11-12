@@ -157,7 +157,7 @@ class Planner
 			var parameter_combinations:Array<Array<Pair<String, String>>> = GetAllPossibleParameterCombinations(action, state_, domain_);
 			
 			// has an extra array since these combinations are used per parameter combination
-			var value_combinations:Array<Array<Array<Pair<String, String>>>> = GetAllPossibleValueCombinations(action, parameter_combinations, state_, domain_);
+			var value_combinations:Array<Array<Array<Pair<String, String>>>> = GetAllPossibleValueCombinations(action, parameter_combinations, state_, domain_, false);
 			
 			for (param_index in 0...parameter_combinations.length)
 			{
@@ -181,10 +181,6 @@ class Planner
 					{
 						actions.push(new PlannerActionNode(action, param_combination, null));
 					}
-				}
-				if (action.GetData().GetParameter("?quest_required") != null)
-				{
-					throw "";
 				}
 			}
 			
@@ -224,8 +220,9 @@ class Planner
 		return combinations;
 	}
 	
-	static public function GetAllPossibleValueCombinations(action_:Action, parameter_combinations_:Array<Array<Pair<String, String>>>, state_:State, domain_:Domain):Array<Array<Array<Pair<String, String>>>>
+	static public function GetAllPossibleValueCombinations(action_:Action, parameter_combinations_:Array<Array<Pair<String, String>>>, state_:State, domain_:Domain, heuristic_version_:Bool):Array<Array<Array<Pair<String, String>>>>
 	{
+		//Utilities.Log("Planner.GetAllPossibleValueCombinations: " + action_+"\n");
 		var returnee:Array<Array<Array<Pair<String, String>>>> = new Array<Array<Array<Pair<String, String>>>>();
 		
 		for (combination in parameter_combinations_)
@@ -242,7 +239,7 @@ class Planner
 				{
 					
 					var obj_array:Array<Pair<String, String>> = new Array<Pair<String, String>>();
-					for (obj in actionValues[valueIndex].GetPossibleValues(action_.GetData(), state_, domain_))// <-------- this call is causing the issue
+					for (obj in actionValues[valueIndex].GetPossibleValues(action_.GetData(), state_, domain_, heuristic_version_))
 					{
 						obj_array.push(new Pair(actionValues[valueIndex].GetName(), obj));
 					}
