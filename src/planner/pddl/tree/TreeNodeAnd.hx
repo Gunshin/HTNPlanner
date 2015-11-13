@@ -4,6 +4,7 @@ import planner.pddl.Domain;
 import planner.pddl.heuristic.HeuristicData;
 import planner.pddl.Pair;
 import planner.pddl.State;
+import planner.pddl.StateHeuristic;
 
 /**
  * ...
@@ -128,8 +129,11 @@ class TreeNodeAnd extends TreeNode
 					var indexToGetValue:Int = !firstChildHasTargetValue ? 0 : 1;
 					if (heuristic_version_)
 					{
-						var value:Pair<Int, Int> = nodeInt.HeuristicGetValueFromChild(indexToGetValue, data_, null, cast(state_, StateHeuristic), domain_);
-						//Utilities.Log("TreeNodeAnd.GenerateRangeOfValues: " + indexToGetValue + " __:: " + nodeInt.GetRawTreeString() + " :::: "+value+"\n");
+						var heur_state:StateHeuristic = cast(state_, StateHeuristic);
+						var value:Pair<Int, Int> = nodeInt.HeuristicGetValueFromChild(indexToGetValue, data_, null, heur_state, domain_);
+						// since the above value is pulled directly from the state by reference, we CANNOT modify it, therefor below
+						var valueA:Int = value.a;
+						var valueB:Int = value.b;
 						var isMin:Bool = false;
 						switch(child.GetRawName())
 						{
@@ -137,25 +141,25 @@ class TreeNodeAnd extends TreeNode
 								throw "Dont add '==' statements for value ranges to 'and'. Only add to 'or'";
 							case ">":
 								isMin = firstChildHasTargetValue;
-								value.a += 1;
-								value.b += 1;
+								valueA += 1;
+								valueB += 1;
 							case ">=":
 								isMin = firstChildHasTargetValue;
 							case "<":
 								isMin = !firstChildHasTargetValue;
 							case "<=":
 								isMin = !firstChildHasTargetValue;
-								value.a += 1;
-								value.b += 1;
+								valueA += 1;
+								valueB += 1;
 						}
 						
-						if (isMin && (min == null || value.a < min))
+						if (isMin && (min == null || valueA < min))
 						{
-							min = value.a;
+							min = valueA;
 						}
-						else if(!isMin && (max == null || value.b > max))
+						else if(!isMin && (max == null || valueB > max))
 						{
-							max = value.b;
+							max = valueB;
 						}
 					}
 					else
@@ -191,7 +195,6 @@ class TreeNodeAnd extends TreeNode
 				}
 			}
 		}
-		
 		if (has_value_range)
 		{
 			if (min == null)

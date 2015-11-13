@@ -22,6 +22,7 @@ class Planner
 	
 	var hasMetric:Bool = false;
 	
+	
 	public function new() 
 	{
 		
@@ -45,18 +46,36 @@ class Planner
 		
 		hasMetric = problem.HasProperty("metric");
 		
-		var currentState:PlannerNode = new PlannerNode(problem_.GetClonedInitialState(), null, null, 0, 0);
+		var currentState:PlannerNode = new PlannerNode(problem_.GetClonedInitialState(), null, null, 0, new HeuristicResult(null, 0));
+		
+		var init_heuristic_estimate:Int = heuristic.RunHeuristic(currentState.state).length;
 		
 		var openList:Heap<PlannerNode> = new Heap<PlannerNode>();
+		var closed_list:Array<PlannerNode> = new Array<PlannerNode>();
 		
 		do
 		{
 			var successiveStates:Array<PlannerNode> = GetAllSuccessiveStates(currentState);
+			
 			#if debug_output
-			if (iteration++ >= 1000)
+			if (iteration++ >= 1)
 			{
 				iteration = 0;
-				trace("openListCount: " + openList.size() + " _ " + openList.top().depth + " _ " + openList.top().estimate);
+				throw "";
+				/*trace("closed_list_count: " + closed_list.length + " _ next node: " + openList.top().depth + " _ " + openList.top().estimate.length);
+				Utilities.Log("closed_list_count: " + closed_list.length + " _ next node: " + openList.top().depth + " _ " + openList.top().estimate.length + "\n\n");
+				Utilities.Log("estimate: \n");
+				for (action in openList.top().estimate.ordered_list)
+				{
+					Utilities.Log(action.GetActionTransform() + "\n");
+				}
+				Utilities.Log(openList.top().state + "\n");
+				Utilities.Log("previous actions: \n");
+				var backtrack:Array<PlannerActionNode> = BacktrackPlan(openList.top());
+				for (action in backtrack)
+				{
+					Utilities.Log(action.GetActionTransform() + "\n");
+				}*/
 			}
 			#end
 			
@@ -64,14 +83,29 @@ class Planner
 			{
 				openList.add(i);
 			}
-			
+			closed_list.push(currentState);
 			currentState = GetNextState(openList);
+			
+			trace("closed_list_count: " + closed_list.length + " _ next node: " + openList.top().depth + " _ " + openList.top().estimate.length);
+			Utilities.Log("closed_list_count: " + closed_list.length + " _ next node: " + openList.top().depth + " _ " + openList.top().estimate.length + "\n\n");
+			Utilities.Log("estimate: \n");
+			for (action in openList.top().estimate.ordered_list)
+			{
+				Utilities.Log(action.GetActionTransform() + "\n");
+			}
+			Utilities.Log(openList.top().state + "\n");
+			Utilities.Log("previous actions: \n");
+			var backtrack:Array<PlannerActionNode> = BacktrackPlan(openList.top());
+			for (action in backtrack)
+			{
+				Utilities.Log(action.GetActionTransform() + "\n");
+			}
 			//trace(current_lowest_total_cost_seen);
 			//trace("iter: current_state: " + currentState.depth + " _ " + currentState.estimate + " _____ " + problem_.EvaluateGoal(currentState.state) + "\n" + currentState);
 		}
 		while (currentState != null && !problem_.EvaluateGoal(currentState.state));
 		
-		trace("openListcount exit: " + openList.size());
+		trace("closed_list count exit: " + closed_list.length);
 		
 		return BacktrackPlan(currentState);
 	}
@@ -114,17 +148,17 @@ class Planner
 			
 			if (!closedStates.exists(hash))
 			{
-				var heuristic_estimate:Int = 0;
+				var last_heuristic:HeuristicResult = null;
 				if (heuristic != null)
 				{
-					heuristic_estimate = heuristic.RunHeuristic(newState);
+					last_heuristic = heuristic.RunHeuristic(newState);
 					//trace("ran heuristic: " + actionNode + "\n" + newState + "\n" + heuristic_estimate);
 				}
 				
-				var plannerNode:PlannerNode = new PlannerNode(newState, parent_state_, actionNode, parent_state_.depth + 1, heuristic_estimate);
-				if (plannerNode.depth + plannerNode.estimate < current_lowest_total_cost_seen)
+				var plannerNode:PlannerNode = new PlannerNode(newState, parent_state_, actionNode, parent_state_.depth + 1, last_heuristic);
+				if (plannerNode.depth + plannerNode.estimate.length < current_lowest_total_cost_seen)
 				{
-					current_lowest_total_cost_seen = plannerNode.depth + plannerNode.estimate;
+					current_lowest_total_cost_seen = plannerNode.depth + plannerNode.estimate.length;
 				}
 				
 				if (hasMetric)
@@ -136,7 +170,7 @@ class Planner
 				closedStates.set(hash, plannerNode);
 				states.push(plannerNode);
 				
-				trace("action: " + actionNode.action.GetName() + " _ " + actionNode.params.toString() + " _ " + plannerNode.depth + " _ " + plannerNode.estimate);
+				//trace("action: " + actionNode.action.GetName() + " _ " + actionNode.params.toString() + " _ " + plannerNode.depth + " _ " + plannerNode.estimate);
 			}
 			
 		}
@@ -213,7 +247,6 @@ class Planner
 			
 			raw_values.push(obj_array);
 		}
-		
 		// since we have now finished populating the array, lets generate the sets correctly
 		
 		combinations = GenerateCombinations(raw_values);
@@ -227,7 +260,6 @@ class Planner
 		
 		for (combination in parameter_combinations_)
 		{
-			
 			action_.GetData().SetParameters(combination);
 			
 			var value_ranges:Array<Array<Pair<String, String>>> = new Array<Array<Pair<String, String>>>();
@@ -237,13 +269,11 @@ class Planner
 			{
 				for (valueIndex in 0...actionValues.length)
 				{
-					
 					var obj_array:Array<Pair<String, String>> = new Array<Pair<String, String>>();
 					for (obj in actionValues[valueIndex].GetPossibleValues(action_.GetData(), state_, domain_, heuristic_version_))
 					{
 						obj_array.push(new Pair(actionValues[valueIndex].GetName(), obj));
 					}
-					
 					value_ranges.push(obj_array);
 				}
 				
@@ -254,7 +284,6 @@ class Planner
 				returnee.push(new Array<Array<Pair<String, String>>>()); // just push an empty array, since we want this to succeed
 			}
 		}
-		
 		return returnee;
 	}
 	

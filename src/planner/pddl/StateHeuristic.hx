@@ -59,23 +59,24 @@ class StateHeuristic extends State
 	{
 		if (!functions_bounds.exists(functionID_))
 		{
-			functions_bounds.set(functionID_, bounds_);
-			return;
+			functions_bounds.set(functionID_, new Pair(0, 0));
 		}
 		
 		var bounds:Pair<Int, Int> = functions_bounds.get(functionID_);
 		
 		//Utilities.Log("StateHeuristic.SetFunctionBounds: " + functionID_ + " :: " + bounds_ + " -> " + bounds + "\n");
-		
+		var valA:Int = bounds.a;
+		var valB:Int = bounds.b;
 		if (bounds_.a < bounds.a)
 		{
-			bounds.a = bounds_.a;
+			valA = bounds_.a;
 		}
 		if (bounds_.b > bounds.b)
 		{
-			bounds.b = bounds_.b;
+			valB = bounds_.b;
 		}
-		
+		// keep immutable
+		functions_bounds.set(functionID_, new Pair(valA, valB));
 	}
 	
 	/**
@@ -84,7 +85,6 @@ class StateHeuristic extends State
 	 */
 	public function GetFunctionBounds(functionID_:String):Pair<Int, Int> 
 	{
-		//trace("functionID_: " + functionID_);
 		if (!functions_bounds.exists(functionID_))
 		{
 			var original_value:Int = GetFunction(functionID_);

@@ -51,9 +51,8 @@ class Main
 	{
 		//UnitTests();
 		Utilities.WriteToFile("output.txt", "", false);
-		Utilities.WriteToFile("temp.json", "", false);
 		
-		var domainIndex:Int = 7;
+		var domainIndex:Int = 2;
 		
 		var domain = new Domain(domainLocation[domainIndex]);
 		var problem = new Problem(problemLocation[domainIndex], domain);
@@ -61,7 +60,7 @@ class Main
 		
 		/*var start:State = problem.GetClonedInitialState();
 		start.SetFunction("available timber location0", 10);
-		start.AddRelation("has-sawmill location0");
+		//start.AddRelation("has-sawmill location0");
 		
 		var saw:Action = domain.GetAction("saw-wood");
 		

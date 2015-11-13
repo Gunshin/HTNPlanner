@@ -88,15 +88,16 @@ class TreeNodeInt extends TreeNode
 		return bounds;
 	}
 	
-	public function GetFunctionNames():Array<String>
+	public function GetFunctionNames(action_data_:ActionData):Array<String>
 	{
 		
 		var returnee:Array<String> = new Array<String>();
 		
 		Tree.Recursive(this, function(node_) {
-			if (node_.GetRawName().charAt(0) == "?")
+			if (Std.is(node_, TreeNodeFunction))
 			{
-				returnee.push(node_.GetRawName());
+				var func:TreeNodeFunction = cast(node_, TreeNodeFunction);
+				returnee.push(func.Construct(action_data_));
 			}
 			
 			return true;

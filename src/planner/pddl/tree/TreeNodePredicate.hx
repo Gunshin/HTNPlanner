@@ -39,6 +39,7 @@ class TreeNodePredicate extends TreeNode
 	
 	override public function HeuristicEvaluate(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):Bool 
 	{
+		//Utilities.Log("TreeNodePredicate.HeuristicEvaluate: " + Construct(data_) + " : " + state_.Exists(Construct(data_)) + "\n");
 		return state_.Exists(Construct(data_));
 	}
 	

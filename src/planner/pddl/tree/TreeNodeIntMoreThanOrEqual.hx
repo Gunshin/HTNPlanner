@@ -26,6 +26,7 @@ class TreeNodeIntMoreThanOrEqual extends TreeNodeInt
 	{
 		// for more than or equal to, we are searching to see if the largest value
 		// of a, more than or equal to than the smallest value of b
+		//Utilities.Log("TreeNodeIntMoreThanOrEqual.HeuristicComparisonEvaluate: " + GetRawTreeString() + " @:@ " + valueA_.b + " ... " + valueB_.a + " == " + (valueA_.b >= valueB_.a));
 		return valueA_.b >= valueB_.a;
 	}
 	

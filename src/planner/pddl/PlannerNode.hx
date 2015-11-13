@@ -1,5 +1,6 @@
 package planner.pddl;
 import de.polygonal.ds.Heapable;
+import planner.pddl.heuristic.Heuristic.HeuristicResult;
 import planner.pddl.PlannerActionNode;
 
 /**
@@ -11,14 +12,14 @@ class PlannerNode implements Heapable<PlannerNode>
 	public var value:Float;
 	public var position:Int;
 	public var depth:Int;
-	public var estimate:Int;
+	public var estimate:HeuristicResult;
 
 	public var state:State = null;
 	public var parent:PlannerNode = null;
 	
 	public var plannerActionNode:PlannerActionNode = null;
 	
-	public function new(state_:State, parent_:PlannerNode, plannerActionNode_:PlannerActionNode, depth_:Int, estimate_:Int) 
+	public function new(state_:State, parent_:PlannerNode, plannerActionNode_:PlannerActionNode, depth_:Int, estimate_:HeuristicResult) 
 	{
 		state = state_;
 		parent = parent_;
@@ -39,7 +40,7 @@ class PlannerNode implements Heapable<PlannerNode>
 	
 	public function compare(other:PlannerNode):Int
 	{
-		return (10*other.estimate+other.depth) - (10*estimate+depth);
+		return (10*other.estimate.length+other.depth) - (10*estimate.length+depth);
 	}
 	
 }

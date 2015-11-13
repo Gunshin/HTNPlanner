@@ -51,14 +51,13 @@ class PlannerActionNode
 				}
 			}
 		}
-		
 		for (layoutName in action.GetData().GetValuesLayout())
 		{
-			for (varName in params)
+			for (varName in values)
 			{
 				if (Utilities.Compare(varName.a, layoutName) == 0)
 				{
-					final += varName.a + ": " + varName.b;
+					final += " " + varName.a + ": " + varName.b;
 				}
 			}
 		}
