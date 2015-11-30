@@ -112,4 +112,9 @@ class TreeNodeFunction extends TreeNode
 		
 		return constructedValue;
 	}
+	
+	override public function Clone():TreeNode 
+	{
+		return new TreeNodeFunction(name, param_names);
+	}
 }

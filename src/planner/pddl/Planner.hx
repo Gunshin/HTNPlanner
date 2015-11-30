@@ -23,6 +23,10 @@ class Planner
 	var hasMetric:Bool = false;
 	
 	
+	var closed_list_length:Int = 0;
+	var open_list_length:Int = 0;
+	
+	
 	public function new() 
 	{
 		
@@ -31,8 +35,6 @@ class Planner
 	#if debug_output
 	var iteration:Int = 0;
 	#end
-	
-	var current_lowest_total_cost_seen:Int = 99999999;
 	
 	public function FindPlan(domain_:Domain, problem_:Problem, use_heuristic_:Bool):Array<PlannerActionNode>
 	{
@@ -48,7 +50,11 @@ class Planner
 		
 		var currentState:PlannerNode = new PlannerNode(problem_.GetClonedInitialState(), null, null, 0, new HeuristicResult(null, 0));
 		
+		/*Utilities.Log(currentState.state + "\n\n\n\n");
 		var init_heuristic_estimate:Int = heuristic.RunHeuristic(currentState.state).length;
+		Utilities.Log(currentState.state + "\n\n\n\n");*/
+		//throw "";
+		//trace("initial: " + heuristic.RunHeuristic(currentState.state).ordered_list);
 		
 		var openList:Heap<PlannerNode> = new Heap<PlannerNode>();
 		var closed_list:Array<PlannerNode> = new Array<PlannerNode>();
@@ -58,16 +64,19 @@ class Planner
 			var successiveStates:Array<PlannerNode> = GetAllSuccessiveStates(currentState);
 			
 			#if debug_output
-			if (iteration++ >= 1)
+			if (iteration++ >= 1000)
 			{
 				iteration = 0;
-				throw "";
-				/*trace("closed_list_count: " + closed_list.length + " _ next node: " + openList.top().depth + " _ " + openList.top().estimate.length);
+				//throw "";
+				trace("closed_list_count: " + closed_list.length + " _ next node: " + openList.top().depth + " _ " + openList.top().estimate.length);
 				Utilities.Log("closed_list_count: " + closed_list.length + " _ next node: " + openList.top().depth + " _ " + openList.top().estimate.length + "\n\n");
 				Utilities.Log("estimate: \n");
-				for (action in openList.top().estimate.ordered_list)
+				if (openList.top().estimate.ordered_list != null)
 				{
-					Utilities.Log(action.GetActionTransform() + "\n");
+					for (action in openList.top().estimate.ordered_list)
+					{
+						Utilities.Log(action.GetActionTransform() + "\n");
+					}
 				}
 				Utilities.Log(openList.top().state + "\n");
 				Utilities.Log("previous actions: \n");
@@ -75,7 +84,7 @@ class Planner
 				for (action in backtrack)
 				{
 					Utilities.Log(action.GetActionTransform() + "\n");
-				}*/
+				}
 			}
 			#end
 			
@@ -85,10 +94,10 @@ class Planner
 			}
 			closed_list.push(currentState);
 			currentState = GetNextState(openList);
-			
-			trace("closed_list_count: " + closed_list.length + " _ next node: " + openList.top().depth + " _ " + openList.top().estimate.length);
-			Utilities.Log("closed_list_count: " + closed_list.length + " _ next node: " + openList.top().depth + " _ " + openList.top().estimate.length + "\n\n");
-			Utilities.Log("estimate: \n");
+			//trace(problem_.EvaluateGoal(currentState.state) + " _ " + successiveStates);
+			/*trace("closed_list_count: " + closed_list.length + " _ next node: " + openList.top().depth + " _ " + openList.top().estimate.length);
+			Utilities.Log("closed_list_count: " + closed_list.length + " _ next node: " + openList.top().depth + " _ " + openList.top().estimate.length + "\n\n");*/
+			/*Utilities.Log("estimate: \n");
 			for (action in openList.top().estimate.ordered_list)
 			{
 				Utilities.Log(action.GetActionTransform() + "\n");
@@ -100,12 +109,18 @@ class Planner
 			{
 				Utilities.Log(action.GetActionTransform() + "\n");
 			}
+			Utilities.Log(": \n\n\n\n");*/
+			
 			//trace(current_lowest_total_cost_seen);
-			//trace("iter: current_state: " + currentState.depth + " _ " + currentState.estimate + " _____ " + problem_.EvaluateGoal(currentState.state) + "\n" + currentState);
+			trace("iter: current_state: " + currentState.depth + " _ " + currentState.estimate.length + " _____ " + problem_.EvaluateGoal(currentState.state) + "\n" + currentState);
 		}
 		while (currentState != null && !problem_.EvaluateGoal(currentState.state));
 		
-		trace("closed_list count exit: " + closed_list.length);
+		closed_list_length = closed_list.length;
+		open_list_length = openList.size();
+		//trace("closed_list count exit: " + closed_list.length + " open_list count: " + openList.size());
+		
+		//Utilities.Log(currentState.state+"\n");
 		
 		return BacktrackPlan(currentState);
 	}
@@ -148,7 +163,7 @@ class Planner
 			
 			if (!closedStates.exists(hash))
 			{
-				var last_heuristic:HeuristicResult = null;
+				var last_heuristic:HeuristicResult = new HeuristicResult(null, 0);
 				if (heuristic != null)
 				{
 					last_heuristic = heuristic.RunHeuristic(newState);
@@ -156,10 +171,10 @@ class Planner
 				}
 				
 				var plannerNode:PlannerNode = new PlannerNode(newState, parent_state_, actionNode, parent_state_.depth + 1, last_heuristic);
-				if (plannerNode.depth + plannerNode.estimate.length < current_lowest_total_cost_seen)
+				/*if (plannerNode.depth + plannerNode.estimate.length < current_lowest_total_cost_seen)
 				{
 					current_lowest_total_cost_seen = plannerNode.depth + plannerNode.estimate.length;
-				}
+				}*/
 				
 				if (hasMetric)
 				{
@@ -330,6 +345,16 @@ class Planner
 		}
 		
 		return returnee;
+	}
+	
+	public function GetClosedListLength():Int
+	{
+		return closed_list_length;
+	}
+	
+	public function GetOpenListLength():Int
+	{
+		return open_list_length;
 	}
 	
 }

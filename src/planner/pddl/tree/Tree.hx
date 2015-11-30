@@ -247,4 +247,9 @@ class Tree
 		throw "we do not know what this node is!: " + firstTerm + " _ raw term: " + rawNode_.parentNode.value;
 	}
 	
+	public function Clone():Tree
+	{
+		return new Tree(baseNode.Clone());
+	}
+	
 }

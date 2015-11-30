@@ -54,4 +54,16 @@ class TreeNodeIntEquivalent extends TreeNodeInt
 	{
 		return "==";
 	}
+	
+	override public function Clone():TreeNode 
+	{
+		var clone:TreeNodeIntEquivalent = new TreeNodeIntEquivalent();
+		
+		for (child in children)
+		{
+			clone.AddChild(child.Clone());
+		}
+		
+		return clone;
+	}
 }

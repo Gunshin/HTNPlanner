@@ -126,4 +126,16 @@ class TreeNodeOr extends TreeNode
 	{
 		return "or";
 	}
+	
+	override public function Clone():TreeNode 
+	{
+		var clone:TreeNodeOr = new TreeNodeOr();
+		
+		for (child in children)
+		{
+			clone.AddChild(child.Clone());
+		}
+		
+		return clone;
+	}
 }

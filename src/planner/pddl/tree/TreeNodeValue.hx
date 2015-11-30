@@ -67,4 +67,9 @@ class TreeNodeValue extends TreeNode
 		return valueName;
 	}
 	
+	override public function Clone():TreeNode 
+	{
+		return new TreeNodeIntFunctionValue(valueName);
+	}
+	
 }

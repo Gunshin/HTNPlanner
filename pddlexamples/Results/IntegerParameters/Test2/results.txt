@@ -1,0 +1,11 @@
+Domain: pddlexamples/Results/IntegerParameters/Test2/Settlers.pddl Problem: pddlexamples/Results/IntegerParameters/Test2/pfile0
+Time taken seconds: 0.2641664210000272
+Plan length: 3
+Closed list length: 3 Open list length: 26
+build-cabin location0
+fell-timber location0
+build-coal-stack location0
+
+
+
+Domain: pddlexamples/Results/IntegerParameters/Test2/Settlers.pddl Problem: pddlexamples/Results/IntegerParameters/Test2/pfile2

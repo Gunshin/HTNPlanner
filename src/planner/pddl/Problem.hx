@@ -37,7 +37,7 @@ class Problem
 		// this gets the scope of the problem name, which only returns an array with a single element as there
 		// are never 2 definitions for the problem name. We then split this value into two strings due to the value
 		// being eg. "problem truck-12", where truck-12 is the name we want.
-		problemName = problemTree.GetBaseNode().GetChildrenWithContainingValue("problem")[0].value.split(" ")[1];
+		problemName = problemTree.GetBaseNode().GetChildrenWithContainingValue("problem")[0].children[0].value;
 		
 		// same as above eg. ":domain Trucks"
 		domainName = problemTree.GetBaseNode().GetChildrenWithContainingValue(":domain")[0].value.split(" ")[1];
@@ -133,6 +133,11 @@ class Problem
 	public function HasProperty(string_:String):Bool
 	{
 		return properties.exists(string_);
+	}
+	
+	public function GetName():String
+	{
+		return problemName;
 	}
 	
 }

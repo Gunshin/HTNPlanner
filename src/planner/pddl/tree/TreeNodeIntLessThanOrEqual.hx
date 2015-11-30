@@ -56,4 +56,16 @@ class TreeNodeIntLessThanOrEqual extends TreeNodeInt
 	{
 		return "<=";
 	}
+	
+	override public function Clone():TreeNode 
+	{
+		var clone:TreeNodeIntLessThanOrEqual = new TreeNodeIntLessThanOrEqual();
+		
+		for (child in children)
+		{
+			clone.AddChild(child.Clone());
+		}
+		
+		return clone;
+	}
 }

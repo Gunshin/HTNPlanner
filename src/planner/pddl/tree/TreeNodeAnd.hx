@@ -5,6 +5,7 @@ import planner.pddl.heuristic.HeuristicData;
 import planner.pddl.Pair;
 import planner.pddl.State;
 import planner.pddl.StateHeuristic;
+import planner.pddl.tree.TreeNode;
 
 /**
  * ...
@@ -153,11 +154,11 @@ class TreeNodeAnd extends TreeNode
 								valueB += 1;
 						}
 						
-						if (isMin && (min == null || valueA < min))
+						if (isMin && (min == null || valueA > min))
 						{
 							min = valueA;
 						}
-						else if(!isMin && (max == null || valueB > max))
+						else if(!isMin && (max == null || valueB < max))
 						{
 							max = valueB;
 						}
@@ -182,11 +183,11 @@ class TreeNodeAnd extends TreeNode
 								value += 1;
 						}
 						
-						if (isMin && (min == null || value < min))
+						if (isMin && (min == null || value > min))
 						{
 							min = value;
 						}
-						else if(!isMin && (max == null || value > max))
+						else if(!isMin && (max == null || value < max))
 						{
 							max = value;
 						}
@@ -234,5 +235,17 @@ class TreeNodeAnd extends TreeNode
 	override public function GetRawName():String
 	{
 		return "and";
+	}
+	
+	override public function Clone():TreeNode 
+	{
+		var clone:TreeNodeAnd = new TreeNodeAnd();
+		
+		for (child in children)
+		{
+			clone.AddChild(child.Clone());
+		}
+		
+		return clone;
 	}
 }

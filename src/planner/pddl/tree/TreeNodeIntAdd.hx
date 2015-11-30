@@ -5,6 +5,7 @@ import planner.pddl.heuristic.HeuristicData;
 import planner.pddl.Pair;
 import planner.pddl.State;
 import planner.pddl.StateHeuristic;
+import planner.pddl.tree.TreeNode;
 
 /**
  * ...
@@ -36,14 +37,38 @@ class TreeNodeIntAdd extends TreeNodeInt
 	override public function HeuristicExecute(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):String 
 	{
 		var a_bounds:Pair<Int, Int> = HeuristicGetValueFromChild(0, data_, heuristic_data_, state_, domain_);
-		var b_bounds:Pair<Int, Int> = HeuristicGetValueFromChild(0, data_, heuristic_data_, state_, domain_);
+		var b_bounds:Pair<Int, Int> = HeuristicGetValueFromChild(1, data_, heuristic_data_, state_, domain_);
 		
-		return Std.string(new Pair(a_bounds.a + b_bounds.a, a_bounds.b + b_bounds.b));
+		return new Pair(a_bounds.a + b_bounds.a, a_bounds.b + b_bounds.b).ToPlainString();
 	}
 	
 	override public function GetRawName():String
 	{
 		return "+";
+	}
+	
+	override public function GenerateConcrete(action_data_:ActionData, state_:State, domain_:Domain):Array<TreeNode>
+	{
+		var concrete:TreeNodeIntAdd = new TreeNodeIntAdd();
+		
+		for (child in children)
+		{
+			concrete.AddChild(child.GenerateConcrete(action_data_, state_, domain_)[0]); // again, children only return copies of themselves
+		}
+		
+		return [concrete];
+	}
+	
+	override public function Clone():TreeNode 
+	{
+		var clone:TreeNodeIntAdd = new TreeNodeIntAdd();
+		
+		for (child in children)
+		{
+			clone.AddChild(child.Clone());
+		}
+		
+		return clone;
 	}
 
 }

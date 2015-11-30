@@ -57,4 +57,16 @@ class TreeNodeIntMoreThan extends TreeNodeInt
 		return ">";
 	}
 	
+	override public function Clone():TreeNode 
+	{
+		var clone:TreeNodeIntMoreThan = new TreeNodeIntMoreThan();
+		
+		for (child in children)
+		{
+			clone.AddChild(child.Clone());
+		}
+		
+		return clone;
+	}
+	
 }

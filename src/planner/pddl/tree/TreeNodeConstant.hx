@@ -49,5 +49,10 @@ class TreeNodeConstant extends TreeNode
 	{
 		return "constant";
 	}
+	
+	override public function Clone():TreeNode 
+	{
+		return new TreeNodeConstant(constant_value);
+	}
 
 }

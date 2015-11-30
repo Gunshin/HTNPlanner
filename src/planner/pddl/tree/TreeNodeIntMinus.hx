@@ -35,16 +35,40 @@ class TreeNodeIntMinus extends TreeNodeInt
 	override public function HeuristicExecute(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):String 
 	{
 		var a_bounds:Pair<Int, Int> = HeuristicGetValueFromChild(0, data_, heuristic_data_, state_, domain_);
-		var b_bounds:Pair<Int, Int> = HeuristicGetValueFromChild(0, data_, heuristic_data_, state_, domain_);
+		var b_bounds:Pair<Int, Int> = HeuristicGetValueFromChild(1, data_, heuristic_data_, state_, domain_);
 		
 		// The largest possible range subtraction is to do
 		// a.min - b.max
 		// a.max - b.min
-		return Std.string(new Pair(a_bounds.a - b_bounds.b, a_bounds.b + b_bounds.a));
+		return new Pair(a_bounds.a - b_bounds.b, a_bounds.b + b_bounds.a).ToPlainString();
 	}
 	
 	override public function GetRawName():String
 	{
 		return "-";
+	}
+	
+	override public function GenerateConcrete(action_data_:ActionData, state_:State, domain_:Domain):Array<TreeNode>
+	{
+		var concrete:TreeNodeIntMinus = new TreeNodeIntMinus();
+		
+		for (child in children)
+		{
+			concrete.AddChild(child.GenerateConcrete(action_data_, state_, domain_)[0]); // again, children only return copies of themselves
+		}
+		
+		return [concrete];
+	}
+	
+	override public function Clone():TreeNode 
+	{
+		var clone:TreeNodeIntMinus = new TreeNodeIntMinus();
+		
+		for (child in children)
+		{
+			clone.AddChild(child.Clone());
+		}
+		
+		return clone;
 	}
 }

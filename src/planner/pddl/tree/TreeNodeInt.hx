@@ -20,6 +20,7 @@ class TreeNodeInt extends TreeNode
 	
 	override public function Evaluate(data_:ActionData, state_:State, domain_:Domain):Bool
 	{
+		//Utilities.Log("TreeNodeInt.Evaluate: " + GetRawTreeString() + " _ " + GetValueFromChild(0, data_, state_, domain_) + " _ " + GetValueFromChild(1, data_, state_, domain_));
 		return ComparisonEvaluate(GetValueFromChild(0, data_, state_, domain_), GetValueFromChild(1, data_, state_, domain_));
 	}
 	
@@ -42,6 +43,7 @@ class TreeNodeInt extends TreeNode
 			}
 			
 		}
+		
 		return value;
 	}
 	
@@ -63,6 +65,8 @@ class TreeNodeInt extends TreeNode
 		
 		var split:Array<String> = childOneExecute.split(Pair.seperator);
 		
+		//Utilities.Log("HeuristicGetValueFromChild: " + childIndex_ + " _ " + childOneExecute + " _ " + split + " _ " + split.length + "\n");
+		
 		if (split[0] == childOneExecute)
 		{
 			// this value may just be a standard number, so set both max and min to it
@@ -81,27 +85,39 @@ class TreeNodeInt extends TreeNode
 		}
 		else
 		{
-			//Utilities.Log("TreeNodeInt.HeuristicGetValueFromChild: c\n");
 			bounds = new Pair(Std.parseInt(split[0]), Std.parseInt(split[1]));
+			//Utilities.Log("TreeNodeInt.HeuristicGetValueFromChild: c " + GetRawName() + " _ " + bounds + "\n");
 		}
 		//Utilities.Log("TreeNodeInt.HeuristicGetValueFromChild: " + GetRawTreeString() + " === " + childOneExecute + " ___ " + bounds +"\n");
 		return bounds;
 	}
 	
-	public function GetFunctionNames(action_data_:ActionData):Array<String>
+	/**
+	 * 
+	 * Returns a list of function names and which child they are located on in this node
+	 * 
+	 * @param	action_data_
+	 * @return
+	 */
+	public function GetFunctionNames(action_data_:ActionData):Array<Pair<String, Int>>
 	{
 		
-		var returnee:Array<String> = new Array<String>();
+		var returnee:Array<Pair<String, Int>> = new Array<Pair<String, Int>>();
 		
-		Tree.Recursive(this, function(node_) {
-			if (Std.is(node_, TreeNodeFunction))
-			{
-				var func:TreeNodeFunction = cast(node_, TreeNodeFunction);
-				returnee.push(func.Construct(action_data_));
-			}
-			
-			return true;
-		});
+		for (child_index in 0...children.length)
+		{
+			var child:TreeNode = children[child_index];
+			Tree.Recursive(child, function(node_) {
+				if (Std.is(node_, TreeNodeFunction))
+				{
+					var func:TreeNodeFunction = cast(node_, TreeNodeFunction);
+					returnee.push(new Pair(func.Construct(action_data_), child_index));
+				}
+				
+				return true;
+			});
+		
+		}
 		
 		return returnee;
 	}

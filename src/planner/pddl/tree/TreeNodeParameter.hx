@@ -54,4 +54,14 @@ class TreeNodeParameter extends TreeNode
 	{
 		return paramName;
 	}
+	
+	override public function GenerateConcrete(action_data_:ActionData, state_:State, domain_:Domain):Array<TreeNode>
+	{
+		return [new TreeNodeParameter(paramName)];
+	}
+	
+	override public function Clone():TreeNode 
+	{
+		return new TreeNodeParameter(paramName);
+	}
 }

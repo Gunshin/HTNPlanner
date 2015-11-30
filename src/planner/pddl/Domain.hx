@@ -51,7 +51,7 @@ class Domain
 		// this gets the scope of the domain name, which only returns an array with a single element as there
 		// are never 2 definitions for the domain name. We then split this value into two strings due to the value
 		// being eg. "domain trucks", where trucks is the name we want.
-		domainName = domainTree.GetBaseNode().GetChildrenWithContainingValue("domain")[0].value.split(" ")[1];
+		domainName = domainTree.GetBaseNode().GetChildrenWithContainingValue("domain")[0].children[0].value;
 		
 		ParseRequirements(domainTree.GetBaseNode().GetChildrenWithContainingValue(":requirements")[0]);
 		
@@ -357,6 +357,11 @@ class Domain
 		}
 		
 		return false;
+	}
+	
+	public function GetName():String
+	{
+		return domainName;
 	}
 	
 }

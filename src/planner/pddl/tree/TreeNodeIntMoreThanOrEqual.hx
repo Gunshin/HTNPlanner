@@ -58,4 +58,16 @@ class TreeNodeIntMoreThanOrEqual extends TreeNodeInt
 	{
 		return ">=";
 	}
+	
+	override public function Clone():TreeNode 
+	{
+		var clone:TreeNodeIntMoreThanOrEqual = new TreeNodeIntMoreThanOrEqual();
+		
+		for (child in children)
+		{
+			clone.AddChild(child.Clone());
+		}
+		
+		return clone;
+	}
 }

@@ -105,4 +105,9 @@ class TreeNodePredicate extends TreeNode
 		
 		return [new TreeNodePredicate(name, params)];
 	}
+	
+	override public function Clone():TreeNode 
+	{
+		return new TreeNodePredicate(name, param_names);
+	}
 }

@@ -47,16 +47,45 @@ class Main
 	"pddlexamples/test/pfile1"
 	];
 	
+	
+	
 	public function new()
 	{
 		//UnitTests();
 		Utilities.WriteToFile("output.txt", "", false);
 		
-		var domainIndex:Int = 2;
+		var domainIndex:Int = 7;
 		
-		var domain = new Domain(domainLocation[domainIndex]);
-		var problem = new Problem(problemLocation[domainIndex], domain);
+		GetResults("results.txt", ["pddlexamples/Results/IntegerParameters/Test2/Settlers.pddl"], ["pddlexamples/Results/IntegerParameters/Test2/pfile2"]);
 		
+		
+		/*GetResults("pddlexamples/Results/IntegerParameters/Test1/results.txt", 
+		[
+			"pddlexamples/Results/IntegerParameters/Test1/Settlers.pddl",
+			"pddlexamples/Results/IntegerParameters/Test1/SettlersIntegerParameters.pddl"
+		],
+		[
+			"pddlexamples/Results/IntegerParameters/Test1/pfile0",
+			"pddlexamples/Results/IntegerParameters/Test1/pfile2",
+			"pddlexamples/Results/IntegerParameters/Test1/pfile4",
+			"pddlexamples/Results/IntegerParameters/Test1/pfile6",
+			"pddlexamples/Results/IntegerParameters/Test1/pfile8",
+			"pddlexamples/Results/IntegerParameters/Test1/pfile10"
+		]);*/
+		
+		/*GetResults("pddlexamples/Results/IntegerParameters/Test2/results.txt", 
+		[
+			"pddlexamples/Results/IntegerParameters/Test2/Settlers.pddl",
+			"pddlexamples/Results/IntegerParameters/Test2/SettlersIntegerParameters.pddl"
+		],
+		[
+			"pddlexamples/Results/IntegerParameters/Test2/pfile0",
+			"pddlexamples/Results/IntegerParameters/Test2/pfile2",
+			"pddlexamples/Results/IntegerParameters/Test2/pfile4",
+			"pddlexamples/Results/IntegerParameters/Test2/pfile6",
+			"pddlexamples/Results/IntegerParameters/Test2/pfile8",
+			"pddlexamples/Results/IntegerParameters/Test2/pfile10"
+		]);*/
 		
 		/*var start:State = problem.GetClonedInitialState();
 		start.SetFunction("available timber location0", 10);
@@ -73,20 +102,40 @@ class Main
 		{
 			trace(child.GetRawTreeString() + " ___: " + child.Evaluate(saw.GetData(), start, domain));
 		}*/
-		var start:Float = Sys.cpuTime();
 		
-		var planner:Planner = new Planner();
-		var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, true);
 		
-		trace((Sys.cpuTime() - start));
+	}
+	
+	public function GetResults(output_file_:String, domains_:Array<String>, problems_:Array<String>)
+	{
+		Utilities.WriteToFile(output_file_, "", false);
 		
-		trace("length: " + array.length);
-		
-		for (i in 0...array.length)
+		for (domain_path in domains_)
 		{
-			trace(array[i].GetActionTransform());
+			for (problem_path in problems_)
+			{
+				var domain:Domain = new Domain(domain_path);
+				var problem:Problem = new Problem(problem_path, domain);
+				
+				Utilities.WriteToFile(output_file_, "Domain: " + domain_path + " Problem: " + problem_path + "\n", true);
+				
+				var start:Float = Sys.cpuTime();
+				
+				var planner:Planner = new Planner();
+				var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, true);
+				
+				Utilities.WriteToFile(output_file_, "Time taken seconds: " + (Sys.cpuTime() - start) + "\n", true);
+				Utilities.WriteToFile(output_file_, "Plan length: " + array.length + "\n", true);
+				Utilities.WriteToFile(output_file_, "Closed list length: " + planner.GetClosedListLength() + " Open list length: " + planner.GetOpenListLength() + "\n", true);
+				
+				for (i in 0...array.length)
+				{
+					Utilities.WriteToFile(output_file_, array[i].GetActionTransform() + "\n", true);
+				}
+				
+				Utilities.WriteToFile(output_file_, "\n\n\n", true);
+			}
 		}
-		
 	}
 	
 	public function UnitTests()

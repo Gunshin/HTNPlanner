@@ -18,10 +18,17 @@ class TreeNodeForall extends TreeNode
 {
 	var parameterNode:Parameter = null;
 	var forallTree:Tree = null;
+	
+	//cache for cloning
+	var clone_children:Array<RawTreeNode> = null;
+	var clone_domain:Domain = null;
 
 	public function new(children_:Array<RawTreeNode>, domain_:Domain) 
 	{
 		super();
+		
+		clone_children = children_;
+		clone_domain = domain_;
 		
 		var pair:Pair<String, String> = Utilities.GenerateValueTypeMap([children_[0]].concat(children_[0].children))[0];
 		parameterNode = new Parameter(pair.a, pair.b, "");
@@ -148,6 +155,11 @@ class TreeNodeForall extends TreeNode
 	public function GetSubTree():Tree
 	{
 		return forallTree;
+	}
+	
+	override public function Clone():TreeNode 
+	{
+		return new TreeNodeForall(clone_children, clone_domain);
 	}
 	
 }

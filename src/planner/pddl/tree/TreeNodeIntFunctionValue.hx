@@ -2,6 +2,7 @@ package planner.pddl.tree;
 import planner.pddl.ActionData;
 import planner.pddl.Domain;
 import planner.pddl.heuristic.HeuristicData;
+import planner.pddl.Pair;
 import planner.pddl.State;
 import planner.pddl.StateHeuristic;
 import planner.pddl.tree.TreeNodeInt;
@@ -44,7 +45,7 @@ class TreeNodeIntFunctionValue extends TreeNodeInt
 	
 	override public function GenerateConcrete(action_data_:ActionData, state_:State, domain_:Domain):Array<TreeNode>
 	{
-		return [this]; // since this treenode will never change, just use this instead of instantiating a copy
+		return [new TreeNodeIntFunctionValue(value)]; // since this treenode will never change, just use this instead of instantiating a copy
 	}
 	
 	override public function GetRawName():String
@@ -56,4 +57,10 @@ class TreeNodeIntFunctionValue extends TreeNodeInt
 	{
 		return value;
 	}
+
+	override public function Clone():TreeNode 
+	{
+		return new TreeNodeIntFunctionValue(value);
+	}
+	
 }

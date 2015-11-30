@@ -43,11 +43,36 @@ class TreeNodeIntDivide extends TreeNodeInt
 		// a.min / b.max
 		// a.max / b.min
 		// this is why these values are slightly different
-		return Std.string(new Pair<Int, Int>(cast(a.a / b.b, Int), cast(a.b / b.a, Int)));
+		return new Pair<Int, Int>(cast(a.a / b.b, Int), cast(a.b / b.a, Int)).ToPlainString();
 	}
 
 	override public function GetRawName():String
 	{
 		return "/";
 	}
+	
+	override public function GenerateConcrete(action_data_:ActionData, state_:State, domain_:Domain):Array<TreeNode>
+	{
+		var concrete:TreeNodeIntDivide = new TreeNodeIntDivide();
+		
+		for (child in children)
+		{
+			concrete.AddChild(child.GenerateConcrete(action_data_, state_, domain_)[0]); // again, children only return copies of themselves
+		}
+		
+		return [concrete];
+	}
+	
+	override public function Clone():TreeNode 
+	{
+		var clone:TreeNodeIntDivide = new TreeNodeIntDivide();
+		
+		for (child in children)
+		{
+			clone.AddChild(child.Clone());
+		}
+		
+		return clone;
+	}
+	
 }

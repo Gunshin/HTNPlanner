@@ -53,4 +53,28 @@ class TreeNodeWhen extends TreeNode
 		return "when";
 	}
 	
+	override public function GenerateConcrete(action_data_:ActionData, state_:State, domain_:Domain):Array<TreeNode>
+	{
+		var concrete:TreeNodeWhen = new TreeNodeWhen();
+		
+		for (child in children)
+		{
+			concrete.AddChild(child.GenerateConcrete(action_data_, state_, domain_)[0]); // again, children only return copies of themselves
+		}
+		
+		return [concrete];
+	}
+	
+	override public function Clone():TreeNode 
+	{
+		var clone:TreeNodeWhen = new TreeNodeWhen();
+		
+		for (child in children)
+		{
+			clone.AddChild(child.Clone());
+		}
+		
+		return clone;
+	}
+	
 }

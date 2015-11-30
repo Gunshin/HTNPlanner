@@ -84,5 +84,17 @@ class TreeNodeImply extends TreeNode
 	{
 		return "imply";
 	}
+	
+	override public function Clone():TreeNode 
+	{
+		var clone:TreeNodeImply = new TreeNodeImply();
+		
+		for (child in children)
+		{
+			clone.AddChild(child.Clone());
+		}
+		
+		return clone;
+	}
 
 }
