@@ -1,6 +1,8 @@
 package planner.pddl.heuristic;
 
 import haxe.ds.HashMap;
+import planner.pddl.Planner;
+import planner.pddl.planner.PlannerActionNode;
 
 import de.polygonal.ds.Heap;
 
@@ -270,71 +272,6 @@ class Heuristic
 									
 									// leave this goal node loop since this action has just been added
 									escape = true;
-									
-									/*var action_precondition_nodes_to_add:Array<TreeNode> = GetGoalNodes(action_node.action.GetPreconditionTree().GetBaseNode());
-									//Utilities.Log("Adding: " + action_node.GetActionTransform() + "\n");
-									for (node in action_precondition_nodes_to_add)
-									{
-										// an array since a for loop can return many nodes when asked for a concrete version
-										var concrete_nodes:Array<TreeNode> = node.GenerateConcrete(action_node.action.GetData(), s_h_n.state, domain);
-										//Utilities.Log(""+concrete_nodes + "\n");
-										for (node in concrete_nodes)
-										{
-											AddGoalNodeToLayers(node.Clone(), state_list, goal_node_layers);
-										}
-									}
-									trace("11");
-									// since we have determined it is closer, we should add this action to the list
-									if (!concrete_actions.exists(action_node))
-									{
-										concrete_actions.set(action_node, true);
-										ordered_concrete_actions.push(action_node);
-									}
-									
-									// since the function is closer, we may want to see if the goal is now satisfied
-									if (goal_node.HeuristicEvaluate(null, null, goal_node_checking_state, domain))
-									{
-										// since we have determined the goal is now satisfied, remove it
-										//goal_nodes_to_remove.push(goal_node);
-										//Utilities.Log(""+action_node.GetActionTransform()+"\n removing: "+ goal_nodes_to_remove + "\n");
-										//trace(state_list_index + " ___ " + goal_node);
-										//AddGoalNodeToLayers(goal_node, state_list, goal_node_layers);
-									}
-									else
-									{
-										trace("12");
-										if (tree_node_int_goal.GetRawName().charAt(0) == ">")
-										{
-											if (after_values.a.b - before_values.a.b > 0)
-											{
-												AddNegationToGoalNodesChild(tree_node_int_goal, after_values.a.b - before_values.a.b, 1);
-											}
-											if (after_values.b.a - before_values.b.a < 0)
-											{
-												AddNegationToGoalNodesChild(tree_node_int_goal, after_values.b.a - before_values.b.a, 0);
-											}
-										}
-										else if (tree_node_int_goal.GetRawName().charAt(0) == "<")
-										{
-											if (after_values.a.a - before_values.a.a < 0)
-											{
-												AddNegationToGoalNodesChild(tree_node_int_goal, after_values.a.a - before_values.a.a, 1);
-											}
-											if (after_values.b.b - before_values.b.b > 0)
-											{
-												AddNegationToGoalNodesChild(tree_node_int_goal, after_values.b.b - before_values.b.b, 0);
-											}
-										}
-										else
-										{
-											throw "i have not worked out how to deal with equivalence here yet!";
-										}
-										trace("13");
-										//Utilities.Log("" + tree_node_int_goal.GetRawTreeString() + " _ " + 
-										//tree_node_int_goal.HeuristicGetValueFromChild(1, action_node.action.GetData(), null, s_h_n.state, domain) +
-										//tree_node_int_goal.GetChildren()[1].HeuristicExecute(action_node.action.GetData(), null, s_h_n.state, domain) + "\n");
-										
-									}*/
 								}
 							}
 							else if (goal_node.HeuristicEvaluate(null, null, goal_node_checking_state, domain))
@@ -437,7 +374,15 @@ class Heuristic
 						}
 						else
 						{
-							throw "i have not worked out how to deal with equivalence here yet!";
+							if (node.after_values.a.b - node.before_values.a.b > 0)
+							{
+								AddNegationToGoalNodesChild(goal_node, node.after_values.a.b - node.before_values.a.b, 1);
+							}
+							if (node.after_values.b.a - node.before_values.b.a < 0)
+							{
+								AddNegationToGoalNodesChild(goal_node, node.after_values.b.a - node.before_values.b.a, 0);
+							}
+							throw "i have not verified if equivalence in the heuristic works yet!";
 						}
 						
 						// check if we can now add this goal node to an earlier state than the one we are on

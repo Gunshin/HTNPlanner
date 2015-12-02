@@ -2,7 +2,7 @@ package planner.pddl.heuristic;
 
 import de.polygonal.ds.Heapable;
 import planner.pddl.Pair;
-import planner.pddl.PlannerActionNode;
+import planner.pddl.planner.PlannerActionNode;
 import planner.pddl.StateHeuristic;
 
 /**

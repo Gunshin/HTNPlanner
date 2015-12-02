@@ -4,6 +4,9 @@ import planner.pddl.Pair;
 import planner.pddl.RawTreeNode;
 import sys.io.FileOutput;
 
+import de.polygonal.ds.Heap;
+import de.polygonal.ds.Heapable;
+
 import sys.FileSystem;
 import sys.io.File;
 import sys.io.FileInput;
@@ -322,6 +325,8 @@ class Utilities
 		
 		return commentFree;
 	}
+	
+	
 	
 	
 	

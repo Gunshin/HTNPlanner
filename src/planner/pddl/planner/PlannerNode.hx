@@ -1,7 +1,7 @@
-package planner.pddl;
+package planner.pddl.planner;
 import de.polygonal.ds.Heapable;
 import planner.pddl.heuristic.Heuristic.HeuristicResult;
-import planner.pddl.PlannerActionNode;
+import planner.pddl.planner.PlannerActionNode;
 
 /**
  * ...
@@ -40,7 +40,8 @@ class PlannerNode implements Heapable<PlannerNode>
 	
 	public function compare(other:PlannerNode):Int
 	{
-		return (2*other.estimate.length+other.depth) - (2*estimate.length+depth);
+		//return (2*other.estimate.length+other.depth) - (2*estimate.length+depth);
+		return (other.estimate.length) - (estimate.length);
 	}
 	
 }

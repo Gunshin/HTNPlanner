@@ -10,7 +10,7 @@ import planner.pddl.State;
 import planner.pddl.Domain;
 import planner.pddl.Problem;
 import planner.pddl.Planner;
-import planner.pddl.PlannerActionNode;
+import planner.pddl.planner.PlannerActionNode;
 
 import planner.pddl.Utilities;
 import planner.pddl.tree.Tree;
@@ -56,7 +56,7 @@ class Main
 		
 		var domainIndex:Int = 7;
 		
-		GetResults("results.txt", ["pddlexamples/Results/IntegerParameters/Test2/Settlers.pddl"], ["pddlexamples/Results/IntegerParameters/Test2/pfile2"]);
+		GetResults("results.txt", ["pddlexamples/Results/IntegerParameters/Test1/Settlers.pddl"], ["pddlexamples/Results/IntegerParameters/Test1/pfile2"]);
 		
 		
 		/*GetResults("pddlexamples/Results/IntegerParameters/Test1/results.txt", 

@@ -1,4 +1,4 @@
-package planner.pddl;
+package planner.pddl.planner;
 import planner.pddl.Planner;
 
 import planner.pddl.Action;

@@ -1,4 +1,5 @@
 package planner.pddl.heuristic;
+import planner.pddl.planner.PlannerActionNode;
 import planner.pddl.StateHeuristic;
 
 /**
