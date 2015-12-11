@@ -56,7 +56,7 @@ class Main
 		
 		var domainIndex:Int = 7;
 		
-		GetResults("results.txt", ["pddlexamples/Results/IntegerParameters/Test1/Settlers.pddl"], ["pddlexamples/Results/IntegerParameters/Test1/pfile2"]);
+		//GetResults("results.txt", ["pddlexamples/Results/IntegerParameters/Test2/Settlers.pddl"], ["pddlexamples/Results/IntegerParameters/Test2/pfile2"]);
 		
 		
 		/*GetResults("pddlexamples/Results/IntegerParameters/Test1/results.txt", 
@@ -73,7 +73,7 @@ class Main
 			"pddlexamples/Results/IntegerParameters/Test1/pfile10"
 		]);*/
 		
-		/*GetResults("pddlexamples/Results/IntegerParameters/Test2/results.txt", 
+		GetResults("pddlexamples/Results/IntegerParameters/Test2/results.txt", 
 		[
 			"pddlexamples/Results/IntegerParameters/Test2/Settlers.pddl",
 			"pddlexamples/Results/IntegerParameters/Test2/SettlersIntegerParameters.pddl"
@@ -85,7 +85,7 @@ class Main
 			"pddlexamples/Results/IntegerParameters/Test2/pfile6",
 			"pddlexamples/Results/IntegerParameters/Test2/pfile8",
 			"pddlexamples/Results/IntegerParameters/Test2/pfile10"
-		]);*/
+		]);
 		
 		/*var start:State = problem.GetClonedInitialState();
 		start.SetFunction("available timber location0", 10);

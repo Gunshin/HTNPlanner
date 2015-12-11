@@ -1,7 +1,7 @@
 Domain: pddlexamples/Results/IntegerParameters/Test2/Settlers.pddl Problem: pddlexamples/Results/IntegerParameters/Test2/pfile0
-Time taken seconds: 0.2641664210000272
+Time taken seconds: 0.15955802600001334
 Plan length: 3
-Closed list length: 3 Open list length: 26
+Closed list length: 0 Open list length: 0
 build-cabin location0
 fell-timber location0
 build-coal-stack location0
@@ -9,3 +9,343 @@ build-coal-stack location0
 
 
 Domain: pddlexamples/Results/IntegerParameters/Test2/Settlers.pddl Problem: pddlexamples/Results/IntegerParameters/Test2/pfile2
+Time taken seconds: 67.91927930100064
+Plan length: 27
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0
+fell-timber location0
+break-stone location0
+build-coal-stack location0
+fell-timber location0
+fell-timber location0
+build-cart location0 vehicle0
+load vehicle0 location0 stone
+build-cabin location2
+fell-timber location2
+fell-timber location2
+move-cart vehicle0 location0 location2
+unload vehicle0 location2 stone
+build-sawmill location2
+fell-timber location2
+saw-wood location2
+build-cart location0 vehicle1
+build-house location2
+fell-timber location2
+saw-wood location2
+break-stone location0
+load vehicle1 location0 stone
+move-cart vehicle1 location0 location2
+unload vehicle1 location2 stone
+build-house location2
+
+
+
+Domain: pddlexamples/Results/IntegerParameters/Test2/Settlers.pddl Problem: pddlexamples/Results/IntegerParameters/Test2/pfile4
+Time taken seconds: 159.82452568600274
+Plan length: 43
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0
+build-cabin location1
+fell-timber location1
+fell-timber location1
+break-stone location0
+build-coal-stack location0
+fell-timber location0
+build-cart location0 vehicle3
+load vehicle3 location0 stone
+move-cart vehicle3 location0 location2
+move-cart vehicle3 location2 location1
+unload vehicle3 location1 stone
+build-sawmill location1
+fell-timber location1
+saw-wood location1
+build-house location1
+move-cart vehicle3 location1 location4
+build-quarry location4
+fell-timber location1
+saw-wood location1
+break-stone location4
+load vehicle3 location4 stone
+move-cart vehicle3 location4 location1
+unload vehicle3 location1 stone
+move-cart vehicle3 location1 location4
+build-house location1
+fell-timber location1
+saw-wood location1
+break-stone location4
+load vehicle3 location4 stone
+move-cart vehicle3 location4 location1
+unload vehicle3 location1 stone
+move-cart vehicle3 location1 location4
+build-house location1
+fell-timber location1
+saw-wood location1
+break-stone location4
+load vehicle3 location4 stone
+move-cart vehicle3 location4 location1
+unload vehicle3 location1 stone
+build-house location1
+
+
+
+Domain: pddlexamples/Results/IntegerParameters/Test2/Settlers.pddl Problem: pddlexamples/Results/IntegerParameters/Test2/pfile6
+Time taken seconds: 457.018256389998
+Plan length: 59
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0
+build-cabin location1
+fell-timber location1
+fell-timber location1
+break-stone location0
+build-coal-stack location0
+fell-timber location0
+build-cart location0 vehicle3
+load vehicle3 location0 stone
+move-cart vehicle3 location0 location2
+move-cart vehicle3 location2 location1
+unload vehicle3 location1 stone
+build-sawmill location1
+fell-timber location1
+saw-wood location1
+build-house location1
+move-cart vehicle3 location1 location4
+build-quarry location4
+fell-timber location1
+saw-wood location1
+break-stone location4
+load vehicle3 location4 stone
+move-cart vehicle3 location4 location1
+unload vehicle3 location1 stone
+move-cart vehicle3 location1 location4
+build-house location1
+fell-timber location1
+saw-wood location1
+break-stone location4
+load vehicle3 location4 stone
+move-cart vehicle3 location4 location1
+unload vehicle3 location1 stone
+move-cart vehicle3 location1 location4
+build-house location1
+fell-timber location1
+saw-wood location1
+break-stone location4
+load vehicle3 location4 stone
+move-cart vehicle3 location4 location1
+unload vehicle3 location1 stone
+move-cart vehicle3 location1 location4
+build-house location1
+fell-timber location1
+saw-wood location1
+break-stone location4
+load vehicle3 location4 stone
+move-cart vehicle3 location4 location1
+unload vehicle3 location1 stone
+move-cart vehicle3 location1 location4
+build-house location1
+fell-timber location1
+saw-wood location1
+break-stone location4
+load vehicle3 location4 stone
+move-cart vehicle3 location4 location1
+unload vehicle3 location1 stone
+build-house location1
+
+
+
+Domain: pddlexamples/Results/IntegerParameters/Test2/Settlers.pddl Problem: pddlexamples/Results/IntegerParameters/Test2/pfile8
+Time taken seconds: 918.3001888219987
+Plan length: 75
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0
+build-cabin location1
+fell-timber location1
+fell-timber location1
+break-stone location0
+build-coal-stack location0
+fell-timber location0
+build-cart location0 vehicle3
+load vehicle3 location0 stone
+move-cart vehicle3 location0 location2
+move-cart vehicle3 location2 location1
+unload vehicle3 location1 stone
+build-sawmill location1
+fell-timber location1
+saw-wood location1
+build-house location1
+move-cart vehicle3 location1 location4
+build-quarry location4
+fell-timber location1
+saw-wood location1
+break-stone location4
+load vehicle3 location4 stone
+move-cart vehicle3 location4 location1
+unload vehicle3 location1 stone
+move-cart vehicle3 location1 location4
+build-house location1
+fell-timber location1
+saw-wood location1
+break-stone location4
+load vehicle3 location4 stone
+move-cart vehicle3 location4 location1
+unload vehicle3 location1 stone
+move-cart vehicle3 location1 location4
+build-house location1
+fell-timber location1
+saw-wood location1
+break-stone location4
+load vehicle3 location4 stone
+move-cart vehicle3 location4 location1
+unload vehicle3 location1 stone
+move-cart vehicle3 location1 location4
+build-house location1
+fell-timber location1
+saw-wood location1
+break-stone location4
+load vehicle3 location4 stone
+move-cart vehicle3 location4 location1
+unload vehicle3 location1 stone
+move-cart vehicle3 location1 location4
+build-house location1
+fell-timber location1
+saw-wood location1
+break-stone location4
+load vehicle3 location4 stone
+move-cart vehicle3 location4 location1
+unload vehicle3 location1 stone
+move-cart vehicle3 location1 location4
+build-house location1
+fell-timber location1
+saw-wood location1
+break-stone location4
+load vehicle3 location4 stone
+move-cart vehicle3 location4 location1
+unload vehicle3 location1 stone
+move-cart vehicle3 location1 location4
+build-house location1
+fell-timber location1
+saw-wood location1
+break-stone location4
+load vehicle3 location4 stone
+move-cart vehicle3 location4 location1
+unload vehicle3 location1 stone
+build-house location1
+
+
+
+Domain: pddlexamples/Results/IntegerParameters/Test2/Settlers.pddl Problem: pddlexamples/Results/IntegerParameters/Test2/pfile10
+Time taken seconds: 1821.7520212890013
+Plan length: 91
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0
+build-cabin location1
+fell-timber location1
+fell-timber location1
+break-stone location0
+build-coal-stack location0
+fell-timber location0
+build-cart location0 vehicle3
+load vehicle3 location0 stone
+move-cart vehicle3 location0 location2
+move-cart vehicle3 location2 location1
+unload vehicle3 location1 stone
+build-sawmill location1
+fell-timber location1
+saw-wood location1
+build-house location1
+move-cart vehicle3 location1 location4
+build-quarry location4
+fell-timber location1
+saw-wood location1
+break-stone location4
+load vehicle3 location4 stone
+move-cart vehicle3 location4 location1
+unload vehicle3 location1 stone
+move-cart vehicle3 location1 location4
+build-house location1
+fell-timber location1
+saw-wood location1
+break-stone location4
+load vehicle3 location4 stone
+move-cart vehicle3 location4 location1
+unload vehicle3 location1 stone
+move-cart vehicle3 location1 location4
+build-house location1
+fell-timber location1
+saw-wood location1
+break-stone location4
+load vehicle3 location4 stone
+move-cart vehicle3 location4 location1
+unload vehicle3 location1 stone
+move-cart vehicle3 location1 location4
+build-house location1
+fell-timber location1
+saw-wood location1
+break-stone location4
+load vehicle3 location4 stone
+move-cart vehicle3 location4 location1
+unload vehicle3 location1 stone
+move-cart vehicle3 location1 location4
+build-house location1
+fell-timber location1
+saw-wood location1
+break-stone location4
+load vehicle3 location4 stone
+move-cart vehicle3 location4 location1
+unload vehicle3 location1 stone
+move-cart vehicle3 location1 location4
+build-house location1
+fell-timber location1
+saw-wood location1
+break-stone location4
+load vehicle3 location4 stone
+move-cart vehicle3 location4 location1
+unload vehicle3 location1 stone
+move-cart vehicle3 location1 location4
+build-house location1
+fell-timber location1
+saw-wood location1
+break-stone location4
+load vehicle3 location4 stone
+move-cart vehicle3 location4 location1
+unload vehicle3 location1 stone
+move-cart vehicle3 location1 location4
+build-house location1
+fell-timber location1
+saw-wood location1
+break-stone location4
+load vehicle3 location4 stone
+move-cart vehicle3 location4 location1
+unload vehicle3 location1 stone
+move-cart vehicle3 location1 location4
+build-house location1
+fell-timber location1
+saw-wood location1
+break-stone location4
+load vehicle3 location4 stone
+move-cart vehicle3 location4 location1
+unload vehicle3 location1 stone
+build-house location1
+
+
+
+Domain: pddlexamples/Results/IntegerParameters/Test2/SettlersIntegerParameters.pddl Problem: pddlexamples/Results/IntegerParameters/Test2/pfile0
+Time taken seconds: 0.2510572230021353
+Plan length: 3
+Closed list length: 0 Open list length: 0
+build-cabin location0
+fell-timber location0 ~count: 1
+build-coal-stack location0
+
+
+
+Domain: pddlexamples/Results/IntegerParameters/Test2/SettlersIntegerParameters.pddl Problem: pddlexamples/Results/IntegerParameters/Test2/pfile2

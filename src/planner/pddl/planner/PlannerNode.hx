@@ -9,9 +9,13 @@ import planner.pddl.planner.PlannerActionNode;
  */
 class PlannerNode implements Heapable<PlannerNode>
 {	
-	public var value:Float;
+	
 	public var position:Int;
+	public var value:Int;
+	
+	public var metric:Float;
 	public var depth:Int;
+	static public var estimate_multiplier:Int = 10;
 	public var estimate:HeuristicResult;
 
 	public var state:State = null;
@@ -26,22 +30,22 @@ class PlannerNode implements Heapable<PlannerNode>
 		plannerActionNode = plannerActionNode_;
 		depth = depth_;
 		estimate = estimate_;
+		value = estimate_multiplier * estimate.length + depth;
 	}
 	
 	public function SetMetric(metric_:Float)
 	{
-		value = metric_;
+		metric = metric_;
 	}
 	
 	public function GetMetric():Float
 	{
-		return value;
+		return metric;
 	}
 	
 	public function compare(other:PlannerNode):Int
 	{
-		//return (2*other.estimate.length+other.depth) - (2*estimate.length+depth);
-		return (other.estimate.length) - (estimate.length);
+		return other.value - value;
 	}
 	
 }
