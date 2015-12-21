@@ -125,6 +125,8 @@ class Planner
 	
 	function BreadthSearch(node_:PlannerNode):BreadthSearchResult
 	{
+		Utilities.Logln("running breadth on: " + node_.plannerActionNode.GetActionTransform() + " with current estimate: " + node_.estimate.length);
+		
 		var open_list:Heap<PlannerNode> = new Heap<PlannerNode>();
 		var secondary_open_list:Heap<PlannerNode> = new Heap<PlannerNode>();
 		var closed_list:Array<PlannerNode> = new Array<PlannerNode>();
@@ -152,6 +154,8 @@ class Planner
 				
 				var greedy_result:GreedySearchResult = GreedySearch(breadth_node, visited_states);
 				
+				Utilities.Logln("action: " + breadth_node.plannerActionNode.GetActionTransform() + " had result: " + greedy_result.last_successively_lower_node.estimate.length);
+				
 				//ConcatenateHeaps(new_open_list, greedy_result.open_list);
 				closed_list = closed_list.concat(greedy_result.closed_list);
 				
@@ -159,7 +163,7 @@ class Planner
 				{
 					// add the stuff still in the open list to the new list
 					ConcatenateHeaps(open_list, secondary_open_list);
-					trace("node_ estimate: " + node_.estimate.length + " result estimate: " + greedy_result.last_successively_lower_node.estimate.length);
+					Utilities.Logln("node_ estimate: " + node_.estimate.length + " result estimate: " + greedy_result.last_successively_lower_node.estimate.length);
 					return new BreadthSearchResult(greedy_result.last_successively_lower_node, open_list, closed_list);
 				}
 				

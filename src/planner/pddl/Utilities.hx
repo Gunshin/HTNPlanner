@@ -369,4 +369,9 @@ class Utilities
 		WriteToFile("output.txt", contents_, true);
 	}
 	
+	static public inline function Logln(contents_:String)
+	{
+		Log(contents_ + "\n");
+	}
+	
 }
