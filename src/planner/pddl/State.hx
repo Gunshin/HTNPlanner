@@ -270,24 +270,69 @@ class State
 	{
 		var string:String = "{\"relations\":[";
 		
-		for (i in relationsMap.keys())
 		{
-			var split:Array<String> = i.split(" ");
-			string += "{\"predicate\":\"" + split[0] + "\",\"parameters\":[";
-			
-			for (i in 1...split.length)
+			var relations:BST<RelationWrapper> = new BST<RelationWrapper>();
+			for (key in relationsMap.keys())
 			{
-				string += "\"" + split[i] + "\",";
+				relations.insert(relationsMap.get(key));
 			}
 			
-			string = string.substr(0, string.length - 1);
-			string += "]},";
+			if (relations.size() > 0)
+			{
+				relations.root().inorder(function(treeNode_, dynamic_) {					
+					var split:Array<String> = treeNode_.val.value.split(" ");
+					string += "{\"predicate\":\"" + split[0] + "\",\"parameters\":[";
+					
+					for (i in 1...split.length)
+					{
+						string += "\"" + split[i] + "\",";
+					}
+					
+					string = string.substr(0, string.length - 1);
+					string += "]},";
+					
+					return true;
+				});
+			}
 		}
 		
 		string = string.substr(0, string.length - 1);
 		string += "],\n \"functions\":[";
 		
-		for (i in functionsMap.keys())
+		{
+			var relations:BST<FunctionWrapper> = new BST<FunctionWrapper>();
+			for (key in functionsMap.keys())
+			{
+				relations.insert(functionsMap.get(key));
+			}
+			
+			if (relations.size() > 0)
+			{
+				relations.root().inorder(function(treeNode_, dynamic_) {					
+					
+					var split:Array<String> = treeNode_.val.func.split(" ");
+					string += "{\"function\":\"" + split[0] + "\",\"parameters\":[";
+					
+					if (split.length > 1)
+					{
+						for (i in 1...split.length)
+						{
+							string += "\"" + split[i] + "\",";
+						}
+						
+						string = string.substr(0, string.length - 1);
+					}
+					
+					string += "],";
+					
+					string += "\"value\":" + treeNode_.val.value + "},";
+					
+					return true;
+				});
+			}
+		}
+		
+		/*for (i in functionsMap.keys())
 		{
 			
 			var split:Array<String> = i.split(" ");
@@ -306,7 +351,7 @@ class State
 			string += "],";
 			
 			string += "\"value\":" + functionsMap.get(i).value + "},";
-		}
+		}*/
 		
 		string = string.substr(0, string.length - 1);
 		string += "],\n \"objects\":[";

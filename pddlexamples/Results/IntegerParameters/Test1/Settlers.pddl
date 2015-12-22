@@ -99,40 +99,58 @@
  
   (:action build-cabin 
    :parameters (?p - place) 
-   :precondition (woodland ?p) 
+   :precondition (and
+					(woodland ?p)
+					(not (has-cabin ?p))
+				)
    :effect (and (increase (labour) 1) (has-cabin ?p)) )
  
   (:action build-quarry 
    :parameters (?p - place) 
-   :precondition (mountain ?p) 
+   :precondition (and 
+					(mountain ?p)
+					(not (has-quarry ?p))
+				)
    :effect (and (increase (labour) 2) (has-quarry ?p)))
  
   (:action build-coal-stack 
    :parameters (?p - place) 
-   :precondition (>= (available timber ?p) 1) 
+   :precondition (and 
+					(>= (available timber ?p) 1)
+					(not (has-coal-stack ?p))
+				)
    :effect (and (increase (labour) 2) 
 		(decrease (available timber ?p) 1) 
 		(has-coal-stack ?p))) 
  
   (:action build-sawmill 
    :parameters (?p - place) 
-   :precondition (>= (available timber ?p) 2) 
+   :precondition (and 
+					(>= (available timber ?p) 2)
+					(not (has-sawmill ?p))
+				)
    :effect (and (increase (labour) 2)
 		(decrease (available timber ?p) 2) 
 		(has-sawmill ?p))) 
  
   (:action build-mine 
    :parameters (?p - place) 
-   :precondition (and (metalliferous ?p) 
-		      (>= (available wood ?p) 2)) 
+   :precondition (and
+					(metalliferous ?p) 
+					(>= (available wood ?p) 2)
+					(not (has-mine ?p))
+				)
    :effect (and (increase (labour) 3)
 		(decrease (available wood ?p) 2) 
 		(has-mine ?p))) 
  
   (:action build-ironworks 
    :parameters (?p - place) 
-   :precondition (and (>= (available stone ?p) 2) 
-		      (>= (available wood ?p) 2)) 
+   :precondition (and
+					(>= (available stone ?p) 2) 
+					(>= (available wood ?p) 2)
+					(not (has-ironworks ?p))
+			  ) 
    :effect (and (increase (labour) 3)
 		(decrease (available stone ?p) 2) 
 		(decrease (available wood ?p) 2) 
@@ -140,9 +158,12 @@
  
   (:action build-docks 
    :parameters (?p - place) 
-   :precondition (and (by-coast ?p) 
-		      (>= (available stone ?p) 2) 
-		      (>= (available wood ?p) 2)) 
+   :precondition (and
+					(by-coast ?p) 
+					(>= (available stone ?p) 2) 
+					(>= (available wood ?p) 2)
+					(not (has-docks ?p))
+				) 
    :effect (and (decrease (available stone ?p) 2) 
 		(decrease (available wood ?p) 2)
 		(increase (labour) 2) 
@@ -150,9 +171,12 @@
  
   (:action build-wharf 
    :parameters (?p - place) 
-   :precondition (and (has-docks ?p) 
-		      (>= (available stone ?p) 2) 
-		      (>= (available iron ?p) 2)) 
+   :precondition (and
+					(has-docks ?p) 
+					(>= (available stone ?p) 2) 
+					(>= (available iron ?p) 2)
+					(not (has-wharf ?p))
+				) 
    :effect (and (decrease (available stone ?p) 2) 
 		(decrease (available iron ?p) 2) 
 		(increase (labour) 2)
@@ -160,9 +184,12 @@
  
   (:action build-rail 
    :parameters (?p1 - place ?p2 - place) 
-   :precondition (and (connected-by-land ?p1 ?p2) 
-		      (>= (available wood ?p1) 1) 
-		      (>= (available iron ?p1) 1)) 
+   :precondition (and 
+					(connected-by-land ?p1 ?p2) 
+					(>= (available wood ?p1) 1) 
+					(>= (available iron ?p1) 1)
+					(not (connected-by-rail ?p1 ?p2))
+				) 
    :effect (and (decrease (available wood ?p1) 1) 
 		(decrease (available iron ?p1) 1) 
 		(increase (labour) 2)

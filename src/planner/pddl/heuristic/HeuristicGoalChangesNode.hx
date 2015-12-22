@@ -44,4 +44,9 @@ class HeuristicGoalChangesNode implements Heapable<HeuristicGoalChangesNode>
 		return goal_node_change - other.goal_node_change;
 	}
 	
+	public function toString():String
+	{
+		return action_node.GetActionTransform() + ":" + goal_node_change;
+	}
+	
 }

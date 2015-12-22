@@ -210,8 +210,8 @@
    :parameters (?p - place)
    :values (~count - integer-range)
    :precondition (and 
-					(>= (available wood ?p) 1)
-					(>= (available stone ?p) 1)
+					;;(>= (available wood ?p) 1)
+					;;(>= (available stone ?p) 1)
 					(> (~count) 0)
 					(<= (~count) (available wood ?p))
 					(<= (~count) (available stone ?p))

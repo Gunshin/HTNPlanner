@@ -88,7 +88,7 @@ class Heuristic
 		var state_list:Array<HeuristicNode> = new Array<HeuristicNode>();
 		state_list.push(current_node);
 		
-		/*Utilities.Log("Heuristic.RunHeuristic: ------------------\n");
+		Utilities.Log("Heuristic.RunHeuristic: ------------------\n");
 		for (action in current_node.actions_applied_to_state)
 		{
 			Utilities.Log("Heuristic.RunHeuristic: " + action.GetActionTransform() + "\n");
@@ -99,7 +99,7 @@ class Heuristic
 		}
 		
 		Utilities.Log("Heuristic.RunHeuristic: " + current_node.state.toString()+"\n");
-		Utilities.Log("Heuristic.RunHeuristic: " + "\n------------------------\n\n");*/
+		Utilities.Log("Heuristic.RunHeuristic: " + "\n------------------------\n\n");
 		
 		// first generate the full graph to ensure we can fulfill the goal
 		var depth:Int = 0;
@@ -111,7 +111,7 @@ class Heuristic
 			current_node = new HeuristicNode(successor_state, GetAllActionsForState(successor_state, domain), new HeuristicData());
 			state_list.push(current_node);
 			depth++;
-			/*Utilities.Log("Heuristic.RunHeuristic: " + "------------------\n");
+			Utilities.Log("Heuristic.RunHeuristic: " + "------------------\n");
 			for (action in current_node.actions_applied_to_state)
 			{
 				Utilities.Log("Heuristic.RunHeuristic: " + action.GetActionTransform() + "\n");
@@ -122,7 +122,7 @@ class Heuristic
 			}
 			
 			Utilities.Log("Heuristic.RunHeuristic: " + current_node.state.toString()+"\n");
-			Utilities.Log("Heuristic.RunHeuristic: " + "\n------------------------\n\n");*/
+			Utilities.Log("Heuristic.RunHeuristic: " + "\n------------------------\n\n");
 			
 			if (depth > 20)
 			{
@@ -175,15 +175,15 @@ class Heuristic
 		{
 			if (goal_node_layers[state_list_index].length > 0)// just to guarantee that we only do this action expansion on a layer that needs something satisfied
 			{
-				/*Utilities.Log("------------------");
+				Utilities.Log("------------------");
 				for (layer in goal_node_layers)
 				{
 					Utilities.Log("\n"+layer);
 				}
-				Utilities.Log("\n------------------------\n\n");*/
+				Utilities.Log("\n------------------------\n\n");
 				
 				/*Utilities.Log("@@@@@@@@@@@@@@@@@@@@@@@@@@");
-				for (action in state_list[index - 1].actions_applied_to_state)
+				for (action in state_list[state_list_index - 1].actions_applied_to_state)
 				{
 					Utilities.Log("\n"+action.GetActionTransform());
 				}
@@ -320,6 +320,8 @@ class Heuristic
 					}
 				}
 				
+				Utilities.Logln(goal_node_function_changes.toString());
+				
 				for (goal_node in goal_node_function_changes.keys())
 				{
 					var heap:Heap<HeuristicGoalChangesNode> = goal_node_function_changes.get(goal_node);
@@ -332,12 +334,12 @@ class Heuristic
 						{
 							node.action_node.Set();
 							var action_precondition_nodes_to_add:Array<TreeNode> = GetGoalNodes(node.action_node.action.GetPreconditionTree().GetBaseNode());
-							//Utilities.Log("Adding: " + action_node.GetActionTransform() + "\n");
+							Utilities.Log("Adding: " + node.action_node.GetActionTransform() + "\n");
 							for (action_precondition_node in action_precondition_nodes_to_add)
 							{
 								// an array since a for loop can return many nodes when asked for a concrete version
 								var concrete_nodes:Array<TreeNode> = action_precondition_node.GenerateConcrete(node.action_node.action.GetData(), s_h_n.state, domain);
-								//Utilities.Log(""+concrete_nodes + "\n");
+								Utilities.Log(""+concrete_nodes + "\n");
 								for (concrete_node in concrete_nodes)
 								{
 									AddGoalNodeToLayers(concrete_node.Clone(), state_list, goal_node_layers);
@@ -397,7 +399,7 @@ class Heuristic
 						{
 							// since we have determined the goal is now satisfied, remove it
 							//goal_nodes_to_remove.push(goal_node);
-							//Utilities.Log(""+action_node.GetActionTransform()+"\n removing: "+ goal_nodes_to_remove + "\n");
+							Utilities.Log(""+node.action_node.GetActionTransform()+"\n removing: "+ goal_node + "\n");
 							//trace(state_list_index + " ___ " + goal_node);
 							//AddGoalNodeToLayers(goal_node, state_list, goal_node_layers);
 						}

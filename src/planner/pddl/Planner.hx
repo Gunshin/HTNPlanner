@@ -69,6 +69,13 @@ class Planner
 			initial_heuristic = heuristic.RunHeuristic(initial_state);
 		}
 		
+		for (i in initial_heuristic.ordered_list)
+		{
+			Utilities.Logln(i.GetActionTransform());
+		}
+		
+		throw "";
+		
 		hasMetric = problem.HasProperty("metric");
 		
 		var current_state:PlannerNode = new PlannerNode(initial_state, null, null, 0, initial_heuristic);
@@ -154,7 +161,7 @@ class Planner
 				
 				var greedy_result:GreedySearchResult = GreedySearch(breadth_node, visited_states);
 				
-				Utilities.Logln("action: " + breadth_node.plannerActionNode.GetActionTransform() + " had result: " + greedy_result.last_successively_lower_node.estimate.length);
+				//Utilities.Logln("action: " + breadth_node.plannerActionNode.GetActionTransform() + " had result: " + greedy_result.last_successively_lower_node.estimate.length);
 				
 				//ConcatenateHeaps(new_open_list, greedy_result.open_list);
 				closed_list = closed_list.concat(greedy_result.closed_list);
@@ -176,6 +183,17 @@ class Planner
 	
 	function GreedySearch(start_state_:PlannerNode, visited_states_:Map<Int, PlannerNode>):GreedySearchResult
 	{
+		var temp_visited:Map<Int, PlannerNode> = new Map<Int, PlannerNode>();
+		
+		#if debugging
+		Utilities.Logln("STARTING GREEDY SEARCH ----------------------");
+		Utilities.Logln("Start node: " + start_state_.state);
+		
+		if (start_state_.plannerActionNode != null)
+		{
+			Utilities.Logln("Start action: " + start_state_.plannerActionNode.GetActionTransform());
+		}
+		#end
 		
 		var open_list:Heap<PlannerNode> = new Heap<PlannerNode>();
 		var closed_list:Array<PlannerNode> = new Array<PlannerNode>();
@@ -188,37 +206,53 @@ class Planner
 		
 		do
 		{
-			//var successive_states:Array<PlannerNode> = GetAllNonVisitedSuccessiveStates(current_state, visited_states_);
-			var successive_states:Array<PlannerNode> = GetAllSuccessiveStates(current_state, visited_states_);
-			//trace("succ count: " + successive_states.length + " open::: " + open_list.size());
+			var successive_states:Array<PlannerNode> = GetAllNonVisitedSuccessiveStates(current_state, temp_visited);
+			//var successive_states:Array<PlannerNode> = GetAllSuccessiveStates(current_state, visited_states_);
+			#if debugging
+			Utilities.Logln("Successive states: ");
+			#end
 			for (i in successive_states)
 			{
 				open_list.add(i);
+				#if debugging
+				Utilities.Logln(i.plannerActionNode.GetActionTransform());
+				#end
 			}
 			closed_list.push(current_state);
 			
 			// GetAllSuccessiveStates may return no states if those states have already been visited
 			if (open_list.size() == 0)
 			{
+				#if debugging
+				Utilities.Logln("\n\nGreedy Search exited due to empty open list\n\n\n\n\n");
+				#end
 				return new GreedySearchResult(null, open_list, closed_list);
 			}
 			
 			previous_state = current_state;
 			current_state = GetNextState(open_list);
-			
+			#if debugging
+			Utilities.Logln("\n\nNew current_state: " + current_state.plannerActionNode.GetActionTransform());
+			Utilities.Logln("state: " + current_state.state);
+			#end
 			// if the current state, eg. the next best heuristic
 			if (current_state.estimate.length >= previous_state.estimate.length)
 			{
-				//trace("est: " + previous_state.estimate.length + " _ " + current_state.estimate.length);
-				
+				#if debugging
+				Utilities.Logln("\n\nGreedy Search exited due to no better estimate: current_state: " + current_state.estimate.length + " previous_state: " + previous_state.estimate.length);
+				Utilities.Logln("previous_state: " + previous_state.plannerActionNode.GetActionTransform() + "\n\n\n\n\n");
+				#end
 				return new GreedySearchResult(previous_state, open_list, closed_list);
 			}
 			
 		}
 		while (!problem.EvaluateGoal(current_state.state));
 		// we dropped out of the loop because the goal evaluated correctly, maybe
-		
-		
+		#if debugging
+		Utilities.Logln("\n\nExited Greedy Search because goal has been satisfied");
+		Utilities.Logln("Satisfied action: " + current_state.plannerActionNode.GetActionTransform());
+		Utilities.Logln("Satisfied state: " + current_state.state + "\n\n\n\n\n");
+		#end
 		return new GreedySearchResult(current_state, open_list, closed_list);
 	}
 	
@@ -331,8 +365,31 @@ class Planner
 				visited_states_.set(hash, plannerNode);
 				non_visited.push(plannerNode);
 			}
+			#if debugging
+			else
+			{
+				if (!visited_states_.get(hash).state.Equals(action_state_pair.b))
+				{
+					Utilities.Log("Same hash: State A: " + visited_states_.get(hash).state + "\n");
+					Utilities.Log("Same hash: State B: " + action_state_pair.b + "\n");
+					throw "ERROR: A state has been found with the same hash value as a DIFFERENT state. States dumped into output log.";
+				}
+			}
+			#end
 		}
-		
+		#if debugging
+		Utilities.Logln("GetAllNonVisitedSuccessiveStates: raw state count: " + successive_states.length + " return count: " + non_visited.length);
+		Utilities.Logln("raw actions::");
+		for (i in successive_states)
+		{
+			Utilities.Logln(i.a.GetActionTransform());
+		}
+		Utilities.Logln("return actions::");
+		for (i in non_visited)
+		{
+			Utilities.Logln(i.plannerActionNode.GetActionTransform());
+		}
+		#end
 		return non_visited;
 	}
 	

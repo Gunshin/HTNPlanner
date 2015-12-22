@@ -57,7 +57,7 @@ class PlannerActionNode
 			{
 				if (Utilities.Compare(varName.a, layoutName) == 0)
 				{
-					final += " " + varName.a + ": " + varName.b;
+					final += " " + varName.a + ":" + varName.b;
 				}
 			}
 		}

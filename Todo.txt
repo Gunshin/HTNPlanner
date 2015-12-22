@@ -1,6 +1,41 @@
 
 
-- Still do not use a closed list in planner
+- need to look at action costs for integer parameters
+	eg.
+	
+	integer parameters
+	
+	timber 4
+	build cart 0
+	build cart 1
+	load cart 0 timber 1
+	load cart 1 timber 1
+	move cart 0 location 1
+	move cart 1 location 1
+	unload
+	unload
+
+	action cost to planner: 9
+	actual action cost: 12
+
+	normal
+	
+	timber
+	timber
+	timber
+	build cart 0
+	load cart 0 timber 1
+	move cart 0 location 1
+	unload
+	move cart 0 location 0
+	load cart 0 timber 1
+	move cart 0 location 1
+	unload
+
+	actual cost: 11
+	
+	
+
 
 - Need to do function testing on domains so that i can set input parameters and states, and an expected outcome to see if it is correct.
 
@@ -12,7 +47,7 @@
 		
 		
 - metrics are not taken into account at all with heuristic or planner
-
+- path cost is also not taken into account
 
 
 >=

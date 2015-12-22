@@ -24,7 +24,7 @@
     <option noInlineOnDebug="False" />
     <option mainClass="test.Main" />
     <option enabledebug="False" />
-    <option additional="-lib polygonal-ds&#xA;-D debugging&#xA;" />
+    <option additional="-lib polygonal-ds&#xA;&#xA;" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>
