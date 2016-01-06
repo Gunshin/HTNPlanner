@@ -69,12 +69,14 @@ class Planner
 			initial_heuristic = heuristic.RunHeuristic(initial_state);
 		}
 		
-		for (i in initial_heuristic.ordered_list)
+		/*for (i in initial_heuristic.ordered_list)
 		{
 			Utilities.Logln(i.GetActionTransform());
-		}
+		}*/
 		
-		throw "";
+		#if debugging_heuristic
+		throw "heuristic debug info thrown into standard output file";
+		#end
 		
 		hasMetric = problem.HasProperty("metric");
 		
@@ -132,7 +134,7 @@ class Planner
 	
 	function BreadthSearch(node_:PlannerNode):BreadthSearchResult
 	{
-		Utilities.Logln("running breadth on: " + node_.plannerActionNode.GetActionTransform() + " with current estimate: " + node_.estimate.length);
+		//Utilities.Logln("running breadth on: " + node_.plannerActionNode.GetActionTransform() + " with current estimate: " + node_.estimate.length);
 		
 		var open_list:Heap<PlannerNode> = new Heap<PlannerNode>();
 		var secondary_open_list:Heap<PlannerNode> = new Heap<PlannerNode>();
@@ -170,7 +172,7 @@ class Planner
 				{
 					// add the stuff still in the open list to the new list
 					ConcatenateHeaps(open_list, secondary_open_list);
-					Utilities.Logln("node_ estimate: " + node_.estimate.length + " result estimate: " + greedy_result.last_successively_lower_node.estimate.length);
+					//Utilities.Logln("node_ estimate: " + node_.estimate.length + " result estimate: " + greedy_result.last_successively_lower_node.estimate.length);
 					return new BreadthSearchResult(greedy_result.last_successively_lower_node, open_list, closed_list);
 				}
 				

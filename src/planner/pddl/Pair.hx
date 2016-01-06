@@ -32,6 +32,11 @@ class Pair<U, V>
 		return new Pair(a, b);
 	}
 	
+	public function Equals(other_:Pair<U, V>):Bool
+	{
+		return this.a == other_.a && this.b == other_.b;
+	}
+	
 	/**
 	 * This is used with the toString method to note a separation in values
 	 */

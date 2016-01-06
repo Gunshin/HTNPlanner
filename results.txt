@@ -1,1 +1,1 @@
-Domain: pddlexamples/Results/IntegerParameters/Test2/SettlersIntegerParameters.pddl Problem: pddlexamples/Results/IntegerParameters/Test2/pfile2
+Domain: pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl Problem: pddlexamples/Results/IntegerParameters/Test2/pfile2

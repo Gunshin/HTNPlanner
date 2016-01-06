@@ -40,22 +40,34 @@
   ;; A.1: Loading and unloading. 
  
   (:action load
-   :parameters (?v - vehicle ?p - place ?r - resource) 
-   :precondition (and (is-at ?v ?p) 
-		      (> (available ?r ?p) 0) 
-		      (> (space-in ?v) 0)) 
-   :effect (and (decrease (space-in ?v) 1) 
-		(increase (available ?r ?v) 1) 
-		(decrease (available ?r ?p) 1)
+   :parameters (?v - vehicle ?p - place ?r - resource)
+   :values (~count - integer-range)
+   :precondition (and 
+					(is-at ?v ?p) 
+					;;(> (available ?r ?p) 0) 
+					;;(> (space-in ?v) 0)
+					(> (~count) 0)
+					(<= (~count) (space-in ?v))
+					(<= (~count) (available ?r ?p))
+				)
+   :effect (and (decrease (space-in ?v) ~count) 
+		(increase (available ?r ?v) ~count) 
+		(decrease (available ?r ?p) ~count)
 		(increase (labour) 1))) 
  
   (:action unload
-   :parameters (?v - vehicle ?p - place ?r - resource) 
-   :precondition (and (is-at ?v ?p) 
-		      (> (available ?r ?v) 0)) 
-   :effect (and (increase (space-in ?v) 1) 
-		(decrease (available ?r ?v) 1) 
-		(increase (available ?r ?p) 1)
+   :parameters (?v - vehicle ?p - place ?r - resource)
+   :values (~count - integer-range)
+   :precondition (and 
+					(is-at ?v ?p) 
+					;;(> (available ?r ?v) 0)
+					(> (~count) 0)
+					(<= (~count) (space-in ?v))
+					(<= (~count) (available ?r ?v))
+				)
+   :effect (and (increase (space-in ?v) (~count)) 
+		(decrease (available ?r ?v) (~count)) 
+		(increase (available ?r ?p) (~count))
 		(increase (labour) 1))) 
  
   ;; A.2: Moving vehicles. 
@@ -63,7 +75,7 @@
   ;; loaded in the vehicle. 
  
   (:action move-cart 
-   :parameters (?v - vehicle ?p1 - place ?p2 - place) 
+   :parameters (?v - vehicle ?p1 - place ?p2 - place)
    :precondition (and (is-cart ?v) 
 		      (connected-by-land ?p1 ?p2) 
 		      (is-at ?v ?p1)) 
@@ -197,11 +209,17 @@
 
   (:action build-house
    :parameters (?p - place)
-   :precondition (and (>= (available wood ?p) 1)
-			(>= (available stone ?p) 1))
-   :effect (and (increase (housing ?p) 1)
-		(decrease (available wood ?p) 1)
-		(decrease (available stone ?p) 1)))
+   :values (~count - integer-range)
+   :precondition (and 
+					;;(>= (available wood ?p) 1)
+					;;(>= (available stone ?p) 1)
+					(> (~count) 0)
+					(<= (~count) (available wood ?p))
+					(<= (~count) (available stone ?p))
+				)
+   :effect (and (increase (housing ?p) (~count))
+		(decrease (available wood ?p) (~count))
+		(decrease (available stone ?p) (~count))))
  
   ;; B.2: Building vehicles. 
  
@@ -249,51 +267,85 @@
  
   (:action fell-timber 
    :parameters (?p - place) 
-   :precondition (has-cabin ?p) 
-   :effect (and (increase (available timber ?p) 1)
+   :values (~count - integer-range)
+   :precondition (and
+					(has-cabin ?p)
+					(> (~count) 0)
+					(<= (~count) 10)
+				)
+   :effect (and (increase (available timber ?p) (~count))
 		(increase (labour) 1))
    ) 
  
   (:action break-stone 
    :parameters (?p - place) 
-   :precondition (has-quarry ?p) 
-   :effect (and (increase (available stone ?p) 1)
+   :values (~count - integer-range)
+   :precondition (and
+					(has-quarry ?p)
+					(> (~count) 0)
+					(<= (~count) 10)
+				)
+   :effect (and (increase (available stone ?p) (~count))
 		(increase (labour) 1)
 		(increase (resource-use) 1)
 		)) 
  
   (:action mine-ore 
-   :parameters (?p - place) 
-   :precondition (has-mine ?p) 
-   :effect (and (increase (available ore ?p) 1)
+   :parameters (?p - place)
+   :values (~count - integer-range)
+   :precondition (and
+					(has-mine ?p)
+					(> (~count) 0)
+					(<= (~count) 10)
+				)
+   :effect (and (increase (available ore ?p) (~count))
 		(increase (resource-use) 2)
 	)) 
  
   ;; C.1: Refining resources. 
  
   (:action burn-coal 
-   :parameters (?p - place) 
-   :precondition (and (has-coal-stack ?p) 
-		      (>= (available timber ?p) 1)) 
-   :effect (and (decrease (available timber ?p) 1) 
-		(increase (available coal ?p) 1)
+   :parameters (?p - place)
+   :values (~count - integer-range)
+   :precondition (and 
+					(has-coal-stack ?p)
+					;;(>= (available timber ?p) 1)
+					(> (~count) 0)
+					(<= (~count) 10)
+					(<= (~count) (available timber ?p))
+				)
+   :effect (and (decrease (available timber ?p) (~count)) 
+		(increase (available coal ?p) (~count))
 		(increase (pollution) 1))) 
  
   (:action saw-wood 
-   :parameters (?p - place) 
-   :precondition (and (has-sawmill ?p) 
-		      (>= (available timber ?p) 1)) 
-   :effect (and (decrease (available timber ?p) 1) 
-		(increase (available wood ?p) 1))) 
+   :parameters (?p - place)
+   :values (~count - integer-range)
+   :precondition (and 
+					(has-sawmill ?p)
+					;;(>= (available timber ?p) 1)
+					(> (~count) 0)
+					(<= (~count) 10)
+					(<= (~count) (available timber ?p))
+				)
+   :effect (and (decrease (available timber ?p) (~count)) 
+		(increase (available wood ?p) (~count)))) 
  
   (:action make-iron 
-   :parameters (?p - place) 
-   :precondition (and (has-ironworks ?p) 
-		      (>= (available ore ?p) 1) 
-		      (>= (available coal ?p) 2)) 
+   :parameters (?p - place)
+   :values (~count - integer-range)
+   :precondition (and 
+					(has-ironworks ?p)
+					;;(>= (available ore ?p) 1) 
+					;;(>= (available coal ?p) 2)
+					(> (~count) 0)
+					(<= (~count) 10)
+					(<= (~count) (available ore ?p))
+					(<= (~count) (* (available coal ?p) 2))
+				) 
    :effect (and (decrease (available ore ?p) 1) 
-		(decrease (available coal ?p) 2) 
-		(increase (available iron ?p) 1)
+		(decrease (available coal ?p) (* (~count) 2)) 
+		(increase (available iron ?p) (~count))
 		(increase (pollution) 2))) 
  
    ) 

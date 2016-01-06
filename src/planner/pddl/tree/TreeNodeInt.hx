@@ -21,26 +21,29 @@ class TreeNodeInt extends TreeNode
 	override public function Evaluate(data_:ActionData, state_:State, domain_:Domain):Bool
 	{
 		//Utilities.Log("TreeNodeInt.Evaluate: " + GetRawTreeString() + " _ " + GetValueFromChild(0, data_, state_, domain_) + " _ " + GetValueFromChild(1, data_, state_, domain_));
-		return ComparisonEvaluate(GetValueFromChild(0, data_, state_, domain_), GetValueFromChild(1, data_, state_, domain_));
+		var val_a:Null<Int> = GetValueFromChild(0, data_, state_, domain_);
+		var val_b:Null<Int> = GetValueFromChild(1, data_, state_, domain_);
+		
+		return val_a != null && val_b != null && ComparisonEvaluate(val_a, val_b);
 	}
 	
-	public function GetValueFromChild(childIndex_:Int, data_:ActionData, state_:State, domain_:Domain):Int
+	public function GetValueFromChild(childIndex_:Int, data_:ActionData, state_:State, domain_:Domain):Null<Int>
 	{
 		var childOneExecute:String = children[childIndex_].Execute(data_, state_, domain_);
 		
 		var value:Null<Int> = Std.parseInt(childOneExecute); // if it is an int, great! it might be a function though
 		//trace(childIndex_ + " _ " + children + " ____ " + childOneExecute);
-		if (value == null)
+		if (value == null && childOneExecute != null)
 		{
-			if (childOneExecute.charAt(0) == "~")
+			/*if (childOneExecute.charAt(0) == "~")
 			{
 				trace(Std.parseInt(data_.GetValue(childOneExecute).GetValue()));
 				value = Std.parseInt(data_.GetValue(childOneExecute).GetValue());
 			}
 			else
-			{
+			{*/
 				value = state_.GetFunction(childOneExecute);
-			}
+			//}
 			
 		}
 		

@@ -88,6 +88,7 @@ class Heuristic
 		var state_list:Array<HeuristicNode> = new Array<HeuristicNode>();
 		state_list.push(current_node);
 		
+		#if debugging_heuristic
 		Utilities.Log("Heuristic.RunHeuristic: ------------------\n");
 		for (action in current_node.actions_applied_to_state)
 		{
@@ -100,6 +101,7 @@ class Heuristic
 		
 		Utilities.Log("Heuristic.RunHeuristic: " + current_node.state.toString()+"\n");
 		Utilities.Log("Heuristic.RunHeuristic: " + "\n------------------------\n\n");
+		#end
 		
 		// first generate the full graph to ensure we can fulfill the goal
 		var depth:Int = 0;
@@ -111,6 +113,8 @@ class Heuristic
 			current_node = new HeuristicNode(successor_state, GetAllActionsForState(successor_state, domain), new HeuristicData());
 			state_list.push(current_node);
 			depth++;
+			
+			#if debugging_heuristic
 			Utilities.Log("Heuristic.RunHeuristic: " + "------------------\n");
 			for (action in current_node.actions_applied_to_state)
 			{
@@ -123,6 +127,7 @@ class Heuristic
 			
 			Utilities.Log("Heuristic.RunHeuristic: " + current_node.state.toString()+"\n");
 			Utilities.Log("Heuristic.RunHeuristic: " + "\n------------------------\n\n");
+			#end
 			
 			if (depth > 20)
 			{
@@ -175,6 +180,7 @@ class Heuristic
 		{
 			if (goal_node_layers[state_list_index].length > 0)// just to guarantee that we only do this action expansion on a layer that needs something satisfied
 			{
+				#if debugging_heuristic
 				Utilities.Log("------------------");
 				for (layer in goal_node_layers)
 				{
@@ -188,6 +194,7 @@ class Heuristic
 					Utilities.Log("\n"+action.GetActionTransform());
 				}
 				Utilities.Log("\n@@@@@@@@@@@@@@@@@@@@@@@@@@\n\n");*/
+				#end
 				
 				var goal_node_function_changes:Map<TreeNodeInt, Heap<HeuristicGoalChangesNode>> = new Map<TreeNodeInt, Heap<HeuristicGoalChangesNode>>();
 				
@@ -217,9 +224,9 @@ class Heuristic
 							goal_node_checking_state.SetFunctionBounds(i.name, i.bounds);
 						}
 						
-						/*Utilities.Log("action: " + action_node.GetActionTransform() + "\n");
-						Utilities.Log("funcs original: " + original_function_values + "\n");
-						Utilities.Log("funcs changes: " + heuristic_data_for_looking.function_changes + "\n");*/
+						//Utilities.Log("action: " + action_node.GetActionTransform() + "\n");
+						//Utilities.Log("funcs original: " + original_function_values + "\n");
+						//Utilities.Log("funcs changes: " + heuristic_data_for_looking.function_changes + "\n");
 						
 						var goal_nodes_to_remove:Array<TreeNode> = new Array<TreeNode>();
 						
@@ -232,6 +239,9 @@ class Heuristic
 								// check to see if the bounds are closer
 								var tree_node_int_goal:TreeNodeInt = cast(goal_node, TreeNodeInt);
 								
+								#if debugging_heuristic
+								//Utilities.Logln(action_node.GetActionTransform());
+								#end
 								
 								var before_values:Pair<Pair<Int, Int>, Pair<Int, Int>> = new Pair(
 									tree_node_int_goal.HeuristicGetValueFromChild(0, action_node.action.GetData(), null, s_h_n.state, domain),
@@ -247,10 +257,19 @@ class Heuristic
 									tree_node_int_goal.HeuristicGetValueFromChild(0, action_node.action.GetData(), null, state_list[state_list_index].state, domain),
 									tree_node_int_goal.HeuristicGetValueFromChild(1, action_node.action.GetData(), null, state_list[state_list_index].state, domain));
 								
-								var function_is_closer:Bool = 	(goal_values.b.a - after_values.a.b) < (goal_values.b.a - before_values.a.b) ||
-																(goal_values.a.b - after_values.b.a) > (goal_values.a.b - before_values.b.a);
-																
-								//Utilities.Log(action_node.GetActionTransform() + " : " + function_is_closer + "\n");
+								var function_is_closer:Bool = 	(((after_values.b.a - before_values.b.a) < 0) && ((goal_values.a.a - before_values.b.a) < 0)) ||
+																(((after_values.b.b - before_values.b.b) > 0) && ((goal_values.a.b - before_values.b.b) > 0)) ||
+																(((after_values.a.a - before_values.a.a) < 0) && ((goal_values.b.a - before_values.a.a) < 0)) ||
+																(((after_values.a.b - before_values.a.b) > 0) && ((goal_values.b.b - before_values.a.b) > 0));
+								
+								#if debugging_heuristic
+								if (function_is_closer)
+								{
+									Utilities.Logln(action_node.GetActionTransform() + " :: " + tree_node_int_goal.GetRawTreeString());
+									Utilities.Logln(goal_values + " :: " + before_values + " :: " + after_values + " : " + function_is_closer);
+								}
+								#end
+								
 								//trace(goal_node);
 								if (function_is_closer)
 								{
@@ -285,19 +304,28 @@ class Heuristic
 									//lets find any and all preconditions of this action that need satisfying and add them to the goal list
 									var action_precondition_nodes_to_add:Array<TreeNode> = GetGoalNodes(action_node.action.GetPreconditionTree().GetBaseNode());
 									
-									//Utilities.Log("predicates: "+action_node.GetActionTransform()+"\n removing: "+ goal_nodes_to_remove + "\n");
+									#if debugging_heuristic
+									Utilities.Log("predicates: " + action_node.GetActionTransform() + "\n removing: " + goal_nodes_to_remove + "\n");
+									#end
+									
 									for (node in action_precondition_nodes_to_add)
 									{
 										// an array since a for loop can return many nodes when asked for a concrete version
 										var concrete_nodes:Array<TreeNode> = node.GenerateConcrete(action_node.action.GetData(), s_h_n.state, domain);
-										//Utilities.Log(""+concrete_nodes + "\n");
-										for (node in concrete_nodes)
+										
+										#if debugging_heuristic
+										Utilities.Log("" + concrete_nodes + "\n");
+										#end
+										
+										for (concrete_node in concrete_nodes)
 										{
-											AddGoalNodeToLayers(node.Clone(), state_list, goal_node_layers);
+											AddGoalNodeToLayers(concrete_node.Clone(), state_list, goal_node_layers);
 										}
 									}
-									//Utilities.Log("\n");
 									
+									#if debugging_heuristic
+									Utilities.Log("\n");
+									#end
 									
 									concrete_actions.set(action_node, true);
 									ordered_concrete_actions.push(action_node);
@@ -320,11 +348,16 @@ class Heuristic
 					}
 				}
 				
-				Utilities.Logln(goal_node_function_changes.toString());
+				//Utilities.Logln(goal_node_function_changes.toString());
 				
 				for (goal_node in goal_node_function_changes.keys())
 				{
 					var heap:Heap<HeuristicGoalChangesNode> = goal_node_function_changes.get(goal_node);
+					
+					#if debugging_heuristic
+					Utilities.Logln("heap: " + heap.toString());
+					#end
+					
 					var stop:Bool = false;
 					while(heap.size() > 0 && !stop)
 					{
@@ -334,17 +367,30 @@ class Heuristic
 						{
 							node.action_node.Set();
 							var action_precondition_nodes_to_add:Array<TreeNode> = GetGoalNodes(node.action_node.action.GetPreconditionTree().GetBaseNode());
+							
+							#if debugging_heuristic
 							Utilities.Log("Adding: " + node.action_node.GetActionTransform() + "\n");
+							#end
+							
 							for (action_precondition_node in action_precondition_nodes_to_add)
 							{
 								// an array since a for loop can return many nodes when asked for a concrete version
 								var concrete_nodes:Array<TreeNode> = action_precondition_node.GenerateConcrete(node.action_node.action.GetData(), s_h_n.state, domain);
-								Utilities.Log(""+concrete_nodes + "\n");
+								
+								#if debugging_heuristic
+								Utilities.Log("" + concrete_nodes + "\n\n");
+								#end
+								
 								for (concrete_node in concrete_nodes)
 								{
 									AddGoalNodeToLayers(concrete_node.Clone(), state_list, goal_node_layers);
 								}
 							}
+							
+							#if debugging_heuristic
+							Utilities.Logln("");
+							#end
+							
 							// since we have determined it is closer, we should add this action to the list
 							
 							concrete_actions.set(node.action_node, true);
@@ -395,14 +441,14 @@ class Heuristic
 						}
 						
 						// since the function is closer, we may want to see if the goal is now satisfied
-						if (goal_node.HeuristicEvaluate(null, null, node.state_local_to_this_nodes_changes, domain))
+						/*if (goal_node.HeuristicEvaluate(null, null, node.state_local_to_this_nodes_changes, domain))
 						{
 							// since we have determined the goal is now satisfied, remove it
 							//goal_nodes_to_remove.push(goal_node);
 							Utilities.Log(""+node.action_node.GetActionTransform()+"\n removing: "+ goal_node + "\n");
 							//trace(state_list_index + " ___ " + goal_node);
 							//AddGoalNodeToLayers(goal_node, state_list, goal_node_layers);
-						}
+						}*/
 						
 						
 					}
@@ -423,12 +469,16 @@ class Heuristic
 			
 			state_list_index--;
 		}
-		/*Utilities.Log("------------------");
+		
+		#if debugging_heuristic
+		Utilities.Log("------------------");
 		for (action in ordered_concrete_actions)
 		{
 			Utilities.Log("\n"+action.GetActionTransform());
 		}
-		Utilities.Log("\n------------------------\n\n");*/
+		Utilities.Log("\n------------------------\n\n");
+		#end
+		
 		//trace("length: " + ordered_concrete_actions.length);
 		//throw "";
 		return new HeuristicResult(ordered_concrete_actions, ordered_concrete_actions.length);
@@ -459,6 +509,11 @@ class Heuristic
 	function AddGoalNodeToLayers(goal_node_:TreeNode, state_list_:Array<HeuristicNode>, layers_:Array<Array<TreeNode>>)
 	{
 		var earliest_index:Int = GetEarliestIndexGoalNodeCanBeAddedTo(goal_node_, state_list_);
+		
+		#if debugging_heuristic
+		Utilities.Logln("goal node added to: " + goal_node_.GetRawTreeString() + " :: " + earliest_index);
+		#end
+		
 		layers_[earliest_index].push(goal_node_);
 	}
 	
@@ -578,7 +633,8 @@ class Heuristic
 				action.GetData().SetParameters(param_combination);
 				if (value_combinations[param_index].length > 0)
 				{
-					for (val_combination in value_combinations[param_index])
+					
+					/*for (val_combination in value_combinations[param_index])
 					{
 						action.GetData().SetValues(val_combination);
 						//Utilities.Log("Heuristic.GetAllActionsForState: " + action.HeuristicEvaluate(null, state_, domain_) + " : " + action.GetPreconditionTree().GetBaseNode().GetRawTreeString() + "\n");
@@ -587,7 +643,7 @@ class Heuristic
 							actions.push(new PlannerActionNode(action, param_combination, val_combination));
 							//Utilities.Log("Heuristic.GetAllActionsForState: " + actions[actions.length - 1].GetActionTransform() + "\n");
 						}
-					}
+					}*/
 				}
 				else
 				{
