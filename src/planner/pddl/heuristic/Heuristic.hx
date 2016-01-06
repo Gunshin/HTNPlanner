@@ -625,7 +625,7 @@ class Heuristic
 			var action:Action = domain_.GetAction(actionName);
 			var parameter_combinations:Array<Array<Pair<String, String>>> = Planner.GetAllPossibleParameterCombinations(action, state_, domain_);
 			// has an extra array since these combinations are used per parameter combination
-			var value_combinations:Array<Array<Array<Pair<String, String>>>> = Planner.GetAllPossibleValueCombinations(action, parameter_combinations, state_, domain_, true);
+			var value_combinations:Array<Array<Array<Pair<String, String>>>> = GetAllPossibleMinMaxValueCombinations(action, parameter_combinations, state_, domain_, true);
 			//Utilities.Log("Heuristic.GetAllActionsForState: " + action.GetName() + " :: " + value_combinations + "\n");
 			for (param_index in 0...parameter_combinations.length)
 			{
@@ -634,7 +634,7 @@ class Heuristic
 				if (value_combinations[param_index].length > 0)
 				{
 					
-					/*for (val_combination in value_combinations[param_index])
+					for (val_combination in value_combinations[param_index])
 					{
 						action.GetData().SetValues(val_combination);
 						//Utilities.Log("Heuristic.GetAllActionsForState: " + action.HeuristicEvaluate(null, state_, domain_) + " : " + action.GetPreconditionTree().GetBaseNode().GetRawTreeString() + "\n");
@@ -643,7 +643,7 @@ class Heuristic
 							actions.push(new PlannerActionNode(action, param_combination, val_combination));
 							//Utilities.Log("Heuristic.GetAllActionsForState: " + actions[actions.length - 1].GetActionTransform() + "\n");
 						}
-					}*/
+					}
 				}
 				else
 				{
@@ -665,4 +665,46 @@ class Heuristic
 		return actions;
 	}
 
+	static public function GetAllPossibleMinMaxValueCombinations(action_:Action, parameter_combinations_:Array<Array<Pair<String, String>>>, state_:State, domain_:Domain, heuristic_version_:Bool):Array<Array<Array<Pair<String, String>>>>
+	{
+		//Utilities.Log("Planner.GetAllPossibleValueCombinations: " + action_+"\n");
+		var returnee:Array<Array<Array<Pair<String, String>>>> = new Array<Array<Array<Pair<String, String>>>>();
+		
+		for (combination in parameter_combinations_)
+		{
+			action_.GetData().SetParameters(combination);
+			
+			var value_ranges:Array<Array<Pair<String, String>>> = new Array<Array<Pair<String, String>>>();
+			
+			var actionValues:Array<Value> = action_.GetData().GetValues();
+			if (actionValues.length > 0)
+			{
+				for (valueIndex in 0...actionValues.length)
+				{
+					var obj_array:Array<Pair<String, String>> = new Array<Pair<String, String>>();
+					var possible_values:Array<String> = actionValues[valueIndex].GetPossibleValues(action_.GetData(), state_, domain_, heuristic_version_);
+					
+					if (possible_values.length > 0)
+					{
+						obj_array.push(new Pair(actionValues[valueIndex].GetName(), possible_values[0]));
+						
+						// we dont want to add the same pair twice if the possible_values only contains one element
+						if (possible_values.length > 1)
+						{
+							obj_array.push(new Pair(actionValues[valueIndex].GetName(), possible_values[possible_values.length - 1]));
+						}
+					}
+					value_ranges.push(obj_array);
+				}
+				
+				returnee.push(Planner.GenerateCombinations(value_ranges));
+			}
+			else
+			{
+				returnee.push(new Array<Array<Pair<String, String>>>()); // just push an empty array, since we want this to succeed
+			}
+		}
+		return returnee;
+	}
+	
 }

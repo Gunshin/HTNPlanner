@@ -57,10 +57,10 @@ class Main
 		
 		var domainIndex:Int = 7;
 		
-		GetResults("results.txt", ["pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl"], ["pddlexamples/Results/IntegerParameters/Test2/pfile2"]);
-		//GetResults("results2.txt", ["pddlexamples/Results/IntegerParameters/Settlers.pddl"], ["pddlexamples/Results/IntegerParameters/Test2/pfile2"]);
+		//GetResults("results.txt", ["pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl"], ["pddlexamples/Results/IntegerParameters/Test2/pfile2"]);
+		GetResults("results2.txt", ["pddlexamples/Results/IntegerParameters/Settlers.pddl"], ["pddlexamples/Results/IntegerParameters/Test2/pfile2"]);
 		
-	
+		
 		//GetResults("results2.txt", ["pddlexamples/test/small_settlers/Settlers.pddl"], ["pddlexamples/test/small_settlers/pfile0"]);
 		//GetResults("results2.txt", ["pddlexamples/test/small_settlers/SettlersIntegerParameters.pddl"], ["pddlexamples/test/small_settlers/pfile0"]);
 		
