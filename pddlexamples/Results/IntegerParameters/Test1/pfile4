@@ -89,7 +89,6 @@
 (:goal (and
 	(>= (housing location0) 4)
 	(has-coal-stack location0)
-	;;(connected-by-rail location1 location2)
 	)
 )
 

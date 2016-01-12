@@ -87,9 +87,7 @@
 	(potential vehicle4)
 )
 (:goal (and
-	(>= (housing location0) 0)
 	(has-coal-stack location0)
-	;;(connected-by-rail location1 location2)
 	)
 )
 

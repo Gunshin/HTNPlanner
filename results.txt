@@ -1,1 +1,21 @@
-Domain: pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl Problem: pddlexamples/Results/IntegerParameters/Test2/pfile2
+Domain: pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl Problem: pddlexamples/Results/IntegerParameters/Test1/pfile20
+Time taken seconds: 10.421593725001003
+Plan length: 14
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:10
+break-stone location0 ~count:10
+break-stone location0 ~count:10
+build-coal-stack location0
+fell-timber location0 ~count:1
+fell-timber location0 ~count:3
+build-sawmill location0
+saw-wood location0 ~count:9
+saw-wood location0 ~count:2
+fell-timber location0 ~count:9
+saw-wood location0 ~count:9
+build-house location0 ~count:20
+
+
+

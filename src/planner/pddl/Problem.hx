@@ -54,7 +54,7 @@ class Problem
 			ParseMetric(metric[0]);
 		}
 		
-		trace("Problem loaded");
+		//trace("Problem loaded");
 	}
 	
 	function ParseObjects(node_:RawTreeNode)

@@ -90,6 +90,18 @@ class Planner
 		var initial_greedy_result:GreedySearchResult = GreedySearch(current_state, new Map<Int, PlannerNode>());
 		current_state = initial_greedy_result.last_successively_lower_node;
 		
+		var temp:Array<PlannerActionNode> = BacktrackPlan(initial_greedy_result.last_successively_lower_node);
+		
+		/*trace("Running");
+		
+		Utilities.Logln("length: " + temp.length);
+		for (i in temp)
+		{
+			Utilities.Logln(i.GetActionTransform());
+		}
+		
+		throw "";*/
+		
 		// check to see if an initial greedy search will return a plan
 		if (!problem_.EvaluateGoal(current_state.state))
 		{
@@ -105,10 +117,10 @@ class Planner
 			
 			while (!problem_.EvaluateGoal(current_state.state) && open_list.size() > 0)
 			{
-				trace("breadth search at estimate: " + current_state.estimate.length);
+				//trace("breadth search at estimate: " + current_state.estimate.length);
 				var breadth_result:BreadthSearchResult = BreadthSearch(current_state);
-				trace("breadth open list length: " + breadth_result.open_list.size());
-				open_list = breadth_result.open_list;
+				//trace("breadth open list length: " + breadth_result.open_list.size());
+				//open_list = breadth_result.open_list;
 				closed_list = closed_list.concat(breadth_result.closed_list);
 				
 				if (breadth_result.found_better_node != null)
@@ -117,7 +129,10 @@ class Planner
 					
 					closest_heuristic = current_state.estimate.length;
 				}
-				
+				else
+				{
+					current_state = open_list.pop();
+				}
 				
 				
 				
@@ -125,16 +140,16 @@ class Planner
 			
 		}
 		
-		trace("open_list: " + problem_.EvaluateGoal(current_state.state));
+		//trace("open_list: " + problem_.EvaluateGoal(current_state.state));
 		
 		return BacktrackPlan(current_state);
 	}
 	
-	static var MAX_BREADTH_ITERATIONS:Int = 5;
+	static var MAX_BREADTH_ITERATIONS:Int = 7;
 	
 	function BreadthSearch(node_:PlannerNode):BreadthSearchResult
 	{
-		Utilities.Logln("running breadth on: " + node_.plannerActionNode.GetActionTransform() + " with current estimate: " + node_.estimate.length);
+		//Utilities.Logln("running breadth on: " + node_.plannerActionNode.GetActionTransform() + " with current estimate: " + node_.estimate.length);
 		
 		var open_list:Heap<PlannerNode> = new Heap<PlannerNode>();
 		var secondary_open_list:Heap<PlannerNode> = new Heap<PlannerNode>();
@@ -146,9 +161,11 @@ class Planner
 		
 		for (iteration in 0...MAX_BREADTH_ITERATIONS)
 		{
-			Utilities.Logln("ITERATION " + iteration + " ---------------------------------");
+			//Utilities.Logln("ITERATION " + iteration + " ---------------------------------");
 			open_list = secondary_open_list;
 			secondary_open_list = new Heap<PlannerNode>();
+			
+			//trace("iteration: " + iteration + " State count: " + open_list.size());
 			
 			while(open_list.size() > 0)
 			{
@@ -156,7 +173,7 @@ class Planner
 				
 				// get all of the states for the next iteration. pointless doing this on the last iteration
 				var succ_states:Array<PlannerNode> = GetAllSuccessiveStates(breadth_node, visited_states);
-				//trace(
+				
 				for (succ_node in succ_states)
 				{
 					secondary_open_list.add(succ_node);
@@ -164,7 +181,7 @@ class Planner
 				
 				var greedy_result:GreedySearchResult = GreedySearch(breadth_node, visited_states);
 				
-				Utilities.Logln("action: " + breadth_node.plannerActionNode.GetActionTransform() + " had result: " + greedy_result.last_successively_lower_node.estimate.length);
+				//Utilities.Logln("action: " + breadth_node.plannerActionNode.GetActionTransform() + " had result: " + greedy_result.last_successively_lower_node.estimate.length);
 				
 				//ConcatenateHeaps(new_open_list, greedy_result.open_list);
 				closed_list = closed_list.concat(greedy_result.closed_list);
@@ -178,7 +195,6 @@ class Planner
 				}
 				
 			}
-		
 		}
 		return new BreadthSearchResult(null, open_list, closed_list);
 		

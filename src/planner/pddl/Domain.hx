@@ -77,7 +77,7 @@ class Domain
 		
 		LinkActionsToPredicates();
 		
-		trace("Domain loaded");
+		//trace("Domain loaded");
 	}
 	
 	function ParseRequirements(node_:RawTreeNode)
