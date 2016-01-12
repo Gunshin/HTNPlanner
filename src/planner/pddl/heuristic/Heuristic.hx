@@ -50,26 +50,6 @@ class Heuristic
 	}
 	
 	/**
-	 * 
-	 * I need to add in numeric goals exactly as i did predicates
-	 * when attempting to fulfill the goals, i need to select actions in the previous layer until it is satisfied,
-	 * eg. i could end up having 5 actions in the previous layer that contribute to the numeric. I need to add all
-	 * actions to the goal. I cannot use the same action multiple times. same parameter set though?
-	 * 
-	 * loop through actions
-	 * if action brings us closer to the bounds
-	 * and the bounds are not already satisfied
-	 * lower bound is closer to the upper bound
-	 * or upper bound is closer to the lower bound
-	 * add it to the list
-	 * 
-	 * (== (inventory_has_item logs) 15)
-	 * find the first action that enables this condition as usual
-	 * this works the same as standard predicates
-	 * add any action that pushes the bounds towards this goal state
-	 * treenodeint to return bounds?
-	 * 
-	 * 
 	 * @param	initial_state_
 	 * @return
 	 */
@@ -84,67 +64,13 @@ class Heuristic
 		//trace("init: " + initial_state_.toString());
 		var heuristic_state:StateHeuristic = new StateHeuristic();
 		initial_state_.CopyTo(heuristic_state);
-		var current_node:HeuristicNode = new HeuristicNode(heuristic_state, Planner.GetAllActionsForState(heuristic_state, domain), new HeuristicData());
-		var state_list:Array<HeuristicNode> = new Array<HeuristicNode>();
-		state_list.push(current_node);
 		
-		#if debugging_heuristic
-		Utilities.Log("Heuristic.RunHeuristic: ------------------\n");
-		for (action in current_node.actions_applied_to_state)
+		var state_list:Array<HeuristicNode> = GenerateStateLevels(heuristic_state);
+		
+		if (state_list == null)
 		{
-			Utilities.Log("Heuristic.RunHeuristic: " + action.GetActionTransform() + "\n");
+			return new HeuristicResult(null, 99999999);
 		}
-		for (goal_node in GetGoalNodes(problem.GetGoalTree().GetBaseNode()))
-		{
-			Utilities.Log("Heuristic.RunHeuristic: " + goal_node.HeuristicEvaluate(null, null, current_node.state, domain)+"\n");
-		}
-		
-		Utilities.Log("Heuristic.RunHeuristic: " + current_node.state.toString()+"\n");
-		Utilities.Log("Heuristic.RunHeuristic: " + "\n------------------------\n\n");
-		#end
-		
-		// first generate the full graph to ensure we can fulfill the goal
-		var depth:Int = 0;
-		//trace("\n\n\n\n");
-		
-		while (!problem.HeuristicEvaluateGoal(current_node.state))
-		{
-			var successor_state:StateHeuristic = ApplyActions(current_node, domain);
-			current_node = new HeuristicNode(successor_state, GetAllActionsForState(successor_state, domain), new HeuristicData());
-			state_list.push(current_node);
-			depth++;
-			
-			#if debugging_heuristic
-			Utilities.Log("Heuristic.RunHeuristic: " + "------------------\n");
-			for (action in current_node.actions_applied_to_state)
-			{
-				Utilities.Log("Heuristic.RunHeuristic: " + action.GetActionTransform() + "\n");
-			}
-			for (goal_node in GetGoalNodes(problem.GetGoalTree().GetBaseNode()))
-			{
-				Utilities.Log("Heuristic.RunHeuristic: " + goal_node.GetRawTreeString() + " :: " +goal_node.HeuristicEvaluate(null, null, current_node.state, domain)+"\n");
-			}
-			
-			Utilities.Log("Heuristic.RunHeuristic: " + current_node.state.toString()+"\n");
-			Utilities.Log("Heuristic.RunHeuristic: " + "\n------------------------\n\n");
-			#end
-			
-			if (depth > 20)
-			{
-				var total_action_count:Int = 0;
-				
-				for (state in state_list)
-				{
-					total_action_count += state.actions_applied_to_state.length;
-				}
-				
-				
-				//trace("returning with no heuristic found: " + (total_action_count * 20));
-				//throw "";
-				return new HeuristicResult(null, total_action_count * 20);
-			}
-		}
-		
 		
 		/*trace("passed");
 		throw "";*/
@@ -482,6 +408,73 @@ class Heuristic
 		//trace("length: " + ordered_concrete_actions.length);
 		//throw "";
 		return new HeuristicResult(ordered_concrete_actions, ordered_concrete_actions.length);
+	}
+	
+	function GenerateStateLevels(heuristic_initial_state_:StateHeuristic):Array<HeuristicNode>
+	{
+		
+		var current_node:HeuristicNode = new HeuristicNode(heuristic_initial_state_, Planner.GetAllActionsForState(heuristic_initial_state_, domain), new HeuristicData());
+		var state_list:Array<HeuristicNode> = new Array<HeuristicNode>();
+		state_list.push(current_node);
+		
+		#if debugging_heuristic
+		Utilities.Log("Heuristic.RunHeuristic: ------------------\n");
+		for (action in current_node.actions_applied_to_state)
+		{
+			Utilities.Log("Heuristic.RunHeuristic: " + action.GetActionTransform() + "\n");
+		}
+		for (goal_node in GetGoalNodes(problem.GetGoalTree().GetBaseNode()))
+		{
+			Utilities.Log("Heuristic.RunHeuristic: " + goal_node.HeuristicEvaluate(null, null, current_node.state, domain)+"\n");
+		}
+		
+		Utilities.Log("Heuristic.RunHeuristic: " + current_node.state.toString()+"\n");
+		Utilities.Log("Heuristic.RunHeuristic: " + "\n------------------------\n\n");
+		#end
+		
+		// first generate the full graph to ensure we can fulfill the goal
+		var depth:Int = 0;
+		//trace("\n\n\n\n");
+		
+		while (!problem.HeuristicEvaluateGoal(current_node.state))
+		{
+			var successor_state:StateHeuristic = ApplyActions(current_node, domain);
+			current_node = new HeuristicNode(successor_state, GetAllActionsForState(successor_state, domain), new HeuristicData());
+			state_list.push(current_node);
+			depth++;
+			
+			#if debugging_heuristic
+			Utilities.Log("Heuristic.RunHeuristic: " + "------------------\n");
+			for (action in current_node.actions_applied_to_state)
+			{
+				Utilities.Log("Heuristic.RunHeuristic: " + action.GetActionTransform() + "\n");
+			}
+			for (goal_node in GetGoalNodes(problem.GetGoalTree().GetBaseNode()))
+			{
+				Utilities.Log("Heuristic.RunHeuristic: " + goal_node.GetRawTreeString() + " :: " +goal_node.HeuristicEvaluate(null, null, current_node.state, domain)+"\n");
+			}
+			
+			Utilities.Log("Heuristic.RunHeuristic: " + current_node.state.toString()+"\n");
+			Utilities.Log("Heuristic.RunHeuristic: " + "\n------------------------\n\n");
+			#end
+			
+			if (depth > 20)
+			{
+				var total_action_count:Int = 0;
+				
+				for (state in state_list)
+				{
+					total_action_count += state.actions_applied_to_state.length;
+				}
+				
+				return null;
+				
+				//trace("returning with no heuristic found: " + (total_action_count * 20));
+				//throw "";
+			}
+		}
+		
+		return state_list;
 	}
 	
 	static public function AddNegationToGoalNodesChild(goal_node_:TreeNode, amount_:Int, child_index_:Int)
