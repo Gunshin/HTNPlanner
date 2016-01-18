@@ -44,8 +44,6 @@
    :values (~count - integer-range)
    :precondition (and 
 					(is-at ?v ?p) 
-					;;(> (available ?r ?p) 0) 
-					;;(> (space-in ?v) 0)
 					(> (~count) 0)
 					(<= (~count) (space-in ?v))
 					(<= (~count) (available ?r ?p))
@@ -60,7 +58,6 @@
    :values (~count - integer-range)
    :precondition (and 
 					(is-at ?v ?p) 
-					;;(> (available ?r ?v) 0)
 					(> (~count) 0)
 					(<= (~count) (space-in ?v))
 					(<= (~count) (available ?r ?v))
@@ -211,8 +208,6 @@
    :parameters (?p - place)
    :values (~count - integer-range)
    :precondition (and 
-					;;(>= (available wood ?p) 1)
-					;;(>= (available stone ?p) 1)
 					(> (~count) 0)
 					(<= (~count) (available wood ?p))
 					(<= (~count) (available stone ?p))
@@ -309,7 +304,6 @@
    :values (~count - integer-range)
    :precondition (and 
 					(has-coal-stack ?p)
-					;;(>= (available timber ?p) 1)
 					(> (~count) 0)
 					(<= (~count) 10)
 					(<= (~count) (available timber ?p))
@@ -323,7 +317,6 @@
    :values (~count - integer-range)
    :precondition (and 
 					(has-sawmill ?p)
-					;;(>= (available timber ?p) 1)
 					(> (~count) 0)
 					(<= (~count) 10)
 					(<= (~count) (available timber ?p))
@@ -336,8 +329,6 @@
    :values (~count - integer-range)
    :precondition (and 
 					(has-ironworks ?p)
-					;;(>= (available ore ?p) 1) 
-					;;(>= (available coal ?p) 2)
 					(> (~count) 0)
 					(<= (~count) 10)
 					(<= (~count) (available ore ?p))

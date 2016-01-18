@@ -20,6 +20,7 @@ class Domain
 	var types:Types = null;
 	
 	var predicates:Map<String, Bool> = new StringMap<Bool>();
+	
 	/**
 	 * This variable is for storing links between predicates and where they are applied in actions preconditions. 
 	 */
@@ -29,6 +30,26 @@ class Domain
 	 * This variable is for storing links between predicates and where they are applied in actions effects. 
 	 */
 	var predicate_action_effect:Map<String, Array<Action>> = new Map<String, Array<Action>>();
+	
+	/**
+	 * This is a map of which actions contain the specific function precondition
+	 */
+	var function_action_precondition:Map<String, Array<Action>> = new Map<String, Array<Action>>();
+	
+	/**
+	 * Map of which functions are contained within an action precondition
+	 */
+	var action_function_precondition:Map<Action, Array<String>> = new Map<Action, Array<String>>();
+	
+	/**
+	 * This is a map of which actions contain the specific function effect
+	 */
+	var function_action_effect:Map<String, Array<Action>> = new Map<String, Array<Action>>();
+	
+	/**
+	 * Map of which functions are contained within an action effect
+	 */
+	var action_function_effect:Map<Action, Array<String>> = new Map<Action, Array<String>>();
 	
 	var functions:Map<String, Bool> = new StringMap<Bool>();
 	var evaluator:Map<String, Bool> = new StringMap<Bool>();
@@ -221,7 +242,6 @@ class Domain
 		for (action_name in actions.keys())
 		{
 			var action:Action = actions.get(action_name);
-			
 			for (predicate_name in predicates.keys())
 			{
 				Tree.Recursive(action.GetPreconditionTree().GetBaseNode(), 
@@ -251,15 +271,49 @@ class Domain
 		}
 	}
 	
-	public function GetActionsWithPredicateEffect(predicate_name_:String):Array<Action>
+	function LinkActionsAndFunctions()
 	{
-		if (!predicate_action_effect.exists(predicate_name_))
+		
+		for (action_name in actions.keys())
 		{
-			predicate_action_effect.set(predicate_name_, new Array<Action>());
+			var action:Action = actions.get(action_name);
+			for (function_name in functions.keys())
+			{
+				Tree.Recursive(action.GetPreconditionTree().GetBaseNode(), 
+					function(node_)
+					{
+						if (Utilities.Compare(node_.GetRawName(), function_name) == 0)
+						{
+							GetActionsWithFunctionPrecondition(function_name).push(action);
+							GetAllFunctionsWithinActionPrecondition(action.GetName()).push(function_name);
+							return false;
+						}
+						return true;
+					}
+				);
+				
+				Tree.Recursive(action.GetEffectTree().GetBaseNode(), 
+					function(node_)
+					{
+						if (Utilities.Compare(node_.GetRawName(), function_name) == 0)
+						{
+							GetActionsWithFunctionEffect(function_name).push(action);
+							GetAllFunctionsWithinActionEffect(action.GetName()).push(function_name);
+							return false;
+						}
+						return true;
+					}
+				);
+			}
 		}
 		
-		return predicate_action_effect.get(predicate_name_);
 	}
+	
+	/***
+	 * 
+	 *	For Actions
+	 * 
+	 **/
 	
 	public function GetActionsWithPredicatePrecondition(predicate_name_:String):Array<Action>
 	{
@@ -270,6 +324,80 @@ class Domain
 		
 		return predicate_action_precondition.get(predicate_name_);
 	}
+	
+	public function GetActionsWithPredicateEffect(predicate_name_:String):Array<Action>
+	{
+		if (!predicate_action_effect.exists(predicate_name_))
+		{
+			predicate_action_effect.set(predicate_name_, new Array<Action>());
+		}
+		
+		return predicate_action_effect.get(predicate_name_);
+	}
+	
+	/***
+	 * 
+	 *	For Functions
+	 * 
+	 **/
+	
+	public function GetActionsWithFunctionPrecondition(function_name_:String):Array<Action>
+	{
+		if (!function_action_precondition.exists(function_name_))
+		{
+			function_action_precondition.set(function_name_, new Array<Action>());
+		}
+		
+		return function_action_precondition.get(function_name_);
+	}
+	
+	public function GetActionsWithFunctionEffect(function_name_:String):Array<Action>
+	{
+		if (!function_action_effect.exists(function_name_))
+		{
+			function_action_effect.set(function_name_, new Array<Action>());
+		}
+		
+		return function_action_effect.get(function_name_);
+	}
+	
+	public function GetAllFunctionsWithinActionPrecondition(action_name_:String):Array<String>
+	{
+		var action:Action = actions.get(action_name_);
+		
+		#if assert_debugging
+		Utilities.Assert(action != null, "GetAllFunctionsWithinActionPrecondition has been called with a non-existant action: " + action_name_);
+		#end
+		
+		if (!action_function_precondition.exists(action))
+		{
+			action_function_precondition.set(action, new Array<String>());
+		}
+		
+		return action_function_precondition.get(action);
+	}
+	
+	public function GetAllFunctionsWithinActionEffect(action_name_:String):Array<String>
+	{
+		var action:Action = actions.get(action_name_);
+		
+		#if assert_debugging
+		Utilities.Assert(action != null, "GetAllFunctionsWithinActionPrecondition has been called with a non-existant action: " + action_name_);
+		#end
+		
+		if (!action_function_effect.exists(action))
+		{
+			action_function_effect.set(action, new Array<String>());
+		}
+		
+		return action_function_effect.get(action);
+	}
+	
+	/***
+	 * 
+	 *	
+	 * 
+	 **/
 	
 	static function ActionGetChild(child_name_:String, children_:Array<RawTreeNode>):RawTreeNode
 	{

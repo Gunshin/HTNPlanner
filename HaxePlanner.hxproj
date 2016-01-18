@@ -24,11 +24,12 @@
     <option noInlineOnDebug="False" />
     <option mainClass="test.Main" />
     <option enabledebug="False" />
-    <option additional="-lib polygonal-ds&#xA;&#xA;" />
+    <option additional="-cp ../ds/src/&#xA;-D output_file&#xA;-D assert_debugging&#xA;" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>
-    <!-- example: <library name="..." /> -->
+    <library name="-lib polygonal-printf" />
+    <library name="" />
   </haxelib>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>

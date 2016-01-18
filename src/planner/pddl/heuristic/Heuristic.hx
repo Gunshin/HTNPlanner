@@ -367,16 +367,6 @@ class Heuristic
 						}
 						
 						// since the function is closer, we may want to see if the goal is now satisfied
-						/*if (goal_node.HeuristicEvaluate(null, null, node.state_local_to_this_nodes_changes, domain))
-						{
-							// since we have determined the goal is now satisfied, remove it
-							//goal_nodes_to_remove.push(goal_node);
-							Utilities.Log(""+node.action_node.GetActionTransform()+"\n removing: "+ goal_node + "\n");
-							//trace(state_list_index + " ___ " + goal_node);
-							//AddGoalNodeToLayers(goal_node, state_list, goal_node_layers);
-						}*/
-						
-						
 					}
 					
 					AddGoalNodeToLayers(goal_node, state_list, goal_node_layers);

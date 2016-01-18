@@ -364,14 +364,31 @@ class Utilities
 		fo.close();
 	}
 	
-	/*static public function Log(contents_:String)
+	static public function Log(contents_:String)
 	{
+		#if output_file
 		WriteToFile("output.txt", contents_, true);
+		#else
+		trace(contents_);
+		#end
 	}
 	
-	static public inline function Logln(contents_:String)
+	static inline public function Logln(contents_:String)
 	{
 		Log(contents_ + "\n");
-	}*/
+	}
 	
+	#if assert_debugging
+	static inline public function Assert(comparator_:Bool, message_:String)
+	{
+		if (!comparator_)
+		{
+			#if assert_soft_warnings
+			Logln(message_);
+			#else
+			throw "Assert Error: " + message_;
+			#end
+		}
+	}
+	#end
 }

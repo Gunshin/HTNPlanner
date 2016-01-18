@@ -2,7 +2,7 @@ package planner.pddl;
 import de.polygonal.ds.Prioritizable;
 import planner.pddl.State;
 
-import de.polygonal.ds.BST;
+import de.polygonal.ds.Bst;
 import de.polygonal.ds.Comparable;
 
 class FunctionBoundsWrapper implements Comparable<FunctionBoundsWrapper>
