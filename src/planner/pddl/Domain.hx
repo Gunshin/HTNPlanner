@@ -97,7 +97,7 @@ class Domain
 		AddStandardFunctions();
 		
 		LinkActionsToPredicates();
-		
+		LinkActionsAndFunctions();
 		//trace("Domain loaded");
 	}
 	
@@ -284,8 +284,8 @@ class Domain
 					{
 						if (Utilities.Compare(node_.GetRawName(), function_name) == 0)
 						{
-							GetActionsWithFunctionPrecondition(function_name).push(action);
-							GetAllFunctionsWithinActionPrecondition(action.GetName()).push(function_name);
+							GetActionsWithFunctionPrecondition(node_.GetRawTreeString()).push(action);
+							GetAllFunctionsWithinActionPrecondition(action.GetName()).push(node_.GetRawTreeString());
 							return false;
 						}
 						return true;
@@ -297,8 +297,8 @@ class Domain
 					{
 						if (Utilities.Compare(node_.GetRawName(), function_name) == 0)
 						{
-							GetActionsWithFunctionEffect(function_name).push(action);
-							GetAllFunctionsWithinActionEffect(action.GetName()).push(function_name);
+							GetActionsWithFunctionEffect(node_.GetRawTreeString()).push(action);
+							GetAllFunctionsWithinActionEffect(action.GetName()).push(node_.GetRawTreeString());
 							return false;
 						}
 						return true;

@@ -49,6 +49,45 @@ class Heuristic
 		problem = problem_;
 	}
 	
+	
+	/*
+	 * 
+	 * generate state levels
+	 * 		map specific actions to specific functions <- sm cp
+	 * 
+	 * extract plan
+	 * 		forall goal nodes, extract specific functions
+	 * 		get specific actions from functions and find the satisfying actions <- md cp? 1.
+	 * 			treat satisfying actions as being able to be done multiple times? <- sm cp
+	 * 				Therefor select largest?
+	 * 				what if largest produces a larger heuristic value due to difference in layer?
+	 * 				spend a lot of computation working out the best set? 2.
+	 * 			
+	 * 		extract precondition nodes of satisfying actions as new goal nodes
+	 * 
+	 * 1.
+	 * could i cache functions at the node? would prevent a need to recurse lookup
+	 * each parent would cache its childs
+	 * when made concrete, should we make these caches concrete too?
+	 * 
+	 * 2.
+	 * ??
+	 * 
+	 * We should select the smallest action that can be repeated twice due to the fact that a larger version of the action will
+	 * always require at least one more action to allow it become a larger version. We should automatically discount increasing 
+	 * actions that are not increasing every layer. If there is an action in layer 1 that increases 'x' by 10, and an action in layer 3 
+	 * that increases it by '30', we should ignore the 30 because we cannot tell just how much that action is going to require
+	 * to satisfy as it was not satisfied by the second layer.
+	 * 
+	 * Some thought to be made on ratio of size between the same actions. Should we only use this designation if the size difference
+	 * is 2 or less? what happens when it is more than that? perhaps some testing could be done to determine how worthwhile it is dependent on the ratio?
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+	
+	
 	/**
 	 * @param	initial_state_
 	 * @return
