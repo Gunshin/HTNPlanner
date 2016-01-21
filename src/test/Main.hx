@@ -57,16 +57,16 @@ class Main
 		
 		var domainIndex:Int = 7;
 		
-		var domain:Domain = new Domain("pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl");
+		//var domain:Domain = new Domain("pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl");
 		
-		trace(domain.GetAllFunctionsWithinActionPrecondition("make-iron"));
+		//trace(domain.GetAllFunctionsWithinActionPrecondition("make-iron"));
 		
 		/*for (i in domain.GetActionsWithFunctionEffect("available"))
 		{
 			trace(i.GetName());
 		}*/
 		
-		//GetResults("results.txt", ["pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl"], ["pddlexamples/Results/IntegerParameters/Test1/pfile20"], 1);
+		GetResults("results.txt", ["pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl"], ["pddlexamples/Results/IntegerParameters/Test1/pfile2"], 1);
 		//GetResults("results2.txt", ["pddlexamples/Results/IntegerParameters/Settlers.pddl"], ["pddlexamples/Results/IntegerParameters/Test2/pfile2"], 1);
 		
 		

@@ -34,6 +34,22 @@ class HeuristicResult
 	}
 }
 
+class FunctionRateOfChange
+{
+	public var function_name:String = null;
+	
+	public var rate_of_change:Int = 0;
+	
+	public var action:PlannerActionNode = null;
+	
+	public function new(function_name_:String, rate_of_change_:Int, action_:PlannerActionNode)
+	{
+		function_name = function_name_;
+		rate_of_change = rate_of_change_;
+		action = action_;
+	}
+}
+
 /**
  * ...
  * @author Michael Stephens
@@ -104,7 +120,9 @@ class Heuristic
 		var heuristic_state:StateHeuristic = new StateHeuristic();
 		initial_state_.CopyTo(heuristic_state);
 		
-		var state_list:Array<HeuristicNode> = GenerateStateLevels(heuristic_state);
+		var action_function_mapping:Map<String, Array<FunctionRateOfChange>> = new Map<String, Array<FunctionRateOfChange>>();
+		
+		var state_list:Array<HeuristicNode> = GenerateStateLevels(heuristic_state, action_function_mapping);
 		
 		if (state_list == null)
 		{
@@ -439,10 +457,9 @@ class Heuristic
 		return new HeuristicResult(ordered_concrete_actions, ordered_concrete_actions.length);
 	}
 	
-	function GenerateStateLevels(heuristic_initial_state_:StateHeuristic):Array<HeuristicNode>
+	function GenerateStateLevels(heuristic_initial_state_:StateHeuristic, action_function_mapping_:Map<String, Array<FunctionRateOfChange>>):Array<HeuristicNode>
 	{
-		
-		var current_node:HeuristicNode = new HeuristicNode(heuristic_initial_state_, Planner.GetAllActionsForState(heuristic_initial_state_, domain), new HeuristicData());
+		var current_node:HeuristicNode = new HeuristicNode(heuristic_initial_state_, Planner.GetAllActionsForState(heuristic_initial_state_, domain));
 		var state_list:Array<HeuristicNode> = new Array<HeuristicNode>();
 		state_list.push(current_node);
 		
@@ -467,8 +484,8 @@ class Heuristic
 		
 		while (!problem.HeuristicEvaluateGoal(current_node.state))
 		{
-			var successor_state:StateHeuristic = ApplyActions(current_node, domain);
-			current_node = new HeuristicNode(successor_state, GetAllActionsForState(successor_state, domain), new HeuristicData());
+			var successor_state:StateHeuristic = ApplyActions(current_node, action_function_mapping_, domain);
+			current_node = new HeuristicNode(successor_state, GetAllActionsForState(successor_state, domain));
 			state_list.push(current_node);
 			depth++;
 			
@@ -613,27 +630,42 @@ class Heuristic
 	 * @param	current_node_
 	 * @return Successor state
 	 */
-	static public function ApplyActions(current_node_:HeuristicNode, domain_:Domain):StateHeuristic
+	static public function ApplyActions(current_node_:HeuristicNode, action_function_mapping_:Map<String, Array<FunctionRateOfChange>>, domain_:Domain):StateHeuristic
 	{
 		var new_state:StateHeuristic = new StateHeuristic();
 		current_node_.state.StateHeuristicCopyTo(new_state);
 		
 		//trace("action count: " + actions_.length);
-		for (actionNode in current_node_.actions_applied_to_state)
+		for (data_node in current_node_.heuristic_data)
 		{
-			actionNode.Set();
-			actionNode.action.HeuristicExecute(current_node_.heuristic_data, new_state, domain_);
+			data_node.a.Set();
+			data_node.a.action.HeuristicExecute(data_node.b, new_state, domain_);
 		}
 		
-		for (i in current_node_.heuristic_data.function_changes)
+		for (data_node in current_node_.heuristic_data)
 		{
-			//Utilities.Log("Heuristic.ApplyActions: setting function: " + i.name + " ____ " + i.bounds + "\n");
-			new_state.SetFunctionBounds(i.name, i.bounds);
+			for (function_change in data_node.b.function_changes)
+			{
+				//Utilities.Log("Heuristic.ApplyActions: setting function: " + i.name + " ____ " + i.bounds + "\n");
+				var original_function_bounds:Pair<Int, Int> = new_state.GetFunctionBounds(function_change.name);
+				if (!function_change.bounds.Equals(original_function_bounds))
+				{
+					var function_change_bounds:Int = function_change.bounds.a - original_function_bounds.a != 0 ?
+							function_change.bounds.a - original_function_bounds.a :
+							function_change.bounds.b - original_function_bounds.b;
+					GetActionFunctionMappingArray(action_function_mapping_, function_change.name).push(new FunctionRateOfChange(function_change.name, function_change_bounds, data_node.a));
+					
+				}
+				new_state.SetFunctionBounds(function_change.name, function_change.bounds);
+			}
 		}
 		
-		for (i in current_node_.heuristic_data.predicates.keys())
+		for (data_node in current_node_.heuristic_data)
 		{
-			new_state.AddRelation(i);
+			for (predicate_key in data_node.b.predicates.keys())
+			{
+				new_state.AddRelation(predicate_key);
+			}
 		}
 		
 		return new_state;
@@ -727,6 +759,25 @@ class Heuristic
 			}
 		}
 		return returnee;
+	}
+	
+	
+	/**
+	 * Ease of use function
+	 * @param	function_name_
+	 * @return
+	 */
+	static function GetActionFunctionMappingArray(action_function_map:Map<String, Array<FunctionRateOfChange>>, function_name_:String):Array<FunctionRateOfChange>
+	{
+		var array:Array<FunctionRateOfChange> = action_function_map.get(function_name_);
+		
+		if (array == null)
+		{
+			array = new Array<FunctionRateOfChange>();
+			action_function_map.set(function_name_, array);
+		}
+		
+		return array;
 	}
 	
 }

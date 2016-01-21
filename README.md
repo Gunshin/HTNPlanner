@@ -5,7 +5,7 @@ compilation flags:
 	-D output_file
 	Writes to the output.txt file inside the root directory instead of to standard out.
 	
-	-D heuristic_debugging
+	-D debugging_heuristic
 	Runs the planner on the basic state and dumps the full heuristic run into output.txt if '-D output_file' enabled, otherwise standard output.
 	
 	-D assert_debugging

@@ -2,7 +2,7 @@ package planner.pddl;
 import de.polygonal.ds.Prioritizable;
 import planner.pddl.State;
 
-import de.polygonal.ds.Bst;
+import de.polygonal.ds.BST;
 import de.polygonal.ds.Comparable;
 
 class FunctionBoundsWrapper implements Comparable<FunctionBoundsWrapper>
@@ -50,6 +50,10 @@ class StateHeuristic extends State
 	
 	override public function SetFunction(functionID_:String, value_:Int) 
 	{
+		#if assert_debugging
+		Utilities.Assert(functionID_ == null, "State is null");
+		#end
+		
 		super.SetFunction(functionID_, value_);
 		
 		SetFunctionBounds(functionID_, new Pair<Int, Int>(value_, value_));
@@ -57,6 +61,10 @@ class StateHeuristic extends State
 	
 	public function SetFunctionBounds(functionID_:String, bounds_:Pair<Int, Int>)
 	{
+		#if assert_debugging
+		Utilities.Assert(functionID_ == null, "FunctionID is null");
+		#end
+		
 		if (!functions_bounds.exists(functionID_))
 		{
 			functions_bounds.set(functionID_, new Pair(0, 0));
@@ -85,6 +93,10 @@ class StateHeuristic extends State
 	 */
 	public function GetFunctionBounds(functionID_:String):Pair<Int, Int> 
 	{
+		#if assert_debugging
+		Utilities.Assert(functionID_ == null, "FunctionID is null");
+		#end
+		
 		if (!functions_bounds.exists(functionID_))
 		{
 			var original_value:Int = GetFunction(functionID_);
@@ -95,7 +107,11 @@ class StateHeuristic extends State
 	}
 	
 	public function StateHeuristicCopyTo(state_to_be_copied_to_:StateHeuristic):State
-	{		
+	{
+		#if assert_debugging
+		Utilities.Assert(state_to_be_copied_to_ == null, "State_to_be_copied_to_ is null");
+		#end
+		
 		CopyTo(state_to_be_copied_to_);
 		
 		for (i in functions_bounds.keys())

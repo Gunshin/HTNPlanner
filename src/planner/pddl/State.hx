@@ -1,6 +1,6 @@
 package planner.pddl;
 
-import de.polygonal.ds.Bst;
+import de.polygonal.ds.BST;
 import de.polygonal.ds.Comparable;
 import planner.pddl.Domain;
 import planner.pddl.Pair;
@@ -58,10 +58,9 @@ class State
 
 	public function AddRelation(relation_:String):Void
 	{
-		if (relation_ == null || relation_.length == 0)
-		{
-			throw "relation is null";
-		}
+		#if assert_debugging
+		Utilities.Assert(relation_ == null || relation_.length == 0, "relation_ is null or empty");
+		#end
 		
 		if (!Exists(relation_))
 		{
@@ -73,11 +72,9 @@ class State
 	
 	public function RemoveRelation(relation_:String):Bool
 	{
-		
-		if (relation_ == null || relation_.length == 0)
-		{
-			throw "relation is null";
-		}
+		#if assert_debugging
+		Utilities.Assert(relation_ == null || relation_.length == 0, "relation_ is null or empty");
+		#end
 		
 		if (!Exists(relation_))
 		{
@@ -90,21 +87,18 @@ class State
 	
 	public function Exists(relation_:String):Bool
 	{
-		if (relation_ == null || relation_.length == 0)
-		{
-			throw "relation_ is null or empty";
-		}
+		#if assert_debugging
+		Utilities.Assert(relation_ == null || relation_.length == 0, "relation_ is null or empty");
+		#end
 		
 		return relationsMap.exists(relation_);
 	}
 	
 	public function GetMatching(relation_:String):Array<String>
 	{
-		
-		if (relation_ == null || relation_.length == 0)
-		{
-			throw "relation_ is null or empty";
-		}
+		#if assert_debugging
+		Utilities.Assert(relation_ == null || relation_.length == 0, "relation_ is null or empty");
+		#end
 		
 		var matchingRelations:Array<String> = new Array<String>();
 		for (key in relationsMap.keys())
@@ -120,16 +114,19 @@ class State
 	
 	public function SetFunction(functionID_:String, value_:Int)
 	{
+		#if assert_debugging
+		Utilities.Assert(functionID_ == null, "Function is null");
+		#end
+		
 		var func = new FunctionWrapper(functionID_, value_);
 		functionsMap.set(functionID_, func);
 	}
 	
 	public function GetFunction(functionID_:String):Int
 	{
-		if (functionID_ == null)
-		{
-			throw "Function is null: ";
-		}
+		#if assert_debugging
+		Utilities.Assert(functionID_ == null, "Function is null");
+		#end
 		
 		if (!functionsMap.exists(functionID_))
 		{
@@ -181,7 +178,7 @@ class State
 		var array:Array<Int> = new Array<Int>();
 		
 		{
-			var relations:Bst<RelationWrapper> = new Bst<RelationWrapper>();
+			var relations:BST<RelationWrapper> = new BST<RelationWrapper>();
 			for (key in relationsMap.keys())
 			{
 				relations.insert(relationsMap.get(key));
@@ -197,7 +194,7 @@ class State
 		}
 		
 		{
-			var functions:Bst<FunctionWrapper> = new Bst<FunctionWrapper>();
+			var functions:BST<FunctionWrapper> = new BST<FunctionWrapper>();
 			for (key in functionsMap.keys())
 			{
 				functions.insert(functionsMap.get(key));
@@ -271,7 +268,7 @@ class State
 		var string:String = "{\"relations\":[";
 		
 		{
-			var relations:Bst<RelationWrapper> = new Bst<RelationWrapper>();
+			var relations:BST<RelationWrapper> = new BST<RelationWrapper>();
 			for (key in relationsMap.keys())
 			{
 				relations.insert(relationsMap.get(key));
@@ -300,7 +297,7 @@ class State
 		string += "],\n \"functions\":[";
 		
 		{
-			var relations:Bst<FunctionWrapper> = new Bst<FunctionWrapper>();
+			var relations:BST<FunctionWrapper> = new BST<FunctionWrapper>();
 			for (key in functionsMap.keys())
 			{
 				relations.insert(functionsMap.get(key));
@@ -377,6 +374,9 @@ class State
 	
 	public function CompareState(state_:State):Array<String>
 	{
+		#if assert_debugging
+		Utilities.Assert(state_ == null, "State is null");
+		#end
 		
 		var nonMatching:Array<String> = new Array<String>();
 		
@@ -401,6 +401,10 @@ class State
 	
 	public function Equals(state_:State):Bool
 	{
+		#if assert_debugging
+		Utilities.Assert(state_ == null, "State is null");
+		#end
+		
 		return CompareState(state_).length == 0 && state_.CompareState(this).length == 0;
 	}
 	
