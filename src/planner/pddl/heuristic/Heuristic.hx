@@ -40,13 +40,22 @@ class FunctionRateOfChange
 	
 	public var rate_of_change:Int = 0;
 	
+	public var state_level:Int = 0;
+	
 	public var action:PlannerActionNode = null;
 	
-	public function new(function_name_:String, rate_of_change_:Int, action_:PlannerActionNode)
+	public function new(function_name_:String, rate_of_change_:Int, state_level_:Int, action_:PlannerActionNode)
 	{
 		function_name = function_name_;
 		rate_of_change = rate_of_change_;
+		state_level = state_level_;
 		action = action_;
+	}
+	
+	public function toString():String
+	{
+		return "{\"function_name\":\"" + function_name + "\", \"rate_of_change\":" + rate_of_change +
+		", \"state_level\":" + state_level + ", \"action\":\"" + action.GetActionTransform() + "\"}"; 
 	}
 }
 
@@ -450,6 +459,8 @@ class Heuristic
 			Utilities.Log("\n"+action.GetActionTransform());
 		}
 		Utilities.Log("\n------------------------\n\n");
+		
+		Utilities.Logln(action_function_mapping.toString());
 		#end
 		
 		//trace("length: " + ordered_concrete_actions.length);
@@ -484,7 +495,7 @@ class Heuristic
 		
 		while (!problem.HeuristicEvaluateGoal(current_node.state))
 		{
-			var successor_state:StateHeuristic = ApplyActions(current_node, action_function_mapping_, domain);
+			var successor_state:StateHeuristic = ApplyActions(current_node, action_function_mapping_, depth, domain);
 			current_node = new HeuristicNode(successor_state, GetAllActionsForState(successor_state, domain));
 			state_list.push(current_node);
 			depth++;
@@ -630,7 +641,7 @@ class Heuristic
 	 * @param	current_node_
 	 * @return Successor state
 	 */
-	static public function ApplyActions(current_node_:HeuristicNode, action_function_mapping_:Map<String, Array<FunctionRateOfChange>>, domain_:Domain):StateHeuristic
+	static public function ApplyActions(current_node_:HeuristicNode, action_function_mapping_:Map<String, Array<FunctionRateOfChange>>, depth_:Int, domain_:Domain):StateHeuristic
 	{
 		var new_state:StateHeuristic = new StateHeuristic();
 		current_node_.state.StateHeuristicCopyTo(new_state);
@@ -653,7 +664,7 @@ class Heuristic
 					var function_change_bounds:Int = function_change.bounds.a - original_function_bounds.a != 0 ?
 							function_change.bounds.a - original_function_bounds.a :
 							function_change.bounds.b - original_function_bounds.b;
-					GetActionFunctionMappingArray(action_function_mapping_, function_change.name).push(new FunctionRateOfChange(function_change.name, function_change_bounds, data_node.a));
+					GetActionFunctionMappingArray(action_function_mapping_, function_change.name).push(new FunctionRateOfChange(function_change.name, function_change_bounds, depth_, data_node.a));
 					
 				}
 				new_state.SetFunctionBounds(function_change.name, function_change.bounds);
