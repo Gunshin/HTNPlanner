@@ -1,6 +1,6 @@
 package planner.pddl.planner;
 import de.polygonal.ds.Heapable;
-import planner.pddl.heuristic.Heuristic.HeuristicResult;
+import planner.pddl.heuristic.HeuristicResult;
 import planner.pddl.planner.PlannerActionNode;
 
 /**

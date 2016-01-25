@@ -1,5 +1,7 @@
 package test;
 
+import planner.pddl.heuristic.Heuristic;
+import planner.pddl.heuristic.HeuristicRateOfChange;
 import planner.pddl.Pair;
 import sys.io.File;
 import sys.io.FileOutput;
@@ -159,7 +161,7 @@ class Main
 					var start:Float = Sys.cpuTime();
 					
 					var planner:Planner = new Planner();
-					var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, true);
+					var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, new HeuristicRateOfChange(domain, problem));
 					
 					averages_times[domain_index][problem_index] += Sys.cpuTime() - start;
 					
@@ -206,7 +208,7 @@ class Main
 		
 		trace("Starting Plan Test");		
 		var planner:Planner = new Planner();
-		var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, true);
+		var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, new Heuristic(domain, problem));
 		
 		Assert((array.length == 2), "Plan length is wrong");
 		var compareArray:Array<String> = [

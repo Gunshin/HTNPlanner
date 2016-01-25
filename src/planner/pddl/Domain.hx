@@ -454,6 +454,11 @@ class Domain
 		return actions.keys();
 	}
 	
+	public function GetAllFunctions():Iterator<String>
+	{
+		return functions.keys();
+	}
+	
 	public function FunctionExists(name_:String):Bool
 	{
 		return functions.exists(name_);

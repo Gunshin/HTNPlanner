@@ -2,7 +2,8 @@ package planner.pddl;
 
 import de.polygonal.ds.Heap;
 import haxe.ds.HashMap;
-import planner.pddl.heuristic.Heuristic;
+import planner.pddl.heuristic.IHeuristic;
+import planner.pddl.heuristic.HeuristicResult;
 import planner.pddl.Action;
 import planner.pddl.Domain;
 import planner.pddl.Pair;
@@ -15,13 +16,11 @@ import planner.pddl.planner.PlannerActionNode;
  * @author Michael Stephens
  */
 class Planner
-{
-	//var visited_states:Map<Int, PlannerNode> = new Map<Int, PlannerNode>();
-	
+{	
 	var domain:Domain = null;
 	var problem:Problem = null;
 	
-	var heuristic:Heuristic = null;
+	var heuristic:IHeuristic = null;
 	
 	var hasMetric:Bool = false;
 	
@@ -54,7 +53,7 @@ class Planner
 	var iteration:Int = 0;
 	#end
 	
-	public function FindPlan(domain_:Domain, problem_:Problem, use_heuristic_:Bool):Array<PlannerActionNode>
+	public function FindPlan(domain_:Domain, problem_:Problem, heuristic_:IHeuristic):Array<PlannerActionNode>
 	{
 		domain = domain_;
 		problem = problem_;
@@ -62,9 +61,9 @@ class Planner
 		var initial_state:State = problem_.GetClonedInitialState();
 		var initial_heuristic:HeuristicResult = new HeuristicResult(null, 0);
 		
-		if (use_heuristic_)
+		if (heuristic_ != null)
 		{
-			heuristic = new Heuristic(domain, problem);
+			heuristic = heuristic_;
 			
 			initial_heuristic = heuristic.RunHeuristic(initial_state);
 		}

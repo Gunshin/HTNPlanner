@@ -1,5 +1,6 @@
 package planner.pddl.heuristic;
 
+//import de.polygonal.ds.Map;
 import haxe.ds.HashMap;
 import planner.pddl.Planner;
 import planner.pddl.planner.PlannerActionNode;
@@ -12,6 +13,7 @@ import planner.pddl.ActionData;
 import planner.pddl.Pair;
 import planner.pddl.Predicate;
 import planner.pddl.StateHeuristic;
+import planner.pddl.tree.TreeNodeForall;
 import planner.pddl.tree.TreeNodeIntFunctionValue;
 import planner.pddl.tree.TreeNodeIntMinus;
 
@@ -24,7 +26,7 @@ import planner.pddl.tree.TreeNodeInt;
  * ...
  * @author Michael Stephens
  */
-class Heuristic implements IHeuristic
+class HeuristicRateOfChange implements IHeuristic
 {	
 	var domain:Domain = null;
 	var problem:Problem = null;
@@ -126,291 +128,58 @@ class Heuristic implements IHeuristic
 		}
 		
 		
-		// now that things have been set into layers, the idea is that we traverse backwards through the layers findiong actions that provide the effects needed
-		// in the next goal_node_layers.
-		var state_list_index:Int = state_list.length - 1;
-		while(state_list_index > 0)// we only go down to 1, as layer 0 are the initial predicates provided to start the heuristic with, and have already been fulfilled
+	//	extract plan
+		var goal_node_index:Int = goal_node_layers.length - 1;
+		while (goal_node_index > 0)
 		{
-			if (goal_node_layers[state_list_index].length > 0)// just to guarantee that we only do this action expansion on a layer that needs something satisfied
+			#if debugging_heuristic
+			Utilities.Log("------------------");
+			for (layer in goal_node_layers)
 			{
-				#if debugging_heuristic
-				Utilities.Log("------------------");
-				for (layer in goal_node_layers)
+				Utilities.Log("\n"+layer);
+			}
+			Utilities.Log("\n------------------------\n\n");
+			#end
+	// 		forall goal nodes, extract specific functions
+			for (goal_node in goal_node_layers[goal_node_index])
+			{
+				
+				if (Std.is(goal_node, TreeNodeInt))
 				{
-					Utilities.Log("\n"+layer);
-				}
-				Utilities.Log("\n------------------------\n\n");
-				
-				/*Utilities.Log("@@@@@@@@@@@@@@@@@@@@@@@@@@");
-				for (action in state_list[state_list_index - 1].actions_applied_to_state)
-				{
-					Utilities.Log("\n"+action.GetActionTransform());
-				}
-				Utilities.Log("\n@@@@@@@@@@@@@@@@@@@@@@@@@@\n\n");*/
-				#end
-				
-				var goal_node_function_changes:Map<TreeNodeInt, Heap<HeuristicGoalChangesNode>> = new Map<TreeNodeInt, Heap<HeuristicGoalChangesNode>>();
-				
-				var s_h_n:HeuristicNode = state_list[state_list_index - 1]; // index - 1 since we need to use actions from the previous layer
-				for (action_node in s_h_n.actions_applied_to_state)
-				{
-					
-					if (!concrete_actions.exists(action_node))// only run on this action if it has not been added to the list
-					{
-						
-						var goal_node_checking_state:StateHeuristic = new StateHeuristic();
-						//grab the predicates that are needed
-						var heuristic_data_for_looking:HeuristicData = new HeuristicData();
-						action_node.Set();
-						action_node.action.HeuristicExecute(heuristic_data_for_looking, s_h_n.state, domain);
-						//need to apply the predicates to the state
-						for (i in heuristic_data_for_looking.predicates.keys())
-						{
-							goal_node_checking_state.AddRelation(i);
-						}
-						//var original_function_values:Map<String, Pair<Int, Int>> = new Map<String, Pair<Int, Int>>();
-						
-						//need to apply the functions to the state
-						for (i in heuristic_data_for_looking.function_changes)
-						{
-							goal_node_checking_state.SetFunctionBounds(i.name, i.bounds);
-						}
-						
-						//Utilities.Log("action: " + action_node.GetActionTransform() + "\n");
-						//Utilities.Log("funcs original: " + original_function_values + "\n");
-						//Utilities.Log("funcs changes: " + heuristic_data_for_looking.function_changes + "\n");
-						
-						var goal_nodes_to_remove:Array<TreeNode> = new Array<TreeNode>();
-						
-						// now lets check to see if any of the predicates we are looking for were satisfied
-						var escape:Bool = false;
-						for (goal_node in goal_node_layers[state_list_index])
-						{
-							if (Std.is(goal_node, TreeNodeInt))
-							{
-								// check to see if the bounds are closer
-								var tree_node_int_goal:TreeNodeInt = cast(goal_node, TreeNodeInt);
-								
-								#if debugging_heuristic
-								//Utilities.Logln(action_node.GetActionTransform());
-								#end
-								
-								var before_values:Pair<Pair<Int, Int>, Pair<Int, Int>> = new Pair(
-									tree_node_int_goal.HeuristicGetValueFromChild(0, action_node.action.GetData(), null, s_h_n.state, domain),
-									tree_node_int_goal.HeuristicGetValueFromChild(1, action_node.action.GetData(), null, s_h_n.state, domain));
-								
-								var after_values:Pair<Pair<Int, Int>, Pair<Int, Int>> = new Pair(
-									tree_node_int_goal.HeuristicGetValueFromChild(0, action_node.action.GetData(), null, goal_node_checking_state, domain),
-									tree_node_int_goal.HeuristicGetValueFromChild(1, action_node.action.GetData(), null, goal_node_checking_state, domain));
-								
-								
-								// since goal_node_checking_state is a subset of state_list[state_list_index], we must compare the values against the full state goal evaluation
-								var goal_values:Pair<Pair<Int, Int>, Pair<Int, Int>> = new Pair(
-									tree_node_int_goal.HeuristicGetValueFromChild(0, action_node.action.GetData(), null, state_list[state_list_index].state, domain),
-									tree_node_int_goal.HeuristicGetValueFromChild(1, action_node.action.GetData(), null, state_list[state_list_index].state, domain));
-								
-								var function_is_closer:Bool = 	(((after_values.b.a - before_values.b.a) < 0) && ((goal_values.a.a - before_values.b.a) < 0)) ||
-																(((after_values.b.b - before_values.b.b) > 0) && ((goal_values.a.b - before_values.b.b) > 0)) ||
-																(((after_values.a.a - before_values.a.a) < 0) && ((goal_values.b.a - before_values.a.a) < 0)) ||
-																(((after_values.a.b - before_values.a.b) > 0) && ((goal_values.b.b - before_values.a.b) > 0));
-								
-								#if debugging_heuristic
-								if (function_is_closer)
-								{
-									Utilities.Logln(action_node.GetActionTransform() + " :: " + tree_node_int_goal.GetRawTreeString());
-									Utilities.Logln(goal_values + " :: " + before_values + " :: " + after_values + " : " + function_is_closer);
-								}
-								#end
-								
-								//trace(goal_node);
-								if (function_is_closer)
-								{
-									
-									var heap:Heap<HeuristicGoalChangesNode> = goal_node_function_changes.get(tree_node_int_goal);
-									
-									if (heap == null)
-									{
-										heap = new Heap<HeuristicGoalChangesNode>();
-										goal_node_function_changes.set(tree_node_int_goal, heap);
-									}
-									
-									var changed_amount:Float = 	Math.abs(after_values.a.b - before_values.a.b) +
-																Math.abs(after_values.b.a - before_values.b.a) +
-																Math.abs(after_values.a.a - before_values.a.a) +
-																Math.abs(after_values.b.b - before_values.b.b);
-									
-									heap.add(new HeuristicGoalChangesNode(action_node, cast(changed_amount, Int), before_values, after_values, goal_values, goal_node_checking_state));
-									
-									// leave this goal node loop since this action has just been added
-									escape = true;
-								}
-							}
-							else if (goal_node.HeuristicEvaluate(null, null, goal_node_checking_state, domain))
-							{
-								// we found a successful satisfaction due to this action
-								goal_nodes_to_remove.push(goal_node); //lets add it to a list for safe removal
-								
-								// lets also record this action node. cannot break out of goal_nodes loop because one action may affect multiple goal_nodes. especially fluent nodes
-								if (!concrete_actions.exists(action_node))
-								{
-									//lets find any and all preconditions of this action that need satisfying and add them to the goal list
-									var action_precondition_nodes_to_add:Array<TreeNode> = GetGoalNodes(action_node.action.GetPreconditionTree().GetBaseNode());
-									
-									#if debugging_heuristic
-									Utilities.Log("predicates: " + action_node.GetActionTransform() + "\n removing: " + goal_nodes_to_remove + "\n");
-									#end
-									
-									for (node in action_precondition_nodes_to_add)
-									{
-										// an array since a for loop can return many nodes when asked for a concrete version
-										var concrete_nodes:Array<TreeNode> = node.GenerateConcrete(action_node.action.GetData(), s_h_n.state, domain);
-										
-										#if debugging_heuristic
-										Utilities.Log("" + concrete_nodes + "\n");
-										#end
-										
-										for (concrete_node in concrete_nodes)
-										{
-											AddGoalNodeToLayers(concrete_node.Clone(), state_list, goal_node_layers);
-										}
-									}
-									
-									#if debugging_heuristic
-									Utilities.Log("\n");
-									#end
-									
-									concrete_actions.set(action_node, true);
-									ordered_concrete_actions.push(action_node);
-								}
-								
-							}
-							
-							if (escape)
-							{
-								break;
-							}
-						}
-						
-						// safely remove the goal nodes so we do not attempt them again
-						for (goal_node in goal_nodes_to_remove)
-						{
-							goal_node_layers[state_list_index].remove(goal_node);
-						}
-						
-					}
-				}
-				
-				//Utilities.Logln(goal_node_function_changes.toString());
-				
-				for (goal_node in goal_node_function_changes.keys())
-				{
-					var heap:Heap<HeuristicGoalChangesNode> = goal_node_function_changes.get(goal_node);
+					var functions:Array<String> = ExtractFunctions(goal_node, domain);
 					
 					#if debugging_heuristic
-					Utilities.Logln("heap: " + heap.toString());
+					Utilities.Logln("Goal node: " + goal_node.GetRawTreeString());
+					Utilities.Logln("Generated functions: " + functions + "\n");
 					#end
 					
-					var stop:Bool = false;
-					while(heap.size() > 0 && !stop)
+					for (func_name in functions)
 					{
-						var node:HeuristicGoalChangesNode = heap.pop();
-						
-						if (!concrete_actions.exists(node.action_node))
+						var specific_actions:Array<FunctionRateOfChange> = GetActionFunctionMappingArray(action_function_mapping, func_name);
+						#if debugging_heuristic
+						Utilities.Logln("Function: " + func_name);
+						#end
+						for (action in specific_actions)
 						{
-							node.action_node.Set();
-							var action_precondition_nodes_to_add:Array<TreeNode> = GetGoalNodes(node.action_node.action.GetPreconditionTree().GetBaseNode());
-							
 							#if debugging_heuristic
-							Utilities.Log("Adding: " + node.action_node.GetActionTransform() + "\n");
+							Utilities.Logln("Specific action: " + action.action.GetActionTransform());
 							#end
-							
-							for (action_precondition_node in action_precondition_nodes_to_add)
-							{
-								// an array since a for loop can return many nodes when asked for a concrete version
-								var concrete_nodes:Array<TreeNode> = action_precondition_node.GenerateConcrete(node.action_node.action.GetData(), s_h_n.state, domain);
-								
-								#if debugging_heuristic
-								Utilities.Log("" + concrete_nodes + "\n\n");
-								#end
-								
-								for (concrete_node in concrete_nodes)
-								{
-									AddGoalNodeToLayers(concrete_node.Clone(), state_list, goal_node_layers);
-								}
-							}
-							
-							#if debugging_heuristic
-							Utilities.Logln("");
-							#end
-							
-							// since we have determined it is closer, we should add this action to the list
-							
-							concrete_actions.set(node.action_node, true);
-							ordered_concrete_actions.push(node.action_node);
 						}
-						
-						// since we have run this section of code, we need to remove the changes from the node itself
-						if (goal_node.GetRawName().charAt(0) == ">")
-						{
-							if (node.after_values.a.b - node.before_values.a.b > 0)
-							{
-								AddNegationToGoalNodesChild(goal_node, node.after_values.a.b - node.before_values.a.b, 1);
-							}
-							if (node.after_values.b.a - node.before_values.b.a < 0)
-							{
-								AddNegationToGoalNodesChild(goal_node, node.after_values.b.a - node.before_values.b.a, 0);
-							}
-						}
-						else if (goal_node.GetRawName().charAt(0) == "<")
-						{
-							if (node.after_values.a.a - node.before_values.a.a < 0)
-							{
-								AddNegationToGoalNodesChild(goal_node, node.after_values.a.a - node.before_values.a.a, 1);
-							}
-							if (node.after_values.b.b - node.before_values.b.b > 0)
-							{
-								AddNegationToGoalNodesChild(goal_node, node.after_values.b.b - node.before_values.b.b, 0);
-							}
-						}
-						else
-						{
-							if (node.after_values.a.b - node.before_values.a.b > 0)
-							{
-								AddNegationToGoalNodesChild(goal_node, node.after_values.a.b - node.before_values.a.b, 1);
-							}
-							if (node.after_values.b.a - node.before_values.b.a < 0)
-							{
-								AddNegationToGoalNodesChild(goal_node, node.after_values.b.a - node.before_values.b.a, 0);
-							}
-							throw "i have not verified if equivalence in the heuristic works yet!";
-						}
-						
-						// check if we can now add this goal node to an earlier state than the one we are on
-						if (GetEarliestIndexGoalNodeCanBeAddedTo(goal_node, state_list) < state_list_index)
-						{
-							// if we can we want to fall out of
-							stop = true;
-						}
-						
-						// since the function is closer, we may want to see if the goal is now satisfied
 					}
-					
-					AddGoalNodeToLayers(goal_node, state_list, goal_node_layers);
 				}
-				
-				
-				
 			}
-			/*Utilities.Log("\n\n\n\n\n\n" + goal_node_layers + "\n\n\n\n\n\n");
-			for (goal in goal_node_layers[state_list_index])
-			{
-				trace(state_list_index + " ___ " + goal);
-				AddGoalNodeToLayers(goal.Clone(), state_list, goal_node_layers);
-			}*/
-			goal_node_layers[state_list_index] = null;
 			
-			state_list_index--;
+			goal_node_index--;
 		}
+		throw "end";
+	// 		get specific actions from functions and find the satisfying actions <- md cp? 1.
+	// 			treat satisfying actions as being able to be done multiple times? <- sm cp
+	// 				Therefor select largest?
+	// 				what if largest produces a larger heuristic value due to difference in layer?
+	// 				spend a lot of computation working out the best set? 2.
+	// 			
+	// 		extract precondition nodes of satisfying actions as new goal nodes
+		
 		
 		#if debugging_heuristic
 		Utilities.Log("------------------");
@@ -485,13 +254,34 @@ class Heuristic implements IHeuristic
 				}
 				
 				return null;
-				
-				//trace("returning with no heuristic found: " + (total_action_count * 20));
-				//throw "";
 			}
 		}
 		
 		return state_list;
+	}
+	
+	static public function ExtractFunctions(goal_node_:TreeNode, domain_:Domain):Array<String>
+	{
+		var mapped_funcs:Map<String, Bool> = new Map<String, Bool>();
+		Tree.Recursive(goal_node_, 
+			function(node_)
+			{
+				if (domain_.FunctionExists(node_.GetRawName()))
+				{
+					mapped_funcs.set(node_.GetRawTreeString(), true);
+					return true;
+				}
+				return true;
+			}
+		);
+		
+		var returnee:Array<String> = new Array<String>();
+		for (key in mapped_funcs.keys())
+		{
+			returnee.push(key);
+		}
+		
+		return returnee;
 	}
 	
 	static public function AddNegationToGoalNodesChild(goal_node_:TreeNode, amount_:Int, child_index_:Int)

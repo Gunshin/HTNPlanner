@@ -1046,157 +1046,45 @@ goal node added to: has-coal-stack location0 :: 3
 [>= (housing location0) (2) ]
 ------------------------
 
-build-house location0 ~count:1 :: >= (housing location0) (2) 
-{"a":"{"a":"0", "b":"10"}", "b":"{"a":"2", "b":"2"}"} :: {"a":"{"a":"0", "b":"0"}", "b":"{"a":"2", "b":"2"}"} :: {"a":"{"a":"0", "b":"1"}", "b":"{"a":"2", "b":"2"}"} : true
-build-house location0 ~count:10 :: >= (housing location0) (2) 
-{"a":"{"a":"0", "b":"10"}", "b":"{"a":"2", "b":"2"}"} :: {"a":"{"a":"0", "b":"0"}", "b":"{"a":"2", "b":"2"}"} :: {"a":"{"a":"0", "b":"10"}", "b":"{"a":"2", "b":"2"}"} : true
-heap: { Heap size: 2 }
-[ front
-     0 -> build-house location0 ~count:10:10
-     1 -> build-house location0 ~count:1:1
-]
-Adding: build-house location0 ~count:10
-[> (10) (0) ]
+Goal node: >= (housing location0) (2) 
+Generated functions: [housing location0]
 
-goal node added to: > (10) (0)  :: 0
-[<= (10) (available wood location0) ]
-
-goal node added to: <= (10) (available wood location0)  :: 4
-[<= (10) (available stone location0) ]
-
-goal node added to: <= (10) (available stone location0)  :: 2
-
-goal node added to: >= (housing location0) (- (2) (10) )  :: 0
+Function: housing location0
+Specific action: build-house location0 ~count:1
+Specific action: build-house location0 ~count:10
 ------------------
-[> (10) (0) ,>= (housing location0) (- (2) (10) ) ]
 []
-[<= (10) (available stone location0) ]
+[]
+[]
 [has-coal-stack location0]
-[<= (10) (available wood location0) ]
-null
-------------------------
-
-saw-wood location0 ~count:1 :: <= (10) (available wood location0) 
-{"a":"{"a":"10", "b":"10"}", "b":"{"a":"0", "b":"10"}"} :: {"a":"{"a":"10", "b":"10"}", "b":"{"a":"0", "b":"0"}"} :: {"a":"{"a":"10", "b":"10"}", "b":"{"a":"0", "b":"1"}"} : true
-saw-wood location0 ~count:10 :: <= (10) (available wood location0) 
-{"a":"{"a":"10", "b":"10"}", "b":"{"a":"0", "b":"10"}"} :: {"a":"{"a":"10", "b":"10"}", "b":"{"a":"0", "b":"0"}"} :: {"a":"{"a":"10", "b":"10"}", "b":"{"a":"0", "b":"10"}"} : true
-heap: { Heap size: 2 }
-[ front
-     0 -> saw-wood location0 ~count:10:10
-     1 -> saw-wood location0 ~count:1:1
-]
-Adding: saw-wood location0 ~count:10
-[has-sawmill location0]
-
-goal node added to: has-sawmill location0 :: 3
-[> (10) (0) ]
-
-goal node added to: > (10) (0)  :: 0
-[<= (10) (10) ]
-
-goal node added to: <= (10) (10)  :: 0
-[<= (10) (available timber location0) ]
-
-goal node added to: <= (10) (available timber location0)  :: 2
-
-goal node added to: <= (- (10) (10) ) (available wood location0)  :: 0
-------------------
-[> (10) (0) ,>= (housing location0) (- (2) (10) ) ,> (10) (0) ,<= (10) (10) ,<= (- (10) (10) ) (available wood location0) ]
 []
-[<= (10) (available stone location0) ,<= (10) (available timber location0) ]
-[has-coal-stack location0,has-sawmill location0]
-null
-null
+[>= (housing location0) (2) ]
 ------------------------
 
-predicates: build-coal-stack location0
- removing: [has-coal-stack location0]
-[>= (available timber location0) (1) ]
-goal node added to: >= (available timber location0) (1)  :: 2
-
-predicates: build-sawmill location0
- removing: [has-sawmill location0]
-[>= (available timber location0) (2) ]
-goal node added to: >= (available timber location0) (2)  :: 2
-
 ------------------
-[> (10) (0) ,>= (housing location0) (- (2) (10) ) ,> (10) (0) ,<= (10) (10) ,<= (- (10) (10) ) (available wood location0) ]
 []
-[<= (10) (available stone location0) ,<= (10) (available timber location0) ,>= (available timber location0) (1) ,>= (available timber location0) (2) ]
-null
-null
-null
+[]
+[]
+[has-coal-stack location0]
+[]
+[>= (housing location0) (2) ]
 ------------------------
 
-fell-timber location0 ~count:1 :: <= (10) (available timber location0) 
-{"a":"{"a":"10", "b":"10"}", "b":"{"a":"0", "b":"10"}"} :: {"a":"{"a":"10", "b":"10"}", "b":"{"a":"0", "b":"0"}"} :: {"a":"{"a":"10", "b":"10"}", "b":"{"a":"0", "b":"1"}"} : true
-fell-timber location0 ~count:10 :: <= (10) (available timber location0) 
-{"a":"{"a":"10", "b":"10"}", "b":"{"a":"0", "b":"10"}"} :: {"a":"{"a":"10", "b":"10"}", "b":"{"a":"0", "b":"0"}"} :: {"a":"{"a":"10", "b":"10"}", "b":"{"a":"0", "b":"10"}"} : true
-break-stone location0 ~count:1 :: <= (10) (available stone location0) 
-{"a":"{"a":"10", "b":"10"}", "b":"{"a":"0", "b":"10"}"} :: {"a":"{"a":"10", "b":"10"}", "b":"{"a":"0", "b":"0"}"} :: {"a":"{"a":"10", "b":"10"}", "b":"{"a":"0", "b":"1"}"} : true
-break-stone location0 ~count:10 :: <= (10) (available stone location0) 
-{"a":"{"a":"10", "b":"10"}", "b":"{"a":"0", "b":"10"}"} :: {"a":"{"a":"10", "b":"10"}", "b":"{"a":"0", "b":"0"}"} :: {"a":"{"a":"10", "b":"10"}", "b":"{"a":"0", "b":"10"}"} : true
-heap: { Heap size: 2 }
-[ front
-     0 -> break-stone location0 ~count:10:10
-     1 -> break-stone location0 ~count:1:1
-]
-Adding: break-stone location0 ~count:10
-[has-quarry location0]
-
-goal node added to: has-quarry location0 :: 1
-[> (10) (0) ]
-
-goal node added to: > (10) (0)  :: 0
-[<= (10) (10) ]
-
-goal node added to: <= (10) (10)  :: 0
-
-goal node added to: <= (- (10) (10) ) (available stone location0)  :: 0
-heap: { Heap size: 2 }
-[ front
-     0 -> fell-timber location0 ~count:10:10
-     1 -> fell-timber location0 ~count:1:1
-]
-Adding: fell-timber location0 ~count:10
-[has-cabin location0]
-
-goal node added to: has-cabin location0 :: 1
-[> (10) (0) ]
-
-goal node added to: > (10) (0)  :: 0
-[<= (10) (10) ]
-
-goal node added to: <= (10) (10)  :: 0
-
-goal node added to: <= (- (10) (10) ) (available timber location0)  :: 0
 ------------------
-[> (10) (0) ,>= (housing location0) (- (2) (10) ) ,> (10) (0) ,<= (10) (10) ,<= (- (10) (10) ) (available wood location0) ,> (10) (0) ,<= (10) (10) ,<= (- (10) (10) ) (available stone location0) ,> (10) (0) ,<= (10) (10) ,<= (- (10) (10) ) (available timber location0) ]
-[has-quarry location0,has-cabin location0]
-null
-null
-null
-null
+[]
+[]
+[]
+[has-coal-stack location0]
+[]
+[>= (housing location0) (2) ]
 ------------------------
 
-predicates: build-quarry location0
- removing: [has-quarry location0]
-[mountain location0]
-goal node added to: mountain location0 :: 0
-
-predicates: build-cabin location0
- removing: [has-cabin location0]
-[woodland location0]
-goal node added to: woodland location0 :: 0
-
 ------------------
-build-house location0 ~count:10
-saw-wood location0 ~count:10
-build-coal-stack location0
-build-sawmill location0
-break-stone location0 ~count:10
-fell-timber location0 ~count:10
-build-quarry location0
-build-cabin location0
+[]
+[]
+[]
+[has-coal-stack location0]
+[]
+[>= (housing location0) (2) ]
 ------------------------
 

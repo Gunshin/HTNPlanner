@@ -78,8 +78,7 @@ class TreeNodeFunction extends TreeNode
 	
 	override public function GetRawTreeString():String
 	{
-		var returnee:String = ConstructRaw();
-		return returnee;
+		return ConstructRaw();
 	}
 	
 	public function Construct(data_:ActionData):String
