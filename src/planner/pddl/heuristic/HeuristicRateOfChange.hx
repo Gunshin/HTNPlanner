@@ -1,6 +1,5 @@
 package planner.pddl.heuristic;
 
-//import de.polygonal.ds.Map;
 import haxe.ds.HashMap;
 import planner.pddl.Planner;
 import planner.pddl.planner.PlannerActionNode;
@@ -93,8 +92,9 @@ class HeuristicRateOfChange implements IHeuristic
 		initial_state_.CopyTo(heuristic_state);
 		
 		var action_function_mapping:Map<String, Array<FunctionRateOfChange>> = new Map<String, Array<FunctionRateOfChange>>();
+		var action_predicate_mapping:Map<String, Array<Array<PlannerActionNode>>> = new Map<String, Array<Array<PlannerActionNode>>>();
 		
-		var state_list:Array<HeuristicNode> = GenerateStateLevels(heuristic_state, action_function_mapping);
+		var state_list:Array<HeuristicNode> = GenerateStateLevels(heuristic_state, action_predicate_mapping, action_function_mapping);
 		
 		if (state_list == null)
 		{
@@ -132,6 +132,7 @@ class HeuristicRateOfChange implements IHeuristic
 		var goal_node_index:Int = goal_node_layers.length - 1;
 		while (goal_node_index > 0)
 		{
+			var s_h_n:HeuristicNode = state_list[goal_node_index - 1]; // index - 1 since we need to use actions from the previous layer
 			#if debugging_heuristic
 			Utilities.Log("------------------");
 			for (layer in goal_node_layers)
@@ -143,13 +144,15 @@ class HeuristicRateOfChange implements IHeuristic
 	// 		forall goal nodes, extract specific functions
 			for (goal_node in goal_node_layers[goal_node_index])
 			{
+				#if debugging_heuristic
+				Utilities.Logln("Goal node: " + goal_node.GetRawTreeString());
+				#end
 				
 				if (Std.is(goal_node, TreeNodeInt))
 				{
 					var functions:Array<String> = ExtractFunctions(goal_node, domain);
 					
 					#if debugging_heuristic
-					Utilities.Logln("Goal node: " + goal_node.GetRawTreeString());
 					Utilities.Logln("Generated functions: " + functions + "\n");
 					#end
 					
@@ -162,13 +165,79 @@ class HeuristicRateOfChange implements IHeuristic
 						for (action in specific_actions)
 						{
 							#if debugging_heuristic
-							Utilities.Logln("Specific action: " + action.action.GetActionTransform());
+							Utilities.Logln("Specific action: " + action.action.GetActionTransform() + " depth: " + action.state_level + " change: " + action.rate_of_change);
 							#end
 						}
 					}
 				}
+				else
+				{
+					
+					var actions:Array<Array<PlannerActionNode>> = GetActionPredicateMappingArray(action_predicate_mapping, goal_node.GetRawTreeString());
+					var predicate_index:Int = goal_node_index - 1; // -1 because predicates will always only be satisfied in the previous layer
+					for (action_node in actions[predicate_index])
+					{
+						#if debugging_heuristic
+						Utilities.Logln("Specific action: " + action_node.GetActionTransform());
+						#end
+						
+						var goal_node_checking_state:StateHeuristic = new StateHeuristic();
+						//grab the predicates that are needed
+						var heuristic_data_for_looking:HeuristicData = new HeuristicData();
+						
+						action_node.Set();
+						action_node.action.HeuristicExecute(heuristic_data_for_looking, s_h_n.state, domain);
+						
+						//need to apply the predicates to the state
+						for (i in heuristic_data_for_looking.predicates.keys())
+						{
+							goal_node_checking_state.AddRelation(i);
+						}
+						
+						//need to apply the functions to the state
+						for (i in heuristic_data_for_looking.function_changes)
+						{
+							goal_node_checking_state.SetFunctionBounds(i.name, i.bounds);
+						}
+						
+						if (goal_node.HeuristicEvaluate(null, null, goal_node_checking_state, domain))
+						{
+							
+							// lets also record this action node. cannot break out of goal_nodes loop because one action may affect multiple goal_nodes. especially fluent nodes
+							if (!concrete_actions.exists(action_node))
+							{
+								//lets find any and all preconditions of this action that need satisfying and add them to the goal list
+								var action_precondition_nodes_to_add:Array<TreeNode> = GetGoalNodes(action_node.action.GetPreconditionTree().GetBaseNode());
+								
+								for (node in action_precondition_nodes_to_add)
+								{
+									// an array since a for loop can return many nodes when asked for a concrete version
+									var concrete_nodes:Array<TreeNode> = node.GenerateConcrete(action_node.action.GetData(), s_h_n.state, domain);
+									
+									#if debugging_heuristic
+									Utilities.Log("" + concrete_nodes + "\n");
+									#end
+									
+									for (concrete_node in concrete_nodes)
+									{
+										AddGoalNodeToLayers(concrete_node.Clone(), state_list, goal_node_layers);
+									}
+								}
+								
+								#if debugging_heuristic
+								Utilities.Log("\n");
+								#end
+								
+								concrete_actions.set(action_node, true);
+								ordered_concrete_actions.push(action_node);
+							}
+						}
+					}
+					
+				}
 			}
 			
+			goal_node_layers[goal_node_index] = null;
 			goal_node_index--;
 		}
 		throw "end";
@@ -197,7 +266,12 @@ class HeuristicRateOfChange implements IHeuristic
 		return new HeuristicResult(ordered_concrete_actions, ordered_concrete_actions.length);
 	}
 	
-	function GenerateStateLevels(heuristic_initial_state_:StateHeuristic, action_function_mapping_:Map<String, Array<FunctionRateOfChange>>):Array<HeuristicNode>
+	function GenerateStateLevels(
+		heuristic_initial_state_:StateHeuristic,
+		action_predicate_mapping_:Map<String, Array<Array<PlannerActionNode>>>,
+		action_function_mapping_:Map<String, Array<FunctionRateOfChange>>
+	)
+	:Array<HeuristicNode>
 	{
 		var current_node:HeuristicNode = new HeuristicNode(heuristic_initial_state_, Planner.GetAllActionsForState(heuristic_initial_state_, domain));
 		var state_list:Array<HeuristicNode> = new Array<HeuristicNode>();
@@ -224,7 +298,7 @@ class HeuristicRateOfChange implements IHeuristic
 		
 		while (!problem.HeuristicEvaluateGoal(current_node.state))
 		{
-			var successor_state:StateHeuristic = ApplyActions(current_node, action_function_mapping_, depth, domain);
+			var successor_state:StateHeuristic = ApplyActions(current_node, action_predicate_mapping_, action_function_mapping_, depth, domain);
 			current_node = new HeuristicNode(successor_state, GetAllActionsForState(successor_state, domain));
 			state_list.push(current_node);
 			depth++;
@@ -391,10 +465,19 @@ class HeuristicRateOfChange implements IHeuristic
 	 * @param	current_node_
 	 * @return Successor state
 	 */
-	static public function ApplyActions(current_node_:HeuristicNode, action_function_mapping_:Map<String, Array<FunctionRateOfChange>>, depth_:Int, domain_:Domain):StateHeuristic
+	static public function ApplyActions(
+		current_node_:HeuristicNode,
+		action_predicate_mapping_:Map<String, Array<Array<PlannerActionNode>>>,
+		action_function_mapping_:Map<String, Array<FunctionRateOfChange>>,
+		depth_:Int,
+		domain_:Domain
+	):StateHeuristic
 	{
+		var converted_state:StateHeuristic = new StateHeuristic();
+		current_node_.state.StateHeuristicCopyTo(converted_state);
+		
 		var new_state:StateHeuristic = new StateHeuristic();
-		current_node_.state.StateHeuristicCopyTo(new_state);
+		converted_state.StateHeuristicCopyTo(new_state);
 		
 		//trace("action count: " + actions_.length);
 		for (data_node in current_node_.heuristic_data)
@@ -408,13 +491,14 @@ class HeuristicRateOfChange implements IHeuristic
 			for (function_change in data_node.b.function_changes)
 			{
 				//Utilities.Log("Heuristic.ApplyActions: setting function: " + i.name + " ____ " + i.bounds + "\n");
-				var original_function_bounds:Pair<Int, Int> = new_state.GetFunctionBounds(function_change.name);
+				var original_function_bounds:Pair<Int, Int> = converted_state.GetFunctionBounds(function_change.name);
 				if (!function_change.bounds.Equals(original_function_bounds))
 				{
 					var function_change_bounds:Int = function_change.bounds.a - original_function_bounds.a != 0 ?
 							function_change.bounds.a - original_function_bounds.a :
 							function_change.bounds.b - original_function_bounds.b;
-					GetActionFunctionMappingArray(action_function_mapping_, function_change.name).push(new FunctionRateOfChange(function_change.name, function_change_bounds, depth_, data_node.a));
+					GetActionFunctionMappingArray(action_function_mapping_, function_change.name).push(
+						new FunctionRateOfChange(function_change.name, function_change_bounds, depth_, data_node.a));
 					
 				}
 				new_state.SetFunctionBounds(function_change.name, function_change.bounds);
@@ -426,6 +510,13 @@ class HeuristicRateOfChange implements IHeuristic
 			for (predicate_key in data_node.b.predicates.keys())
 			{
 				new_state.AddRelation(predicate_key);
+				var mapping_array:Array<Array<PlannerActionNode>> = GetActionPredicateMappingArray(action_predicate_mapping_, predicate_key);
+				if (mapping_array[depth_] == null)
+				{
+					mapping_array[depth_] = new Array<PlannerActionNode>();
+				}
+				
+				mapping_array[depth_].push(data_node.a);
 			}
 		}
 		
@@ -480,7 +571,14 @@ class HeuristicRateOfChange implements IHeuristic
 		return actions;
 	}
 
-	static public function GetAllPossibleMinMaxValueCombinations(action_:Action, parameter_combinations_:Array<Array<Pair<String, String>>>, state_:State, domain_:Domain, heuristic_version_:Bool):Array<Array<Array<Pair<String, String>>>>
+	static public function GetAllPossibleMinMaxValueCombinations(
+		action_:Action,
+		parameter_combinations_:Array<Array<Pair<String, String>>>,
+		state_:State,
+		domain_:Domain,
+		heuristic_version_:Bool
+	)
+	:Array<Array<Array<Pair<String, String>>>>
 	{
 		//Utilities.Log("Planner.GetAllPossibleValueCombinations: " + action_+"\n");
 		var returnee:Array<Array<Array<Pair<String, String>>>> = new Array<Array<Array<Pair<String, String>>>>();
@@ -528,14 +626,32 @@ class HeuristicRateOfChange implements IHeuristic
 	 * @param	function_name_
 	 * @return
 	 */
-	static function GetActionFunctionMappingArray(action_function_map:Map<String, Array<FunctionRateOfChange>>, function_name_:String):Array<FunctionRateOfChange>
+	static function GetActionFunctionMappingArray(action_function_map_:Map<String, Array<FunctionRateOfChange>>, function_name_:String):Array<FunctionRateOfChange>
 	{
-		var array:Array<FunctionRateOfChange> = action_function_map.get(function_name_);
+		var array:Array<FunctionRateOfChange> = action_function_map_.get(function_name_);
 		
 		if (array == null)
 		{
 			array = new Array<FunctionRateOfChange>();
-			action_function_map.set(function_name_, array);
+			action_function_map_.set(function_name_, array);
+		}
+		
+		return array;
+	}
+	
+	/**
+	 * Ease of use function
+	 * @param	function_name_
+	 * @return
+	 */
+	static function GetActionPredicateMappingArray(action_predicate_map_:Map<String, Array<Array<PlannerActionNode>>>, predicate_name_:String):Array<Array<PlannerActionNode>>
+	{
+		var array:Array<Array<PlannerActionNode>> = action_predicate_map_.get(predicate_name_);
+		
+		if (array == null)
+		{
+			array = new Array<Array<PlannerActionNode>>();
+			action_predicate_map_.set(predicate_name_, array);
 		}
 		
 		return array;

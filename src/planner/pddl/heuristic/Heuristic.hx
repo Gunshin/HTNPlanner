@@ -90,9 +90,8 @@ class Heuristic implements IHeuristic
 		var heuristic_state:StateHeuristic = new StateHeuristic();
 		initial_state_.CopyTo(heuristic_state);
 		
-		var action_function_mapping:Map<String, Array<FunctionRateOfChange>> = new Map<String, Array<FunctionRateOfChange>>();
 		
-		var state_list:Array<HeuristicNode> = GenerateStateLevels(heuristic_state, action_function_mapping);
+		var state_list:Array<HeuristicNode> = GenerateStateLevels(heuristic_state);
 		
 		if (state_list == null)
 		{
@@ -419,8 +418,6 @@ class Heuristic implements IHeuristic
 			Utilities.Log("\n"+action.GetActionTransform());
 		}
 		Utilities.Log("\n------------------------\n\n");
-		
-		Utilities.Logln(action_function_mapping.toString());
 		#end
 		
 		//trace("length: " + ordered_concrete_actions.length);
@@ -428,7 +425,7 @@ class Heuristic implements IHeuristic
 		return new HeuristicResult(ordered_concrete_actions, ordered_concrete_actions.length);
 	}
 	
-	function GenerateStateLevels(heuristic_initial_state_:StateHeuristic, action_function_mapping_:Map<String, Array<FunctionRateOfChange>>):Array<HeuristicNode>
+	function GenerateStateLevels(heuristic_initial_state_:StateHeuristic):Array<HeuristicNode>
 	{
 		var current_node:HeuristicNode = new HeuristicNode(heuristic_initial_state_, Planner.GetAllActionsForState(heuristic_initial_state_, domain));
 		var state_list:Array<HeuristicNode> = new Array<HeuristicNode>();
@@ -455,7 +452,7 @@ class Heuristic implements IHeuristic
 		
 		while (!problem.HeuristicEvaluateGoal(current_node.state))
 		{
-			var successor_state:StateHeuristic = ApplyActions(current_node, action_function_mapping_, depth, domain);
+			var successor_state:StateHeuristic = ApplyActions(current_node, depth, domain);
 			current_node = new HeuristicNode(successor_state, GetAllActionsForState(successor_state, domain));
 			state_list.push(current_node);
 			depth++;
@@ -601,12 +598,11 @@ class Heuristic implements IHeuristic
 	 * @param	current_node_
 	 * @return Successor state
 	 */
-	static public function ApplyActions(current_node_:HeuristicNode, action_function_mapping_:Map<String, Array<FunctionRateOfChange>>, depth_:Int, domain_:Domain):StateHeuristic
+	static public function ApplyActions(current_node_:HeuristicNode, depth_:Int, domain_:Domain):StateHeuristic
 	{
 		var new_state:StateHeuristic = new StateHeuristic();
 		current_node_.state.StateHeuristicCopyTo(new_state);
 		
-		//trace("action count: " + actions_.length);
 		for (data_node in current_node_.heuristic_data)
 		{
 			data_node.a.Set();
@@ -617,16 +613,6 @@ class Heuristic implements IHeuristic
 		{
 			for (function_change in data_node.b.function_changes)
 			{
-				//Utilities.Log("Heuristic.ApplyActions: setting function: " + i.name + " ____ " + i.bounds + "\n");
-				var original_function_bounds:Pair<Int, Int> = new_state.GetFunctionBounds(function_change.name);
-				if (!function_change.bounds.Equals(original_function_bounds))
-				{
-					var function_change_bounds:Int = function_change.bounds.a - original_function_bounds.a != 0 ?
-							function_change.bounds.a - original_function_bounds.a :
-							function_change.bounds.b - original_function_bounds.b;
-					GetActionFunctionMappingArray(action_function_mapping_, function_change.name).push(new FunctionRateOfChange(function_change.name, function_change_bounds, depth_, data_node.a));
-					
-				}
 				new_state.SetFunctionBounds(function_change.name, function_change.bounds);
 			}
 		}
