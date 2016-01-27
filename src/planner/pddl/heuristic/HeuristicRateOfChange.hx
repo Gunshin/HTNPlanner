@@ -91,7 +91,7 @@ class HeuristicRateOfChange implements IHeuristic
 		var heuristic_state:StateHeuristic = new StateHeuristic();
 		initial_state_.CopyTo(heuristic_state);
 		
-		var action_function_mapping:Map<String, Array<FunctionRateOfChange>> = new Map<String, Array<FunctionRateOfChange>>();
+		var action_function_mapping:Map<String, Map<String, Array<FunctionRateOfChange>>> = new Map<String, Map<String, Array<FunctionRateOfChange>>>();
 		var action_predicate_mapping:Map<String, Array<Array<PlannerActionNode>>> = new Map<String, Array<Array<PlannerActionNode>>>();
 		
 		var state_list:Array<HeuristicNode> = GenerateStateLevels(heuristic_state, action_predicate_mapping, action_function_mapping);
@@ -156,17 +156,26 @@ class HeuristicRateOfChange implements IHeuristic
 					Utilities.Logln("Generated functions: " + functions + "\n");
 					#end
 					
+					
+					
 					for (func_name in functions)
 					{
-						var specific_actions:Array<FunctionRateOfChange> = GetActionFunctionMappingArray(action_function_mapping, func_name);
+						var function_map:Map<String, Array<FunctionRateOfChange>> = GetActionFunctionMapping(action_function_mapping, func_name);
 						#if debugging_heuristic
 						Utilities.Logln("Function: " + func_name);
 						#end
-						for (action in specific_actions)
+						for (key in function_map.keys())
 						{
 							#if debugging_heuristic
-							Utilities.Logln("Specific action: " + action.action.GetActionTransform() + " depth: " + action.state_level + " change: " + action.rate_of_change);
+							Utilities.Logln("\nKey: " + key);
 							#end
+							var specific_actions:Array<FunctionRateOfChange> = function_map.get(key);
+							for (action in specific_actions)
+							{
+								#if debugging_heuristic
+								Utilities.Logln("Specific action: " + action.action.GetActionTransform() + " depth: " + action.state_level + " change: " + action.rate_of_change);
+								#end
+							}
 						}
 					}
 				}
@@ -269,7 +278,7 @@ class HeuristicRateOfChange implements IHeuristic
 	function GenerateStateLevels(
 		heuristic_initial_state_:StateHeuristic,
 		action_predicate_mapping_:Map<String, Array<Array<PlannerActionNode>>>,
-		action_function_mapping_:Map<String, Array<FunctionRateOfChange>>
+		action_function_mapping_:Map<String, Map<String, Array<FunctionRateOfChange>>>
 	)
 	:Array<HeuristicNode>
 	{
@@ -468,7 +477,7 @@ class HeuristicRateOfChange implements IHeuristic
 	static public function ApplyActions(
 		current_node_:HeuristicNode,
 		action_predicate_mapping_:Map<String, Array<Array<PlannerActionNode>>>,
-		action_function_mapping_:Map<String, Array<FunctionRateOfChange>>,
+		action_function_mapping_:Map<String, Map<String, Array<FunctionRateOfChange>>>,
 		depth_:Int,
 		domain_:Domain
 	):StateHeuristic
@@ -497,8 +506,14 @@ class HeuristicRateOfChange implements IHeuristic
 					var function_change_bounds:Int = function_change.bounds.a - original_function_bounds.a != 0 ?
 							function_change.bounds.a - original_function_bounds.a :
 							function_change.bounds.b - original_function_bounds.b;
-					GetActionFunctionMappingArray(action_function_mapping_, function_change.name).push(
-						new FunctionRateOfChange(function_change.name, function_change_bounds, depth_, data_node.a));
+					var function_map:Map<String, Array<FunctionRateOfChange>> = GetActionFunctionMapping(action_function_mapping_, function_change.name);
+					var array:Array<FunctionRateOfChange> = function_map.get(data_node.a.GetNonIntegerParameterActionTransform());
+					if (array == null)
+					{
+						array = new Array<FunctionRateOfChange>();
+						function_map.set(data_node.a.GetNonIntegerParameterActionTransform(), array);
+					}
+					array.push(new FunctionRateOfChange(function_change.name, function_change_bounds, depth_, data_node.a));
 					
 				}
 				new_state.SetFunctionBounds(function_change.name, function_change.bounds);
@@ -626,17 +641,17 @@ class HeuristicRateOfChange implements IHeuristic
 	 * @param	function_name_
 	 * @return
 	 */
-	static function GetActionFunctionMappingArray(action_function_map_:Map<String, Array<FunctionRateOfChange>>, function_name_:String):Array<FunctionRateOfChange>
+	static function GetActionFunctionMapping(action_function_map_:Map<String, Map<String, Array<FunctionRateOfChange>>>, function_name_:String):Map<String, Array<FunctionRateOfChange>>
 	{
-		var array:Array<FunctionRateOfChange> = action_function_map_.get(function_name_);
+		var functions_map:Map<String, Array<FunctionRateOfChange>> = action_function_map_.get(function_name_);
 		
-		if (array == null)
+		if (functions_map == null)
 		{
-			array = new Array<FunctionRateOfChange>();
-			action_function_map_.set(function_name_, array);
+			functions_map = new Map<String, Array<FunctionRateOfChange>>();
+			action_function_map_.set(function_name_, functions_map);
 		}
 		
-		return array;
+		return functions_map;
 	}
 	
 	/**

@@ -1050,6 +1050,8 @@ Goal node: >= (housing location0) (2)
 Generated functions: [housing location0]
 
 Function: housing location0
+
+Key: build-house location0
 Specific action: build-house location0 ~count:1 depth: 4 change: 1
 Specific action: build-house location0 ~count:10 depth: 4 change: 10
 ------------------
@@ -1088,54 +1090,94 @@ Goal node: >= (available timber location0) (1)
 Generated functions: [available timber location0]
 
 Function: available timber location0
+
+Key: build-cart location0 vehicle2
+Specific action: build-cart location0 vehicle2 depth: 2 change: -1
+Specific action: build-cart location0 vehicle2 depth: 3 change: -1
+Specific action: build-cart location0 vehicle2 depth: 4 change: -1
+
+Key: unload vehicle0 location0 timber
+Specific action: unload vehicle0 location0 timber ~count:1 depth: 4 change: 1
+
+Key: build-cart location0 vehicle1
+Specific action: build-cart location0 vehicle1 depth: 2 change: -1
+Specific action: build-cart location0 vehicle1 depth: 3 change: -1
+Specific action: build-cart location0 vehicle1 depth: 4 change: -1
+
+Key: build-cart location0 vehicle3
+Specific action: build-cart location0 vehicle3 depth: 2 change: -1
+Specific action: build-cart location0 vehicle3 depth: 3 change: -1
+Specific action: build-cart location0 vehicle3 depth: 4 change: -1
+
+Key: fell-timber location0
 Specific action: fell-timber location0 ~count:1 depth: 1 change: 1
 Specific action: fell-timber location0 ~count:10 depth: 1 change: 10
-Specific action: build-coal-stack location0 depth: 2 change: -1
 Specific action: fell-timber location0 ~count:1 depth: 2 change: 1
 Specific action: fell-timber location0 ~count:10 depth: 2 change: 10
-Specific action: build-cart location0 vehicle0 depth: 2 change: -1
-Specific action: build-cart location0 vehicle1 depth: 2 change: -1
-Specific action: build-cart location0 vehicle2 depth: 2 change: -1
-Specific action: build-cart location0 vehicle3 depth: 2 change: -1
-Specific action: build-cart location0 vehicle4 depth: 2 change: -1
-Specific action: build-sawmill location0 depth: 2 change: -2
-Specific action: saw-wood location0 ~count:1 depth: 3 change: -1
-Specific action: saw-wood location0 ~count:10 depth: 3 change: -10
-Specific action: load vehicle0 location0 timber ~count:1 depth: 3 change: -1
-Specific action: load vehicle1 location0 timber ~count:1 depth: 3 change: -1
-Specific action: load vehicle2 location0 timber ~count:1 depth: 3 change: -1
-Specific action: load vehicle3 location0 timber ~count:1 depth: 3 change: -1
-Specific action: load vehicle4 location0 timber ~count:1 depth: 3 change: -1
 Specific action: fell-timber location0 ~count:1 depth: 3 change: 1
 Specific action: fell-timber location0 ~count:10 depth: 3 change: 10
-Specific action: burn-coal location0 ~count:1 depth: 3 change: -1
-Specific action: burn-coal location0 ~count:10 depth: 3 change: -10
-Specific action: build-cart location0 vehicle0 depth: 3 change: -1
-Specific action: build-cart location0 vehicle1 depth: 3 change: -1
-Specific action: build-cart location0 vehicle2 depth: 3 change: -1
-Specific action: build-cart location0 vehicle3 depth: 3 change: -1
-Specific action: build-cart location0 vehicle4 depth: 3 change: -1
-Specific action: saw-wood location0 ~count:1 depth: 4 change: -1
-Specific action: saw-wood location0 ~count:10 depth: 4 change: -10
-Specific action: load vehicle0 location0 timber ~count:1 depth: 4 change: -1
-Specific action: load vehicle1 location0 timber ~count:1 depth: 4 change: -1
-Specific action: load vehicle2 location0 timber ~count:1 depth: 4 change: -1
-Specific action: load vehicle3 location0 timber ~count:1 depth: 4 change: -1
-Specific action: load vehicle4 location0 timber ~count:1 depth: 4 change: -1
 Specific action: fell-timber location0 ~count:1 depth: 4 change: 1
 Specific action: fell-timber location0 ~count:10 depth: 4 change: 10
+
+Key: load vehicle2 location0 timber
+Specific action: load vehicle2 location0 timber ~count:1 depth: 3 change: -1
+Specific action: load vehicle2 location0 timber ~count:1 depth: 4 change: -1
+
+Key: build-coal-stack location0
+Specific action: build-coal-stack location0 depth: 2 change: -1
+
+Key: build-cart location0 vehicle4
+Specific action: build-cart location0 vehicle4 depth: 2 change: -1
+Specific action: build-cart location0 vehicle4 depth: 3 change: -1
+Specific action: build-cart location0 vehicle4 depth: 4 change: -1
+
+Key: load vehicle1 location0 timber
+Specific action: load vehicle1 location0 timber ~count:1 depth: 3 change: -1
+Specific action: load vehicle1 location0 timber ~count:1 depth: 4 change: -1
+
+Key: unload vehicle2 location0 timber
+Specific action: unload vehicle2 location0 timber ~count:1 depth: 4 change: 1
+
+Key: build-cart location0 vehicle0
+Specific action: build-cart location0 vehicle0 depth: 2 change: -1
+Specific action: build-cart location0 vehicle0 depth: 3 change: -1
+Specific action: build-cart location0 vehicle0 depth: 4 change: -1
+
+Key: unload vehicle3 location0 timber
+Specific action: unload vehicle3 location0 timber ~count:1 depth: 4 change: 1
+
+Key: saw-wood location0
+Specific action: saw-wood location0 ~count:1 depth: 3 change: -1
+Specific action: saw-wood location0 ~count:10 depth: 3 change: -10
+Specific action: saw-wood location0 ~count:1 depth: 4 change: -1
+Specific action: saw-wood location0 ~count:10 depth: 4 change: -10
+
+Key: build-sawmill location0
+Specific action: build-sawmill location0 depth: 2 change: -2
+
+Key: burn-coal location0
+Specific action: burn-coal location0 ~count:1 depth: 3 change: -1
+Specific action: burn-coal location0 ~count:10 depth: 3 change: -10
 Specific action: burn-coal location0 ~count:1 depth: 4 change: -1
 Specific action: burn-coal location0 ~count:10 depth: 4 change: -10
-Specific action: unload vehicle0 location0 timber ~count:1 depth: 4 change: 1
-Specific action: unload vehicle1 location0 timber ~count:1 depth: 4 change: 1
-Specific action: unload vehicle2 location0 timber ~count:1 depth: 4 change: 1
-Specific action: unload vehicle3 location0 timber ~count:1 depth: 4 change: 1
+
+Key: load vehicle3 location0 timber
+Specific action: load vehicle3 location0 timber ~count:1 depth: 3 change: -1
+Specific action: load vehicle3 location0 timber ~count:1 depth: 4 change: -1
+
+Key: unload vehicle4 location0 timber
 Specific action: unload vehicle4 location0 timber ~count:1 depth: 4 change: 1
-Specific action: build-cart location0 vehicle0 depth: 4 change: -1
-Specific action: build-cart location0 vehicle1 depth: 4 change: -1
-Specific action: build-cart location0 vehicle2 depth: 4 change: -1
-Specific action: build-cart location0 vehicle3 depth: 4 change: -1
-Specific action: build-cart location0 vehicle4 depth: 4 change: -1
+
+Key: load vehicle4 location0 timber
+Specific action: load vehicle4 location0 timber ~count:1 depth: 3 change: -1
+Specific action: load vehicle4 location0 timber ~count:1 depth: 4 change: -1
+
+Key: load vehicle0 location0 timber
+Specific action: load vehicle0 location0 timber ~count:1 depth: 3 change: -1
+Specific action: load vehicle0 location0 timber ~count:1 depth: 4 change: -1
+
+Key: unload vehicle1 location0 timber
+Specific action: unload vehicle1 location0 timber ~count:1 depth: 4 change: 1
 ------------------
 []
 []

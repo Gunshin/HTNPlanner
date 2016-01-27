@@ -65,6 +65,22 @@ class PlannerActionNode
 		return StringTools.trim(final);
 	}
 	
+	public function GetNonIntegerParameterActionTransform():String
+	{
+		var final:String = action.GetName();
+		for (layoutName in action.GetData().GetParameterLayout())
+		{
+			for (varName in params)
+			{
+				if (Utilities.Compare(varName.a, layoutName) == 0)
+				{
+					final += " " + varName.b;
+				}
+			}
+		}
+		return final;
+	}
+	
 	public function toString():String
 	{
 		return "{\"action\":" + action + ", \"params\":" + params + ", \"values\":" + values + "}";
