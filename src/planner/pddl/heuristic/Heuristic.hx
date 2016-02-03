@@ -195,23 +195,20 @@ class Heuristic implements IHeuristic
 								#end
 								
 								var before_values:Pair<Pair<Int, Int>, Pair<Int, Int>> = new Pair(
-									tree_node_int_goal.HeuristicGetValueFromChild(0, action_node.action.GetData(), null, s_h_n.state, domain),
-									tree_node_int_goal.HeuristicGetValueFromChild(1, action_node.action.GetData(), null, s_h_n.state, domain));
+									tree_node_int_goal.HeuristicGetValueFromChild(0, null, null, s_h_n.state, domain),
+									tree_node_int_goal.HeuristicGetValueFromChild(1, null, null, s_h_n.state, domain));
 								
 								var after_values:Pair<Pair<Int, Int>, Pair<Int, Int>> = new Pair(
-									tree_node_int_goal.HeuristicGetValueFromChild(0, action_node.action.GetData(), null, goal_node_checking_state, domain),
-									tree_node_int_goal.HeuristicGetValueFromChild(1, action_node.action.GetData(), null, goal_node_checking_state, domain));
+									tree_node_int_goal.HeuristicGetValueFromChild(0, null, null, goal_node_checking_state, domain),
+									tree_node_int_goal.HeuristicGetValueFromChild(1, null, null, goal_node_checking_state, domain));
 								
 								
 								// since goal_node_checking_state is a subset of state_list[state_list_index], we must compare the values against the full state goal evaluation
 								var goal_values:Pair<Pair<Int, Int>, Pair<Int, Int>> = new Pair(
-									tree_node_int_goal.HeuristicGetValueFromChild(0, action_node.action.GetData(), null, state_list[state_list_index].state, domain),
-									tree_node_int_goal.HeuristicGetValueFromChild(1, action_node.action.GetData(), null, state_list[state_list_index].state, domain));
+									tree_node_int_goal.HeuristicGetValueFromChild(0, null, null, state_list[state_list_index].state, domain),
+									tree_node_int_goal.HeuristicGetValueFromChild(1, null, null, state_list[state_list_index].state, domain));
 								
-								var function_is_closer:Bool = 	(((after_values.b.a - before_values.b.a) < 0) && ((goal_values.a.a - before_values.b.a) < 0)) ||
-																(((after_values.b.b - before_values.b.b) > 0) && ((goal_values.a.b - before_values.b.b) > 0)) ||
-																(((after_values.a.a - before_values.a.a) < 0) && ((goal_values.b.a - before_values.a.a) < 0)) ||
-																(((after_values.a.b - before_values.a.b) > 0) && ((goal_values.b.b - before_values.a.b) > 0));
+								var function_is_closer:Bool = IsFunctionCloser(before_values, after_values, goal_values);
 								
 								#if debugging_heuristic
 								if (function_is_closer)
@@ -735,6 +732,18 @@ class Heuristic implements IHeuristic
 		}
 		
 		return array;
+	}
+	
+	static inline public function IsFunctionCloser(
+		before_values_:Pair<Pair<Int, Int>, Pair<Int, Int>>,
+		after_values_:Pair<Pair<Int, Int>, Pair<Int, Int>>,
+		goal_values_:Pair<Pair<Int, Int>, Pair<Int, Int>>
+	):Bool
+	{
+		return 	(((after_values_.b.a - before_values_.b.a) < 0) && ((goal_values_.a.a - before_values_.b.a) < 0)) ||
+				(((after_values_.b.b - before_values_.b.b) > 0) && ((goal_values_.a.b - before_values_.b.b) > 0)) ||
+				(((after_values_.a.a - before_values_.a.a) < 0) && ((goal_values_.b.a - before_values_.a.a) < 0)) ||
+				(((after_values_.a.b - before_values_.a.b) > 0) && ((goal_values_.b.b - before_values_.a.b) > 0));
 	}
 	
 }

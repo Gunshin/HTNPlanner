@@ -91,10 +91,10 @@ class HeuristicRateOfChange implements IHeuristic
 		var heuristic_state:StateHeuristic = new StateHeuristic();
 		initial_state_.CopyTo(heuristic_state);
 		
-		var action_function_mapping:Map<String, Map<String, Array<FunctionRateOfChange>>> = new Map<String, Map<String, Array<FunctionRateOfChange>>>();
+		var manager_rof:ManagerRateOfChange = new ManagerRateOfChange();
 		var action_predicate_mapping:Map<String, Array<Array<PlannerActionNode>>> = new Map<String, Array<Array<PlannerActionNode>>>();
 		
-		var state_list:Array<HeuristicNode> = GenerateStateLevels(heuristic_state, action_predicate_mapping, action_function_mapping);
+		var state_list:Array<HeuristicNode> = GenerateStateLevels(heuristic_state, action_predicate_mapping, manager_rof);
 		
 		if (state_list == null)
 		{
@@ -150,34 +150,176 @@ class HeuristicRateOfChange implements IHeuristic
 				
 				if (Std.is(goal_node, TreeNodeInt))
 				{
-					var functions:Array<String> = ExtractFunctions(goal_node, domain);
+					var tree_node_int_goal:TreeNodeInt = cast(goal_node, TreeNodeInt);
+					var before_values:Pair<Pair<Int, Int>, Pair<Int, Int>> = new Pair(
+									tree_node_int_goal.HeuristicGetValueFromChild(0, null, null, s_h_n.state, domain),
+									tree_node_int_goal.HeuristicGetValueFromChild(1, null, null, s_h_n.state, domain));
+					
+					var goal_values:Pair<Pair<Int, Int>, Pair<Int, Int>> = new Pair(
+									tree_node_int_goal.HeuristicGetValueFromChild(0, null, null, state_list[goal_node_index].state, domain),
+									tree_node_int_goal.HeuristicGetValueFromChild(1, null, null, state_list[goal_node_index].state, domain));
+					
+					var a_a:Int = goal_values.a.a - before_values.a.a;
+					var a_b:Int = goal_values.a.b - before_values.a.b;
+					
+					var b_a:Int = goal_values.b.a - before_values.b.a;
+					var b_b:Int = goal_values.b.b - before_values.b.b;
+					
+					var best_actions:Array<FunctionRateOfChange> = new Array<FunctionRateOfChange>();
+					
+					// this means that the left side needs to decrease, therefor ask for the best negative action of the functions the left side has
+					if (a_a < 0 || a_b > 0)
+					{
+						var functions:Array<String> = ExtractFunctions(goal_node.GetChildren()[0], domain);
+						var r_o_c:Array<FunctionRateOfChange> = manager_rof.GetBest(functions, goal_node_index);
+						for (action in r_o_c)
+						{
+							best_actions.push(action);
+						}
+						
+						#if debugging_heuristic
+						Utilities.Logln("Generated functions: " + functions + "\n");
+						for (func_name in functions)
+						{
+							for (obj in manager_rof.GetAllFromFunction(func_name))
+							{
+								Utilities.Logln("Action: " + obj.action.GetActionTransform() + " function: " + obj.function_name + " :: rate: " + obj.rate_of_change + " _ depth: " + obj.state_level);
+							}
+						}
+						#end
+					}
+					
+					// this means that the right side needs to decrease, therefor ask for the best negative action of the functions the right side has
+					if (b_a < 0 || b_b > 0)
+					{
+						var functions:Array<String> = ExtractFunctions(goal_node.GetChildren()[1], domain);
+						var r_o_c:Array<FunctionRateOfChange> = manager_rof.GetBest(functions, goal_node_index);
+						for (action in r_o_c)
+						{
+							best_actions.push(action);
+						}
+						
+						#if debugging_heuristic
+						Utilities.Logln("Generated functions: " + functions + "\n");
+						for (func_name in functions)
+						{
+							for (obj in manager_rof.GetAllFromFunction(func_name))
+							{
+								Utilities.Logln("Action: " + obj.action.GetActionTransform() + " function: " + obj.function_name + " :: rate: " + obj.rate_of_change + " _ depth: " + obj.state_level);
+							}
+						}
+						#end
+					}
 					
 					#if debugging_heuristic
-					Utilities.Logln("Generated functions: " + functions + "\n");
+					Utilities.Logln("before: " + before_values);
+					Utilities.Logln("goal: " + goal_values);
+					Utilities.Logln("a_a: " + a_a);
+					Utilities.Logln("a_b: " + a_b);
+					Utilities.Logln("b_a: " + b_a);
+					Utilities.Logln("b_b: " + b_b);
+					Utilities.Logln("tree: " + tree_node_int_goal.GetRawTreeString());
 					#end
 					
 					
 					
-					for (func_name in functions)
+					#if debugging_heuristic
+					for (best_action in best_actions)
 					{
-						var function_map:Map<String, Array<FunctionRateOfChange>> = GetActionFunctionMapping(action_function_mapping, func_name);
-						#if debugging_heuristic
-						Utilities.Logln("Function: " + func_name);
-						#end
-						for (key in function_map.keys())
-						{
-							#if debugging_heuristic
-							Utilities.Logln("\nKey: " + key);
-							#end
-							var specific_actions:Array<FunctionRateOfChange> = function_map.get(key);
-							for (action in specific_actions)
-							{
-								#if debugging_heuristic
-								Utilities.Logln("Specific action: " + action.action.GetActionTransform() + " depth: " + action.state_level + " change: " + action.rate_of_change);
-								#end
-							}
-						}
+						Utilities.Logln("Best: " + best_action.action.GetActionTransform() + " :: rate: " + best_action.rate_of_change + " _ depth: " + best_action.state_level);
 					}
+					#end
+					
+					// final set of actions that could be done, with the amount of repetitions needed
+					var valid_actions:Array<Pair<Int, FunctionRateOfChange>> = new Array<Pair<Int, FunctionRateOfChange>>();
+					var lowest_iteration:Null<Int> = null;
+					
+					for (roc in best_actions)
+					{
+						var goal_node_checking_state:StateHeuristic = new StateHeuristic();
+						//grab the predicates that are needed
+						var heuristic_data_for_looking:HeuristicData = new HeuristicData();
+						roc.action.Set();
+						roc.action.action.HeuristicExecute(heuristic_data_for_looking, s_h_n.state, domain);
+						//need to apply the predicates to the state
+						for (i in heuristic_data_for_looking.predicates.keys())
+						{
+							goal_node_checking_state.AddRelation(i);
+						}
+						//var original_function_values:Map<String, Pair<Int, Int>> = new Map<String, Pair<Int, Int>>();
+						
+						//need to apply the functions to the state
+						for (i in heuristic_data_for_looking.function_changes)
+						{
+							goal_node_checking_state.SetFunctionBounds(i.name, i.bounds);
+						}
+						
+						var after_values:Pair<Pair<Int, Int>, Pair<Int, Int>> = new Pair(
+									tree_node_int_goal.HeuristicGetValueFromChild(0, null, null, goal_node_checking_state, domain),
+									tree_node_int_goal.HeuristicGetValueFromChild(1, null, null, goal_node_checking_state, domain));
+						
+						var function_is_closer:Bool = Heuristic.IsFunctionCloser(before_values, after_values, goal_values);
+						
+						var iteration_counter:Int = 0;
+						// only do something if this action appears to have moved the goal node closer
+						if (function_is_closer)
+						{
+							do
+							{
+								iteration_counter++;
+								
+								// if this goal_node is now satisfied, break out of the do while
+								if (goal_node.HeuristicEvaluate(null, null, goal_node_checking_state, domain))
+								{
+									valid_actions.push(new Pair(iteration_counter, roc));
+									if (lowest_iteration == null || lowest_iteration > iteration_counter)
+									{
+										lowest_iteration = iteration_counter;
+									}
+									break;
+								}
+								
+								roc.action.action.HeuristicExecute(heuristic_data_for_looking, s_h_n.state, domain);
+								//need to apply the predicates to the state
+								for (i in heuristic_data_for_looking.predicates.keys())
+								{
+									goal_node_checking_state.AddRelation(i);
+								}
+								//var original_function_values:Map<String, Pair<Int, Int>> = new Map<String, Pair<Int, Int>>();
+								
+								//need to apply the functions to the state
+								for (i in heuristic_data_for_looking.function_changes)
+								{
+									goal_node_checking_state.SetFunctionBounds(i.name, i.bounds);
+								}
+								
+								// need to recheck after every execution incase it suddenly stops moving towards the goal
+								after_values = new Pair(
+									tree_node_int_goal.HeuristicGetValueFromChild(0, null, null, goal_node_checking_state, domain),
+									tree_node_int_goal.HeuristicGetValueFromChild(1, null, null, goal_node_checking_state, domain));
+								
+								function_is_closer = Heuristic.IsFunctionCloser(before_values, after_values, goal_values);
+								
+							}
+							while (function_is_closer);
+							
+						}
+						
+						#if debugging_heuristic
+						Utilities.Logln("Test: " + roc.action.GetActionTransform() + " closer: " + function_is_closer);
+						#end
+					}
+					
+					#if debugging_heuristic
+					for (valid in valid_actions)
+					{
+						Utilities.Logln("Final: " + valid.b.action.GetActionTransform() + " :: rate: " + valid.b.rate_of_change + " _ depth: " + valid.b.state_level + " iteration: " + valid.a);
+					}
+					#end
+					
+					
+					
+					
 				}
 				else
 				{
@@ -267,7 +409,7 @@ class HeuristicRateOfChange implements IHeuristic
 		}
 		Utilities.Log("\n------------------------\n\n");
 		
-		Utilities.Logln(action_function_mapping.toString());
+		//Utilities.Logln(action_function_mapping.toString());
 		#end
 		
 		//trace("length: " + ordered_concrete_actions.length);
@@ -278,7 +420,7 @@ class HeuristicRateOfChange implements IHeuristic
 	function GenerateStateLevels(
 		heuristic_initial_state_:StateHeuristic,
 		action_predicate_mapping_:Map<String, Array<Array<PlannerActionNode>>>,
-		action_function_mapping_:Map<String, Map<String, Array<FunctionRateOfChange>>>
+		manager_rof:ManagerRateOfChange
 	)
 	:Array<HeuristicNode>
 	{
@@ -307,7 +449,7 @@ class HeuristicRateOfChange implements IHeuristic
 		
 		while (!problem.HeuristicEvaluateGoal(current_node.state))
 		{
-			var successor_state:StateHeuristic = ApplyActions(current_node, action_predicate_mapping_, action_function_mapping_, depth, domain);
+			var successor_state:StateHeuristic = ApplyActions(current_node, action_predicate_mapping_, manager_rof, depth, domain);
 			current_node = new HeuristicNode(successor_state, GetAllActionsForState(successor_state, domain));
 			state_list.push(current_node);
 			depth++;
@@ -477,7 +619,7 @@ class HeuristicRateOfChange implements IHeuristic
 	static public function ApplyActions(
 		current_node_:HeuristicNode,
 		action_predicate_mapping_:Map<String, Array<Array<PlannerActionNode>>>,
-		action_function_mapping_:Map<String, Map<String, Array<FunctionRateOfChange>>>,
+		manager_rof:ManagerRateOfChange,
 		depth_:Int,
 		domain_:Domain
 	):StateHeuristic
@@ -506,19 +648,15 @@ class HeuristicRateOfChange implements IHeuristic
 					var function_change_bounds:Int = function_change.bounds.a - original_function_bounds.a != 0 ?
 							function_change.bounds.a - original_function_bounds.a :
 							function_change.bounds.b - original_function_bounds.b;
-					var function_map:Map<String, Array<FunctionRateOfChange>> = GetActionFunctionMapping(action_function_mapping_, function_change.name);
-					var array:Array<FunctionRateOfChange> = function_map.get(data_node.a.GetNonIntegerParameterActionTransform());
-					if (array == null)
-					{
-						array = new Array<FunctionRateOfChange>();
-						function_map.set(data_node.a.GetNonIntegerParameterActionTransform(), array);
-					}
-					array.push(new FunctionRateOfChange(function_change.name, function_change_bounds, depth_, data_node.a));
+					
+					manager_rof.AddRateOfChange(new FunctionRateOfChange(function_change.name, function_change_bounds, depth_, data_node.a));
 					
 				}
 				new_state.SetFunctionBounds(function_change.name, function_change.bounds);
 			}
 		}
+		
+		manager_rof.Calculate();
 		
 		for (data_node in current_node_.heuristic_data)
 		{
