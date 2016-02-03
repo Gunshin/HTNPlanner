@@ -232,8 +232,6 @@ class HeuristicRateOfChange implements IHeuristic
 					
 					// final set of actions that could be done, with the amount of repetitions needed
 					var valid_actions:Array<Pair<Int, FunctionRateOfChange>> = new Array<Pair<Int, FunctionRateOfChange>>();
-					var lowest_iteration:Null<Int> = null;
-					
 					for (roc in best_actions)
 					{
 						var goal_node_checking_state:StateHeuristic = new StateHeuristic();
@@ -272,20 +270,15 @@ class HeuristicRateOfChange implements IHeuristic
 								if (goal_node.HeuristicEvaluate(null, null, goal_node_checking_state, domain))
 								{
 									valid_actions.push(new Pair(iteration_counter, roc));
-									if (lowest_iteration == null || lowest_iteration > iteration_counter)
-									{
-										lowest_iteration = iteration_counter;
-									}
 									break;
 								}
 								
-								roc.action.action.HeuristicExecute(heuristic_data_for_looking, s_h_n.state, domain);
+								roc.action.action.HeuristicExecute(heuristic_data_for_looking, goal_node_checking_state, domain);
 								//need to apply the predicates to the state
 								for (i in heuristic_data_for_looking.predicates.keys())
 								{
 									goal_node_checking_state.AddRelation(i);
 								}
-								//var original_function_values:Map<String, Pair<Int, Int>> = new Map<String, Pair<Int, Int>>();
 								
 								//need to apply the functions to the state
 								for (i in heuristic_data_for_looking.function_changes)
@@ -299,7 +292,6 @@ class HeuristicRateOfChange implements IHeuristic
 									tree_node_int_goal.HeuristicGetValueFromChild(1, null, null, goal_node_checking_state, domain));
 								
 								function_is_closer = Heuristic.IsFunctionCloser(before_values, after_values, goal_values);
-								
 							}
 							while (function_is_closer);
 							
@@ -309,7 +301,6 @@ class HeuristicRateOfChange implements IHeuristic
 						Utilities.Logln("Test: " + roc.action.GetActionTransform() + " closer: " + function_is_closer);
 						#end
 					}
-					
 					#if debugging_heuristic
 					for (valid in valid_actions)
 					{
@@ -317,8 +308,40 @@ class HeuristicRateOfChange implements IHeuristic
 					}
 					#end
 					
+					var best:Pair<Int, FunctionRateOfChange> = SelectBestAction(valid_actions);
+					best.b.action.Set();
+					var action_precondition_nodes_to_add:Array<TreeNode> = GetGoalNodes(best.b.action.action.GetPreconditionTree().GetBaseNode());
 					
+					#if debugging_heuristic
+					Utilities.Log("Adding: " + best.b.action.GetActionTransform() + "\n");
+					#end
 					
+					for (action_precondition_node in action_precondition_nodes_to_add)
+					{
+						// an array since a for loop can return many nodes when asked for a concrete version
+						var concrete_nodes:Array<TreeNode> = action_precondition_node.GenerateConcrete(best.b.action.action.GetData(), s_h_n.state, domain);
+						
+						#if debugging_heuristic
+						Utilities.Log("" + concrete_nodes + "\n\n");
+						#end
+						
+						for (concrete_node in concrete_nodes)
+						{
+							AddGoalNodeToLayers(concrete_node.Clone(), state_list, goal_node_layers);
+						}
+					}
+					
+					#if debugging_heuristic
+					Utilities.Logln("");
+					#end
+					
+					// since we have determined it is closer, we should add this action to the list
+					
+					for (it in 0...best.a)
+					{
+						concrete_actions.set(best.b.action, true);
+						ordered_concrete_actions.push(best.b.action);
+					}
 					
 				}
 				else
@@ -391,7 +414,6 @@ class HeuristicRateOfChange implements IHeuristic
 			goal_node_layers[goal_node_index] = null;
 			goal_node_index--;
 		}
-		throw "end";
 	// 		get specific actions from functions and find the satisfying actions <- md cp? 1.
 	// 			treat satisfying actions as being able to be done multiple times? <- sm cp
 	// 				Therefor select largest?
@@ -483,6 +505,22 @@ class HeuristicRateOfChange implements IHeuristic
 		}
 		
 		return state_list;
+	}
+	
+	static function SelectBestAction(array_:Array<Pair<Int, FunctionRateOfChange>>):Pair<Int, FunctionRateOfChange>
+	{
+		var best:Pair<Int, FunctionRateOfChange> = null;
+		
+		for (obj in array_)
+		{
+			if (best == null || best.b.state_level > obj.b.state_level || (obj.b.state_level == best.b.state_level && obj.a > best.a))
+			{
+				best = obj;
+			}
+		}
+		
+		return best;
+		
 	}
 	
 	static public function ExtractFunctions(goal_node_:TreeNode, domain_:Domain):Array<String>

@@ -1060,20 +1060,84 @@ tree: >= (housing location0) (2)
 Best: build-house location0 ~count:10 :: rate: 10 _ depth: 4
 Test: build-house location0 ~count:10 closer: true
 Final: build-house location0 ~count:10 :: rate: 10 _ depth: 4 iteration: 1
+Adding: build-house location0 ~count:10
+[> (10) (0) ]
+
+goal node added to: > (10) (0)  :: 0
+[<= (10) (available wood location0) ]
+
+goal node added to: <= (10) (available wood location0)  :: 4
+[<= (10) (available stone location0) ]
+
+goal node added to: <= (10) (available stone location0)  :: 2
+
 ------------------
+[> (10) (0) ]
 []
-[]
-[]
+[<= (10) (available stone location0) ]
 [has-coal-stack location0]
-[]
+[<= (10) (available wood location0) ]
 null
 ------------------------
 
+Goal node: <= (10) (available wood location0) 
+Generated functions: [available wood location0]
+
+Action: build-docks location0 function: available wood location0 :: rate: -2 _ depth: 4
+Action: load vehicle3 location0 wood ~count:1 function: available wood location0 :: rate: -1 _ depth: 4
+Action: saw-wood location0 ~count:10 function: available wood location0 :: rate: 10 _ depth: 4
+Action: saw-wood location0 ~count:10 function: available wood location0 :: rate: 10 _ depth: 3
+Action: load vehicle2 location0 wood ~count:1 function: available wood location0 :: rate: -1 _ depth: 4
+Action: build-ironworks location0 function: available wood location0 :: rate: -2 _ depth: 4
+Action: load vehicle4 location0 wood ~count:1 function: available wood location0 :: rate: -1 _ depth: 4
+Action: build-house location0 ~count:10 function: available wood location0 :: rate: -10 _ depth: 4
+Action: load vehicle0 location0 wood ~count:1 function: available wood location0 :: rate: -1 _ depth: 4
+Action: load vehicle1 location0 wood ~count:1 function: available wood location0 :: rate: -1 _ depth: 4
+before: {"a":"{"a":"10", "b":"10"}", "b":"{"a":"0", "b":"0"}"}
+goal: {"a":"{"a":"10", "b":"10"}", "b":"{"a":"0", "b":"10"}"}
+a_a: 0
+a_b: 0
+b_a: 0
+b_b: 10
+tree: <= (10) (available wood location0) 
+Best: build-docks location0 :: rate: -2 _ depth: 4
+Best: load vehicle3 location0 wood ~count:1 :: rate: -1 _ depth: 4
+Best: saw-wood location0 ~count:10 :: rate: 10 _ depth: 3
+Best: load vehicle2 location0 wood ~count:1 :: rate: -1 _ depth: 4
+Best: build-ironworks location0 :: rate: -2 _ depth: 4
+Best: load vehicle4 location0 wood ~count:1 :: rate: -1 _ depth: 4
+Best: build-house location0 ~count:10 :: rate: -10 _ depth: 4
+Best: load vehicle0 location0 wood ~count:1 :: rate: -1 _ depth: 4
+Best: load vehicle1 location0 wood ~count:1 :: rate: -1 _ depth: 4
+Test: build-docks location0 closer: false
+Test: load vehicle3 location0 wood ~count:1 closer: false
+Test: saw-wood location0 ~count:10 closer: true
+Test: load vehicle2 location0 wood ~count:1 closer: false
+Test: build-ironworks location0 closer: false
+Test: load vehicle4 location0 wood ~count:1 closer: false
+Test: build-house location0 ~count:10 closer: false
+Test: load vehicle0 location0 wood ~count:1 closer: false
+Test: load vehicle1 location0 wood ~count:1 closer: false
+Final: saw-wood location0 ~count:10 :: rate: 10 _ depth: 3 iteration: 1
+Adding: saw-wood location0 ~count:10
+[has-sawmill location0]
+
+goal node added to: has-sawmill location0 :: 3
+[> (10) (0) ]
+
+goal node added to: > (10) (0)  :: 0
+[<= (10) (10) ]
+
+goal node added to: <= (10) (10)  :: 0
+[<= (10) (available timber location0) ]
+
+goal node added to: <= (10) (available timber location0)  :: 2
+
 ------------------
+[> (10) (0) ,> (10) (0) ,<= (10) (10) ]
 []
-[]
-[]
-[has-coal-stack location0]
+[<= (10) (available stone location0) ,<= (10) (available timber location0) ]
+[has-coal-stack location0,has-sawmill location0]
 null
 null
 ------------------------
@@ -1083,14 +1147,203 @@ Specific action: build-coal-stack location0
 [>= (available timber location0) (1) ]
 goal node added to: >= (available timber location0) (1)  :: 2
 
+Goal node: has-sawmill location0
+Specific action: build-sawmill location0
+[>= (available timber location0) (2) ]
+goal node added to: >= (available timber location0) (2)  :: 2
+
 ------------------
+[> (10) (0) ,> (10) (0) ,<= (10) (10) ]
 []
-[]
-[>= (available timber location0) (1) ]
+[<= (10) (available stone location0) ,<= (10) (available timber location0) ,>= (available timber location0) (1) ,>= (available timber location0) (2) ]
 null
 null
 null
 ------------------------
+
+Goal node: <= (10) (available stone location0) 
+Generated functions: [available stone location0]
+
+Action: build-docks location0 function: available stone location0 :: rate: -2 _ depth: 4
+Action: load vehicle3 location0 stone ~count:1 function: available stone location0 :: rate: -1 _ depth: 4
+Action: load vehicle3 location0 stone ~count:1 function: available stone location0 :: rate: -1 _ depth: 3
+Action: load vehicle4 location0 stone ~count:1 function: available stone location0 :: rate: -1 _ depth: 4
+Action: load vehicle4 location0 stone ~count:1 function: available stone location0 :: rate: -1 _ depth: 3
+Action: build-ironworks location0 function: available stone location0 :: rate: -2 _ depth: 4
+Action: unload vehicle4 location0 stone ~count:1 function: available stone location0 :: rate: 1 _ depth: 4
+Action: load vehicle0 location0 stone ~count:1 function: available stone location0 :: rate: -1 _ depth: 4
+Action: load vehicle0 location0 stone ~count:1 function: available stone location0 :: rate: -1 _ depth: 3
+Action: build-house location0 ~count:10 function: available stone location0 :: rate: -10 _ depth: 4
+Action: load vehicle2 location0 stone ~count:1 function: available stone location0 :: rate: -1 _ depth: 4
+Action: load vehicle2 location0 stone ~count:1 function: available stone location0 :: rate: -1 _ depth: 3
+Action: unload vehicle1 location0 stone ~count:1 function: available stone location0 :: rate: 1 _ depth: 4
+Action: break-stone location0 ~count:10 function: available stone location0 :: rate: 10 _ depth: 1
+Action: break-stone location0 ~count:10 function: available stone location0 :: rate: 10 _ depth: 2
+Action: break-stone location0 ~count:10 function: available stone location0 :: rate: 10 _ depth: 3
+Action: break-stone location0 ~count:10 function: available stone location0 :: rate: 10 _ depth: 4
+Action: unload vehicle3 location0 stone ~count:1 function: available stone location0 :: rate: 1 _ depth: 4
+Action: load vehicle1 location0 stone ~count:1 function: available stone location0 :: rate: -1 _ depth: 4
+Action: load vehicle1 location0 stone ~count:1 function: available stone location0 :: rate: -1 _ depth: 3
+Action: unload vehicle0 location0 stone ~count:1 function: available stone location0 :: rate: 1 _ depth: 4
+Action: unload vehicle2 location0 stone ~count:1 function: available stone location0 :: rate: 1 _ depth: 4
+before: {"a":"{"a":"10", "b":"10"}", "b":"{"a":"0", "b":"0"}"}
+goal: {"a":"{"a":"10", "b":"10"}", "b":"{"a":"0", "b":"10"}"}
+a_a: 0
+a_b: 0
+b_a: 0
+b_b: 10
+tree: <= (10) (available stone location0) 
+Best: build-docks location0 :: rate: -2 _ depth: 4
+Best: load vehicle3 location0 stone ~count:1 :: rate: -1 _ depth: 3
+Best: load vehicle4 location0 stone ~count:1 :: rate: -1 _ depth: 3
+Best: build-ironworks location0 :: rate: -2 _ depth: 4
+Best: unload vehicle4 location0 stone ~count:1 :: rate: 1 _ depth: 4
+Best: load vehicle0 location0 stone ~count:1 :: rate: -1 _ depth: 3
+Best: build-house location0 ~count:10 :: rate: -10 _ depth: 4
+Best: load vehicle2 location0 stone ~count:1 :: rate: -1 _ depth: 3
+Best: unload vehicle1 location0 stone ~count:1 :: rate: 1 _ depth: 4
+Best: break-stone location0 ~count:10 :: rate: 10 _ depth: 1
+Best: unload vehicle3 location0 stone ~count:1 :: rate: 1 _ depth: 4
+Best: load vehicle1 location0 stone ~count:1 :: rate: -1 _ depth: 3
+Best: unload vehicle0 location0 stone ~count:1 :: rate: 1 _ depth: 4
+Best: unload vehicle2 location0 stone ~count:1 :: rate: 1 _ depth: 4
+Test: build-docks location0 closer: false
+Test: load vehicle3 location0 stone ~count:1 closer: false
+Test: load vehicle4 location0 stone ~count:1 closer: false
+Test: build-ironworks location0 closer: false
+Test: unload vehicle4 location0 stone ~count:1 closer: true
+Test: load vehicle0 location0 stone ~count:1 closer: false
+Test: build-house location0 ~count:10 closer: false
+Test: load vehicle2 location0 stone ~count:1 closer: false
+Test: unload vehicle1 location0 stone ~count:1 closer: true
+Test: break-stone location0 ~count:10 closer: true
+Test: unload vehicle3 location0 stone ~count:1 closer: true
+Test: load vehicle1 location0 stone ~count:1 closer: false
+Test: unload vehicle0 location0 stone ~count:1 closer: true
+Test: unload vehicle2 location0 stone ~count:1 closer: true
+Final: unload vehicle4 location0 stone ~count:1 :: rate: 1 _ depth: 4 iteration: 10
+Final: unload vehicle1 location0 stone ~count:1 :: rate: 1 _ depth: 4 iteration: 10
+Final: break-stone location0 ~count:10 :: rate: 10 _ depth: 1 iteration: 1
+Final: unload vehicle3 location0 stone ~count:1 :: rate: 1 _ depth: 4 iteration: 10
+Final: unload vehicle0 location0 stone ~count:1 :: rate: 1 _ depth: 4 iteration: 10
+Final: unload vehicle2 location0 stone ~count:1 :: rate: 1 _ depth: 4 iteration: 10
+Adding: break-stone location0 ~count:10
+[has-quarry location0]
+
+goal node added to: has-quarry location0 :: 1
+[> (10) (0) ]
+
+goal node added to: > (10) (0)  :: 0
+[<= (10) (10) ]
+
+goal node added to: <= (10) (10)  :: 0
+
+Goal node: <= (10) (available timber location0) 
+Generated functions: [available timber location0]
+
+Action: build-cart location0 vehicle2 function: available timber location0 :: rate: -1 _ depth: 4
+Action: build-cart location0 vehicle2 function: available timber location0 :: rate: -1 _ depth: 2
+Action: build-cart location0 vehicle2 function: available timber location0 :: rate: -1 _ depth: 3
+Action: unload vehicle0 location0 timber ~count:1 function: available timber location0 :: rate: 1 _ depth: 4
+Action: build-cart location0 vehicle1 function: available timber location0 :: rate: -1 _ depth: 4
+Action: build-cart location0 vehicle1 function: available timber location0 :: rate: -1 _ depth: 2
+Action: build-cart location0 vehicle1 function: available timber location0 :: rate: -1 _ depth: 3
+Action: build-cart location0 vehicle3 function: available timber location0 :: rate: -1 _ depth: 4
+Action: build-cart location0 vehicle3 function: available timber location0 :: rate: -1 _ depth: 2
+Action: build-cart location0 vehicle3 function: available timber location0 :: rate: -1 _ depth: 3
+Action: fell-timber location0 ~count:10 function: available timber location0 :: rate: 10 _ depth: 1
+Action: fell-timber location0 ~count:10 function: available timber location0 :: rate: 10 _ depth: 2
+Action: fell-timber location0 ~count:10 function: available timber location0 :: rate: 10 _ depth: 3
+Action: fell-timber location0 ~count:10 function: available timber location0 :: rate: 10 _ depth: 4
+Action: load vehicle2 location0 timber ~count:1 function: available timber location0 :: rate: -1 _ depth: 4
+Action: load vehicle2 location0 timber ~count:1 function: available timber location0 :: rate: -1 _ depth: 3
+Action: build-coal-stack location0 function: available timber location0 :: rate: -1 _ depth: 2
+Action: build-cart location0 vehicle4 function: available timber location0 :: rate: -1 _ depth: 4
+Action: build-cart location0 vehicle4 function: available timber location0 :: rate: -1 _ depth: 2
+Action: build-cart location0 vehicle4 function: available timber location0 :: rate: -1 _ depth: 3
+Action: load vehicle1 location0 timber ~count:1 function: available timber location0 :: rate: -1 _ depth: 4
+Action: load vehicle1 location0 timber ~count:1 function: available timber location0 :: rate: -1 _ depth: 3
+Action: unload vehicle2 location0 timber ~count:1 function: available timber location0 :: rate: 1 _ depth: 4
+Action: build-cart location0 vehicle0 function: available timber location0 :: rate: -1 _ depth: 4
+Action: build-cart location0 vehicle0 function: available timber location0 :: rate: -1 _ depth: 2
+Action: build-cart location0 vehicle0 function: available timber location0 :: rate: -1 _ depth: 3
+Action: unload vehicle3 location0 timber ~count:1 function: available timber location0 :: rate: 1 _ depth: 4
+Action: saw-wood location0 ~count:10 function: available timber location0 :: rate: -10 _ depth: 4
+Action: saw-wood location0 ~count:10 function: available timber location0 :: rate: -10 _ depth: 3
+Action: build-sawmill location0 function: available timber location0 :: rate: -2 _ depth: 2
+Action: burn-coal location0 ~count:10 function: available timber location0 :: rate: -10 _ depth: 4
+Action: burn-coal location0 ~count:10 function: available timber location0 :: rate: -10 _ depth: 3
+Action: load vehicle3 location0 timber ~count:1 function: available timber location0 :: rate: -1 _ depth: 4
+Action: load vehicle3 location0 timber ~count:1 function: available timber location0 :: rate: -1 _ depth: 3
+Action: unload vehicle4 location0 timber ~count:1 function: available timber location0 :: rate: 1 _ depth: 4
+Action: load vehicle4 location0 timber ~count:1 function: available timber location0 :: rate: -1 _ depth: 4
+Action: load vehicle4 location0 timber ~count:1 function: available timber location0 :: rate: -1 _ depth: 3
+Action: load vehicle0 location0 timber ~count:1 function: available timber location0 :: rate: -1 _ depth: 4
+Action: load vehicle0 location0 timber ~count:1 function: available timber location0 :: rate: -1 _ depth: 3
+Action: unload vehicle1 location0 timber ~count:1 function: available timber location0 :: rate: 1 _ depth: 4
+before: {"a":"{"a":"10", "b":"10"}", "b":"{"a":"0", "b":"0"}"}
+goal: {"a":"{"a":"10", "b":"10"}", "b":"{"a":"0", "b":"10"}"}
+a_a: 0
+a_b: 0
+b_a: 0
+b_b: 10
+tree: <= (10) (available timber location0) 
+Best: build-cart location0 vehicle2 :: rate: -1 _ depth: 2
+Best: unload vehicle0 location0 timber ~count:1 :: rate: 1 _ depth: 4
+Best: build-cart location0 vehicle1 :: rate: -1 _ depth: 2
+Best: build-cart location0 vehicle3 :: rate: -1 _ depth: 2
+Best: fell-timber location0 ~count:10 :: rate: 10 _ depth: 1
+Best: load vehicle2 location0 timber ~count:1 :: rate: -1 _ depth: 3
+Best: build-coal-stack location0 :: rate: -1 _ depth: 2
+Best: build-cart location0 vehicle4 :: rate: -1 _ depth: 2
+Best: load vehicle1 location0 timber ~count:1 :: rate: -1 _ depth: 3
+Best: unload vehicle2 location0 timber ~count:1 :: rate: 1 _ depth: 4
+Best: build-cart location0 vehicle0 :: rate: -1 _ depth: 2
+Best: unload vehicle3 location0 timber ~count:1 :: rate: 1 _ depth: 4
+Best: saw-wood location0 ~count:10 :: rate: -10 _ depth: 3
+Best: build-sawmill location0 :: rate: -2 _ depth: 2
+Best: burn-coal location0 ~count:10 :: rate: -10 _ depth: 3
+Best: load vehicle3 location0 timber ~count:1 :: rate: -1 _ depth: 3
+Best: unload vehicle4 location0 timber ~count:1 :: rate: 1 _ depth: 4
+Best: load vehicle4 location0 timber ~count:1 :: rate: -1 _ depth: 3
+Best: load vehicle0 location0 timber ~count:1 :: rate: -1 _ depth: 3
+Best: unload vehicle1 location0 timber ~count:1 :: rate: 1 _ depth: 4
+Test: build-cart location0 vehicle2 closer: false
+Test: unload vehicle0 location0 timber ~count:1 closer: true
+Test: build-cart location0 vehicle1 closer: false
+Test: build-cart location0 vehicle3 closer: false
+Test: fell-timber location0 ~count:10 closer: true
+Test: load vehicle2 location0 timber ~count:1 closer: false
+Test: build-coal-stack location0 closer: false
+Test: build-cart location0 vehicle4 closer: false
+Test: load vehicle1 location0 timber ~count:1 closer: false
+Test: unload vehicle2 location0 timber ~count:1 closer: true
+Test: build-cart location0 vehicle0 closer: false
+Test: unload vehicle3 location0 timber ~count:1 closer: true
+Test: saw-wood location0 ~count:10 closer: false
+Test: build-sawmill location0 closer: false
+Test: burn-coal location0 ~count:10 closer: false
+Test: load vehicle3 location0 timber ~count:1 closer: false
+Test: unload vehicle4 location0 timber ~count:1 closer: true
+Test: load vehicle4 location0 timber ~count:1 closer: false
+Test: load vehicle0 location0 timber ~count:1 closer: false
+Test: unload vehicle1 location0 timber ~count:1 closer: true
+Final: unload vehicle0 location0 timber ~count:1 :: rate: 1 _ depth: 4 iteration: 10
+Final: fell-timber location0 ~count:10 :: rate: 10 _ depth: 1 iteration: 1
+Final: unload vehicle2 location0 timber ~count:1 :: rate: 1 _ depth: 4 iteration: 10
+Final: unload vehicle3 location0 timber ~count:1 :: rate: 1 _ depth: 4 iteration: 10
+Final: unload vehicle4 location0 timber ~count:1 :: rate: 1 _ depth: 4 iteration: 10
+Final: unload vehicle1 location0 timber ~count:1 :: rate: 1 _ depth: 4 iteration: 10
+Adding: fell-timber location0 ~count:10
+[has-cabin location0]
+
+goal node added to: has-cabin location0 :: 1
+[> (10) (0) ]
+
+goal node added to: > (10) (0)  :: 0
+[<= (10) (10) ]
+
+goal node added to: <= (10) (10)  :: 0
 
 Goal node: >= (available timber location0) (1) 
 Generated functions: [available timber location0]
@@ -1188,12 +1441,157 @@ Final: unload vehicle2 location0 timber ~count:1 :: rate: 1 _ depth: 4 iteration
 Final: unload vehicle3 location0 timber ~count:1 :: rate: 1 _ depth: 4 iteration: 1
 Final: unload vehicle4 location0 timber ~count:1 :: rate: 1 _ depth: 4 iteration: 1
 Final: unload vehicle1 location0 timber ~count:1 :: rate: 1 _ depth: 4 iteration: 1
+Adding: fell-timber location0 ~count:10
+[has-cabin location0]
+
+goal node added to: has-cabin location0 :: 1
+[> (10) (0) ]
+
+goal node added to: > (10) (0)  :: 0
+[<= (10) (10) ]
+
+goal node added to: <= (10) (10)  :: 0
+
+Goal node: >= (available timber location0) (2) 
+Generated functions: [available timber location0]
+
+Action: build-cart location0 vehicle2 function: available timber location0 :: rate: -1 _ depth: 4
+Action: build-cart location0 vehicle2 function: available timber location0 :: rate: -1 _ depth: 2
+Action: build-cart location0 vehicle2 function: available timber location0 :: rate: -1 _ depth: 3
+Action: unload vehicle0 location0 timber ~count:1 function: available timber location0 :: rate: 1 _ depth: 4
+Action: build-cart location0 vehicle1 function: available timber location0 :: rate: -1 _ depth: 4
+Action: build-cart location0 vehicle1 function: available timber location0 :: rate: -1 _ depth: 2
+Action: build-cart location0 vehicle1 function: available timber location0 :: rate: -1 _ depth: 3
+Action: build-cart location0 vehicle3 function: available timber location0 :: rate: -1 _ depth: 4
+Action: build-cart location0 vehicle3 function: available timber location0 :: rate: -1 _ depth: 2
+Action: build-cart location0 vehicle3 function: available timber location0 :: rate: -1 _ depth: 3
+Action: fell-timber location0 ~count:10 function: available timber location0 :: rate: 10 _ depth: 1
+Action: fell-timber location0 ~count:10 function: available timber location0 :: rate: 10 _ depth: 2
+Action: fell-timber location0 ~count:10 function: available timber location0 :: rate: 10 _ depth: 3
+Action: fell-timber location0 ~count:10 function: available timber location0 :: rate: 10 _ depth: 4
+Action: load vehicle2 location0 timber ~count:1 function: available timber location0 :: rate: -1 _ depth: 4
+Action: load vehicle2 location0 timber ~count:1 function: available timber location0 :: rate: -1 _ depth: 3
+Action: build-coal-stack location0 function: available timber location0 :: rate: -1 _ depth: 2
+Action: build-cart location0 vehicle4 function: available timber location0 :: rate: -1 _ depth: 4
+Action: build-cart location0 vehicle4 function: available timber location0 :: rate: -1 _ depth: 2
+Action: build-cart location0 vehicle4 function: available timber location0 :: rate: -1 _ depth: 3
+Action: load vehicle1 location0 timber ~count:1 function: available timber location0 :: rate: -1 _ depth: 4
+Action: load vehicle1 location0 timber ~count:1 function: available timber location0 :: rate: -1 _ depth: 3
+Action: unload vehicle2 location0 timber ~count:1 function: available timber location0 :: rate: 1 _ depth: 4
+Action: build-cart location0 vehicle0 function: available timber location0 :: rate: -1 _ depth: 4
+Action: build-cart location0 vehicle0 function: available timber location0 :: rate: -1 _ depth: 2
+Action: build-cart location0 vehicle0 function: available timber location0 :: rate: -1 _ depth: 3
+Action: unload vehicle3 location0 timber ~count:1 function: available timber location0 :: rate: 1 _ depth: 4
+Action: saw-wood location0 ~count:10 function: available timber location0 :: rate: -10 _ depth: 4
+Action: saw-wood location0 ~count:10 function: available timber location0 :: rate: -10 _ depth: 3
+Action: build-sawmill location0 function: available timber location0 :: rate: -2 _ depth: 2
+Action: burn-coal location0 ~count:10 function: available timber location0 :: rate: -10 _ depth: 4
+Action: burn-coal location0 ~count:10 function: available timber location0 :: rate: -10 _ depth: 3
+Action: load vehicle3 location0 timber ~count:1 function: available timber location0 :: rate: -1 _ depth: 4
+Action: load vehicle3 location0 timber ~count:1 function: available timber location0 :: rate: -1 _ depth: 3
+Action: unload vehicle4 location0 timber ~count:1 function: available timber location0 :: rate: 1 _ depth: 4
+Action: load vehicle4 location0 timber ~count:1 function: available timber location0 :: rate: -1 _ depth: 4
+Action: load vehicle4 location0 timber ~count:1 function: available timber location0 :: rate: -1 _ depth: 3
+Action: load vehicle0 location0 timber ~count:1 function: available timber location0 :: rate: -1 _ depth: 4
+Action: load vehicle0 location0 timber ~count:1 function: available timber location0 :: rate: -1 _ depth: 3
+Action: unload vehicle1 location0 timber ~count:1 function: available timber location0 :: rate: 1 _ depth: 4
+before: {"a":"{"a":"0", "b":"0"}", "b":"{"a":"2", "b":"2"}"}
+goal: {"a":"{"a":"0", "b":"10"}", "b":"{"a":"2", "b":"2"}"}
+a_a: 0
+a_b: 10
+b_a: 0
+b_b: 0
+tree: >= (available timber location0) (2) 
+Best: build-cart location0 vehicle2 :: rate: -1 _ depth: 2
+Best: unload vehicle0 location0 timber ~count:1 :: rate: 1 _ depth: 4
+Best: build-cart location0 vehicle1 :: rate: -1 _ depth: 2
+Best: build-cart location0 vehicle3 :: rate: -1 _ depth: 2
+Best: fell-timber location0 ~count:10 :: rate: 10 _ depth: 1
+Best: load vehicle2 location0 timber ~count:1 :: rate: -1 _ depth: 3
+Best: build-coal-stack location0 :: rate: -1 _ depth: 2
+Best: build-cart location0 vehicle4 :: rate: -1 _ depth: 2
+Best: load vehicle1 location0 timber ~count:1 :: rate: -1 _ depth: 3
+Best: unload vehicle2 location0 timber ~count:1 :: rate: 1 _ depth: 4
+Best: build-cart location0 vehicle0 :: rate: -1 _ depth: 2
+Best: unload vehicle3 location0 timber ~count:1 :: rate: 1 _ depth: 4
+Best: saw-wood location0 ~count:10 :: rate: -10 _ depth: 3
+Best: build-sawmill location0 :: rate: -2 _ depth: 2
+Best: burn-coal location0 ~count:10 :: rate: -10 _ depth: 3
+Best: load vehicle3 location0 timber ~count:1 :: rate: -1 _ depth: 3
+Best: unload vehicle4 location0 timber ~count:1 :: rate: 1 _ depth: 4
+Best: load vehicle4 location0 timber ~count:1 :: rate: -1 _ depth: 3
+Best: load vehicle0 location0 timber ~count:1 :: rate: -1 _ depth: 3
+Best: unload vehicle1 location0 timber ~count:1 :: rate: 1 _ depth: 4
+Test: build-cart location0 vehicle2 closer: false
+Test: unload vehicle0 location0 timber ~count:1 closer: true
+Test: build-cart location0 vehicle1 closer: false
+Test: build-cart location0 vehicle3 closer: false
+Test: fell-timber location0 ~count:10 closer: true
+Test: load vehicle2 location0 timber ~count:1 closer: false
+Test: build-coal-stack location0 closer: false
+Test: build-cart location0 vehicle4 closer: false
+Test: load vehicle1 location0 timber ~count:1 closer: false
+Test: unload vehicle2 location0 timber ~count:1 closer: true
+Test: build-cart location0 vehicle0 closer: false
+Test: unload vehicle3 location0 timber ~count:1 closer: true
+Test: saw-wood location0 ~count:10 closer: false
+Test: build-sawmill location0 closer: false
+Test: burn-coal location0 ~count:10 closer: false
+Test: load vehicle3 location0 timber ~count:1 closer: false
+Test: unload vehicle4 location0 timber ~count:1 closer: true
+Test: load vehicle4 location0 timber ~count:1 closer: false
+Test: load vehicle0 location0 timber ~count:1 closer: false
+Test: unload vehicle1 location0 timber ~count:1 closer: true
+Final: unload vehicle0 location0 timber ~count:1 :: rate: 1 _ depth: 4 iteration: 2
+Final: fell-timber location0 ~count:10 :: rate: 10 _ depth: 1 iteration: 1
+Final: unload vehicle2 location0 timber ~count:1 :: rate: 1 _ depth: 4 iteration: 2
+Final: unload vehicle3 location0 timber ~count:1 :: rate: 1 _ depth: 4 iteration: 2
+Final: unload vehicle4 location0 timber ~count:1 :: rate: 1 _ depth: 4 iteration: 2
+Final: unload vehicle1 location0 timber ~count:1 :: rate: 1 _ depth: 4 iteration: 2
+Adding: fell-timber location0 ~count:10
+[has-cabin location0]
+
+goal node added to: has-cabin location0 :: 1
+[> (10) (0) ]
+
+goal node added to: > (10) (0)  :: 0
+[<= (10) (10) ]
+
+goal node added to: <= (10) (10)  :: 0
+
 ------------------
-[]
-[]
+[> (10) (0) ,> (10) (0) ,<= (10) (10) ,> (10) (0) ,<= (10) (10) ,> (10) (0) ,<= (10) (10) ,> (10) (0) ,<= (10) (10) ,> (10) (0) ,<= (10) (10) ]
+[has-quarry location0,has-cabin location0,has-cabin location0,has-cabin location0]
 null
 null
 null
 null
+------------------------
+
+Goal node: has-quarry location0
+Specific action: build-quarry location0
+[mountain location0]
+goal node added to: mountain location0 :: 0
+
+Goal node: has-cabin location0
+Specific action: build-cabin location0
+[woodland location0]
+goal node added to: woodland location0 :: 0
+
+Goal node: has-cabin location0
+Specific action: build-cabin location0
+Goal node: has-cabin location0
+Specific action: build-cabin location0
+------------------
+build-house location0 ~count:10
+saw-wood location0 ~count:10
+build-coal-stack location0
+build-sawmill location0
+break-stone location0 ~count:10
+fell-timber location0 ~count:10
+fell-timber location0 ~count:10
+fell-timber location0 ~count:10
+build-quarry location0
+build-cabin location0
 ------------------------
 

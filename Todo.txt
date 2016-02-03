@@ -1,4 +1,4 @@
-
+- rate of change heuristic currently just takes the lowest level, largest value for any goal_node
 
 - rate of change heuristic - adding actions to the manager are not being shared eg. one planner action could be pushed into multiple fresh copies
 of the manager thing.
