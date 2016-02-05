@@ -84,7 +84,7 @@ class Planner
 		var closest_heuristic:Null<Int> = null;
 		
 		var open_list:Heap<PlannerNode> = new Heap<PlannerNode>();
-		var closed_list:Array<PlannerNode> = new Array<PlannerNode>();
+		//var closed_list:Array<PlannerNode> = new Array<PlannerNode>();
 		
 		var initial_greedy_result:GreedySearchResult = GreedySearch(current_state, new Map<Int, PlannerNode>());
 		current_state = initial_greedy_result.last_successively_lower_node;
@@ -113,6 +113,7 @@ class Planner
 			// need to initialise the open list with what is left from the greedy search (reuse everything!)
 			// i would just set the reference, but i have been having a few issues with mutable objects T_T so shallow clone
 			open_list = cast initial_greedy_result.open_list.clone(true);
+			//closed_list = closed_list.concat(initial_greedy_result.closed_list);
 			
 			while (!problem_.EvaluateGoal(current_state.state) && open_list.size() > 0)
 			{
@@ -120,7 +121,7 @@ class Planner
 				var breadth_result:BreadthSearchResult = BreadthSearch(current_state);
 				//trace("breadth open list length: " + breadth_result.open_list.size());
 				//open_list = breadth_result.open_list;
-				closed_list = closed_list.concat(breadth_result.closed_list);
+				//closed_list = closed_list.concat(breadth_result.closed_list);
 				
 				if (breadth_result.found_better_node != null)
 				{
@@ -131,6 +132,7 @@ class Planner
 				else
 				{
 					current_state = open_list.pop();
+					closed_list_length++;
 				}
 				
 				
@@ -140,7 +142,7 @@ class Planner
 		}
 		
 		//trace("open_list: " + problem_.EvaluateGoal(current_state.state));
-		
+		//closed_list_length = closed_list.length;
 		return BacktrackPlan(current_state);
 	}
 	
@@ -152,7 +154,7 @@ class Planner
 		
 		var open_list:Heap<PlannerNode> = new Heap<PlannerNode>();
 		var secondary_open_list:Heap<PlannerNode> = new Heap<PlannerNode>();
-		var closed_list:Array<PlannerNode> = new Array<PlannerNode>();
+		//var closed_list:Array<PlannerNode> = new Array<PlannerNode>();
 		
 		var visited_states:Map<Int, PlannerNode> = new Map<Int, PlannerNode>();
 		
@@ -169,6 +171,8 @@ class Planner
 			while(open_list.size() > 0)
 			{
 				var breadth_node:PlannerNode = open_list.pop();
+				closed_list_length++;
+				//closed_list.push(breadth_node);
 				
 				// get all of the states for the next iteration. pointless doing this on the last iteration
 				var succ_states:Array<PlannerNode> = GetAllSuccessiveStates(breadth_node, visited_states);
@@ -183,19 +187,19 @@ class Planner
 				//Utilities.Logln("action: " + breadth_node.plannerActionNode.GetActionTransform() + " had result: " + greedy_result.last_successively_lower_node.estimate.length);
 				
 				//ConcatenateHeaps(new_open_list, greedy_result.open_list);
-				closed_list = closed_list.concat(greedy_result.closed_list);
+				//closed_list = closed_list.concat(greedy_result.closed_list);
 				
 				if (greedy_result.last_successively_lower_node != null && greedy_result.last_successively_lower_node.estimate.length < node_.estimate.length)
 				{
 					// add the stuff still in the open list to the new list
 					ConcatenateHeaps(open_list, secondary_open_list);
 					//Utilities.Logln("node_ estimate: " + node_.estimate.length + " result estimate: " + greedy_result.last_successively_lower_node.estimate.length);
-					return new BreadthSearchResult(greedy_result.last_successively_lower_node, open_list, closed_list);
+					return new BreadthSearchResult(greedy_result.last_successively_lower_node, open_list, null);
 				}
 				
 			}
 		}
-		return new BreadthSearchResult(null, open_list, closed_list);
+		return new BreadthSearchResult(null, open_list, null);
 		
 	}
 	
@@ -214,7 +218,7 @@ class Planner
 		#end
 		
 		var open_list:Heap<PlannerNode> = new Heap<PlannerNode>();
-		var closed_list:Array<PlannerNode> = new Array<PlannerNode>();
+		//var closed_list:Array<PlannerNode> = new Array<PlannerNode>();
 		
 		var previous_state:PlannerNode = null;
 		var current_state:PlannerNode = start_state_;
@@ -236,7 +240,6 @@ class Planner
 				Utilities.Logln(i.plannerActionNode.GetActionTransform());
 				#end
 			}
-			closed_list.push(current_state);
 			
 			// GetAllSuccessiveStates may return no states if those states have already been visited
 			if (open_list.size() == 0)
@@ -244,11 +247,13 @@ class Planner
 				#if debugging
 				Utilities.Logln("\n\nGreedy Search exited due to empty open list\n\n\n\n\n");
 				#end
-				return new GreedySearchResult(null, open_list, closed_list);
+				return new GreedySearchResult(null, open_list, null);
 			}
 			
 			previous_state = current_state;
 			current_state = GetNextState(open_list);
+			closed_list_length++;
+			//closed_list.push(current_state);
 			#if debugging
 			Utilities.Logln("\n\nNew current_state: " + current_state.plannerActionNode.GetActionTransform());
 			Utilities.Logln("state: " + current_state.state);
@@ -260,7 +265,7 @@ class Planner
 				Utilities.Logln("\n\nGreedy Search exited due to no better estimate: current_state: " + current_state.estimate.length + " previous_state: " + previous_state.estimate.length);
 				Utilities.Logln("previous_state: " + previous_state.plannerActionNode.GetActionTransform() + "\n\n\n\n\n");
 				#end
-				return new GreedySearchResult(previous_state, open_list, closed_list);
+				return new GreedySearchResult(previous_state, open_list, null);
 			}
 			
 		}
@@ -271,7 +276,7 @@ class Planner
 		Utilities.Logln("Satisfied action: " + current_state.plannerActionNode.GetActionTransform());
 		Utilities.Logln("Satisfied state: " + current_state.state + "\n\n\n\n\n");
 		#end
-		return new GreedySearchResult(current_state, open_list, closed_list);
+		return new GreedySearchResult(current_state, open_list, null);
 	}
 	
 	function BacktrackPlan(plannerNode_:PlannerNode):Array<PlannerActionNode>

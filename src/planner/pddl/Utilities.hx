@@ -364,7 +364,7 @@ class Utilities
 		fo.close();
 	}
 	
-	static public function Log(contents_:String)
+	/*static public function Log(contents_:String)
 	{
 		#if output_file
 		WriteToFile("output.txt", contents_, true);
@@ -376,7 +376,7 @@ class Utilities
 	static inline public function Logln(contents_:String)
 	{
 		Log(contents_ + "\n");
-	}
+	}*/
 	
 	#if assert_debugging
 	static inline public function Assert(comparator_:Bool, message_:String)

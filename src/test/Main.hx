@@ -68,15 +68,15 @@ class Main
 			trace(i.GetName());
 		}*/
 		
-		GetResults("results.txt", ["pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl"], ["pddlexamples/Results/IntegerParameters/Test1/pfile2"], 1);
-		//GetResults("results2.txt", ["pddlexamples/Results/IntegerParameters/Settlers.pddl"], ["pddlexamples/Results/IntegerParameters/Test2/pfile2"], 1);
+		//GetResults("results.txt", ["pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl"], ["pddlexamples/Results/IntegerParameters/Test1/pfile10"], 1);
+		//GetResults("results2.txt", ["pddlexamples/Results/IntegerParameters/Settlers.pddl"], ["pddlexamples/Results/IntegerParameters/Test1/pfile10"], 1);
 		
 		
 		//GetResults("results2.txt", ["pddlexamples/test/small_settlers/Settlers.pddl"], ["pddlexamples/test/small_settlers/pfile0"]);
 		//GetResults("results2.txt", ["pddlexamples/test/small_settlers/SettlersIntegerParameters.pddl"], ["pddlexamples/test/small_settlers/pfile0"]);
 		
 		
-		/*GetResults("pddlexamples/Results/IntegerParameters/Test1/results.txt", 
+		GetResults("pddlexamples/Results/IntegerParameters/Test1/results.txt", 
 		[
 			"pddlexamples/Results/IntegerParameters/Settlers.pddl",
 			"pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl"
@@ -93,7 +93,7 @@ class Main
 			"pddlexamples/Results/IntegerParameters/Test1/pfile8",
 			"pddlexamples/Results/IntegerParameters/Test1/pfile9",
 			"pddlexamples/Results/IntegerParameters/Test1/pfile10"
-		], 100);*/
+		], 1);
 		
 		/*GetResults("pddlexamples/Results/IntegerParameters/Test2/results.txt", 
 		[
@@ -161,7 +161,7 @@ class Main
 					var start:Float = Sys.cpuTime();
 					
 					var planner:Planner = new Planner();
-					var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, new HeuristicRateOfChange(domain, problem));
+					var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, new Heuristic(domain, problem));
 					
 					averages_times[domain_index][problem_index] += Sys.cpuTime() - start;
 					
