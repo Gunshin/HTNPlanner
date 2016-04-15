@@ -196,6 +196,7 @@ class TreeNodeAnd extends TreeNode
 				}
 			}
 		}
+		
 		if (has_value_range)
 		{
 			if (min == null)

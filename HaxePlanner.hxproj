@@ -24,7 +24,7 @@
     <option noInlineOnDebug="False" />
     <option mainClass="test.Main" />
     <option enabledebug="False" />
-    <option additional="&#xA;-D output_file&#xA;&#xA;-D debugging_heuristic" />
+    <option additional="&#xA;-D output_file&#xA;&#xA;" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>

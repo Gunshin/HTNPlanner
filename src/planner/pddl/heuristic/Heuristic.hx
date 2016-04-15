@@ -690,7 +690,7 @@ class Heuristic implements IHeuristic
 				for (valueIndex in 0...actionValues.length)
 				{
 					var obj_array:Array<Pair<String, String>> = new Array<Pair<String, String>>();
-					var possible_values:Array<String> = actionValues[valueIndex].GetPossibleValues(action_.GetData(), state_, domain_, heuristic_version_);
+					var possible_values:Array<String> = actionValues[valueIndex].GetPossibleValues(action_.GetData(), state_, domain_, heuristic_version_, false, 0);
 					
 					if (possible_values.length > 0)
 					{

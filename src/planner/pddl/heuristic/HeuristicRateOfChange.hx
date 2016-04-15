@@ -786,8 +786,12 @@ class HeuristicRateOfChange implements IHeuristic
 				for (valueIndex in 0...actionValues.length)
 				{
 					var obj_array:Array<Pair<String, String>> = new Array<Pair<String, String>>();
-					var possible_values:Array<String> = actionValues[valueIndex].GetPossibleValues(action_.GetData(), state_, domain_, heuristic_version_);
-					
+					var possible_values:Array<String> = actionValues[valueIndex].GetPossibleValues(action_.GetData(), state_, domain_, heuristic_version_, true, 0.3);
+					if (possible_values.length > 1)
+					{
+					//trace(possible_values);
+					//throw "";
+					}
 					if (possible_values.length > 0)
 					{
 						obj_array.push(new Pair(actionValues[valueIndex].GetName(), possible_values[0]));

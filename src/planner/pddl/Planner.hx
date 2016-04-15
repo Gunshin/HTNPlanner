@@ -516,7 +516,7 @@ class Planner
 				for (valueIndex in 0...actionValues.length)
 				{
 					var obj_array:Array<Pair<String, String>> = new Array<Pair<String, String>>();
-					for (obj in actionValues[valueIndex].GetPossibleValues(action_.GetData(), state_, domain_, heuristic_version_))
+					for (obj in actionValues[valueIndex].GetPossibleValues(action_.GetData(), state_, domain_, heuristic_version_, false, 0))
 					{
 						obj_array.push(new Pair(actionValues[valueIndex].GetName(), obj));
 					}
