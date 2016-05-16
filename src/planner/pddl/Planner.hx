@@ -132,7 +132,7 @@ class Planner
 				{
 					current_state = open_list.pop();
 				}
-				
+				trace("running on: " + current_state.plannerActionNode.GetActionTransform());
 				
 				
 			}
@@ -201,6 +201,7 @@ class Planner
 	
 	function GreedySearch(start_state_:PlannerNode, visited_states_:Map<Int, PlannerNode>):GreedySearchResult
 	{
+		trace("starting");
 		var temp_visited:Map<Int, PlannerNode> = new Map<Int, PlannerNode>();
 		
 		#if debugging
@@ -224,7 +225,9 @@ class Planner
 		
 		do
 		{
+			trace("it");
 			var successive_states:Array<PlannerNode> = GetAllNonVisitedSuccessiveStates(current_state, temp_visited);
+			trace("it0");
 			//var successive_states:Array<PlannerNode> = GetAllSuccessiveStates(current_state, visited_states_);
 			#if debugging
 			Utilities.Logln("Successive states: ");
@@ -237,7 +240,7 @@ class Planner
 				#end
 			}
 			closed_list.push(current_state);
-			
+			trace("it1");
 			// GetAllSuccessiveStates may return no states if those states have already been visited
 			if (open_list.size() == 0)
 			{
@@ -246,13 +249,14 @@ class Planner
 				#end
 				return new GreedySearchResult(null, open_list, closed_list);
 			}
-			
+			trace("it2");
 			previous_state = current_state;
 			current_state = GetNextState(open_list);
 			#if debugging
 			Utilities.Logln("\n\nNew current_state: " + current_state.plannerActionNode.GetActionTransform());
 			Utilities.Logln("state: " + current_state.state);
 			#end
+			trace("it3");
 			// if the current state, eg. the next best heuristic
 			if (current_state.estimate.length >= previous_state.estimate.length)
 			{
@@ -262,7 +266,7 @@ class Planner
 				#end
 				return new GreedySearchResult(previous_state, open_list, closed_list);
 			}
-			
+			trace("it4");
 		}
 		while (!problem.EvaluateGoal(current_state.state));
 		// we dropped out of the loop because the goal evaluated correctly, maybe
@@ -364,7 +368,7 @@ class Planner
 		for (action_state_pair in successive_states)
 		{
 			var hash:Int = action_state_pair.b.GenerateStateHash();
-			//trace("hash: " + actionNode.action.GetName() + " :: exists? " + visited_states.exists(hash));
+			trace("hash: " + action_state_pair.a.GetActionTransform() + " :: exists? " + visited_states_.exists(hash));
 			if (!visited_states_.exists(hash))
 			{
 				var last_heuristic:HeuristicResult = new HeuristicResult(null, 0);
@@ -443,6 +447,7 @@ class Planner
 			{
 				var param_combination:Array<Pair<String, String>> = parameter_combinations[param_index];
 				action.GetData().SetParameters(param_combination);
+				
 				if (value_combinations[param_index].length > 0)
 				{
 					for (val_combination in value_combinations[param_index])
@@ -516,7 +521,7 @@ class Planner
 				for (valueIndex in 0...actionValues.length)
 				{
 					var obj_array:Array<Pair<String, String>> = new Array<Pair<String, String>>();
-					for (obj in actionValues[valueIndex].GetPossibleValues(action_.GetData(), state_, domain_, heuristic_version_, false, 0))
+					for (obj in actionValues[valueIndex].GetPossibleValues(action_.GetData(), state_, domain_, heuristic_version_, true, 0.001))
 					{
 						obj_array.push(new Pair(actionValues[valueIndex].GetName(), obj));
 					}

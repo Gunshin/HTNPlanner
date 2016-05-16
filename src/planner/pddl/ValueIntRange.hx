@@ -40,6 +40,7 @@ class ValueIntRange extends Value
 				i++;
 			}
 			final_range.push(range[range.length - 1]);
+			//trace("length: " + final_range.length);
 			//trace(name + ": range: " + range);
 			//trace(name + ": final_range: " + final_range);
 			return final_range;

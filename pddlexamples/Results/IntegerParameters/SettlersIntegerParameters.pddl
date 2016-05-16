@@ -266,7 +266,7 @@
    :precondition (and
 					(has-cabin ?p)
 					(> (~count) 0)
-					(<= (~count) 10)
+					(<= (~count) target)
 				)
    :effect (and (increase (available timber ?p) (~count))
 		(increase (labour) 1))
@@ -278,7 +278,7 @@
    :precondition (and
 					(has-quarry ?p)
 					(> (~count) 0)
-					(<= (~count) 10)
+					(<= (~count) target)
 				)
    :effect (and (increase (available stone ?p) (~count))
 		(increase (labour) 1)
@@ -291,7 +291,7 @@
    :precondition (and
 					(has-mine ?p)
 					(> (~count) 0)
-					(<= (~count) 10)
+					(<= (~count) target)
 				)
    :effect (and (increase (available ore ?p) (~count))
 		(increase (resource-use) 2)
@@ -305,7 +305,7 @@
    :precondition (and 
 					(has-coal-stack ?p)
 					(> (~count) 0)
-					(<= (~count) 10)
+					(<= (~count) target)
 					(<= (~count) (available timber ?p))
 				)
    :effect (and (decrease (available timber ?p) (~count)) 
@@ -318,7 +318,7 @@
    :precondition (and 
 					(has-sawmill ?p)
 					(> (~count) 0)
-					(<= (~count) 10)
+					(<= (~count) target)
 					(<= (~count) (available timber ?p))
 				)
    :effect (and (decrease (available timber ?p) (~count)) 
@@ -330,7 +330,7 @@
    :precondition (and 
 					(has-ironworks ?p)
 					(> (~count) 0)
-					(<= (~count) 10)
+					(<= (~count) target)
 					(<= (~count) (available ore ?p))
 					(<= (~count) (* (available coal ?p) 2))
 				) 
