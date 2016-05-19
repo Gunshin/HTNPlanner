@@ -22,6 +22,9 @@ import planner.pddl.tree.TreeNodeFunction;
 import planner.pddl.tree.TreeNodeInt;
 import planner.pddl.tree.TreeNodeValue;
 
+import test.result_generation.IResultGenerator;
+import test.result_generation.ResultGeneratorPartialRangeLargeDomain;
+
 /**
  * ...
  * @author Michael Stephens
@@ -54,10 +57,21 @@ class Main
 	
 	public function new()
 	{
-		//UnitTests();
 		Utilities.WriteToFile("output.txt", "", false);
 		
-		var domainIndex:Int = 7;
+		var result_generators:Array<IResultGenerator> = [
+			new ResultGeneratorPartialRangeLargeDomain()
+		];		
+		
+		for (i in result_generators)
+		{
+			i.Run();
+		}
+		
+		//UnitTests();
+		//Utilities.WriteToFile("output.txt", "", false);
+		
+		//var domainIndex:Int = 7;
 		
 		//var domain:Domain = new Domain("pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl");
 		
@@ -68,7 +82,7 @@ class Main
 			trace(i.GetName());
 		}*/
 		
-		GetResults("results.txt", ["pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl"], ["pddlexamples/Results/IntegerParameters/Test1/pfile_test"], 1);
+		//GetResults("results.txt", ["pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl"], ["pddlexamples/Results/IntegerParameters/Test1/pfile_test"], 1);
 		//GetResults("results.txt", ["pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl"], ["pddlexamples/Results/IntegerParameters/Test1/pfile2"], 1);
 		//GetResults("results2.txt", ["pddlexamples/Results/IntegerParameters/Settlers.pddl"], ["pddlexamples/Results/IntegerParameters/Test2/pfile2"], 1);
 		
@@ -162,7 +176,7 @@ class Main
 					var start:Float = Sys.cpuTime();
 					
 					var planner:Planner = new Planner();
-					var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, new HeuristicRateOfChange(domain, problem));
+					var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, new HeuristicRateOfChange(domain, problem), false, 0);
 					
 					averages_times[domain_index][problem_index] += Sys.cpuTime() - start;
 					
@@ -209,7 +223,7 @@ class Main
 		
 		trace("Starting Plan Test");		
 		var planner:Planner = new Planner();
-		var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, new Heuristic(domain, problem));
+		var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, new Heuristic(domain, problem), false , 0);
 		
 		Assert((array.length == 2), "Plan length is wrong");
 		var compareArray:Array<String> = [
@@ -223,7 +237,7 @@ class Main
 		}
 	}
 	
-	inline function Assert(flag_:Bool, mes_:String)
+	inline static public function Assert(flag_:Bool, mes_:String)
 	{
 		if (!flag_)
 		{

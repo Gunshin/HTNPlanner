@@ -28,6 +28,9 @@ class Heuristic implements IHeuristic
 {	
 	var domain:Domain = null;
 	var problem:Problem = null;
+	
+	var planner:Planner = null;
+	
 
 	public function new(domain_:Domain, problem_:Problem) 
 	{
@@ -78,13 +81,15 @@ class Heuristic implements IHeuristic
 	 * @param	initial_state_
 	 * @return
 	 */
-	public function RunHeuristic(initial_state_:State):HeuristicResult
+	public function RunHeuristic(initial_state_:State, planner_:Planner):HeuristicResult
 	{
 		// should do this check to make sure we dont attempt to generate a heuristic on a satisfied state
 		if (problem.EvaluateGoal(initial_state_))
 		{
 			return new HeuristicResult(null, 0);
 		}
+		
+		planner = planner_;
 		
 		//trace("init: " + initial_state_.toString());
 		var heuristic_state:StateHeuristic = new StateHeuristic();
@@ -424,7 +429,7 @@ class Heuristic implements IHeuristic
 	
 	function GenerateStateLevels(heuristic_initial_state_:StateHeuristic):Array<HeuristicNode>
 	{
-		var current_node:HeuristicNode = new HeuristicNode(heuristic_initial_state_, Planner.GetAllActionsForState(heuristic_initial_state_, domain));
+		var current_node:HeuristicNode = new HeuristicNode(heuristic_initial_state_, GetAllActionsForState(heuristic_initial_state_, domain));
 		var state_list:Array<HeuristicNode> = new Array<HeuristicNode>();
 		state_list.push(current_node);
 		
@@ -714,7 +719,6 @@ class Heuristic implements IHeuristic
 		}
 		return returnee;
 	}
-	
 	
 	/**
 	 * Ease of use function

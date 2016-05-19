@@ -63,4 +63,9 @@ class TreeNodeIntFunctionValue extends TreeNodeInt
 		return new TreeNodeIntFunctionValue(value);
 	}
 	
+	public function SetValue(value_:String)
+	{
+		value = value_;
+	}
+	
 }
