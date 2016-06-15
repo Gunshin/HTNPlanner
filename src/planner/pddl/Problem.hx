@@ -140,4 +140,9 @@ class Problem
 		return problemName;
 	}
 	
+	public function SetInitialFunction(name_:String, value_:Int)
+	{
+		initialState.SetFunction(name_, value_);
+	}
+	
 }

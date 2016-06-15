@@ -22,7 +22,6 @@ import planner.pddl.tree.TreeNodeFunction;
 import planner.pddl.tree.TreeNodeInt;
 import planner.pddl.tree.TreeNodeValue;
 
-import test.result_generation.IResultGenerator;
 import test.result_generation.ResultGeneratorPartialRangeLargeDomain;
 
 /**
@@ -57,16 +56,23 @@ class Main
 	
 	public function new()
 	{
+		
+		/*for (arg in Sys.args())
+            Sys.println(arg);*/
+		
 		Utilities.WriteToFile("output.txt", "", false);
 		
-		var result_generators:Array<IResultGenerator> = [
-			new ResultGeneratorPartialRangeLargeDomain()
-		];		
+		new ResultGeneratorPartialRangeLargeDomain().Run(Std.parseInt(Sys.args()[0]), Std.parseFloat(Sys.args()[1]));
+		//new ResultGeneratorPartialRangeLargeDomain().Run(100, 1);
 		
-		for (i in result_generators)
+		/*var result_generators:Array<IResultGenerator> = [
+			new ResultGeneratorPartialRangeLargeDomain()
+		];*/
+		
+		/*for (i in result_generators)
 		{
 			i.Run();
-		}
+		}*/
 		
 		//UnitTests();
 		//Utilities.WriteToFile("output.txt", "", false);

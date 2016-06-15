@@ -1,0 +1,1135 @@
+Domain size: 10 Ratio: 0.001
+ time = 0.8026872970018303
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+build-coal-stack location0
+saw-wood location0 ~count:97
+build-house location0 ~count:97
+
+
+
+Domain size: 10 Ratio: 0.01
+ time = 0.796197675797157
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+build-coal-stack location0
+saw-wood location0 ~count:97
+build-house location0 ~count:97
+
+
+
+Domain size: 10 Ratio: 0.1
+ time = 1.258691806398565
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:11
+build-coal-stack location0
+build-house location0 ~count:11
+
+
+
+Domain size: 10 Ratio: 0.2
+ time = 2.025012237796909
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:10
+build-coal-stack location0
+build-house location0 ~count:10
+
+
+
+Domain size: 10 Ratio: 0.3
+ time = 2.689909021600033
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:12
+build-coal-stack location0
+build-house location0 ~count:12
+
+
+
+Domain size: 10 Ratio: 0.4
+ time = 2.958662697597174
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:12
+build-coal-stack location0
+build-house location0 ~count:12
+
+
+
+Domain size: 10 Ratio: 0.5
+ time = 3.7792281136004022
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:10
+build-coal-stack location0
+build-house location0 ~count:10
+
+
+
+Domain size: 10 Ratio: 0.6
+ time = 3.9697446553997
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:10
+build-coal-stack location0
+build-house location0 ~count:10
+
+
+
+Domain size: 10 Ratio: 0.7
+ time = 5.0691260165971475
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:10
+build-coal-stack location0
+build-house location0 ~count:10
+
+
+
+Domain size: 10 Ratio: 0.8
+ time = 5.608746702599456
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:10
+build-coal-stack location0
+build-house location0 ~count:10
+
+
+
+Domain size: 10 Ratio: 0.9
+ time = 6.505476859997725
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:10
+build-coal-stack location0
+build-house location0 ~count:10
+
+
+
+Domain size: 10 Ratio: 1
+ time = 6.781298226199579
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:10
+build-coal-stack location0
+build-house location0 ~count:10
+
+
+
+Domain size: 25 Ratio: 0.001
+ time = 0.7629090367991012
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+build-coal-stack location0
+saw-wood location0 ~count:97
+build-house location0 ~count:97
+
+
+
+Domain size: 25 Ratio: 0.01
+ time = 0.7646281340072164
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+build-coal-stack location0
+saw-wood location0 ~count:97
+build-house location0 ~count:97
+
+
+
+Domain size: 25 Ratio: 0.1
+ time = 1.309091701800935
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:33
+build-coal-stack location0
+build-house location0 ~count:33
+
+
+
+Domain size: 25 Ratio: 0.2
+ time = 2.0044560587994056
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:25
+build-coal-stack location0
+build-house location0 ~count:25
+
+
+
+Domain size: 25 Ratio: 0.3
+ time = 2.7150762403965927
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:27
+build-coal-stack location0
+build-house location0 ~count:27
+
+
+
+Domain size: 25 Ratio: 0.4
+ time = 2.9267823396017776
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:27
+build-coal-stack location0
+build-house location0 ~count:27
+
+
+
+Domain size: 25 Ratio: 0.5
+ time = 3.816235828195931
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:26
+build-coal-stack location0
+build-house location0 ~count:26
+
+
+
+Domain size: 25 Ratio: 0.6
+ time = 3.886625522802933
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:26
+build-coal-stack location0
+build-house location0 ~count:26
+
+
+
+Domain size: 25 Ratio: 0.7
+ time = 5.2244883950043
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:25
+build-coal-stack location0
+build-house location0 ~count:25
+
+
+
+Domain size: 25 Ratio: 0.8
+ time = 6.033715548203327
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:25
+build-coal-stack location0
+build-house location0 ~count:25
+
+
+
+Domain size: 25 Ratio: 0.9
+ time = 6.589895821796381
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:25
+build-coal-stack location0
+build-house location0 ~count:25
+
+
+
+Domain size: 25 Ratio: 1
+ time = 7.157282983598998
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:25
+build-coal-stack location0
+build-house location0 ~count:25
+
+
+
+Domain size: 50 Ratio: 0.001
+ time = 0.747349637595471
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+build-coal-stack location0
+saw-wood location0 ~count:97
+build-house location0 ~count:97
+
+
+
+Domain size: 50 Ratio: 0.01
+ time = 0.7830331180011854
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+build-coal-stack location0
+saw-wood location0 ~count:97
+build-house location0 ~count:97
+
+
+
+Domain size: 50 Ratio: 0.1
+ time = 1.3620722679974278
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:55
+build-coal-stack location0
+build-house location0 ~count:55
+
+
+
+Domain size: 50 Ratio: 0.2
+ time = 1.9495909809949807
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:50
+build-coal-stack location0
+build-house location0 ~count:50
+
+
+
+Domain size: 50 Ratio: 0.3
+ time = 2.68529661380162
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:51
+build-coal-stack location0
+build-house location0 ~count:51
+
+
+
+Domain size: 50 Ratio: 0.4
+ time = 3.020020076399669
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:51
+build-coal-stack location0
+build-house location0 ~count:51
+
+
+
+Domain size: 50 Ratio: 0.5
+ time = 4.023299242203938
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:50
+build-coal-stack location0
+build-house location0 ~count:50
+
+
+
+Domain size: 50 Ratio: 0.6
+ time = 4.055074455399881
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:50
+build-coal-stack location0
+build-house location0 ~count:50
+
+
+
+Domain size: 50 Ratio: 0.7
+ time = 5.187008383995272
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:50
+build-coal-stack location0
+build-house location0 ~count:50
+
+
+
+Domain size: 50 Ratio: 0.8
+ time = 5.867970391601557
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:50
+build-coal-stack location0
+build-house location0 ~count:50
+
+
+
+Domain size: 50 Ratio: 0.9
+ time = 6.662637364401599
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:50
+build-coal-stack location0
+build-house location0 ~count:50
+
+
+
+Domain size: 50 Ratio: 1
+ time = 7.149691621199599
+Plan length: 8
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:50
+build-coal-stack location0
+build-house location0 ~count:50
+
+
+
+Domain size: 100 Ratio: 0.001
+ time = 2.994178083402221
+Plan length: 10
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-coal-stack location0
+fell-timber location0 ~count:1
+fell-timber location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:100
+build-house location0 ~count:100
+
+
+
+Domain size: 100 Ratio: 0.01
+ time = 3.088344049602165
+Plan length: 10
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-coal-stack location0
+fell-timber location0 ~count:1
+fell-timber location0 ~count:100
+build-sawmill location0
+saw-wood location0 ~count:100
+build-house location0 ~count:100
+
+
+
+Domain size: 100 Ratio: 0.1
+ time = 4.380366633000085
+Plan length: 10
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-coal-stack location0
+fell-timber location0 ~count:1
+fell-timber location0 ~count:22
+build-sawmill location0
+saw-wood location0 ~count:100
+build-house location0 ~count:100
+
+
+
+Domain size: 100 Ratio: 0.2
+ time = 7.290264028595994
+Plan length: 10
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-coal-stack location0
+fell-timber location0 ~count:1
+fell-timber location0 ~count:10
+build-sawmill location0
+saw-wood location0 ~count:100
+build-house location0 ~count:100
+
+
+
+Domain size: 100 Ratio: 0.3
+ time = 10.490086069196696
+Plan length: 10
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-coal-stack location0
+fell-timber location0 ~count:1
+fell-timber location0 ~count:6
+build-sawmill location0
+saw-wood location0 ~count:100
+build-house location0 ~count:100
+
+
+
+Domain size: 100 Ratio: 0.4
+ time = 13.17465755919984
+Plan length: 10
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-coal-stack location0
+fell-timber location0 ~count:1
+fell-timber location0 ~count:6
+build-sawmill location0
+saw-wood location0 ~count:100
+build-house location0 ~count:100
+
+
+
+Domain size: 100 Ratio: 0.5
+ time = 16.37695079059922
+Plan length: 10
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-coal-stack location0
+fell-timber location0 ~count:1
+fell-timber location0 ~count:4
+build-sawmill location0
+saw-wood location0 ~count:100
+build-house location0 ~count:100
+
+
+
+Domain size: 100 Ratio: 0.6
+ time = 16.562341288398603
+Plan length: 10
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-coal-stack location0
+fell-timber location0 ~count:1
+fell-timber location0 ~count:4
+build-sawmill location0
+saw-wood location0 ~count:100
+build-house location0 ~count:100
+
+
+
+Domain size: 100 Ratio: 0.7
+ time = 21.981886730203406
+Plan length: 10
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-coal-stack location0
+fell-timber location0 ~count:1
+fell-timber location0 ~count:2
+build-sawmill location0
+saw-wood location0 ~count:100
+build-house location0 ~count:100
+
+
+
+Domain size: 100 Ratio: 0.8
+ time = 25.0880652791966
+Plan length: 10
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-coal-stack location0
+fell-timber location0 ~count:1
+fell-timber location0 ~count:2
+build-sawmill location0
+saw-wood location0 ~count:100
+build-house location0 ~count:100
+
+
+
+Domain size: 100 Ratio: 0.9
+ time = 27.73781280820258
+Plan length: 10
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-coal-stack location0
+fell-timber location0 ~count:1
+fell-timber location0 ~count:2
+build-sawmill location0
+saw-wood location0 ~count:100
+build-house location0 ~count:100
+
+
+
+Domain size: 100 Ratio: 1
+ time = 30.826726317199064
+Plan length: 10
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+build-coal-stack location0
+fell-timber location0 ~count:1
+fell-timber location0 ~count:2
+build-sawmill location0
+saw-wood location0 ~count:100
+build-house location0 ~count:100
+
+
+
+Domain size: 250 Ratio: 0.001
+ time = 4.1965364318020875
+Plan length: 15
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+break-stone location0 ~count:100
+build-coal-stack location0
+fell-timber location0 ~count:1
+build-sawmill location0
+saw-wood location0 ~count:98
+fell-timber location0 ~count:100
+saw-wood location0 ~count:100
+fell-timber location0 ~count:100
+saw-wood location0 ~count:100
+break-stone location0 ~count:100
+build-house location0 ~count:298
+
+
+
+Domain size: 250 Ratio: 0.01
+ time = 4.288420114602195
+Plan length: 15
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+break-stone location0 ~count:100
+build-coal-stack location0
+fell-timber location0 ~count:1
+build-sawmill location0
+saw-wood location0 ~count:98
+fell-timber location0 ~count:100
+saw-wood location0 ~count:100
+fell-timber location0 ~count:100
+saw-wood location0 ~count:100
+break-stone location0 ~count:100
+build-house location0 ~count:298
+
+
+
+Domain size: 250 Ratio: 0.1
+ time = 16.400538041003166
+Plan length: 15
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+break-stone location0 ~count:100
+build-coal-stack location0
+fell-timber location0 ~count:1
+build-sawmill location0
+saw-wood location0 ~count:98
+fell-timber location0 ~count:55
+saw-wood location0 ~count:55
+fell-timber location0 ~count:100
+saw-wood location0 ~count:100
+break-stone location0 ~count:55
+build-house location0 ~count:253
+
+
+
+Domain size: 250 Ratio: 0.2
+ time = 41.62488502619963
+Plan length: 15
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+break-stone location0 ~count:100
+build-coal-stack location0
+fell-timber location0 ~count:1
+build-sawmill location0
+saw-wood location0 ~count:98
+fell-timber location0 ~count:55
+saw-wood location0 ~count:55
+fell-timber location0 ~count:100
+saw-wood location0 ~count:100
+break-stone location0 ~count:50
+build-house location0 ~count:250
+
+
+
+Domain size: 250 Ratio: 0.3
+ time = 89.6654794715956
+Plan length: 15
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+break-stone location0 ~count:100
+build-coal-stack location0
+fell-timber location0 ~count:1
+build-sawmill location0
+saw-wood location0 ~count:98
+fell-timber location0 ~count:54
+saw-wood location0 ~count:54
+fell-timber location0 ~count:100
+saw-wood location0 ~count:100
+break-stone location0 ~count:51
+build-house location0 ~count:251
+
+
+
+Domain size: 250 Ratio: 0.4
+ time = 132.49728034400033
+Plan length: 17
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+break-stone location0 ~count:100
+build-coal-stack location0
+fell-timber location0 ~count:1
+fell-timber location0 ~count:6
+build-sawmill location0
+fell-timber location0 ~count:81
+saw-wood location0 ~count:75
+saw-wood location0 ~count:21
+saw-wood location0 ~count:89
+fell-timber location0 ~count:75
+saw-wood location0 ~count:75
+break-stone location0 ~count:51
+build-house location0 ~count:251
+
+
+
+Domain size: 250 Ratio: 0.5
+ time = 177.0650779934018
+Plan length: 15
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+break-stone location0 ~count:100
+build-coal-stack location0
+fell-timber location0 ~count:1
+build-sawmill location0
+saw-wood location0 ~count:98
+fell-timber location0 ~count:54
+saw-wood location0 ~count:54
+fell-timber location0 ~count:100
+saw-wood location0 ~count:100
+break-stone location0 ~count:50
+build-house location0 ~count:250
+
+
+
+Domain size: 250 Ratio: 0.6
+ time = 193.84888783840287
+Plan length: 15
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+break-stone location0 ~count:100
+build-coal-stack location0
+fell-timber location0 ~count:1
+build-sawmill location0
+saw-wood location0 ~count:98
+fell-timber location0 ~count:54
+saw-wood location0 ~count:54
+fell-timber location0 ~count:98
+saw-wood location0 ~count:98
+break-stone location0 ~count:50
+build-house location0 ~count:250
+
+
+
+Domain size: 250 Ratio: 0.7
+ time = 293.24475707899836
+Plan length: 15
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+break-stone location0 ~count:100
+build-coal-stack location0
+fell-timber location0 ~count:1
+build-sawmill location0
+saw-wood location0 ~count:98
+fell-timber location0 ~count:54
+saw-wood location0 ~count:54
+fell-timber location0 ~count:100
+saw-wood location0 ~count:100
+break-stone location0 ~count:50
+build-house location0 ~count:250
+
+
+
+Domain size: 250 Ratio: 0.8
+ time = 418.0611205746012
+Plan length: 15
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+break-stone location0 ~count:100
+build-coal-stack location0
+fell-timber location0 ~count:1
+build-sawmill location0
+saw-wood location0 ~count:98
+fell-timber location0 ~count:54
+saw-wood location0 ~count:54
+fell-timber location0 ~count:100
+saw-wood location0 ~count:100
+break-stone location0 ~count:50
+build-house location0 ~count:250
+
+
+
+Domain size: 250 Ratio: 0.9
+ time = 505.9015653996001
+Plan length: 15
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+break-stone location0 ~count:100
+build-coal-stack location0
+fell-timber location0 ~count:1
+build-sawmill location0
+saw-wood location0 ~count:98
+fell-timber location0 ~count:54
+saw-wood location0 ~count:54
+fell-timber location0 ~count:100
+saw-wood location0 ~count:100
+break-stone location0 ~count:50
+build-house location0 ~count:250
+
+
+
+Domain size: 250 Ratio: 1
+ time = 648.3682638454018
+Plan length: 15
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+break-stone location0 ~count:100
+build-coal-stack location0
+fell-timber location0 ~count:1
+build-sawmill location0
+saw-wood location0 ~count:98
+fell-timber location0 ~count:54
+saw-wood location0 ~count:54
+fell-timber location0 ~count:98
+saw-wood location0 ~count:98
+break-stone location0 ~count:50
+build-house location0 ~count:250
+
+
+
+Domain size: 500 Ratio: 0.001
+ time = 504.70115314440045
+Plan length: 24
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+break-stone location0 ~count:100
+break-stone location0 ~count:100
+build-coal-stack location0
+fell-timber location0 ~count:1
+fell-timber location0 ~count:100
+build-sawmill location0
+fell-timber location0 ~count:100
+saw-wood location0 ~count:100
+fell-timber location0 ~count:100
+saw-wood location0 ~count:100
+saw-wood location0 ~count:100
+burn-coal location0 ~count:98
+build-house location0 ~count:300
+fell-timber location0 ~count:100
+fell-timber location0 ~count:100
+saw-wood location0 ~count:100
+saw-wood location0 ~count:100
+break-stone location0 ~count:100
+break-stone location0 ~count:100
+build-house location0 ~count:200
+
+
+
+Domain size: 500 Ratio: 0.01
+ time = 604.8005559453944
+Plan length: 24
+Closed list length: 0 Open list length: 0
+build-quarry location0
+build-cabin location0
+fell-timber location0 ~count:100
+break-stone location0 ~count:100
+break-stone location0 ~count:100
+break-stone location0 ~count:100
+build-coal-stack location0
+fell-timber location0 ~count:1
+fell-timber location0 ~count:100
+build-sawmill location0
+fell-timber location0 ~count:100
+saw-wood location0 ~count:100
+fell-timber location0 ~count:100
+saw-wood location0 ~count:100
+saw-wood location0 ~count:100
+burn-coal location0 ~count:98
+fell-timber location0 ~count:100
+build-house location0 ~count:300
+fell-timber location0 ~count:100
+saw-wood location0 ~count:100
+saw-wood location0 ~count:100
+break-stone location0 ~count:100
+break-stone location0 ~count:100
+build-house location0 ~count:200
+
+
+
+Domain size: 500 Ratio: 0.1
+Terminating run 
+Domain size: 500 Ratio: 0.2
+Terminating run 
+Domain size: 500 Ratio: 0.3
+Terminating run 
+Domain size: 500 Ratio: 0.4
+Terminating run 
+Domain size: 500 Ratio: 0.5
+Terminating run 
+Domain size: 500 Ratio: 0.6
+Terminating run 
+Domain size: 500 Ratio: 0.7
+Terminating run 
+Domain size: 500 Ratio: 0.8
+Terminating run 
+Domain size: 500 Ratio: 0.9
+Terminating run 
+Domain size: 500 Ratio: 1
+Terminating run 
+Domain size: 1000 Ratio: 0.001
+Terminating run 
+Domain size: 1000 Ratio: 0.01
+Terminating run 
+Domain size: 1000 Ratio: 0.1
+Terminating run 
+Domain size: 1000 Ratio: 0.2
+Terminating run 
+Domain size: 1000 Ratio: 0.3
+Terminating run 
+Domain size: 1000 Ratio: 0.4
+Terminating run 
+Domain size: 1000 Ratio: 0.5
+Terminating run 
+Domain size: 1000 Ratio: 0.6
+Terminating run 
+Domain size: 1000 Ratio: 0.7
+Terminating run 
+Domain size: 1000 Ratio: 0.8
+Terminating run 
+Domain size: 1000 Ratio: 0.9
+Terminating run 
+Domain size: 1000 Ratio: 1
+Terminating run 
+Domain size: 2500 Ratio: 0.001
+Terminating run 
+Domain size: 2500 Ratio: 0.01
+Terminating run 
+Domain size: 2500 Ratio: 0.1
+Terminating run 
+Domain size: 2500 Ratio: 0.2
+Terminating run 
+Domain size: 2500 Ratio: 0.3
+Terminating run 
+Domain size: 2500 Ratio: 0.4
+Terminating run 
+Domain size: 2500 Ratio: 0.5
+Terminating run 
+Domain size: 2500 Ratio: 0.6
+Terminating run 
+Domain size: 2500 Ratio: 0.7
+Terminating run 
+Domain size: 2500 Ratio: 0.8
