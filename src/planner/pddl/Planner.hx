@@ -60,20 +60,20 @@ class Planner
 	{
 		domain = domain_;
 		problem = problem_;
-		
+
 		use_partial_range = use_partial_range_;
 		partial_range_ratio = partial_range_ratio_;
 		
 		var initial_state:State = problem_.GetClonedInitialState();
 		var initial_heuristic:HeuristicResult = new HeuristicResult(null, 0);
-		
+
 		if (heuristic_ != null)
 		{
 			heuristic = heuristic_;
 			
 			initial_heuristic = heuristic.RunHeuristic(initial_state, this);
 		}
-		
+
 		/*for (i in initial_heuristic.ordered_list)
 		{
 			Utilities.Logln(i.GetActionTransform());

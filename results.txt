@@ -1,1 +1,1 @@
-Domain: pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl Problem: pddlexamples/Results/IntegerParameters/Test1/pfile_test
+Domain: pddlexamples/sequential-numeric-planning-benchmarks/counters_all/mt-counters/domain_integer_parameters.pddl Problem: pddlexamples/sequential-numeric-planning-benchmarks/counters_all/mt-counters/instance_36.pddl

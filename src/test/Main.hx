@@ -60,9 +60,12 @@ class Main
 		/*for (arg in Sys.args())
             Sys.println(arg);*/
 		
-		Utilities.WriteToFile("output.txt", "", false);
+		//Utilities.WriteToFile("output.txt", "", false);
 		
-		new ResultGeneratorPartialRangeLargeDomain().Run(Std.parseInt(Sys.args()[0]), Std.parseFloat(Sys.args()[1]));
+		//new ResultGeneratorPartialRangeLargeDomain().Run(Std.parseInt(Sys.args()[0]), Std.parseFloat(Sys.args()[1]));
+		//trace("passed");
+		//while(true){}
+		
 		//new ResultGeneratorPartialRangeLargeDomain().Run(100, 1);
 		
 		/*var result_generators:Array<IResultGenerator> = [
@@ -88,7 +91,8 @@ class Main
 			trace(i.GetName());
 		}*/
 		
-		//GetResults("results.txt", ["pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl"], ["pddlexamples/Results/IntegerParameters/Test1/pfile_test"], 1);
+		GetResults("results.txt", 	["pddlexamples/sequential-numeric-planning-benchmarks/counters_all/mt-counters/domain_integer_parameters.pddl"], 
+									["pddlexamples/sequential-numeric-planning-benchmarks/counters_all/mt-counters/instance_36.pddl"], 1);
 		//GetResults("results.txt", ["pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl"], ["pddlexamples/Results/IntegerParameters/Test1/pfile2"], 1);
 		//GetResults("results2.txt", ["pddlexamples/Results/IntegerParameters/Settlers.pddl"], ["pddlexamples/Results/IntegerParameters/Test2/pfile2"], 1);
 		
@@ -173,17 +177,16 @@ class Main
 				for (problem_index in 0...problems_.length)
 				{
 					var problem_path:String = problems_[problem_index];
-					
 					var domain:Domain = new Domain(domain_path);
 					var problem:Problem = new Problem(problem_path, domain);
 					
 					Utilities.WriteToFile(output_file_, "Domain: " + domain_path + " Problem: " + problem_path + "\n", true);
 					
 					var start:Float = Sys.cpuTime();
-					
+
 					var planner:Planner = new Planner();
-					var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, new HeuristicRateOfChange(domain, problem), false, 0);
-					
+					var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, new Heuristic(domain, problem), true, 0.1);
+
 					averages_times[domain_index][problem_index] += Sys.cpuTime() - start;
 					
 					Utilities.WriteToFile(output_file_, "Time taken seconds: " + (Sys.cpuTime() - start) + "\n", true);

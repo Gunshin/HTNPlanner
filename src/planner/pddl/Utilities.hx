@@ -333,14 +333,22 @@ class Utilities
 	//http://www.cse.yorku.ca/~oz/hash.html
 	static public function StringHash(string_:String):Int
 	{
-		var hash:Int = 0;
+		var h:Int = 1238392567; // prime
+
+		for(i in 0...string_.length)
+		{
+			h = 31*h + string_.charCodeAt(i);
+		}
+		return h;
+		
+		/*var hash:Int = 0;
 		
         for(i in 0...string_.length)
 		{
             hash = string_.charCodeAt(i) + (hash << 6) + (hash << 16) - hash;
 		}
 		
-        return hash;
+        return hash;*/
 	}
 	
 	//same as above but using an interger array instead

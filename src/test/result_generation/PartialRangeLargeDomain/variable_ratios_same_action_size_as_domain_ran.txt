@@ -1,5 +1,5 @@
 Domain size: 10 Ratio: 0.001
- time = 3.748513207000002
+ time = 2.8227998194000974
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -16,7 +16,7 @@ build-house location0 ~count:10
 
 
 Domain size: 10 Ratio: 0.01
- time = 4.184077025000022
+ time = 2.7583320287998503
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -33,7 +33,7 @@ build-house location0 ~count:10
 
 
 Domain size: 10 Ratio: 0.1
- time = 3.6876108320000185
+ time = 2.7825919689999865
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -50,7 +50,7 @@ build-house location0 ~count:10
 
 
 Domain size: 10 Ratio: 0.2
- time = 4.054069966000014
+ time = 2.8376715852005874
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -67,7 +67,7 @@ build-house location0 ~count:10
 
 
 Domain size: 10 Ratio: 0.3
- time = 3.7005375269999945
+ time = 2.4810745717997635
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -84,7 +84,7 @@ build-house location0 ~count:10
 
 
 Domain size: 10 Ratio: 0.4
- time = 3.2765153889999965
+ time = 2.5693281777996164
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -101,7 +101,7 @@ build-house location0 ~count:10
 
 
 Domain size: 10 Ratio: 0.5
- time = 3.721682212000019
+ time = 3.1001865422003902
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -118,7 +118,7 @@ build-house location0 ~count:10
 
 
 Domain size: 10 Ratio: 0.6
- time = 4.173220436999998
+ time = 3.1167069942002854
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -135,7 +135,7 @@ build-house location0 ~count:10
 
 
 Domain size: 10 Ratio: 0.7
- time = 4.012989415999982
+ time = 3.4949722012002895
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -152,7 +152,7 @@ build-house location0 ~count:10
 
 
 Domain size: 10 Ratio: 0.8
- time = 4.493478921000019
+ time = 3.4531852288000664
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -169,7 +169,7 @@ build-house location0 ~count:10
 
 
 Domain size: 10 Ratio: 0.9
- time = 5.064846439999997
+ time = 4.083214545800729
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -186,7 +186,7 @@ build-house location0 ~count:10
 
 
 Domain size: 10 Ratio: 1
- time = 4.760458588000006
+ time = 3.9607904620006593
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -203,7 +203,7 @@ build-house location0 ~count:10
 
 
 Domain size: 25 Ratio: 0.001
- time = 3.4984732919999715
+ time = 2.8357380244000523
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -220,7 +220,7 @@ build-house location0 ~count:25
 
 
 Domain size: 25 Ratio: 0.01
- time = 3.700046014999998
+ time = 2.7901070244006405
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -237,7 +237,7 @@ build-house location0 ~count:25
 
 
 Domain size: 25 Ratio: 0.1
- time = 3.2243242290000467
+ time = 2.5164348362006423
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -254,7 +254,7 @@ build-house location0 ~count:25
 
 
 Domain size: 25 Ratio: 0.2
- time = 4.233697442999983
+ time = 3.054613759399581
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -271,7 +271,7 @@ build-house location0 ~count:25
 
 
 Domain size: 25 Ratio: 0.3
- time = 4.824918718000049
+ time = 3.6283316495999314
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -288,7 +288,7 @@ build-house location0 ~count:25
 
 
 Domain size: 25 Ratio: 0.4
- time = 5.263660254999991
+ time = 4.198638068599394
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -305,7 +305,7 @@ build-house location0 ~count:25
 
 
 Domain size: 25 Ratio: 0.5
- time = 7.007165119999968
+ time = 5.605996831399898
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -322,7 +322,7 @@ build-house location0 ~count:25
 
 
 Domain size: 25 Ratio: 0.6
- time = 6.617171312000039
+ time = 5.306366750600501
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -339,7 +339,7 @@ build-house location0 ~count:25
 
 
 Domain size: 25 Ratio: 0.7
- time = 7.310047645999987
+ time = 6.232535475799523
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -356,7 +356,7 @@ build-house location0 ~count:25
 
 
 Domain size: 25 Ratio: 0.8
- time = 8.104864993999968
+ time = 6.723024793199874
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -373,7 +373,7 @@ build-house location0 ~count:25
 
 
 Domain size: 25 Ratio: 0.9
- time = 9.61732041800002
+ time = 8.400731343199732
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -390,7 +390,7 @@ build-house location0 ~count:25
 
 
 Domain size: 25 Ratio: 1
- time = 9.997098542999993
+ time = 9.026887380999687
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -407,7 +407,7 @@ build-house location0 ~count:25
 
 
 Domain size: 50 Ratio: 0.001
- time = 3.496991059999914
+ time = 2.874175906199889
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -424,7 +424,7 @@ build-house location0 ~count:50
 
 
 Domain size: 50 Ratio: 0.01
- time = 3.7063849159999336
+ time = 2.8949578888004908
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -441,7 +441,7 @@ build-house location0 ~count:50
 
 
 Domain size: 50 Ratio: 0.1
- time = 4.21322017500006
+ time = 3.1133149669996785
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -458,7 +458,7 @@ build-house location0 ~count:50
 
 
 Domain size: 50 Ratio: 0.2
- time = 5.196475143999919
+ time = 4.341093861400077
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -475,7 +475,7 @@ build-house location0 ~count:50
 
 
 Domain size: 50 Ratio: 0.3
- time = 6.444192068000007
+ time = 5.435663270799705
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -492,7 +492,7 @@ build-house location0 ~count:50
 
 
 Domain size: 50 Ratio: 0.4
- time = 7.111551147
+ time = 6.486222540399831
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -509,7 +509,7 @@ build-house location0 ~count:50
 
 
 Domain size: 50 Ratio: 0.5
- time = 10.155225245999986
+ time = 9.429451358199731
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -526,7 +526,7 @@ build-house location0 ~count:50
 
 
 Domain size: 50 Ratio: 0.6
- time = 11.044376585000009
+ time = 9.854029415400145
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -543,7 +543,7 @@ build-house location0 ~count:50
 
 
 Domain size: 50 Ratio: 0.7
- time = 13.365912882999964
+ time = 12.401677710400326
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -560,7 +560,7 @@ build-house location0 ~count:50
 
 
 Domain size: 50 Ratio: 0.8
- time = 13.522543099000018
+ time = 12.429251559200202
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -577,7 +577,7 @@ build-house location0 ~count:50
 
 
 Domain size: 50 Ratio: 0.9
- time = 16.453305271999966
+ time = 15.391566061599587
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -594,7 +594,7 @@ build-house location0 ~count:50
 
 
 Domain size: 50 Ratio: 1
- time = 16.394728170000008
+ time = 15.349329198399937
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -611,7 +611,7 @@ build-house location0 ~count:50
 
 
 Domain size: 100 Ratio: 0.001
- time = 3.494831432000069
+ time = 2.9701057641999795
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -628,7 +628,7 @@ build-house location0 ~count:100
 
 
 Domain size: 100 Ratio: 0.01
- time = 3.9170659960000194
+ time = 2.9428249995999067
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -645,7 +645,7 @@ build-house location0 ~count:100
 
 
 Domain size: 100 Ratio: 0.1
- time = 5.372408587999985
+ time = 4.4025606704002715
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -662,7 +662,7 @@ build-house location0 ~count:100
 
 
 Domain size: 100 Ratio: 0.2
- time = 8.467954822000024
+ time = 7.451671737400465
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -679,7 +679,7 @@ build-house location0 ~count:100
 
 
 Domain size: 100 Ratio: 0.3
- time = 11.312654024999915
+ time = 10.416044275199237
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -696,7 +696,7 @@ build-house location0 ~count:100
 
 
 Domain size: 100 Ratio: 0.4
- time = 14.39414685099996
+ time = 12.95717246259992
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -713,7 +713,7 @@ build-house location0 ~count:100
 
 
 Domain size: 100 Ratio: 0.5
- time = 17.08836514899997
+ time = 15.999634898600561
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -730,7 +730,7 @@ build-house location0 ~count:100
 
 
 Domain size: 100 Ratio: 0.6
- time = 17.585983142000032
+ time = 16.222524524999606
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -747,7 +747,7 @@ build-house location0 ~count:100
 
 
 Domain size: 100 Ratio: 0.7
- time = 22.810376365000025
+ time = 22.065287116200487
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -764,7 +764,7 @@ build-house location0 ~count:100
 
 
 Domain size: 100 Ratio: 0.8
- time = 25.72694457800003
+ time = 24.191635169999792
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -781,7 +781,7 @@ build-house location0 ~count:100
 
 
 Domain size: 100 Ratio: 0.9
- time = 28.188257722999992
+ time = 27.883393133400023
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -798,7 +798,7 @@ build-house location0 ~count:100
 
 
 Domain size: 100 Ratio: 1
- time = 31.18039838599998
+ time = 30.095909501799543
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -815,7 +815,7 @@ build-house location0 ~count:100
 
 
 Domain size: 250 Ratio: 0.001
- time = 4.271079968000095
+ time = 3.287308949800354
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -832,7 +832,7 @@ build-house location0 ~count:250
 
 
 Domain size: 250 Ratio: 0.01
- time = 3.741352648999964
+ time = 2.894126304200472
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -849,7 +849,7 @@ build-house location0 ~count:250
 
 
 Domain size: 250 Ratio: 0.1
- time = 11.390718246000006
+ time = 10.811187622999569
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -866,7 +866,7 @@ build-house location0 ~count:250
 
 
 Domain size: 250 Ratio: 0.2
- time = 18.342062887999873
+ time = 18.16789582619931
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -883,7 +883,7 @@ build-house location0 ~count:250
 
 
 Domain size: 250 Ratio: 0.3
- time = 30.664750133000098
+ time = 27.9716019786003
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -900,7 +900,7 @@ build-house location0 ~count:250
 
 
 Domain size: 250 Ratio: 0.4
- time = 31.936866152999983
+ time = 31.647818586199357
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -917,7 +917,7 @@ build-house location0 ~count:250
 
 
 Domain size: 250 Ratio: 0.5
- time = 46.64198864800005
+ time = 47.073385318600415
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -934,7 +934,7 @@ build-house location0 ~count:250
 
 
 Domain size: 250 Ratio: 0.6
- time = 48.49981525499993
+ time = 45.55821422500012
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -951,7 +951,7 @@ build-house location0 ~count:250
 
 
 Domain size: 250 Ratio: 0.7
- time = 63.92879555800005
+ time = 62.30394230239945
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -968,7 +968,7 @@ build-house location0 ~count:250
 
 
 Domain size: 250 Ratio: 0.8
- time = 64.72285340000008
+ time = 65.08638379439981
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -985,7 +985,7 @@ build-house location0 ~count:250
 
 
 Domain size: 250 Ratio: 0.9
- time = 81.31825366299995
+ time = 80.03963051939972
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1002,7 +1002,7 @@ build-house location0 ~count:250
 
 
 Domain size: 250 Ratio: 1
- time = 82.09836757700009
+ time = 79.32557525700031
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1019,7 +1019,7 @@ build-house location0 ~count:250
 
 
 Domain size: 500 Ratio: 0.001
- time = 4.58723643999997
+ time = 3.615366131799965
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1036,7 +1036,7 @@ build-house location0 ~count:500
 
 
 Domain size: 500 Ratio: 0.01
- time = 4.933823570999948
+ time = 3.8618821452000702
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1053,7 +1053,7 @@ build-house location0 ~count:500
 
 
 Domain size: 500 Ratio: 0.1
- time = 21.41488441499996
+ time = 19.809828029600247
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1069,25 +1069,8 @@ build-house location0 ~count:500
 
 
 
-Domain size: 500 Ratio: 0.2
- time = 39.81087015799994
-Plan length: 10
-Closed list length: 0 Open list length: 0
-build-quarry location0
-build-cabin location0
-fell-timber location0 ~count:500
-break-stone location0 ~count:500
-build-coal-stack location0
-fell-timber location0 ~count:1
-fell-timber location0 ~count:10
-build-sawmill location0
-saw-wood location0 ~count:500
-build-house location0 ~count:500
-
-
-
 Domain size: 500 Ratio: 0.3
- time = 56.78774773700002
+ time = 55.563255053200194
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1104,7 +1087,7 @@ build-house location0 ~count:500
 
 
 Domain size: 500 Ratio: 0.4
- time = 66.02748643799987
+ time = 61.79429978820008
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1121,7 +1104,7 @@ build-house location0 ~count:500
 
 
 Domain size: 500 Ratio: 0.5
- time = 92.353571783
+ time = 91.11292620240019
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1138,7 +1121,7 @@ build-house location0 ~count:500
 
 
 Domain size: 500 Ratio: 0.6
- time = 95.58298161599987
+ time = 90.89299034440009
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1155,7 +1138,7 @@ build-house location0 ~count:500
 
 
 Domain size: 500 Ratio: 0.7
- time = 135.37936330399998
+ time = 125.98733771659973
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1172,7 +1155,7 @@ build-house location0 ~count:500
 
 
 Domain size: 500 Ratio: 0.8
- time = 145.0582951389997
+ time = 144.52964805060037
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1189,7 +1172,7 @@ build-house location0 ~count:500
 
 
 Domain size: 500 Ratio: 0.9
- time = 157.23893557599968
+ time = 161.12832586220028
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1206,7 +1189,7 @@ build-house location0 ~count:500
 
 
 Domain size: 500 Ratio: 1
- time = 181.80339057400033
+ time = 178.94771540799994
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1223,7 +1206,7 @@ build-house location0 ~count:500
 
 
 Domain size: 1000 Ratio: 0.001
- time = 5.731961758000125
+ time = 4.8560113860003185
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1240,7 +1223,7 @@ build-house location0 ~count:1000
 
 
 Domain size: 1000 Ratio: 0.01
- time = 7.968629936999605
+ time = 6.731416080800409
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1257,7 +1240,7 @@ build-house location0 ~count:1000
 
 
 Domain size: 1000 Ratio: 0.1
- time = 44.812572772000294
+ time = 48.666249220799365
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1274,7 +1257,7 @@ build-house location0 ~count:1000
 
 
 Domain size: 1000 Ratio: 0.2
- time = 95.56023438600005
+ time = 92.59103360539957
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1291,7 +1274,7 @@ build-house location0 ~count:1000
 
 
 Domain size: 1000 Ratio: 0.3
- time = 137.72061793600005
+ time = 136.33512822000048
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1308,7 +1291,7 @@ build-house location0 ~count:1000
 
 
 Domain size: 1000 Ratio: 0.4
- time = 184.61165292700025
+ time = 169.99652637620093
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1325,7 +1308,7 @@ build-house location0 ~count:1000
 
 
 Domain size: 1000 Ratio: 0.5
- time = 232.6423301980003
+ time = 228.12806379699978
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1342,7 +1325,7 @@ build-house location0 ~count:1000
 
 
 Domain size: 1000 Ratio: 0.6
- time = 227.81452655800013
+ time = 226.19861183940012
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1359,7 +1342,7 @@ build-house location0 ~count:1000
 
 
 Domain size: 1000 Ratio: 0.7
- time = 344.6292007979996
+ time = 354.8890628961999
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1376,7 +1359,7 @@ build-house location0 ~count:1000
 
 
 Domain size: 1000 Ratio: 0.8
- time = 361.1997229969993
+ time = 388.46826637280026
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1393,7 +1376,7 @@ build-house location0 ~count:1000
 
 
 Domain size: 1000 Ratio: 0.9
- time = 406.1331317490003
+ time = 410.91619067499926
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1410,7 +1393,7 @@ build-house location0 ~count:1000
 
 
 Domain size: 1000 Ratio: 1
- time = 453.64592729800006
+ time = 450.3979507452008
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1427,7 +1410,7 @@ build-house location0 ~count:1000
 
 
 Domain size: 2500 Ratio: 0.001
- time = 7.09206374400037
+ time = 6.223093759201584
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1444,7 +1427,7 @@ build-house location0 ~count:2500
 
 
 Domain size: 2500 Ratio: 0.01
- time = 28.044942507000087
+ time = 24.57831384519959
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1461,7 +1444,7 @@ build-house location0 ~count:2500
 
 
 Domain size: 2500 Ratio: 0.1
- time = 187.07566967000002
+ time = 167.6725709540013
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1478,7 +1461,7 @@ build-house location0 ~count:2500
 
 
 Domain size: 2500 Ratio: 0.2
- time = 367.48942737200014
+ time = 367.6826834579973
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1495,7 +1478,7 @@ build-house location0 ~count:2500
 
 
 Domain size: 2500 Ratio: 0.3
- time = 607.645639632
+ time = 547.9761014552001
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1512,7 +1495,7 @@ build-house location0 ~count:2500
 
 
 Domain size: 2500 Ratio: 0.4
- time = 685.4814163620003
+ time = 755.7800279912015
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1529,7 +1512,7 @@ build-house location0 ~count:2500
 
 
 Domain size: 2500 Ratio: 0.5
- time = 907.6354487519993
+ time = 1006.6414453064004
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1546,7 +1529,7 @@ build-house location0 ~count:2500
 
 
 Domain size: 2500 Ratio: 0.6
- time = 910.1070921910014
+ time = 1004.3478712445998
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1563,7 +1546,7 @@ build-house location0 ~count:2500
 
 
 Domain size: 2500 Ratio: 0.7
- time = 1280.1989968489997
+ time = 1259.2998715614026
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1580,7 +1563,7 @@ build-house location0 ~count:2500
 
 
 Domain size: 2500 Ratio: 0.8
- time = 1456.2244089039996
+ time = 1448.1208366374005
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1597,7 +1580,7 @@ build-house location0 ~count:2500
 
 
 Domain size: 2500 Ratio: 0.9
- time = 1491.1282069410008
+ time = 1617.562468115198
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1614,7 +1597,7 @@ build-house location0 ~count:2500
 
 
 Domain size: 2500 Ratio: 1
- time = 1834.1792232069984
+ time = 1823.5128724321985
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1631,7 +1614,7 @@ build-house location0 ~count:2500
 
 
 Domain size: 5000 Ratio: 0.001
- time = 14.919931530999747
+ time = 12.399893999000778
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1648,7 +1631,7 @@ build-house location0 ~count:5000
 
 
 Domain size: 5000 Ratio: 0.01
- time = 65.4450798680009
+ time = 65.38694501740392
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1665,7 +1648,7 @@ build-house location0 ~count:5000
 
 
 Domain size: 5000 Ratio: 0.1
- time = 593.7537470620009
+ time = 680.4271798386005
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1682,7 +1665,7 @@ build-house location0 ~count:5000
 
 
 Domain size: 5000 Ratio: 0.2
- time = 1181.4682310830012
+ time = 1198.0102121185948
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1699,7 +1682,7 @@ build-house location0 ~count:5000
 
 
 Domain size: 5000 Ratio: 0.3
- time = 1773.6126439319996
+ time = 1772.704479263004
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1716,7 +1699,7 @@ build-house location0 ~count:5000
 
 
 Domain size: 5000 Ratio: 0.4
- time = 1988.4270946539982
+ time = 1957.5428491761995
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1733,7 +1716,7 @@ build-house location0 ~count:5000
 
 
 Domain size: 5000 Ratio: 0.5
- time = 2957.120476183998
+ time = 2937.2395007981977
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1750,7 +1733,7 @@ build-house location0 ~count:5000
 
 
 Domain size: 5000 Ratio: 0.6
- time = 2942.599516243001
+ time = 2972.6762795581976
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1767,7 +1750,7 @@ build-house location0 ~count:5000
 
 
 Domain size: 5000 Ratio: 0.7
- time = 4113.407444173998
+ time = 4102.74416976801
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1784,7 +1767,7 @@ build-house location0 ~count:5000
 
 
 Domain size: 5000 Ratio: 0.8
- time = 4714.684748148997
+ time = 4812.7786646916065
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1801,7 +1784,7 @@ build-house location0 ~count:5000
 
 
 Domain size: 5000 Ratio: 0.9
- time = 5312.533958480999
+ time = 6329.8246935226025
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1818,7 +1801,7 @@ build-house location0 ~count:5000
 
 
 Domain size: 5000 Ratio: 1
- time = 6006.3797082750025
+ time = 6012.244642723008
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1835,7 +1818,7 @@ build-house location0 ~count:5000
 
 
 Domain size: 10000 Ratio: 0.001
- time = 35.31790584199916
+ time = 30.41478047579876
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1852,7 +1835,7 @@ build-house location0 ~count:10000
 
 
 Domain size: 10000 Ratio: 0.01
- time = 265.70688070399774
+ time = 221.18484153639875
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1869,7 +1852,7 @@ build-house location0 ~count:10000
 
 
 Domain size: 10000 Ratio: 0.1
- time = 2506.092709493998
+ time = 2177.454508443392
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1886,7 +1869,7 @@ build-house location0 ~count:10000
 
 
 Domain size: 10000 Ratio: 0.2
- time = 4238.870636694999
+ time = 4314.478041772609
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1903,7 +1886,7 @@ build-house location0 ~count:10000
 
 
 Domain size: 10000 Ratio: 0.3
- time = 6395.887735534001
+ time = 6367.677159952616
 Plan length: 10
 Closed list length: 0 Open list length: 0
 build-quarry location0
@@ -1930,6 +1913,3 @@ Terminating run
 Domain size: 10000 Ratio: 0.8
 Terminating run 
 Domain size: 10000 Ratio: 0.9
-Terminating run 
-Domain size: 10000 Ratio: 1
-Terminating run 

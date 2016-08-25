@@ -290,10 +290,10 @@ class State
 					
 					return true;
 				});
+				string = string.substr(0, string.length - 1);
 			}
 		}
 		
-		string = string.substr(0, string.length - 1);
 		string += "],\n \"functions\":[";
 		
 		{
