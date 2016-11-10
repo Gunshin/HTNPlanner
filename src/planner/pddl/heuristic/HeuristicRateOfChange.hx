@@ -29,6 +29,8 @@ class HeuristicRateOfChange implements IHeuristic
 {	
 	var domain:Domain = null;
 	var problem:Problem = null;
+	
+	var planner:Planner = null;
 
 	public function new(domain_:Domain, problem_:Problem) 
 	{
@@ -79,13 +81,15 @@ class HeuristicRateOfChange implements IHeuristic
 	 * @param	initial_state_
 	 * @return
 	 */
-	public function RunHeuristic(initial_state_:State):HeuristicResult
+	public function RunHeuristic(initial_state_:State, planner_:Planner):HeuristicResult
 	{
 		// should do this check to make sure we dont attempt to generate a heuristic on a satisfied state
 		if (problem.EvaluateGoal(initial_state_))
 		{
 			return new HeuristicResult(null, 0);
 		}
+		
+		planner = planner_;
 		
 		//trace("init: " + initial_state_.toString());
 		var heuristic_state:StateHeuristic = new StateHeuristic();
@@ -133,6 +137,10 @@ class HeuristicRateOfChange implements IHeuristic
 		while (goal_node_index > 0)
 		{
 			var s_h_n:HeuristicNode = state_list[goal_node_index - 1]; // index - 1 since we need to use actions from the previous layer
+			
+			var cloned_state_level:StateHeuristic = new StateHeuristic();
+			s_h_n.state.CopyTo(cloned_state_level);
+			
 			#if debugging_heuristic
 			Utilities.Log("------------------");
 			for (layer in goal_node_layers)
@@ -148,12 +156,17 @@ class HeuristicRateOfChange implements IHeuristic
 				Utilities.Logln("Goal node: " + goal_node.GetRawTreeString());
 				#end
 				
+				if (goal_node.HeuristicEvaluate(null, null, cloned_state_level, domain))
+				{
+					continue;
+				}
+				
 				if (Std.is(goal_node, TreeNodeInt))
 				{
 					var tree_node_int_goal:TreeNodeInt = cast(goal_node, TreeNodeInt);
 					var before_values:Pair<Pair<Int, Int>, Pair<Int, Int>> = new Pair(
-									tree_node_int_goal.HeuristicGetValueFromChild(0, null, null, s_h_n.state, domain),
-									tree_node_int_goal.HeuristicGetValueFromChild(1, null, null, s_h_n.state, domain));
+									tree_node_int_goal.HeuristicGetValueFromChild(0, null, null, cloned_state_level, domain),
+									tree_node_int_goal.HeuristicGetValueFromChild(1, null, null, cloned_state_level, domain));
 					
 					var goal_values:Pair<Pair<Int, Int>, Pair<Int, Int>> = new Pair(
 									tree_node_int_goal.HeuristicGetValueFromChild(0, null, null, state_list[goal_node_index].state, domain),
@@ -230,6 +243,8 @@ class HeuristicRateOfChange implements IHeuristic
 					}
 					#end
 					
+					
+					
 					// final set of actions that could be done, with the amount of repetitions needed
 					var valid_actions:Array<Pair<Int, FunctionRateOfChange>> = new Array<Pair<Int, FunctionRateOfChange>>();
 					for (roc in best_actions)
@@ -238,13 +253,12 @@ class HeuristicRateOfChange implements IHeuristic
 						//grab the predicates that are needed
 						var heuristic_data_for_looking:HeuristicData = new HeuristicData();
 						roc.action.Set();
-						roc.action.action.HeuristicExecute(heuristic_data_for_looking, s_h_n.state, domain);
+						roc.action.action.HeuristicExecute(heuristic_data_for_looking, cloned_state_level, domain);
 						//need to apply the predicates to the state
 						for (i in heuristic_data_for_looking.predicates.keys())
 						{
 							goal_node_checking_state.AddRelation(i);
 						}
-						//var original_function_values:Map<String, Pair<Int, Int>> = new Map<String, Pair<Int, Int>>();
 						
 						//need to apply the functions to the state
 						for (i in heuristic_data_for_looking.function_changes)
@@ -279,12 +293,13 @@ class HeuristicRateOfChange implements IHeuristic
 								{
 									goal_node_checking_state.AddRelation(i);
 								}
-								
 								//need to apply the functions to the state
 								for (i in heuristic_data_for_looking.function_changes)
 								{
 									goal_node_checking_state.SetFunctionBounds(i.name, i.bounds);
 								}
+								//clear it so that there is not an enormous amount of aditional elements from previous iterations, that are essentially useless
+								heuristic_data_for_looking.function_changes = [];
 								
 								// need to recheck after every execution incase it suddenly stops moving towards the goal
 								after_values = new Pair(
@@ -294,7 +309,6 @@ class HeuristicRateOfChange implements IHeuristic
 								function_is_closer = Heuristic.IsFunctionCloser(before_values, after_values, goal_values);
 							}
 							while (function_is_closer);
-							
 						}
 						
 						#if debugging_heuristic
@@ -308,8 +322,25 @@ class HeuristicRateOfChange implements IHeuristic
 					}
 					#end
 					
-					var best:Pair<Int, FunctionRateOfChange> = SelectBestAction(valid_actions);
+					var best:Pair<Int, FunctionRateOfChange> = SelectBestAction(valid_actions);trace(best);
 					best.b.action.Set();
+					
+					var final_data:HeuristicData = new HeuristicData();
+					best.b.action.action.HeuristicExecute(final_data, cloned_state_level, domain);
+					for (i in final_data.predicates.keys())
+					{
+						cloned_state_level.AddRelation(i);
+					}
+					
+					for (iter in 0...best.a)
+					{
+						for (i in final_data.function_changes)
+						{
+							cloned_state_level.SetFunctionBounds(i.name, i.bounds);
+						}
+					}
+					//best.b.action.action.HeuristicExecute(new HeuristicData(), cloned_state_level, domain);
+					
 					var action_precondition_nodes_to_add:Array<TreeNode> = GetGoalNodes(best.b.action.action.GetPreconditionTree().GetBaseNode());
 					
 					#if debugging_heuristic
@@ -446,7 +477,7 @@ class HeuristicRateOfChange implements IHeuristic
 	)
 	:Array<HeuristicNode>
 	{
-		var current_node:HeuristicNode = new HeuristicNode(heuristic_initial_state_, Planner.GetAllActionsForState(heuristic_initial_state_, domain));
+		var current_node:HeuristicNode = new HeuristicNode(heuristic_initial_state_, planner.GetAllActionsForState(heuristic_initial_state_, domain));
 		var state_list:Array<HeuristicNode> = new Array<HeuristicNode>();
 		state_list.push(current_node);
 		
@@ -786,8 +817,12 @@ class HeuristicRateOfChange implements IHeuristic
 				for (valueIndex in 0...actionValues.length)
 				{
 					var obj_array:Array<Pair<String, String>> = new Array<Pair<String, String>>();
-					var possible_values:Array<String> = actionValues[valueIndex].GetPossibleValues(action_.GetData(), state_, domain_, heuristic_version_);
-					
+					var possible_values:Array<String> = actionValues[valueIndex].GetPossibleValues(action_.GetData(), state_, domain_, heuristic_version_, true, 0.3);
+					if (possible_values.length > 1)
+					{
+					//trace(possible_values);
+					//throw "";
+					}
 					if (possible_values.length > 0)
 					{
 						obj_array.push(new Pair(actionValues[valueIndex].GetName(), possible_values[0]));

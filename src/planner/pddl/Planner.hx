@@ -24,6 +24,9 @@ class Planner
 	
 	var hasMetric:Bool = false;
 	
+	var use_partial_range:Bool = false;
+	var partial_range_ratio:Float = 1;
+	
 	
 	var closed_list_length:Int = 0;
 	var open_list_length:Int = 0;
@@ -53,21 +56,24 @@ class Planner
 	var iteration:Int = 0;
 	#end
 	
-	public function FindPlan(domain_:Domain, problem_:Problem, heuristic_:IHeuristic):Array<PlannerActionNode>
+	public function FindPlan(domain_:Domain, problem_:Problem, heuristic_:IHeuristic, use_partial_range_:Bool, partial_range_ratio_:Float):Array<PlannerActionNode>
 	{
 		domain = domain_;
 		problem = problem_;
+
+		use_partial_range = use_partial_range_;
+		partial_range_ratio = partial_range_ratio_;
 		
 		var initial_state:State = problem_.GetClonedInitialState();
 		var initial_heuristic:HeuristicResult = new HeuristicResult(null, 0);
-		
+
 		if (heuristic_ != null)
 		{
 			heuristic = heuristic_;
 			
-			initial_heuristic = heuristic.RunHeuristic(initial_state);
+			initial_heuristic = heuristic.RunHeuristic(initial_state, this);
 		}
-		
+
 		/*for (i in initial_heuristic.ordered_list)
 		{
 			Utilities.Logln(i.GetActionTransform());
@@ -134,7 +140,7 @@ class Planner
 					current_state = open_list.pop();
 					closed_list_length++;
 				}
-				
+				//trace("running on: " + current_state.plannerActionNode.GetActionTransform());
 				
 				
 			}
@@ -240,7 +246,8 @@ class Planner
 				Utilities.Logln(i.plannerActionNode.GetActionTransform());
 				#end
 			}
-			
+			closed_list.push(current_state);
+
 			// GetAllSuccessiveStates may return no states if those states have already been visited
 			if (open_list.size() == 0)
 			{
@@ -249,7 +256,6 @@ class Planner
 				#end
 				return new GreedySearchResult(null, open_list, null);
 			}
-			
 			previous_state = current_state;
 			current_state = GetNextState(open_list);
 			closed_list_length++;
@@ -267,7 +273,6 @@ class Planner
 				#end
 				return new GreedySearchResult(previous_state, open_list, null);
 			}
-			
 		}
 		while (!problem.EvaluateGoal(current_state.state));
 		// we dropped out of the loop because the goal evaluated correctly, maybe
@@ -323,7 +328,7 @@ class Planner
 				var last_heuristic:HeuristicResult = new HeuristicResult(null, 0);
 				if (heuristic != null)
 				{
-					last_heuristic = heuristic.RunHeuristic(action_state_pair.b);
+					last_heuristic = heuristic.RunHeuristic(action_state_pair.b, this);
 				}
 				
 				plannerNode = new PlannerNode(action_state_pair.b, parent_state_, action_state_pair.a, parent_state_.depth + 1, last_heuristic);
@@ -369,13 +374,13 @@ class Planner
 		for (action_state_pair in successive_states)
 		{
 			var hash:Int = action_state_pair.b.GenerateStateHash();
-			//trace("hash: " + actionNode.action.GetName() + " :: exists? " + visited_states.exists(hash));
+			//trace("hash: " + action_state_pair.a.GetActionTransform() + " :: exists? " + visited_states_.exists(hash));
 			if (!visited_states_.exists(hash))
 			{
 				var last_heuristic:HeuristicResult = new HeuristicResult(null, 0);
 				if (heuristic != null)
 				{
-					last_heuristic = heuristic.RunHeuristic(action_state_pair.b);
+					last_heuristic = heuristic.RunHeuristic(action_state_pair.b, this);
 				}
 				
 				var plannerNode:PlannerNode = new PlannerNode(action_state_pair.b, parent_state_, action_state_pair.a, parent_state_.depth + 1, last_heuristic);
@@ -431,7 +436,8 @@ class Planner
 	}
 	
 	
-	static public function GetAllActionsForState(state_:State, domain_:Domain):Array<PlannerActionNode>
+	
+	public function GetAllActionsForState(state_:State, domain_:Domain):Array<PlannerActionNode>
 	{
 		var actions:Array<PlannerActionNode> = new Array<PlannerActionNode>();
 		
@@ -442,12 +448,14 @@ class Planner
 			var parameter_combinations:Array<Array<Pair<String, String>>> = GetAllPossibleParameterCombinations(action, state_, domain_);
 			
 			// has an extra array since these combinations are used per parameter combination
-			var value_combinations:Array<Array<Array<Pair<String, String>>>> = GetAllPossibleValueCombinations(action, parameter_combinations, state_, domain_, false);
+			var value_combinations:Array<Array<Array<Pair<String, String>>>> = GetAllPossibleValueCombinations(action, parameter_combinations, state_, 
+																					domain_, false, use_partial_range, partial_range_ratio);
 			
 			for (param_index in 0...parameter_combinations.length)
 			{
 				var param_combination:Array<Pair<String, String>> = parameter_combinations[param_index];
 				action.GetData().SetParameters(param_combination);
+				
 				if (value_combinations[param_index].length > 0)
 				{
 					for (val_combination in value_combinations[param_index])
@@ -504,7 +512,15 @@ class Planner
 		return combinations;
 	}
 	
-	static public function GetAllPossibleValueCombinations(action_:Action, parameter_combinations_:Array<Array<Pair<String, String>>>, state_:State, domain_:Domain, heuristic_version_:Bool):Array<Array<Array<Pair<String, String>>>>
+	static public function GetAllPossibleValueCombinations(
+	action_:Action, 
+	parameter_combinations_:Array<Array<Pair<String, String>>>, 
+	state_:State, 
+	domain_:Domain, 
+	heuristic_version_:Bool,
+	use_partial_range_:Bool, 
+	partial_range_ratio_:Float
+	):Array<Array<Array<Pair<String, String>>>>
 	{
 		//Utilities.Log("Planner.GetAllPossibleValueCombinations: " + action_+"\n");
 		var returnee:Array<Array<Array<Pair<String, String>>>> = new Array<Array<Array<Pair<String, String>>>>();
@@ -521,7 +537,7 @@ class Planner
 				for (valueIndex in 0...actionValues.length)
 				{
 					var obj_array:Array<Pair<String, String>> = new Array<Pair<String, String>>();
-					for (obj in actionValues[valueIndex].GetPossibleValues(action_.GetData(), state_, domain_, heuristic_version_))
+					for (obj in actionValues[valueIndex].GetPossibleValues(action_.GetData(), state_, domain_, heuristic_version_, use_partial_range_, partial_range_ratio_))
 					{
 						obj_array.push(new Pair(actionValues[valueIndex].GetName(), obj));
 					}

@@ -54,3 +54,4 @@ build-house location0
 
 Domain: pddlexamples/Results/IntegerParameters/Settlers.pddl Problem: pddlexamples/Results/IntegerParameters/Test1/pfile10
 Time taken seconds: 26.476683208020404
+

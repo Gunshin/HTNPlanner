@@ -22,6 +22,10 @@ import planner.pddl.tree.TreeNodeFunction;
 import planner.pddl.tree.TreeNodeInt;
 import planner.pddl.tree.TreeNodeValue;
 
+import test.result_generation.ResultGeneratorPartialRangeLargeDomain;
+
+import test.result_generation.ObjectCreationTest;
+
 /**
  * ...
  * @author Michael Stephens
@@ -54,10 +58,33 @@ class Main
 	
 	public function new()
 	{
-		//UnitTests();
-		Utilities.WriteToFile("output.txt", "", false);
 		
-		var domainIndex:Int = 7;
+		new ObjectCreationTest().Run();
+		
+		/*for (arg in Sys.args())
+            Sys.println(arg);*/
+		
+		//Utilities.WriteToFile("output.txt", "", false);
+		
+		//new ResultGeneratorPartialRangeLargeDomain().Run(Std.parseInt(Sys.args()[0]), Std.parseFloat(Sys.args()[1]));
+		//trace("passed");
+		//while(true){}
+		
+		//new ResultGeneratorPartialRangeLargeDomain().Run(100, 1);
+		
+		/*var result_generators:Array<IResultGenerator> = [
+			new ResultGeneratorPartialRangeLargeDomain()
+		];*/
+		
+		/*for (i in result_generators)
+		{
+			i.Run();
+		}*/
+		
+		//UnitTests();
+		//Utilities.WriteToFile("output.txt", "", false);
+		
+		//var domainIndex:Int = 7;
 		
 		//var domain:Domain = new Domain("pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl");
 		
@@ -68,9 +95,10 @@ class Main
 			trace(i.GetName());
 		}*/
 		
-		//GetResults("results.txt", ["pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl"], ["pddlexamples/Results/IntegerParameters/Test1/pfile10"], 1);
-		//GetResults("results2.txt", ["pddlexamples/Results/IntegerParameters/Settlers.pddl"], ["pddlexamples/Results/IntegerParameters/Test1/pfile10"], 1);
-		
+		/*GetResults("results.txt", 	["pddlexamples/sequential-numeric-planning-benchmarks/counters_all/mt-counters/domain_integer_parameters.pddl"], 
+									["pddlexamples/sequential-numeric-planning-benchmarks/counters_all/mt-counters/instance_36.pddl"], 1);*/
+		//GetResults("results.txt", ["pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl"], ["pddlexamples/Results/IntegerParameters/Test1/pfile2"], 1);
+		//GetResults("results2.txt", ["pddlexamples/Results/IntegerParameters/Settlers.pddl"], ["pddlexamples/Results/IntegerParameters/Test2/pfile2"], 1);		
 		
 		//GetResults("results2.txt", ["pddlexamples/test/small_settlers/Settlers.pddl"], ["pddlexamples/test/small_settlers/pfile0"]);
 		//GetResults("results2.txt", ["pddlexamples/test/small_settlers/SettlersIntegerParameters.pddl"], ["pddlexamples/test/small_settlers/pfile0"]);
@@ -152,17 +180,21 @@ class Main
 				for (problem_index in 0...problems_.length)
 				{
 					var problem_path:String = problems_[problem_index];
-					
 					var domain:Domain = new Domain(domain_path);
 					var problem:Problem = new Problem(problem_path, domain);
 					
 					Utilities.WriteToFile(output_file_, "Domain: " + domain_path + " Problem: " + problem_path + "\n", true);
 					
 					var start:Float = Sys.cpuTime();
-					
+
 					var planner:Planner = new Planner();
+<<<<<<< HEAD
 					var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, new Heuristic(domain, problem));
 					
+=======
+					var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, new Heuristic(domain, problem), true, 0.1);
+
+>>>>>>> exp
 					averages_times[domain_index][problem_index] += Sys.cpuTime() - start;
 					
 					Utilities.WriteToFile(output_file_, "Time taken seconds: " + (Sys.cpuTime() - start) + "\n", true);
@@ -208,7 +240,7 @@ class Main
 		
 		trace("Starting Plan Test");		
 		var planner:Planner = new Planner();
-		var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, new Heuristic(domain, problem));
+		var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, new Heuristic(domain, problem), false , 0);
 		
 		Assert((array.length == 2), "Plan length is wrong");
 		var compareArray:Array<String> = [
@@ -222,7 +254,7 @@ class Main
 		}
 	}
 	
-	inline function Assert(flag_:Bool, mes_:String)
+	inline static public function Assert(flag_:Bool, mes_:String)
 	{
 		if (!flag_)
 		{

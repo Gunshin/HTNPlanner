@@ -17,3 +17,4 @@ build-house location0 ~count:10
 
 Domain: pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl Problem: pddlexamples/Results/IntegerParameters/Test1/pfile10
 Time taken seconds: 5.472505087964237
+
