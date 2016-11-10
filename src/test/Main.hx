@@ -24,6 +24,8 @@ import planner.pddl.tree.TreeNodeValue;
 
 import test.result_generation.ResultGeneratorPartialRangeLargeDomain;
 
+import test.result_generation.ObjectCreationTest;
+
 /**
  * ...
  * @author Michael Stephens
@@ -56,6 +58,8 @@ class Main
 	
 	public function new()
 	{
+		
+		new ObjectCreationTest().Run();
 		
 		/*for (arg in Sys.args())
             Sys.println(arg);*/
@@ -91,8 +95,8 @@ class Main
 			trace(i.GetName());
 		}*/
 		
-		GetResults("results.txt", 	["pddlexamples/sequential-numeric-planning-benchmarks/counters_all/mt-counters/domain_integer_parameters.pddl"], 
-									["pddlexamples/sequential-numeric-planning-benchmarks/counters_all/mt-counters/instance_36.pddl"], 1);
+		/*GetResults("results.txt", 	["pddlexamples/sequential-numeric-planning-benchmarks/counters_all/mt-counters/domain_integer_parameters.pddl"], 
+									["pddlexamples/sequential-numeric-planning-benchmarks/counters_all/mt-counters/instance_36.pddl"], 1);*/
 		//GetResults("results.txt", ["pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl"], ["pddlexamples/Results/IntegerParameters/Test1/pfile2"], 1);
 		//GetResults("results2.txt", ["pddlexamples/Results/IntegerParameters/Settlers.pddl"], ["pddlexamples/Results/IntegerParameters/Test2/pfile2"], 1);
 		
