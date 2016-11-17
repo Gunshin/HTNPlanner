@@ -1,5 +1,7 @@
 @echo off
 
+set path_location="../../src/test/result_generation/PartialRangeLargeDomain/"
+
 set domain_sizes="500"
 
 set ratios="0.2"
@@ -9,7 +11,7 @@ set max_count=36000
 
 
 echo %%d
-start "test" /I java -jar ../../bin/java/Main.jar "500" "0.2"
+start "test" /I java -jar ../../../bin/java/Main.jar %path_location% "500" "0.2"
 
 call :check
 
@@ -20,7 +22,7 @@ set count=0
 
 
 echo %%d
-start "test" /I java -jar ../../bin/java/Main.jar "5000" "0.9"
+start "test" /I java -jar ../../../bin/java/Main.jar %path_location% "5000" "0.9"
 
 call :check
 
@@ -44,7 +46,7 @@ if %count% LSS %max_count% (
 		set TRUE=0
 	)
 ) else (
-	@echo Terminating run >> ../../src/test/result_generation/PartialRangeLargeDomain/results.txt
+	@echo Terminating run >> ../../../src/test/result_generation/PartialRangeLargeDomain/results.txt
 	set TRUE=0
 ) 
 

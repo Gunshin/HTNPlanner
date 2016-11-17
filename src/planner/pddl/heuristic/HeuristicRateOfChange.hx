@@ -322,7 +322,7 @@ class HeuristicRateOfChange implements IHeuristic
 					}
 					#end
 					
-					var best:Pair<Int, FunctionRateOfChange> = SelectBestAction(valid_actions);trace(best);
+					var best:Pair<Int, FunctionRateOfChange> = SelectBestAction(valid_actions);//trace(best);
 					best.b.action.Set();
 					
 					var final_data:HeuristicData = new HeuristicData();

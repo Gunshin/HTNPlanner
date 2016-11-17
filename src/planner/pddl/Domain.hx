@@ -208,10 +208,13 @@ class Domain
 			action.SetEffectTree(Tree.ConvertRawTreeNodeToTree(effectNode, this));
 			
 			var parameterNode:RawTreeNode = ActionGetChild(":parameters", childrenWithNameRemoved);
-			var pairs:Array<Pair<String, String>> = Utilities.GenerateValueTypeMap([parameterNode].concat(parameterNode.children));
-			for (a in pairs)
+			if (parameterNode != null)
 			{
-				action.GetData().AddParameter(a.a, a.b);
+				var pairs:Array<Pair<String, String>> = Utilities.GenerateValueTypeMap([parameterNode].concat(parameterNode.children));
+				for (a in pairs)
+				{
+					action.GetData().AddParameter(a.a, a.b);
+				}
 			}
 			
 			var valueNode:RawTreeNode = ActionGetChild(":values", childrenWithNameRemoved);
@@ -228,6 +231,17 @@ class Domain
 							action.GetData().AddValue(new ValueIntRange(pair.a, action));
 					}
 				}
+			}
+			
+			var object_creation_node:RawTreeNode = ActionGetChild(":new_objects", childrenWithNameRemoved);
+			if (object_creation_node != null)
+			{
+				var pairs:Array<Pair<String, String>> = Utilities.GenerateValueTypeMap([object_creation_node].concat(object_creation_node.children));
+				for (a in pairs)
+				{
+					action.GetData().AddObjectCreationParameter(a.a, a.b);
+				}
+				
 			}
 			
 			actions.set(action.GetName(), action);

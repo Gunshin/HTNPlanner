@@ -1,5 +1,6 @@
 package planner.pddl;
 
+import de.polygonal.ds.Map;
 import haxe.ds.HashMap;
 import haxe.ds.StringMap;
 
@@ -15,6 +16,8 @@ class ActionData
 	
 	var values:Map<String, Value> = new StringMap<Value>();
 	var valuesLayout:Array<String> = new Array<String>();
+	
+	var new_objects:Array<Parameter> = new Array<Parameter>();
 
 	public function new() 
 	{
@@ -146,6 +149,32 @@ class ActionData
 		{
 			SetParameter(i.a, i.b);
 		}
+	}
+	
+	public function AddObjectCreationParameter(name_:String, type_:String)
+	{
+		var param:Parameter = GetParameter(name_);
+		if (param != null)
+		{
+			throw "param already exists";
+		}
+		
+		param = new Parameter(name_, type_, null);
+		
+		parameters.set(name_, param);
+		parameterLayout.push(name_);
+		
+		new_objects.push(name_, param);
+	}
+	
+	public function HasObjectCreationParameters():Bool
+	{
+		return new_objects.length != 0;
+	}
+	
+	public function GetObjectCreationParameters():Array<Parameter>
+	{
+		return new_objects;
 	}
 	
 	public function toString():String
