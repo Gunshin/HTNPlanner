@@ -8,6 +8,7 @@ import planner.pddl.tree.TreeNodeIntFunctionValue;
 import planner.pddl.Planner;
 import planner.pddl.planner.PlannerActionNode;
 import planner.pddl.heuristic.Heuristic;
+import planner.pddl.heuristic.HeuristicRateOfChange;
 
 import planner.pddl.Utilities;
 
@@ -18,10 +19,8 @@ import planner.pddl.Utilities;
 class ResultGeneratorPartialRangeLargeDomain
 {
 	
-	static var path:String = "../../src/test/result_generation/PartialRangeLargeDomain/";
-	var domain_path:String = path + "SettlersIntegerParameters.pddl";
-	var problem_path:String = path + "problem_file";
-	var results_path:String = path + "results.txt";
+	var path:String = null;
+	
 	
 	var repeats:Int = 5;
 	
@@ -41,8 +40,14 @@ class ResultGeneratorPartialRangeLargeDomain
 		
 	}
 	
-	public function Run(domain_size_:Int, ratio_:Float):Bool
+	public function Run(path_location_:String, domain_size_:Int, ratio_:Float):Bool
 	{
+		path = path_location_;
+
+		var domain_path:String = path + "SettlersIntegerParameters.pddl";
+		var problem_path:String = path + "problem_file";
+		var results_path:String = path + "results.txt";
+
 		trace("domain: " + domain_size_ + " ratio: " + ratio_);		
 		var domain:Domain = new Domain(domain_path);
 		var problem:Problem = new Problem(problem_path, domain);
@@ -78,7 +83,7 @@ class ResultGeneratorPartialRangeLargeDomain
 			var start:Float = Sys.cpuTime();
 			
 			planner = new Planner();
-			array = planner.FindPlan(domain, problem, new Heuristic(domain, problem), true, ratio_);
+			array = planner.FindPlan(domain, problem, new HeuristicRateOfChange(domain, problem), true, ratio_);
 			
 			average_times += Sys.cpuTime() - start;
 		}

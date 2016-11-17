@@ -58,15 +58,15 @@ class Main
 	{
 		
 		/*for (arg in Sys.args())
-            Sys.println(arg);*/
+            		Sys.println("running: " + arg);*/
 		
 		//Utilities.WriteToFile("output.txt", "", false);
 		
-		//new ResultGeneratorPartialRangeLargeDomain().Run(Std.parseInt(Sys.args()[0]), Std.parseFloat(Sys.args()[1]));
+		new ResultGeneratorPartialRangeLargeDomain().Run(Sys.args()[0], Std.parseInt(Sys.args()[1]), Std.parseFloat(Sys.args()[2]));
 		//trace("passed");
 		//while(true){}
 		
-		//new ResultGeneratorPartialRangeLargeDomain().Run(100, 1);
+		//new ResultGeneratorPartialRangeLargeDomain().Run(10, 0.5);
 		
 		/*var result_generators:Array<IResultGenerator> = [
 			new ResultGeneratorPartialRangeLargeDomain()
@@ -91,8 +91,8 @@ class Main
 			trace(i.GetName());
 		}*/
 		
-		GetResults("results.txt", 	["pddlexamples/sequential-numeric-planning-benchmarks/counters_all/mt-counters/domain_integer_parameters.pddl"], 
-									["pddlexamples/sequential-numeric-planning-benchmarks/counters_all/mt-counters/instance_36.pddl"], 1);
+		//GetResults("results.txt", 	["../../pddlexamples/sequential-numeric-planning-benchmarks/counters_all/mt-counters/domain_integer_parameters.pddl"], 
+		//							["pddlexamples/sequential-numeric-planning-benchmarks/counters_all/mt-counters/instance_36.pddl"], 1);
 		//GetResults("results.txt", ["pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl"], ["pddlexamples/Results/IntegerParameters/Test1/pfile2"], 1);
 		//GetResults("results2.txt", ["pddlexamples/Results/IntegerParameters/Settlers.pddl"], ["pddlexamples/Results/IntegerParameters/Test2/pfile2"], 1);
 		

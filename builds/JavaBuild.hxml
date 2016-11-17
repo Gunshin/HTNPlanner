@@ -4,6 +4,6 @@
 -lib polygonal-printf
 -D debug_output
 -main test.Main
-htnPlanner.Domain
-htnPlanner.Problem
-htnPlanner.Planner
+planner.pddl.Domain
+planner.pddl.Problem
+planner.pddl.Planner
