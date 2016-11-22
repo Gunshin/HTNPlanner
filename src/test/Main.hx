@@ -188,7 +188,7 @@ class Main
 					var start:Float = Sys.cpuTime();
 
 					var planner:Planner = new Planner();
-					var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, new Heuristic(domain, problem), true, 0.1);
+					var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, new Heuristic(domain, problem), true, 1);
 
 					averages_times[domain_index][problem_index] += Sys.cpuTime() - start;
 					

@@ -24,7 +24,7 @@
     :precondition (and 
         (at ?p ?a)
         (located ?m ?a)
-        (>= ~cash 1)
+        (> ~cash 0)
         (<= ~cash 20)
         (<= (* 10 ~cash) (balance ?m))
         (canwithdraw ?p ?m)
