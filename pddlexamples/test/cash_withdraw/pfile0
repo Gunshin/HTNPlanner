@@ -1,0 +1,32 @@
+(define (problem cash_withdraw_prob)
+(:domain cash_withdraw)
+(:objects
+    home - location
+    store - location
+    bank - location
+    pub - location
+    atm1 - machine
+    atm2 - machine
+    joe - person
+)
+(:init 
+    (at joe home)
+    (snacksAt store)
+    (= (inPocket joe) 2)
+    (canWithdraw joe atm1) 
+    (canWithdraw joe atm2)
+    (located atm1 bank) 
+    (located atm2 bank)
+    (= (balance atm1) 50)
+    (= (balance atm2) 100)
+)
+
+(:goal 
+    (and 
+        (>= (inPocket joe) 20)
+        (gotSnacks joe)
+        (at joe pub))
+)
+
+(:metric minimize (inPocket Joe))
+)

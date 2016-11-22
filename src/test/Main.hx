@@ -62,7 +62,7 @@ class Main
 		
 		//Utilities.WriteToFile("output.txt", "", false);
 		
-		new ResultGeneratorPartialRangeLargeDomain().Run(Sys.args()[0], Std.parseInt(Sys.args()[1]), Std.parseFloat(Sys.args()[2]));
+		//new ResultGeneratorPartialRangeLargeDomain().Run(Sys.args()[0], Std.parseInt(Sys.args()[1]), Std.parseFloat(Sys.args()[2]));
 		//trace("passed");
 		//while(true){}
 		
@@ -82,17 +82,10 @@ class Main
 		
 		//var domainIndex:Int = 7;
 		
-		//var domain:Domain = new Domain("pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl");
+		//var domain:Domain = new Domain("pddlexamples/Results/test/geometric_rovers/domain.pddl");
 		
-		//trace(domain.GetAllFunctionsWithinActionPrecondition("make-iron"));
-		
-		/*for (i in domain.GetActionsWithFunctionEffect("available"))
-		{
-			trace(i.GetName());
-		}*/
-		
-		//GetResults("results.txt", 	["../../pddlexamples/sequential-numeric-planning-benchmarks/counters_all/mt-counters/domain_integer_parameters.pddl"], 
-		//							["pddlexamples/sequential-numeric-planning-benchmarks/counters_all/mt-counters/instance_36.pddl"], 1);
+		GetResults("results.txt", 	["../../pddlexamples/test/cash_withdraw/domain.pddl"], 
+									["../../pddlexamples/test/cash_withdraw/pfile0"], 1);
 		//GetResults("results.txt", ["pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl"], ["pddlexamples/Results/IntegerParameters/Test1/pfile2"], 1);
 		//GetResults("results2.txt", ["pddlexamples/Results/IntegerParameters/Settlers.pddl"], ["pddlexamples/Results/IntegerParameters/Test2/pfile2"], 1);
 		

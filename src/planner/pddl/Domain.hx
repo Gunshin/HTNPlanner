@@ -197,23 +197,24 @@ class Domain
 	function ParseActions(actionNodes_:Array<RawTreeNode>)
 	{
 		for (i in actionNodes_)
-		{			
+		{
+            
 			var action:Action = new Action(i.children[0].value);
 			var childrenWithNameRemoved:Array<RawTreeNode> = i.children.slice(1);
-			
+
 			var preconditionNode:RawTreeNode = ActionGetChild(":precondition", childrenWithNameRemoved);
 			action.SetPreconditionTree(Tree.ConvertRawTreeNodeToTree(preconditionNode, this));
-			
+
 			var effectNode:RawTreeNode = ActionGetChild(":effect", childrenWithNameRemoved);
 			action.SetEffectTree(Tree.ConvertRawTreeNodeToTree(effectNode, this));
-			
+
 			var parameterNode:RawTreeNode = ActionGetChild(":parameters", childrenWithNameRemoved);
 			var pairs:Array<Pair<String, String>> = Utilities.GenerateValueTypeMap([parameterNode].concat(parameterNode.children));
 			for (a in pairs)
-			{
+			{  
 				action.GetData().AddParameter(a.a, a.b);
 			}
-			
+
 			var valueNode:RawTreeNode = ActionGetChild(":values", childrenWithNameRemoved);
 			if (valueNode != null)
 			{
