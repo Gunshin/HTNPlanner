@@ -86,7 +86,7 @@ class Main
 		
 		//var domainIndex:Int = 7;
 		
-		//var domain:Domain = new Domain("pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl");
+		//var domain:Domain = new Domain("pddlexamples/Results/test/geometric_rovers/domain.pddl");
 		
 		//trace(domain.GetAllFunctionsWithinActionPrecondition("make-iron"));
 		
@@ -94,9 +94,8 @@ class Main
 		{
 			trace(i.GetName());
 		}*/
-		
-		GetResults("results.txt", 	["pddlexamples/test/geometric_rovers/domain.pddl"], 
-									["pddlexamples/test/geometric_rovers/sample.pddl"], 1);
+		GetResults("results.txt", 	["../../pddlexamples/test/cash_withdraw/domain.pddl"], 
+									["../../pddlexamples/test/cash_withdraw/pfile0"], 1);
 		//GetResults("results.txt", ["pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl"], ["pddlexamples/Results/IntegerParameters/Test1/pfile2"], 1);
 		//GetResults("results2.txt", ["pddlexamples/Results/IntegerParameters/Settlers.pddl"], ["pddlexamples/Results/IntegerParameters/Test2/pfile2"], 1);
 		

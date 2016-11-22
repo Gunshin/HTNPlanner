@@ -125,7 +125,6 @@ class Tree
 	
 	static function ConvertRawNode(rawNode_:RawTreeNode, domain_:Domain):TreeNode
 	{
-		//trace("rawnode.value: " + rawNode_.value);
 		
 		var newNode:TreeNode = null;
 		
