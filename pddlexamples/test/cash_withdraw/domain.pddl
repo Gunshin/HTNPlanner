@@ -24,15 +24,17 @@
     :precondition (and 
         (at ?p ?a)
         (located ?m ?a)
-        (>= ~cash 5)
-        (<= ~cash (balance ?m))
+        (>= ~cash 1)
+        (<= ~cash 20)
+        (<= (* 10 ~cash) (balance ?m))
         (canwithdraw ?p ?m)
     )
 
     :effect (and
-        (decrease (balance ?m) ~cash)
-        (increase (inpocket ?p) ~cash)
+        (decrease (balance ?m) (* 10 ~cash))
+        (increase (inpocket ?p) (* 10 ~cash))
     ))
+
  
     (:action BuySnacks
     :parameters (?p - person ?a - location)
