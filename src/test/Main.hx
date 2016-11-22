@@ -94,8 +94,8 @@ class Main
 		{
 			trace(i.GetName());
 		}*/
-		GetResults("results.txt", 	["../../pddlexamples/test/cash_withdraw/domain.pddl"], 
-									["../../pddlexamples/test/cash_withdraw/pfile0"], 1);
+		GetResults("results.txt", 	["pddlexamples/test/cash_withdraw/domain.pddl"], 
+									["pddlexamples/test/cash_withdraw/pfile1"], 1);
 		//GetResults("results.txt", ["pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl"], ["pddlexamples/Results/IntegerParameters/Test1/pfile2"], 1);
 		//GetResults("results2.txt", ["pddlexamples/Results/IntegerParameters/Settlers.pddl"], ["pddlexamples/Results/IntegerParameters/Test2/pfile2"], 1);
 		
@@ -173,7 +173,7 @@ class Main
 		
 		for (iteration in 0...iterations_)
 		{
-			trace("Iteration: " + iteration);
+			//trace("Iteration: " + iteration);
 			for (domain_index in 0...domains_.length)
 			{
 				var domain_path:String = domains_[domain_index];
@@ -188,7 +188,7 @@ class Main
 					var start:Float = Sys.cpuTime();
 
 					var planner:Planner = new Planner();
-					var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, new Heuristic(domain, problem), true, 1);
+					var array:Array<PlannerActionNode> = planner.FindPlan(domain, problem, new Heuristic(domain, problem), true, 0.1);
 
 					averages_times[domain_index][problem_index] += Sys.cpuTime() - start;
 					

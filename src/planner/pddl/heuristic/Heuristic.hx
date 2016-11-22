@@ -434,18 +434,18 @@ class Heuristic implements IHeuristic
 		state_list.push(current_node);
 		
 		#if debugging_heuristic
-		Utilities.Log("Heuristic.RunHeuristic: ------------------\n");
+		Utilities.Log("Heuristic.GenerateStateLevels: ------------------\n");
 		for (action in current_node.actions_applied_to_state)
 		{
-			Utilities.Log("Heuristic.RunHeuristic: " + action.GetActionTransform() + "\n");
+			Utilities.Log("Heuristic.GenerateStateLevels: " + action.GetActionTransform() + "\n");
 		}
 		for (goal_node in GetGoalNodes(problem.GetGoalTree().GetBaseNode()))
 		{
-			Utilities.Log("Heuristic.RunHeuristic: " + goal_node.HeuristicEvaluate(null, null, current_node.state, domain)+"\n");
+			Utilities.Log("Heuristic.GenerateStateLevels: " + goal_node.HeuristicEvaluate(null, null, current_node.state, domain)+"\n");
 		}
 		
-		Utilities.Log("Heuristic.RunHeuristic: " + current_node.state.toString()+"\n");
-		Utilities.Log("Heuristic.RunHeuristic: " + "\n------------------------\n\n");
+		Utilities.Log("Heuristic.GenerateStateLevels: " + current_node.state.toString()+"\n");
+		Utilities.Log("Heuristic.GenerateStateLevels: " + "\n------------------------\n\n");
 		#end
 		
 		// first generate the full graph to ensure we can fulfill the goal
@@ -460,18 +460,18 @@ class Heuristic implements IHeuristic
 			depth++;
 			
 			#if debugging_heuristic
-			Utilities.Log("Heuristic.RunHeuristic: " + "------------------\n");
+			Utilities.Log("Heuristic.GenerateStateLevels: " + "------------------\n");
 			for (action in current_node.actions_applied_to_state)
 			{
-				Utilities.Log("Heuristic.RunHeuristic: " + action.GetActionTransform() + "\n");
+				Utilities.Log("Heuristic.GenerateStateLevels: " + action.GetActionTransform() + "\n");
 			}
 			for (goal_node in GetGoalNodes(problem.GetGoalTree().GetBaseNode()))
 			{
-				Utilities.Log("Heuristic.RunHeuristic: " + goal_node.GetRawTreeString() + " :: " +goal_node.HeuristicEvaluate(null, null, current_node.state, domain)+"\n");
+				Utilities.Log("Heuristic.GenerateStateLevels: " + goal_node.GetRawTreeString() + " :: " +goal_node.HeuristicEvaluate(null, null, current_node.state, domain)+"\n");
 			}
 			
-			Utilities.Log("Heuristic.RunHeuristic: " + current_node.state.toString()+"\n");
-			Utilities.Log("Heuristic.RunHeuristic: " + "\n------------------------\n\n");
+			Utilities.Log("Heuristic.GenerateStateLevels: " + current_node.state.toString()+"\n");
+			Utilities.Log("Heuristic.GenerateStateLevels: " + "\n------------------------\n\n");
 			#end
 			
 			if (depth > 20)

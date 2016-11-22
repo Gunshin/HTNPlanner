@@ -13,17 +13,17 @@
     (at joe home)
     (snacksAt store)
     (= (inPocket joe) 2)
-    (canWithdraw joe atm1)
+    (canWithdraw joe atm1) 
     (canWithdraw joe atm2)
     (located atm1 bank) 
     (located atm2 bank)
-    (= (balance atm1) 50)
-    (= (balance atm2) 100)
+    (= (balance atm1) 5000)
+    (= (balance atm2) 10000)
 )
 
 (:goal 
     (and 
-        (>= (inPocket joe) 20)
+        (>= (inPocket joe) 2000)
         (gotSnacks joe)
         (at joe pub))
 )

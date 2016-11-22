@@ -48,4 +48,16 @@
         (gotsnacks ?p)
     ))
 
+	(:action move
+	:parameters (?p - person ?c ?a - location)
+    :precondition (and
+		(at ?p ?c)
+        (not (at ?p ?a))
+    )
+
+    :effect (and
+        (at ?p ?a)
+		(not (at ?p ?c))
+    ))
+	
 )

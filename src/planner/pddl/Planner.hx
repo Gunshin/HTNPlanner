@@ -239,7 +239,7 @@ class Planner
 			{
 				open_list.add(i);
 				#if debugging
-				Utilities.Logln(i.plannerActionNode.GetActionTransform());
+				Utilities.Logln(i.plannerActionNode.GetActionTransform() + " estimate: " + i.estimate.length + " list: " + i.estimate.ordered_list);
 				#end
 			}
 			closed_list.push(current_state);
@@ -362,6 +362,15 @@ class Planner
 	{
 		var successive_states:Array<Pair<PlannerActionNode, State>> = GetAllRawSuccessiveStates(parent_state_);
 		
+		#if debugging
+		/*Utilities.Logln("STARTING GetAllNonVisitedSuccessiveStates ----------------------");
+		Utilities.Logln("raw successive states size: " + successive_states.length);
+		for (i in successive_states)
+		{
+			Utilities.Logln(i.a.GetActionTransform());
+		}*/
+		#end
+		
 		var non_visited:Array<PlannerNode> = new Array<PlannerNode>();
 		
 		for (action_state_pair in successive_states)
@@ -419,6 +428,16 @@ class Planner
 		var states:Array<Pair<PlannerActionNode, State>> = new Array<Pair<PlannerActionNode, State>>();
 		
 		var actions:Array<PlannerActionNode> = GetAllActionsForState(parent_state_.state, domain);
+		
+		#if debugging
+		//Utilities.Logln("STARTING GetAllRawSuccessiveStates ----------------------");
+		//Utilities.Logln("actions size: " + actions.length);
+		for (i in actions)
+		{
+			Utilities.Logln(i.GetActionTransform());
+		}
+		#end
+		
 		for (actionNode in actions)
 		{
 			actionNode.Set();
@@ -434,15 +453,27 @@ class Planner
 	{
 		var actions:Array<PlannerActionNode> = new Array<PlannerActionNode>();
 		
+		#if debugging
+		//Utilities.Logln("STARTING GetAllActionsForState ----------------------");
+		#end
+		
 		for (actionName in domain_.GetAllActionNames())
 		{
 			var action:Action = domain_.GetAction(actionName);
+			
+			
 			
 			var parameter_combinations:Array<Array<Pair<String, String>>> = GetAllPossibleParameterCombinations(action, state_, domain_);
 			
 			// has an extra array since these combinations are used per parameter combination
 			var value_combinations:Array<Array<Array<Pair<String, String>>>> = GetAllPossibleValueCombinations(action, parameter_combinations, state_, 
 																					domain_, false, use_partial_range, partial_range_ratio);
+			
+			#if debugging
+			//Utilities.Logln("action: " + action.GetName());
+			//Utilities.Logln("parameter_combinations: " + parameter_combinations.toString());
+			//Utilities.Logln("value_combinations: " + value_combinations.toString());
+			#end
 			
 			for (param_index in 0...parameter_combinations.length)
 			{
