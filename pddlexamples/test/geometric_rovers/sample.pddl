@@ -142,7 +142,7 @@
 )
 (:goal (and
             ;;@goal_location@[19, 43]
-            (= (x r) 19) (= (y r) 43)
+            (== (x r) 19) (== (y r) 43)
             (taken_picture w_0)
             (taken_picture w_1)
 	     )

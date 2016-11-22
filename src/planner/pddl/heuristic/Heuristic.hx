@@ -383,7 +383,7 @@ class Heuristic implements IHeuristic
 							{
 								AddNegationToGoalNodesChild(goal_node, node.after_values.b.a - node.before_values.b.a, 0);
 							}
-							throw "i have not verified if equivalence in the heuristic works yet!";
+							//throw "i have not verified if equivalence in the heuristic works yet!";
 						}
 						
 						// check if we can now add this goal node to an earlier state than the one we are on

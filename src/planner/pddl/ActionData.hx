@@ -1,6 +1,5 @@
 package planner.pddl;
 
-import de.polygonal.ds.Map;
 import haxe.ds.HashMap;
 import haxe.ds.StringMap;
 
@@ -164,7 +163,7 @@ class ActionData
 		parameters.set(name_, param);
 		parameterLayout.push(name_);
 		
-		new_objects.push(name_, param);
+		new_objects.push(param);
 	}
 	
 	public function HasObjectCreationParameters():Bool

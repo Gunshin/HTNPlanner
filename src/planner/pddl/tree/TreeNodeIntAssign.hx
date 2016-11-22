@@ -21,7 +21,7 @@ class TreeNodeIntAssign extends TreeNodeInt
 	
 	override public function Evaluate(data_:ActionData, state_:State, domain_:Domain):Bool
 	{
-		throw "This function should not be getting called.";
+		throw "This function should not be getting called. raw tree string: " + GetRawTreeString();
 	}
 	
 	override public function Execute(data_:ActionData, state_:State, domain_:Domain):String
@@ -35,7 +35,7 @@ class TreeNodeIntAssign extends TreeNodeInt
 	
 	override public function HeuristicEvaluate(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):Bool 
 	{
-		throw "This function should not be getting called.";
+		throw "This function should not be getting called. raw tree string: " + GetRawTreeString();
 	}
 	
 	override public function HeuristicExecute(data_:ActionData, heuristic_data_:HeuristicData, state_:StateHeuristic, domain_:Domain):String 

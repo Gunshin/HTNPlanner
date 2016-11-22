@@ -1,1 +1,1 @@
-Domain: pddlexamples/sequential-numeric-planning-benchmarks/counters_all/mt-counters/domain_integer_parameters.pddl Problem: pddlexamples/sequential-numeric-planning-benchmarks/counters_all/mt-counters/instance_36.pddl
+Domain: pddlexamples/test/geometric_rovers/domain.pddl Problem: pddlexamples/test/geometric_rovers/sample.pddl
