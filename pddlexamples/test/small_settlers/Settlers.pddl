@@ -91,7 +91,9 @@
 		(decrease (available wood ?p) 1)
 		(decrease (available stone ?p) 1)))
  
-  (:action fell-timber 
+
+   
+   (:action fell-timber 
    :parameters (?p - place) 
    :precondition (has-cabin ?p) 
    :effect (and (increase (available timber ?p) 1)
