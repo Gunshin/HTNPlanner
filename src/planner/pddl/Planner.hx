@@ -530,6 +530,13 @@ class Planner
 			
 			raw_values.push(obj_array);
 		}
+		
+		var object_creation_params:Array<Parameter> = action_.GetData().GetObjectCreationParameters();
+		for (object_creation_index in 0...object_creation_params.length)
+		{
+			var name:String = object_creation_params[object_creation_index].GetName();
+			raw_values.push([new Pair(name, initial_state_.GenerateObject(name, object_creation_params[object_creation_index].GetType()))]);
+		}
 		// since we have now finished populating the array, lets generate the sets correctly
 		
 		combinations = GenerateCombinations(raw_values);

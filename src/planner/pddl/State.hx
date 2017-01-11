@@ -51,6 +51,8 @@ class State
 	var functionsMap:Map<String, FunctionWrapper> = new Map<String, FunctionWrapper>();
 	
 	var objects:Map<String, Array<String>> = new Map<String, Array<String>>();
+	
+	var created_objects_id_counter:Map<String, Int> = new Map<String, Int>();
 
 	public function new() 
 	{
@@ -261,6 +263,34 @@ class State
 	public function GetObjectsOfType(type_:String):Array<String>
 	{
 		return objects.get(type_);
+	}
+	
+	public function GenerateObject(name_template_:String, type_:String):String
+	{
+		if (!created_objects_id_counter.exists(name_template_))
+		{
+			created_objects_id_counter.set(name_template_, 0);
+		}
+		
+		var id:Int = created_objects_id_counter.get(name_template_);
+		
+		created_objects_id_counter.set(name_template_, id + 1);
+		
+		var name:String = name_template_ + "_" + id;
+		
+		AddObject(name, type_);
+		
+		return name;
+	}
+	
+	function AddObject(name_:String, type_:String)
+	{
+		if (!objects.exists(type_))
+		{
+			objects.set(type_, []);
+		}
+		
+		objects.get(type_).push(name_);
 	}
 	
 	public function toString():String
