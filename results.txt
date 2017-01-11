@@ -1,1 +1,1 @@
-Domain: pddlexamples/test/cash_withdraw/domain.pddl Problem: pddlexamples/test/cash_withdraw/pfile1
+Domain: pddlexamples/object_creation/Settlers.pddl Problem: pddlexamples/object_creation/pfile1

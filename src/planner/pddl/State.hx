@@ -172,6 +172,8 @@ class State
 		
 		state_to_be_copied_to_.SetObjects(objects);
 		
+		state_to_be_copied_to_.SetCreatedObjectIDCounters(created_objects_id_counter);
+		
 		return state_to_be_copied_to_;
 	}
 	
@@ -257,6 +259,16 @@ class State
 		for (key in objects_.keys())
 		{
 			objects.set(key, objects_.get(key));
+		}
+	}
+	
+	public function SetCreatedObjectIDCounters(objects_id_counters:Map<String, Int>)
+	{
+		created_objects_id_counter = new Map<String, Int>();
+		
+		for (key in objects_id_counters.keys())
+		{
+			created_objects_id_counter.set(key, objects_id_counters.get(key));
 		}
 	}
 

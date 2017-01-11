@@ -83,6 +83,7 @@ class Heuristic implements IHeuristic
 	 */
 	public function RunHeuristic(initial_state_:State, planner_:Planner):HeuristicResult
 	{
+		trace("2.0");
 		// should do this check to make sure we dont attempt to generate a heuristic on a satisfied state
 		if (problem.EvaluateGoal(initial_state_))
 		{
@@ -94,15 +95,15 @@ class Heuristic implements IHeuristic
 		//trace("init: " + initial_state_.toString());
 		var heuristic_state:StateHeuristic = new StateHeuristic();
 		initial_state_.CopyTo(heuristic_state);
-		
+		trace("2.00");
 		
 		var state_list:Array<HeuristicNode> = GenerateStateLevels(heuristic_state);
-		
+		trace("2.01");
 		if (state_list == null)
 		{
 			return new HeuristicResult(null, 99999999);
 		}
-		
+		trace("2.0");
 		/*trace("passed");
 		throw "";*/
 		//Utilities.WriteToFile("state_list.json", ""+state_list, false);
@@ -115,7 +116,7 @@ class Heuristic implements IHeuristic
 		
 		// first we need to grab all of the individual goal nodes
 		var goal_nodes:Array<TreeNode> = GetGoalNodes(problem.GetGoalTree().GetBaseNode());
-		
+		trace("2.1");
 		// next lets set the goal nodes into the respective layers, so that we can traverse backwards
 		// through the layers and check against anything enabled by such layer
 		var goal_node_layers:Array<Array<TreeNode>> = new Array<Array<TreeNode>>();
@@ -128,7 +129,7 @@ class Heuristic implements IHeuristic
 		{
 			AddGoalNodeToLayers(goal_node.Clone(), state_list, goal_node_layers);
 		}
-		
+		trace("2.2");
 		
 		// now that things have been set into layers, the idea is that we traverse backwards through the layers findiong actions that provide the effects needed
 		// in the next goal_node_layers.
@@ -429,10 +430,11 @@ class Heuristic implements IHeuristic
 	
 	function GenerateStateLevels(heuristic_initial_state_:StateHeuristic):Array<HeuristicNode>
 	{
+		trace("3.0");
 		var current_node:HeuristicNode = new HeuristicNode(heuristic_initial_state_, GetAllActionsForState(heuristic_initial_state_, domain));
 		var state_list:Array<HeuristicNode> = new Array<HeuristicNode>();
 		state_list.push(current_node);
-		
+		trace("3.1");
 		#if debugging_heuristic
 		Utilities.Log("Heuristic.GenerateStateLevels: ------------------\n");
 		for (action in current_node.actions_applied_to_state)
