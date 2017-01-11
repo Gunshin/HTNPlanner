@@ -1,5 +1,6 @@
 package test.result_generation;
 
+import planner.pddl.Action;
 import planner.pddl.Domain;
 
 /**
@@ -18,6 +19,9 @@ class ObjectCreationTest
 	{
 		
 		var domain:Domain = new Domain("pddlexamples/object_creation/Settlers.pddl");
+		
+		var action:Action = domain.GetAction("build-cart");
+		trace(action.GetData().GetObjectCreationParameters());
 		
 		return true;
 	}
