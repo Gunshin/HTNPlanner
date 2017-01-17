@@ -531,6 +531,8 @@ class Planner
 			raw_values.push(obj_array);
 		}
 		
+		trace("5.1: "/* + raw_values*/);
+		
 		var object_creation_params:Array<Parameter> = action_.GetData().GetObjectCreationParameters();
 		for (object_creation_index in 0...object_creation_params.length)
 		{
@@ -538,8 +540,9 @@ class Planner
 			raw_values.push([new Pair(name, initial_state_.GenerateObject(name, object_creation_params[object_creation_index].GetType()))]);
 		}
 		// since we have now finished populating the array, lets generate the sets correctly
-		
+		trace("5.2");
 		combinations = GenerateCombinations(raw_values);
+		trace("5.3");
 		return combinations;
 	}
 	
@@ -588,45 +591,51 @@ class Planner
 	static public function GenerateCombinations(value_ranges_:Array<Array<Pair<String, String>>>):Array<Array<Pair<String, String>>>
 	{
 		var returnee:Array<Array<Pair<String, String>>> = new Array<Array<Pair<String, String>>>();
-		
+		trace("60");
 		var values_index:Array<Int> = new Array<Int>();
 		for (value in value_ranges_) // set values_index to start indexs
 		{
 			values_index.push(0);
 		}
-		
+		trace("61");
 		// this condition checks the last element in the index array to the last element in the raw values array
 		// we do this because we are counting up in a left to right manner eg.
 		// 000, 100, 200, 300, 400, 500, 600, 700, 800, 900, 010, 110, 210, 310, etc. etc.
 		// if the last digit is equal to the end of the last elements length, we know that we have finished brute forcing the combinations.
 		while (values_index[value_ranges_.length - 1] != value_ranges_[value_ranges_.length - 1].length)
 		{
+			trace("62: " + values_index[value_ranges_.length - 1] + " _ " + value_ranges_[value_ranges_.length - 1].length);
+			if(values_index[value_ranges_.length - 1] == 5)
+			while (true){}
 			// add the current index values to the set and store it
 			var values_set:Array<Pair<String, String>> = new Array<Pair<String, String>>();
 			for (i in 0...value_ranges_.length)
 			{
 				values_set.push(value_ranges_[i][values_index[i]]);
 			}
-			
+			trace("63");
 			returnee.push(values_set);
-			
+			trace("64");
 			for (i in 0...values_index.length)
 			{
+				trace("641: " + values_index);
 				values_index[i]++;
 				if (values_index[i] != value_ranges_[i].length) // if this value has not hit the limit, do not increase any futher values
 				{
 					break;
 				}
-				
+				trace("642");
 				// since it passed the above, it did hit the limit, so reset to 0
 				if (i != values_index.length - 1) // we also need to make sure we dont reset the most significant. if we do, we enter a forever loop
 				{
+					trace(6421);
 					values_index[i] = 0;
 				}
+				trace("643");
 			}
-			
+			trace("65");
 		}
-		
+		trace("66");
 		return returnee;
 	}
 	

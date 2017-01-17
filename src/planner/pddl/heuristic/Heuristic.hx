@@ -634,14 +634,19 @@ class Heuristic implements IHeuristic
 	
 	static public function GetAllActionsForState(state_:StateHeuristic, domain_:Domain):Array<PlannerActionNode>
 	{
+		trace("4.0");
 		var actions:Array<PlannerActionNode> = new Array<PlannerActionNode>();
 		for (actionName in domain_.GetAllActionNames())
 		{
+			
 			var action:Action = domain_.GetAction(actionName);
+			trace("4.1: " + actionName);
 			var parameter_combinations:Array<Array<Pair<String, String>>> = Planner.GetAllPossibleParameterCombinations(action, state_, domain_);
+			trace("4.2");
 			// has an extra array since these combinations are used per parameter combination
 			var value_combinations:Array<Array<Array<Pair<String, String>>>> = GetAllPossibleMinMaxValueCombinations(action, parameter_combinations, state_, domain_, true);
 			//Utilities.Log("Heuristic.GetAllActionsForState: " + action.GetName() + " :: " + value_combinations + "\n");
+			trace("4.3");
 			for (param_index in 0...parameter_combinations.length)
 			{
 				var param_combination:Array<Pair<String, String>> = parameter_combinations[param_index];

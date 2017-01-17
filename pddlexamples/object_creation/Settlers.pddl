@@ -22,7 +22,6 @@
    (has-wharf ?p - place) 
    (is-at ?v - vehicle ?p - place) 
 
-   (potential ?v - vehicle)
    ) 
   (:functions 
    (available ?r - resource ?s - store)
