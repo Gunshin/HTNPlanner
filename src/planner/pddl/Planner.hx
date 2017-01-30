@@ -262,6 +262,7 @@ class Planner
 			{
 				#if debugging
 				Utilities.Logln("\n\nGreedy Search exited due to no better estimate: current_state: " + current_state.estimate.length + " previous_state: " + previous_state.estimate.length);
+				if(previous_state.plannerActionNode != null)
 				Utilities.Logln("previous_state: " + previous_state.plannerActionNode.GetActionTransform() + "\n\n\n\n\n");
 				#end
 				return new GreedySearchResult(previous_state, open_list, closed_list);
@@ -521,6 +522,9 @@ class Planner
 		var actionParams:Array<Parameter> = action_.GetData().GetParameters();
 		for (paramIndex in 0...actionParams.length)
 		{
+			
+			Utilities.Logln("paramIndex == " + paramIndex);
+			Utilities.Logln("actionParams[paramIndex].GetType() == " + actionParams[paramIndex].GetType());
 			// lets record the fact that the first so many raw values are of the param type			
 			var obj_array:Array<Pair<String, String>> = new Array<Pair<String, String>>();
 			for (obj in initial_state_.GetObjectsOfType(actionParams[paramIndex].GetType()))

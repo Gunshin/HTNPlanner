@@ -1,1 +1,9 @@
-Domain: pddlexamples/test/cash_withdraw/domain.pddl Problem: pddlexamples/test/cash_withdraw/pfile1
+Domain: pddlexamples/test/drugs/domain.pddl Problem: pddlexamples/test/drugs/pfile0
+Time taken seconds: 0.08675851299994974
+Plan length: 0
+Closed list length: 0 Open list length: 0
+
+
+
+Domain: pddlexamples/test/drugs/domain.pddl Problem: pddlexamples/test/drugs/pfile0
+Time taken seconds: 0.08674938900003326

@@ -1,4 +1,6 @@
-
+Todo:
+	
+	add type checking to actions for already existing types
 
 compilation flags:
 	

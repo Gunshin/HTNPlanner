@@ -1,0 +1,24 @@
+(define (problem drug_ordering)
+(:domain cash_withdraw)
+(:objects
+    s1 - store
+	d1 - drug
+	d1b12 - batch
+)
+(:init 
+    (= (stored s1 d1) 0)
+	(= (target_storage s1 d1) 15)
+	
+	;;(batches d1 d1b1)
+	(batches d1 d1b12)
+	;;(= (drug_batch_count d1b1) 1)
+	(= (drug_batch_count d1b12) 12)
+)
+
+(:goal 
+    (and 
+		(>= (stored s1 d1) (target_storage s1 d1))
+	)
+)
+
+)
