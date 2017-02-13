@@ -22,7 +22,8 @@ import planner.pddl.tree.TreeNodeFunction;
 import planner.pddl.tree.TreeNodeInt;
 import planner.pddl.tree.TreeNodeValue;
 
-import test.result_generation.ResultGeneratorPartialRangeLargeDomain;
+import test.result_generation.ResultGeneratorPartialRangeLargeDomainSettlers;
+import test.result_generation.ResultGeneratorPartialRangeLargeDomainCashpoint;
 
 import test.result_generation.ObjectCreationTest;
 
@@ -65,8 +66,21 @@ class Main
             		Sys.println("running: " + arg);*/
 		
 		//Utilities.WriteToFile("output.txt", "", false);
+		switch(Sys.args()[0])
+		{
+			case "cashpoint":
+				{
+					new ResultGeneratorPartialRangeLargeDomainCashpoint().Run(
+						Sys.args()[1], 
+						Sys.args()[2], 
+						Std.parseInt(Sys.args()[3]), 
+						Std.parseInt(Sys.args()[4]), 
+						Std.parseInt(Sys.args()[5]), 
+						Std.parseFloat(Sys.args()[6])
+					);
+				}
+		}
 		
-		//new ResultGeneratorPartialRangeLargeDomain().Run(Sys.args()[0], Std.parseInt(Sys.args()[1]), Std.parseFloat(Sys.args()[2]));
 		//trace("passed");
 		//while(true){}
 		

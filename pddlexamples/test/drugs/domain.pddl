@@ -18,7 +18,7 @@
 		drug
 		store
 		batch
-	) 
+	)
 	(:predicates 
 		(batches ?d - drug ?b - batch)
 	)
@@ -41,6 +41,28 @@
 		)
 		:effect (and
 			(increase (stored ?loc ?d) (* (~count) (drug_batch_count ?b)))
+		)
+	)
+	
+	(:action Transport
+		:parameters ()
+		:values (~count - integer-range)
+		:precondition (and 
+			
+		)
+		:effect (and
+			
+		)
+	)
+	
+	(:action 
+		:parameters ()
+		:values (~count - integer-range)
+		:precondition (and 
+			
+		)
+		:effect (and
+			
 		)
 	)
 

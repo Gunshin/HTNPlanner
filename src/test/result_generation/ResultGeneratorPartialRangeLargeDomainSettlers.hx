@@ -16,7 +16,7 @@ import planner.pddl.Utilities;
  * ...
  * @author 
  */
-class ResultGeneratorPartialRangeLargeDomain
+class ResultGeneratorPartialRangeLargeDomainSettlers
 {
 	
 	var path:String = null;
