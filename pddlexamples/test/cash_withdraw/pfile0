@@ -10,6 +10,7 @@
     joe - person
 )
 (:init 
+    (= (inc) 20)
     (at joe home)
     (snacksAt store)
     (= (inPocket joe) 2)

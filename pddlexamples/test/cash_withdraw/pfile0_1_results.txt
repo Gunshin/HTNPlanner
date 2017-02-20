@@ -1,0 +1,838 @@
+Domain size: 20 Ratio: 0.001
+ time = 0.05079217920001611
+Plan length: 8
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:1
+move joe bank pub
+
+
+
+Domain size: 50 Ratio: 0.001
+ time = 0.0382248284000525
+Plan length: 8
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store pub
+
+
+
+Domain size: 100 Ratio: 0.001
+ time = 0.1013572994000242
+Plan length: 12
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:1
+move joe bank pub
+
+
+
+Domain size: 250 Ratio: 0.001
+ time = 0.15433056800002304
+Plan length: 18
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store pub
+
+
+
+Domain size: 500 Ratio: 0.001
+ time = 13.38994192780001
+Plan length: 31
+Closed list length: 0 Open list length: 0
+move joe home bank
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm2 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm2 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:1
+move joe bank pub
+
+
+
+Domain size: 1000 Ratio: 0.001
+ time = 195.18227522279986
+Plan length: 1
+Closed list length: 0 Open list length: 0
+move joe home bank
+
+
+
+Domain size: 2500 Ratio: 0.001
+ time = 195.1623462923999
+Plan length: 1
+Closed list length: 0 Open list length: 0
+move joe home bank
+
+
+
+Domain size: 5000 Ratio: 0.001
+ time = 197.00939412900044
+Plan length: 1
+Closed list length: 0 Open list length: 0
+move joe home bank
+
+
+
+Domain size: 10000 Ratio: 0.001
+ time = 197.37342418299977
+Plan length: 1
+Closed list length: 0 Open list length: 0
+move joe home bank
+
+
+
+Domain size: 20 Ratio: 0.01
+ time = 0.04595626080008515
+Plan length: 8
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:1
+move joe bank pub
+
+
+
+Domain size: 50 Ratio: 0.01
+ time = 0.05761250300020038
+Plan length: 8
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store pub
+
+
+
+Domain size: 100 Ratio: 0.01
+ time = 0.06868021060035971
+Plan length: 12
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:1
+move joe bank pub
+
+
+
+Domain size: 250 Ratio: 0.01
+ time = 0.15227094019974174
+Plan length: 18
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store pub
+
+
+
+Domain size: 500 Ratio: 0.01
+ time = 13.536336776799725
+Plan length: 31
+Closed list length: 0 Open list length: 0
+move joe home bank
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm2 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm2 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:1
+move joe bank pub
+
+
+
+Domain size: 1000 Ratio: 0.01
+ time = 191.7728941108002
+Plan length: 1
+Closed list length: 0 Open list length: 0
+move joe home bank
+
+
+
+Domain size: 2500 Ratio: 0.01
+ time = 190.3908982295994
+Plan length: 1
+Closed list length: 0 Open list length: 0
+move joe home bank
+
+
+
+Domain size: 5000 Ratio: 0.01
+ time = 195.03797237820035
+Plan length: 1
+Closed list length: 0 Open list length: 0
+move joe home bank
+
+
+
+Domain size: 10000 Ratio: 0.01
+ time = 190.57357088800018
+Plan length: 1
+Closed list length: 0 Open list length: 0
+move joe home bank
+
+
+
+Domain size: 20 Ratio: 0.1
+ time = 0.04645913000058499
+Plan length: 8
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:1
+move joe bank pub
+
+
+
+Domain size: 50 Ratio: 0.1
+ time = 0.041395796399592656
+Plan length: 8
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store pub
+
+
+
+Domain size: 100 Ratio: 0.1
+ time = 0.0882167423987994
+Plan length: 12
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:1
+move joe bank pub
+
+
+
+Domain size: 250 Ratio: 0.1
+ time = 0.21061396299992338
+Plan length: 18
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store pub
+
+
+
+Domain size: 500 Ratio: 0.1
+ time = 13.45021425599989
+Plan length: 31
+Closed list length: 0 Open list length: 0
+move joe home bank
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm2 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm2 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:1
+move joe bank pub
+
+
+
+Domain size: 1000 Ratio: 0.1
+ time = 192.59129415960052
+Plan length: 1
+Closed list length: 0 Open list length: 0
+move joe home bank
+
+
+
+Domain size: 2500 Ratio: 0.1
+ time = 195.91964761099953
+Plan length: 1
+Closed list length: 0 Open list length: 0
+move joe home bank
+
+
+
+Domain size: 5000 Ratio: 0.1
+ time = 197.8533140562002
+Plan length: 1
+Closed list length: 0 Open list length: 0
+move joe home bank
+
+
+
+Domain size: 10000 Ratio: 0.1
+ time = 201.40994936720017
+Plan length: 1
+Closed list length: 0 Open list length: 0
+move joe home bank
+
+
+
+Domain size: 20 Ratio: 0.2
+ time = 0.07531294399959734
+Plan length: 8
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:1
+move joe bank pub
+
+
+
+Domain size: 50 Ratio: 0.2
+ time = 0.096925075200852
+Plan length: 10
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:14
+withdrawcash joe bank atm1 ~cash:14
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:7
+move joe bank pub
+
+
+
+Domain size: 100 Ratio: 0.2
+ time = 0.08704124459909508
+Plan length: 12
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:1
+move joe bank pub
+
+
+
+Domain size: 250 Ratio: 0.2
+ time = 0.23771378840174293
+Plan length: 20
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:14
+withdrawcash joe bank atm1 ~cash:14
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:7
+move joe bank pub
+
+
+
+Domain size: 500 Ratio: 0.2
+ time = 101.86269535579777
+Plan length: 31
+Closed list length: 0 Open list length: 0
+move joe home bank
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm2 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm2 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:1
+move joe bank pub
+
+
+
+Domain size: 1000 Ratio: 0.2
+Domain size: 2500 Ratio: 0.2
+Domain size: 5000 Ratio: 0.2
+Domain size: 10000 Ratio: 0.2
+Domain size: 20 Ratio: 0.3
+ time = 0.061913730794913135
+Plan length: 8
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:1
+move joe bank pub
+
+
+
+Domain size: 50 Ratio: 0.3
+ time = 0.08060770679730922
+Plan length: 10
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:8
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:4
+move joe bank pub
+
+
+
+Domain size: 100 Ratio: 0.3
+ time = 0.12307237660279498
+Plan length: 12
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:1
+move joe bank pub
+
+
+
+Domain size: 250 Ratio: 0.3
+ time = 0.28940179240598807
+Plan length: 20
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:8
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:4
+move joe bank pub
+
+
+
+Domain size: 500 Ratio: 0.3
+ time = 482.5175327114033
+Plan length: 31
+Closed list length: 0 Open list length: 0
+move joe home bank
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm2 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm2 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:1
+move joe bank pub
+
+
+
+Domain size: 1000 Ratio: 0.3
+Domain size: 2500 Ratio: 0.3
+Domain size: 5000 Ratio: 0.3
+Domain size: 10000 Ratio: 0.3
+Domain size: 20 Ratio: 0.4
+ time = 0.0676513199985493
+Plan length: 8
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:18
+move joe bank store
+buysnacks joe store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:3
+move joe bank pub
+
+
+
+Domain size: 50 Ratio: 0.4
+ time = 0.07984490480157547
+Plan length: 10
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:9
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:3
+move joe bank pub
+
+
+
+Domain size: 100 Ratio: 0.4
+ time = 0.11215685479692183
+Plan length: 12
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:18
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:3
+move joe bank pub
+
+
+
+Domain size: 250 Ratio: 0.4
+ time = 0.308829419198446
+Plan length: 20
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:9
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:3
+move joe bank pub
+
+
+
+Domain size: 500 Ratio: 0.4
+Domain size: 1000 Ratio: 0.4
+Domain size: 2500 Ratio: 0.4
+Domain size: 5000 Ratio: 0.4
+Domain size: 10000 Ratio: 0.4
+Domain size: 20 Ratio: 0.5
+ time = 0.07730011499952524
+Plan length: 8
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:1
+move joe bank pub
+
+
+
+Domain size: 50 Ratio: 0.5
+ time = 0.09137487100670114
+Plan length: 10
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:8
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:4
+move joe bank pub
+
+
+
+Domain size: 100 Ratio: 0.5
+ time = 0.14405549179646188
+Plan length: 12
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:1
+move joe bank pub
+
+
+
+Domain size: 250 Ratio: 0.5
+ time = 0.35823800380458126
+Plan length: 20
+Closed list length: 0 Open list length: 0
+move joe home store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:8
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+move joe bank store
+buysnacks joe store
+move joe store bank
+withdrawcash joe bank atm1 ~cash:4
+move joe bank pub
+
+
+
+Domain size: 500 Ratio: 0.5
+Domain size: 1000 Ratio: 0.5
+Domain size: 2500 Ratio: 0.5
+Domain size: 5000 Ratio: 0.5
+Domain size: 10000 Ratio: 0.5

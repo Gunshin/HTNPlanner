@@ -523,8 +523,8 @@ class Planner
 		for (paramIndex in 0...actionParams.length)
 		{
 			
-			Utilities.Logln("paramIndex == " + paramIndex);
-			Utilities.Logln("actionParams[paramIndex].GetType() == " + actionParams[paramIndex].GetType());
+			//Utilities.Logln("paramIndex == " + paramIndex);
+			//Utilities.Logln("actionParams[paramIndex].GetType() == " + actionParams[paramIndex].GetType());
 			// lets record the fact that the first so many raw values are of the param type			
 			var obj_array:Array<Pair<String, String>> = new Array<Pair<String, String>>();
 			for (obj in initial_state_.GetObjectsOfType(actionParams[paramIndex].GetType()))

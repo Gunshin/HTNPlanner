@@ -75,8 +75,9 @@ class Main
 						Sys.args()[2], 
 						Std.parseInt(Sys.args()[3]), 
 						Std.parseInt(Sys.args()[4]), 
-						Std.parseInt(Sys.args()[5]), 
-						Std.parseFloat(Sys.args()[6])
+						Std.parseInt(Sys.args()[5]),
+                        Std.parseInt(Sys.args()[6]), 
+						Std.parseFloat(Sys.args()[7])
 					);
 				}
 		}
@@ -108,8 +109,8 @@ class Main
 		{
 			trace(i.GetName());
 		}*/
-		GetResults("results.txt", 	["pddlexamples/test/drugs/domain.pddl"], 
-									["pddlexamples/test/drugs/pfile0"], 1);
+		/*GetResults("results.txt", 	["pddlexamples/test/drugs/domain.pddl"], 
+									["pddlexamples/test/drugs/pfile0"], 1);*/
 		/*GetResults("results.txt", 	["pddlexamples/test/cash_withdraw/domain.pddl"], 
 									["pddlexamples/test/cash_withdraw/pfile1"], 1);*/
 		//GetResults("results.txt", ["pddlexamples/Results/IntegerParameters/SettlersIntegerParameters.pddl"], ["pddlexamples/Results/IntegerParameters/Test1/pfile2"], 1);

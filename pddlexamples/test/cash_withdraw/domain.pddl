@@ -26,13 +26,13 @@
         (located ?m ?a)
         (> ~cash 0)
         (<= ~cash 20)
-        (<= (* 10 ~cash) (balance ?m))
+        (<= (* inc ~cash) (balance ?m))
         (canwithdraw ?p ?m)
     )
 
     :effect (and
-        (decrease (balance ?m) (* 10 ~cash))
-        (increase (inpocket ?p) (* 10 ~cash))
+        (decrease (balance ?m) (* inc ~cash))
+        (increase (inpocket ?p) (* inc ~cash))
     ))
 
  
