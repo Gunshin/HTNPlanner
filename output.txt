@@ -1,41 +1,4795 @@
-paramIndex == 0
-actionParams[paramIndex].GetType() == store
-paramIndex == 1
-actionParams[paramIndex].GetType() == drug
-paramIndex == 2
-actionParams[paramIndex].GetType() == batch
-STARTING GREEDY SEARCH ----------------------
-Start node: {"relations":[{"predicate":"batches","parameters":["d1","d1b12"]}],
- "functions":[{"function":"drug_batch_count","parameters":["d1b12"],"value":12},{"function":"stored","parameters":["s1","d1"],"value":0},{"function":"target_storage","parameters":["s1","d1"],"value":15}],
- "objects":[{"drug":["d1"]},{"store":["s1"]},{"batch":["d1b12"]}]}
-paramIndex == 0
-actionParams[paramIndex].GetType() == store
-paramIndex == 1
-actionParams[paramIndex].GetType() == drug
-paramIndex == 2
-actionParams[paramIndex].GetType() == batch
-order s1 d1 d1b12 ~count:1
-order s1 d1 d1b12 ~count:1
-paramIndex == 0
-actionParams[paramIndex].GetType() == store
-paramIndex == 1
-actionParams[paramIndex].GetType() == drug
-paramIndex == 2
-actionParams[paramIndex].GetType() == batch
-GetAllNonVisitedSuccessiveStates: raw state count: 2 return count: 1
-raw actions::
-order s1 d1 d1b12 ~count:1
-order s1 d1 d1b12 ~count:1
-return actions::
-order s1 d1 d1b12 ~count:1
-Successive states: 
-order s1 d1 d1b12 ~count:1 estimate: 0 list: []
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: move joe home store
+Heuristic.RunHeuristic: move joe home bank
+Heuristic.RunHeuristic: move joe home pub
+Heuristic.RunHeuristic: false
+Heuristic.RunHeuristic: false
+Heuristic.RunHeuristic: false
+Heuristic.RunHeuristic: {"relations":[{"predicate":"snacksat","parameters":["store"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"at","parameters":["joe","home"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"0", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"0", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"0", "b":"2"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
 
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: false
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"0", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"0", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"0", "b":"2"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
 
-New current_state: order s1 d1 d1b12 ~count:1
-state: {"relations":[{"predicate":"batches","parameters":["d1","d1b12"]}],
- "functions":[{"function":"drug_batch_count","parameters":["d1b12"],"value":12},{"function":"stored","parameters":["s1","d1"],"value":12},{"function":"target_storage","parameters":["s1","d1"],"value":15}],
- "objects":[{"drug":["d1"]},{"store":["s1"]},{"batch":["d1b12"]}]}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"0", "b":"2"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"0", "b":"2"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"0", "b":"2"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"0", "b":"2"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: false
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-20", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-20", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"0", "b":"22"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
 
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"0", "b":"22"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"0", "b":"22"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"0", "b":"22"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"0", "b":"22"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-40", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-40", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-3", "b":"42"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
 
-Greedy Search exited due to no better estimate: current_state: 0 previous_state: 0
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-3", "b":"42"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-3", "b":"42"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-3", "b":"42"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-3", "b":"42"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-60", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-60", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-6", "b":"62"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-6", "b":"62"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-6", "b":"62"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-6", "b":"62"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-6", "b":"62"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-80", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-80", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-9", "b":"82"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-9", "b":"82"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-9", "b":"82"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-9", "b":"82"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-9", "b":"82"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-100", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-100", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-12", "b":"102"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-12", "b":"102"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-12", "b":"102"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-12", "b":"102"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-12", "b":"102"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-120", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-120", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-15", "b":"122"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-15", "b":"122"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-15", "b":"122"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-15", "b":"122"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-15", "b":"122"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-140", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-140", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-18", "b":"142"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-18", "b":"142"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-18", "b":"142"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-18", "b":"142"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-18", "b":"142"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-160", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-160", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-21", "b":"162"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-21", "b":"162"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-21", "b":"162"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-21", "b":"162"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-21", "b":"162"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-180", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-180", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-24", "b":"182"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-24", "b":"182"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-24", "b":"182"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-24", "b":"182"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-24", "b":"182"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-200", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-200", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-27", "b":"202"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-27", "b":"202"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-27", "b":"202"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-27", "b":"202"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-27", "b":"202"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-220", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-220", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-30", "b":"222"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-30", "b":"222"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-30", "b":"222"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-30", "b":"222"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-30", "b":"222"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-240", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-240", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-33", "b":"242"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-33", "b":"242"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-33", "b":"242"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-33", "b":"242"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-33", "b":"242"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-260", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-260", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-36", "b":"262"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-36", "b":"262"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-36", "b":"262"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-36", "b":"262"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-36", "b":"262"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-280", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-280", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-39", "b":"282"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-39", "b":"282"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-39", "b":"282"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-39", "b":"282"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-39", "b":"282"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-300", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-300", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-42", "b":"302"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-42", "b":"302"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-42", "b":"302"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-42", "b":"302"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-42", "b":"302"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-320", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-320", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-45", "b":"322"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-45", "b":"322"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-45", "b":"322"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-45", "b":"322"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-45", "b":"322"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-340", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-340", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-48", "b":"342"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-48", "b":"342"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-48", "b":"342"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-48", "b":"342"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-48", "b":"342"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-360", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-360", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-51", "b":"362"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-51", "b":"362"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-51", "b":"362"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-51", "b":"362"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-51", "b":"362"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-380", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-380", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-54", "b":"382"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-54", "b":"382"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-54", "b":"382"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-54", "b":"382"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-54", "b":"382"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-400", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-400", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-57", "b":"402"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-57", "b":"402"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-57", "b":"402"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-57", "b":"402"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-57", "b":"402"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-420", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-420", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-60", "b":"422"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-60", "b":"422"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-60", "b":"422"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-60", "b":"422"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-60", "b":"422"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-440", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-440", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-63", "b":"442"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-63", "b":"442"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-63", "b":"442"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-63", "b":"442"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-63", "b":"442"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-460", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-460", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-66", "b":"462"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-66", "b":"462"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-66", "b":"462"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-66", "b":"462"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-66", "b":"462"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-480", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-480", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-69", "b":"482"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-69", "b":"482"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-69", "b":"482"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-69", "b":"482"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-69", "b":"482"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-500", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-500", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-72", "b":"502"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-72", "b":"502"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-72", "b":"502"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-72", "b":"502"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-72", "b":"502"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-520", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-520", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-75", "b":"522"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-75", "b":"522"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-75", "b":"522"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-75", "b":"522"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-75", "b":"522"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-540", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-540", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-78", "b":"542"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-78", "b":"542"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-78", "b":"542"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-78", "b":"542"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-78", "b":"542"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-560", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-560", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-81", "b":"562"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-81", "b":"562"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-81", "b":"562"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-81", "b":"562"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-81", "b":"562"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-580", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-580", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-84", "b":"582"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-84", "b":"582"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-84", "b":"582"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-84", "b":"582"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-84", "b":"582"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-600", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-600", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-87", "b":"602"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-87", "b":"602"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-87", "b":"602"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-87", "b":"602"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-87", "b":"602"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-620", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-620", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-90", "b":"622"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-90", "b":"622"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-90", "b":"622"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-90", "b":"622"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-90", "b":"622"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-640", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-640", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-93", "b":"642"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-93", "b":"642"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-93", "b":"642"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-93", "b":"642"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-93", "b":"642"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-660", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-660", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-96", "b":"662"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-96", "b":"662"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-96", "b":"662"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-96", "b":"662"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-96", "b":"662"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-680", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-680", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-99", "b":"682"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-99", "b":"682"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-99", "b":"682"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-99", "b":"682"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-99", "b":"682"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-700", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-700", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-102", "b":"702"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-102", "b":"702"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-102", "b":"702"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-102", "b":"702"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-102", "b":"702"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-720", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-720", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-105", "b":"722"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-105", "b":"722"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-105", "b":"722"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-105", "b":"722"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-105", "b":"722"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-740", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-740", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-108", "b":"742"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-108", "b":"742"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-108", "b":"742"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-108", "b":"742"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-108", "b":"742"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-760", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-760", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-111", "b":"762"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-111", "b":"762"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-111", "b":"762"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-111", "b":"762"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-111", "b":"762"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-780", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-780", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-114", "b":"782"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-114", "b":"782"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-114", "b":"782"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-114", "b":"782"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-114", "b":"782"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-800", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-800", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-117", "b":"802"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-117", "b":"802"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-117", "b":"802"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-117", "b":"802"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-117", "b":"802"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-820", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-820", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-120", "b":"822"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-120", "b":"822"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-120", "b":"822"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-120", "b":"822"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-120", "b":"822"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-840", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-840", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-123", "b":"842"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-123", "b":"842"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-123", "b":"842"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-123", "b":"842"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-123", "b":"842"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-860", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-860", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-126", "b":"862"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-126", "b":"862"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-126", "b":"862"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-126", "b":"862"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-126", "b":"862"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-880", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-880", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-129", "b":"882"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-129", "b":"882"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-129", "b":"882"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-129", "b":"882"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-129", "b":"882"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-900", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-900", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-132", "b":"902"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-132", "b":"902"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-132", "b":"902"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-132", "b":"902"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-132", "b":"902"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-920", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-920", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-135", "b":"922"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-135", "b":"922"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-135", "b":"922"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-135", "b":"922"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-135", "b":"922"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-940", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-940", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-138", "b":"942"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-138", "b":"942"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-138", "b":"942"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-138", "b":"942"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-138", "b":"942"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-960", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-960", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-141", "b":"962"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-141", "b":"962"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-141", "b":"962"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-141", "b":"962"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-141", "b":"962"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: false
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-980", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-980", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-144", "b":"982"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-144", "b":"982"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-144", "b":"982"} _ b: {"a":"0", "b":"20"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-144", "b":"982"} _ b: {"a":"0", "b":"1"}
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"-144", "b":"982"} _ b: {"a":"0", "b":"20"}
+Heuristic.RunHeuristic: ------------------
+Heuristic.RunHeuristic: buysnacks joe store
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm1 ~cash:20
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:1
+Heuristic.RunHeuristic: withdrawcash joe bank atm2 ~cash:20
+Heuristic.RunHeuristic: >= (inpocket joe) (1000)  :: true
+Heuristic.RunHeuristic: gotsnacks joe :: true
+Heuristic.RunHeuristic: at joe pub :: true
+Heuristic.RunHeuristic: {"relations":[{"predicate":"located","parameters":["atm1","bank"]},{"predicate":"snacksat","parameters":["store"]},{"predicate":"located","parameters":["atm2","bank"]},{"predicate":"at","parameters":["joe","home"]},{"predicate":"at","parameters":["joe","store"]},{"predicate":"canwithdraw","parameters":["joe","atm2"]},{"predicate":"canwithdraw","parameters":["joe","atm1"]},{"predicate":"at","parameters":["joe","bank"]},{"predicate":"gotsnacks","parameters":["joe"]},{"predicate":"at","parameters":["joe","pub"]}],
+ "functions":[{"function":"balance","parameters":["atm1"],"value":{"a":"-1000", "b":"2500"}},{"function":"balance","parameters":["atm2"],"value":{"a":"-1000", "b":"5000"}},{"function":"inpocket","parameters":["joe"],"value":{"a":"-147", "b":"1002"}},{"function":"inc","parameters":[],"value":{"a":"0", "b":"1"}}],
+ "objects":[{"location":["home","store","bank","pub"]},{"person":["joe"]},{"machine":["atm1","atm2"]}]}
+Heuristic.RunHeuristic: 
+------------------------
+
+goal node added to: >= (inpocket joe) (1000)  :: 51
+goal node added to: gotsnacks joe :: 3
+goal node added to: at joe pub :: 1
+------------------
+[]
+[at joe pub]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[>= (inpocket joe) (1000) ]
+------------------------
+
+Goal node: >= (inpocket joe) (1000) 
+Generated functions: [inpocket joe]
+
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 2
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 3
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 4
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 5
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 6
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 7
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 8
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 9
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 10
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 11
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 12
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 13
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 14
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 15
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 16
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 17
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 18
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 19
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 20
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 21
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 22
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 23
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 24
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 25
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 26
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 27
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 28
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 29
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 30
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 31
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 32
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 33
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 34
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 35
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 36
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 37
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 38
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 39
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 40
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 41
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 42
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 43
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 44
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 45
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 46
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 47
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 48
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 49
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 50
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 1
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 2
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 3
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 4
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 5
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 6
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 7
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 8
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 9
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 10
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 11
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 12
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 13
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 14
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 15
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 16
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 17
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 18
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 19
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 20
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 21
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 22
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 23
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 24
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 25
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 26
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 27
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 28
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 29
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 30
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 31
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 32
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 33
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 34
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 35
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 36
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 37
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 38
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 39
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 40
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 41
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 42
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 43
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 44
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 45
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 46
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 47
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 48
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 49
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 50
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 1
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 2
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 3
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 4
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 5
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 6
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 7
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 8
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 9
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 10
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 11
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 12
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 13
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 14
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 15
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 16
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 17
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 18
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 19
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 20
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 21
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 22
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 23
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 24
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 25
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 26
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 27
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 28
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 29
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 30
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 31
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 32
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 33
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 34
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 35
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 36
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 37
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 38
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 39
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 40
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 41
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 42
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 43
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 44
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 45
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 46
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 47
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 48
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 49
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 50
+before: {"a":"{"a":"0", "b":"2"}", "b":"{"a":"1000", "b":"1000"}"}
+goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+a_a: -147
+a_b: 1000
+b_a: 0
+b_b: 0
+tree: >= (inpocket joe) (1000) 
+Best: buysnacks joe store :: rate: -3 _ depth: 2
+Best: withdrawcash joe bank atm1 ~cash:20 :: rate: 20 _ depth: 1
+Best: withdrawcash joe bank atm2 ~cash:20 :: rate: 20 _ depth: 1
+Running best action: buysnacks joe store
+Test: buysnacks joe store closer: false
+Running best action: withdrawcash joe bank atm1 ~cash:20
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"0", "b":"2"} _ b: {"a":"0", "b":"20"}
+Running closer
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"22"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"44"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"44"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"66"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"66"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"88"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"88"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"110"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"110"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"132"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"132"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"154"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"154"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"176"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"176"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"198"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"198"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"220"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"220"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"242"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"242"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"264"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"264"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"286"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"286"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"308"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"308"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"330"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"330"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"352"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"352"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"374"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"374"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"396"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"396"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"418"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"418"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"440"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"440"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"462"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"462"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"484"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"484"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"506"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"506"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"528"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"528"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"550"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"550"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"572"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"572"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"594"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"594"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"616"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"616"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"638"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"638"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"660"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"660"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"682"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"682"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"704"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"704"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"726"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"726"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"748"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"748"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"770"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"770"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"792"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"792"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"814"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"814"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"836"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"836"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"858"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"858"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"880"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"880"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"902"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"902"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"924"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"924"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"946"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"946"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"968"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"968"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"990"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm1 _ {"a":"-20", "b":"2500"}
+cloned_state_level: {"a":"0", "b":"2500"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"990"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"1012"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Test: withdrawcash joe bank atm1 ~cash:20 closer: true
+Running best action: withdrawcash joe bank atm2 ~cash:20
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"0", "b":"2"} _ b: {"a":"0", "b":"20"}
+Running closer
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"22"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"44"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"44"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"66"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"66"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"88"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"88"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"110"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"110"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"132"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"132"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"154"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"154"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"176"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"176"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"198"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"198"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"220"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"220"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"242"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"242"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"264"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"264"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"286"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"286"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"308"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"308"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"330"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"330"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"352"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"352"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"374"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"374"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"396"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"396"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"418"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"418"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"440"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"440"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"462"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"462"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"484"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"484"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"506"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"506"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"528"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"528"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"550"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"550"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"572"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"572"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"594"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"594"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"616"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"616"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"638"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"638"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"660"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"660"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"682"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"682"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"704"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"704"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"726"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"726"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"748"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"748"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"770"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"770"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"792"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"792"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"814"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"814"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"836"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"836"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"858"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"858"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"880"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"880"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"902"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"902"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"924"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"924"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"946"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"946"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"968"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"968"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"990"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Applying func change: balance atm2 _ {"a":"-20", "b":"5000"}
+cloned_state_level: {"a":"0", "b":"5000"}
+Applying func change: inpocket joe _ {"a":"0", "b":"22"}
+cloned_state_level: {"a":"0", "b":"2"}
+heuristic_data_for_looking count: 2
+Running closer: true _ before: {"a":"{"a":"0", "b":"990"}", "b":"{"a":"1000", "b":"1000"}"} after: {"a":"{"a":"0", "b":"1012"}", "b":"{"a":"1000", "b":"1000"}"} goal: {"a":"{"a":"-147", "b":"1002"}", "b":"{"a":"1000", "b":"1000"}"}
+Test: withdrawcash joe bank atm2 ~cash:20 closer: true
+Final: withdrawcash joe bank atm1 ~cash:20 :: rate: 20 _ depth: 1 iteration: 46
+Final: withdrawcash joe bank atm2 ~cash:20 :: rate: 20 _ depth: 1 iteration: 46
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"0", "b":"2"} _ b: {"a":"0", "b":"20"}
+Adding: withdrawcash joe bank atm1 ~cash:20
+[at joe bank]
+
+goal node added to: at joe bank :: 1
+[located atm1 bank]
+
+goal node added to: located atm1 bank :: 0
+[> (20) (0) ]
+
+goal node added to: > (20) (0)  :: 0
+[<= (20) (20) ]
+
+goal node added to: <= (20) (20)  :: 0
+[<= (* (inc) (20) ) (balance atm1) ]
+
+goal node added to: <= (* (inc) (20) ) (balance atm1)  :: 0
+[canwithdraw joe atm1]
+
+goal node added to: canwithdraw joe atm1 :: 0
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+[]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank]
+[]
+[gotsnacks joe]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+Goal node: gotsnacks joe
+Specific action: buysnacks joe store
+[at joe store]
+goal node added to: at joe store :: 1
+[snacksat store]
+goal node added to: snacksat store :: 0
+[>= (inpocket joe) (3) ]
+goal node added to: >= (inpocket joe) (3)  :: 2
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1,snacksat store]
+[at joe pub,at joe bank,at joe store]
+[>= (inpocket joe) (3) ]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+Goal node: >= (inpocket joe) (3) 
+Generated functions: [inpocket joe]
+
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 2
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 3
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 4
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 5
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 6
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 7
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 8
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 9
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 10
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 11
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 12
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 13
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 14
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 15
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 16
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 17
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 18
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 19
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 20
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 21
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 22
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 23
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 24
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 25
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 26
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 27
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 28
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 29
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 30
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 31
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 32
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 33
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 34
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 35
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 36
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 37
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 38
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 39
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 40
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 41
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 42
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 43
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 44
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 45
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 46
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 47
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 48
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 49
+Action: buysnacks joe store function: inpocket joe :: rate: -3 _ depth: 50
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 1
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 2
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 3
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 4
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 5
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 6
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 7
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 8
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 9
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 10
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 11
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 12
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 13
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 14
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 15
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 16
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 17
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 18
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 19
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 20
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 21
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 22
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 23
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 24
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 25
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 26
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 27
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 28
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 29
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 30
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 31
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 32
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 33
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 34
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 35
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 36
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 37
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 38
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 39
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 40
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 41
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 42
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 43
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 44
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 45
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 46
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 47
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 48
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 49
+Action: withdrawcash joe bank atm1 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 50
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 1
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 2
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 3
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 4
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 5
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 6
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 7
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 8
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 9
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 10
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 11
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 12
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 13
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 14
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 15
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 16
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 17
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 18
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 19
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 20
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 21
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 22
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 23
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 24
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 25
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 26
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 27
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 28
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 29
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 30
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 31
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 32
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 33
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 34
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 35
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 36
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 37
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 38
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 39
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 40
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 41
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 42
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 43
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 44
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 45
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 46
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 47
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 48
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 49
+Action: withdrawcash joe bank atm2 ~cash:20 function: inpocket joe :: rate: 20 _ depth: 50
+before: {"a":"{"a":"0", "b":"2"}", "b":"{"a":"3", "b":"3"}"}
+goal: {"a":"{"a":"0", "b":"22"}", "b":"{"a":"3", "b":"3"}"}
+a_a: 0
+a_b: 20
+b_a: 0
+b_b: 0
+tree: >= (inpocket joe) (3) 
+Best: buysnacks joe store :: rate: -3 _ depth: 2
+Best: withdrawcash joe bank atm1 ~cash:20 :: rate: 20 _ depth: 1
+Best: withdrawcash joe bank atm2 ~cash:20 :: rate: 20 _ depth: 1
+Running best action: buysnacks joe store
+Test: buysnacks joe store closer: false
+Running best action: withdrawcash joe bank atm1 ~cash:20
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"0", "b":"2"} _ b: {"a":"0", "b":"20"}
+Running closer
+Test: withdrawcash joe bank atm1 ~cash:20 closer: true
+Running best action: withdrawcash joe bank atm2 ~cash:20
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"0", "b":"2"} _ b: {"a":"0", "b":"20"}
+Running closer
+Test: withdrawcash joe bank atm2 ~cash:20 closer: true
+Final: withdrawcash joe bank atm1 ~cash:20 :: rate: 20 _ depth: 1 iteration: 1
+Final: withdrawcash joe bank atm2 ~cash:20 :: rate: 20 _ depth: 1 iteration: 1
+TreeNodeIntIncrease: id: inpocket joe a: {"a":"0", "b":"2"} _ b: {"a":"0", "b":"20"}
+Adding: withdrawcash joe bank atm1 ~cash:20
+[at joe bank]
+
+goal node added to: at joe bank :: 1
+[located atm1 bank]
+
+goal node added to: located atm1 bank :: 0
+[> (20) (0) ]
+
+goal node added to: > (20) (0)  :: 0
+[<= (20) (20) ]
+
+goal node added to: <= (20) (20)  :: 0
+[<= (* (inc) (20) ) (balance atm1) ]
+
+goal node added to: <= (* (inc) (20) ) (balance atm1)  :: 0
+[canwithdraw joe atm1]
+
+goal node added to: canwithdraw joe atm1 :: 0
+
+------------------
+[located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1,snacksat store,located atm1 bank,> (20) (0) ,<= (20) (20) ,<= (* (inc) (20) ) (balance atm1) ,canwithdraw joe atm1]
+[at joe pub,at joe bank,at joe store,at joe bank]
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+------------------------
+
+Goal node: at joe pub
+Specific action: move joe home pub
+[at joe home]
+goal node added to: at joe home :: 0
+
+Goal node: at joe bank
+Specific action: move joe home bank
+[at joe home]
+goal node added to: at joe home :: 0
+
+Goal node: at joe store
+Specific action: move joe home store
+[at joe home]
+goal node added to: at joe home :: 0
+
+Goal node: at joe bank
+Specific action: move joe home bank
+------------------
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+withdrawcash joe bank atm1 ~cash:20
+buysnacks joe store
+withdrawcash joe bank atm1 ~cash:20
+move joe home pub
+move joe home bank
+move joe home store
+------------------------
+

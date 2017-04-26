@@ -143,11 +143,16 @@ class Planner
 				
 			}
 			
+			if (problem.EvaluateGoal(current_state.state))
+			{
+				return BacktrackPlan(current_state);
+			}
+			
 		}
 		
 		//trace("open_list: " + problem_.EvaluateGoal(current_state.state));
+		return null;		
 		
-		return BacktrackPlan(current_state);
 	}
 	
 	static var MAX_BREADTH_ITERATIONS:Int = 7;
@@ -297,6 +302,11 @@ class Planner
 	static function GetNextState(openList_:Heap<PlannerNode>):PlannerNode
 	{
 		return openList_.pop();
+	}
+	
+	function GetValuesFunctionStates(min_:Int, max_:Int, return_new_expansion_states_:Bool)
+	{
+		
 	}
 	
 	/**
@@ -458,11 +468,56 @@ class Planner
 		//Utilities.Logln("STARTING GetAllActionsForState ----------------------");
 		#end
 		
-		for (actionName in domain_.GetAllActionNames())
+		
+		// Get all standard actions eg. no integer
+		for (actionName in domain_.GetAllStandardActionNames())
 		{
 			var action:Action = domain_.GetAction(actionName);
 			
+			var parameter_combinations:Array<Array<Pair<String, String>>> = GetAllPossibleParameterCombinations(action, state_, domain_);
 			
+			// has an extra array since these combinations are used per parameter combination
+			var value_combinations:Array<Array<Array<Pair<String, String>>>> = GetAllPossibleValueCombinations(action, parameter_combinations, state_, 
+																					domain_, false, use_partial_range, partial_range_ratio);
+			
+			#if debugging
+			//Utilities.Logln("action: " + action.GetName());
+			//Utilities.Logln("parameter_combinations: " + parameter_combinations.toString());
+			//Utilities.Logln("value_combinations: " + value_combinations.toString());
+			#end
+			
+			for (param_index in 0...parameter_combinations.length)
+			{
+				var param_combination:Array<Pair<String, String>> = parameter_combinations[param_index];
+				action.GetData().SetParameters(param_combination);
+				
+				if (value_combinations[param_index].length > 0)
+				{
+					for (val_combination in value_combinations[param_index])
+					{
+						action.GetData().SetValues(val_combination);
+						
+						if (action.Evaluate(state_, domain_))
+						{
+							actions.push(new PlannerActionNode(action, param_combination, val_combination));
+						}
+					}
+				}
+				else
+				{
+					if (action.Evaluate(state_, domain_))
+					{
+						actions.push(new PlannerActionNode(action, param_combination, null));
+					}
+				}
+			}
+			
+		}
+		
+		// get all integer parameter actions eg. well, integer parameter actions 0_o
+		for (actionName in domain_.GetAllIntegerParameterActionNames())
+		{
+			var action:Action = domain_.GetAction(actionName);
 			
 			var parameter_combinations:Array<Array<Pair<String, String>>> = GetAllPossibleParameterCombinations(action, state_, domain_);
 			

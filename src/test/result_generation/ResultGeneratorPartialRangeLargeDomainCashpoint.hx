@@ -23,7 +23,7 @@ class ResultGeneratorPartialRangeLargeDomainCashpoint
 	var path:String = null;
 	
 	
-	var repeats:Int = 5;
+	var repeats:Int = 1;
 	
 	/*var ratios:Array<Float> = [
 		0.001, 0.01, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1
@@ -45,7 +45,7 @@ class ResultGeneratorPartialRangeLargeDomainCashpoint
 	{		
 		var domain_path:String = domain_path_;
 		var problem_path:String = problem_path_;
-		var results_path:String = problem_path_ + "_" + inc_amount_ + "_results.txt";
+		var results_path:String = problem_path_ + "_" + inc_amount_ + "_results_test.txt";
 
 		trace("domain: " + domain_size_ + " ratio: " + ratio_);	
 		var domain:Domain = new Domain(domain_path);
@@ -77,7 +77,7 @@ class ResultGeneratorPartialRangeLargeDomainCashpoint
 			var start:Float = Sys.cpuTime();
 			
 			planner = new Planner();
-			array = planner.FindPlan(domain, problem, new Heuristic(domain, problem), true, ratio_);
+			array = planner.FindPlan(domain, problem, new HeuristicRateOfChange(domain, problem), true, ratio_);
 			
 			average_times += Sys.cpuTime() - start;
 		}

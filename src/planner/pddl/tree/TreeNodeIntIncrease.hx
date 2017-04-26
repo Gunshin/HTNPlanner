@@ -40,7 +40,9 @@ class TreeNodeIntIncrease extends TreeNodeInt
 		var functionOneID:String = children[0].HeuristicExecute(data_, heuristic_data_, state_, domain_);
 		var a:Pair<Int, Int> = HeuristicGetValueFromChild(0, data_, heuristic_data_, state_, domain_);
 		var b:Pair<Int, Int> = HeuristicGetValueFromChild(1, data_, heuristic_data_, state_, domain_);
-		
+		#if debugging_heuristic
+		Utilities.Logln("TreeNodeIntIncrease: id: " + functionOneID + " a: " + a + " _ b: " + b);
+		#end
 		heuristic_data_.function_changes.push(new FunctionChange(functionOneID, new Pair(a.a + b.a, a.b + b.b)));
 		
 		return null;

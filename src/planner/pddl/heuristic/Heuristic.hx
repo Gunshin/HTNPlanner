@@ -31,6 +31,8 @@ class Heuristic implements IHeuristic
 	
 	var planner:Planner = null;
 	
+	var max_state_level_depth:Int = 60;
+	
 
 	public function new(domain_:Domain, problem_:Problem) 
 	{
@@ -471,10 +473,10 @@ class Heuristic implements IHeuristic
 			}
 			
 			Utilities.Log("Heuristic.GenerateStateLevels: " + current_node.state.toString()+"\n");
-			Utilities.Log("Heuristic.GenerateStateLevels: " + "\n------------------------\n\n");
+			Utilities.Log("Heuristic.GenerateStateLevels: depth: " + depth + "\n------------------------\n\n");
 			#end
 			
-			if (depth > 20)
+			if (depth > max_state_level_depth)
 			{
 				var total_action_count:Int = 0;
 				

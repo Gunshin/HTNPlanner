@@ -31,6 +31,8 @@ class HeuristicRateOfChange implements IHeuristic
 	var problem:Problem = null;
 	
 	var planner:Planner = null;
+	
+	var max_state_level_depth:Int = 60;
 
 	public function new(domain_:Domain, problem_:Problem) 
 	{
@@ -249,6 +251,9 @@ class HeuristicRateOfChange implements IHeuristic
 					var valid_actions:Array<Pair<Int, FunctionRateOfChange>> = new Array<Pair<Int, FunctionRateOfChange>>();
 					for (roc in best_actions)
 					{
+						#if debugging_heuristic
+						Utilities.Logln("Running best action: " + roc.action.GetActionTransform());
+						#end
 						var goal_node_checking_state:StateHeuristic = new StateHeuristic();
 						//grab the predicates that are needed
 						var heuristic_data_for_looking:HeuristicData = new HeuristicData();
@@ -276,6 +281,9 @@ class HeuristicRateOfChange implements IHeuristic
 						// only do something if this action appears to have moved the goal node closer
 						if (function_is_closer)
 						{
+							#if debugging_heuristic
+							Utilities.Logln("Running closer");
+							#end
 							do
 							{
 								iteration_counter++;
@@ -287,7 +295,16 @@ class HeuristicRateOfChange implements IHeuristic
 									break;
 								}
 								
-								roc.action.action.HeuristicExecute(heuristic_data_for_looking, goal_node_checking_state, domain);
+								//roc.action.action.HeuristicExecute(heuristic_data_for_looking, goal_node_checking_state, domain);
+								
+								#if debugging_heuristic
+								//Utilities.Logln("action: " + roc.action.action.GetEffectTree().GetBaseNode().GetRawTreeString());
+								#end
+								
+								var before_values_for_this_action:Pair<Pair<Int, Int>, Pair<Int, Int>> = new Pair(
+									tree_node_int_goal.HeuristicGetValueFromChild(0, null, null, goal_node_checking_state, domain),
+									tree_node_int_goal.HeuristicGetValueFromChild(1, null, null, goal_node_checking_state, domain));
+								
 								//need to apply the predicates to the state
 								for (i in heuristic_data_for_looking.predicates.keys())
 								{
@@ -296,17 +313,28 @@ class HeuristicRateOfChange implements IHeuristic
 								//need to apply the functions to the state
 								for (i in heuristic_data_for_looking.function_changes)
 								{
-									goal_node_checking_state.SetFunctionBounds(i.name, i.bounds);
+									#if debugging_heuristic
+									Utilities.Logln("Applying func change: " + i.name + " _ " + i.bounds);
+									Utilities.Logln("cloned_state_level: " + cloned_state_level.GetFunctionBounds(i.name));
+									#end
+									goal_node_checking_state.AddFunctionBounds(i.name, i.bounds);
 								}
 								//clear it so that there is not an enormous amount of aditional elements from previous iterations, that are essentially useless
-								heuristic_data_for_looking.function_changes = [];
-								
+								//heuristic_data_for_looking.function_changes = [];
+								#if debugging_heuristic
+								Utilities.Logln("heuristic_data_for_looking count: " + heuristic_data_for_looking.function_changes.length);
+								#end
 								// need to recheck after every execution incase it suddenly stops moving towards the goal
-								after_values = new Pair(
+								
+								var after_values_for_this_action:Pair<Pair<Int, Int>, Pair<Int, Int>> = new Pair(
 									tree_node_int_goal.HeuristicGetValueFromChild(0, null, null, goal_node_checking_state, domain),
 									tree_node_int_goal.HeuristicGetValueFromChild(1, null, null, goal_node_checking_state, domain));
 								
-								function_is_closer = Heuristic.IsFunctionCloser(before_values, after_values, goal_values);
+								function_is_closer = Heuristic.IsFunctionCloser(before_values_for_this_action, after_values_for_this_action, goal_values);
+								#if debugging_heuristic
+								Utilities.Logln("Running closer: " + function_is_closer + " _ before: " + before_values_for_this_action +
+								" after: " + after_values_for_this_action + " goal: " + goal_values);
+								#end
 							}
 							while (function_is_closer);
 						}
@@ -522,7 +550,7 @@ class HeuristicRateOfChange implements IHeuristic
 			Utilities.Log("Heuristic.RunHeuristic: " + "\n------------------------\n\n");
 			#end
 			
-			if (depth > 20)
+			if (depth > max_state_level_depth)
 			{
 				var total_action_count:Int = 0;
 				

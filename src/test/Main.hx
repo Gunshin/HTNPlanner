@@ -66,7 +66,7 @@ class Main
             		Sys.println("running: " + arg);*/
 		
 		//Utilities.WriteToFile("output.txt", "", false);
-		switch(Sys.args()[0])
+		/*switch(Sys.args()[0])
 		{
 			case "cashpoint":
 				{
@@ -80,7 +80,17 @@ class Main
 						Std.parseFloat(Sys.args()[7])
 					);
 				}
-		}
+		}*/
+		
+		new ResultGeneratorPartialRangeLargeDomainCashpoint().Run(
+						"pddlexamples/test/cash_withdraw/domain.pddl", 
+						"pddlexamples/test/cash_withdraw/pfile0", 
+						1000, 
+						2500, 
+						5000,
+                        1, 
+						0.1
+					);
 		
 		//trace("passed");
 		//while(true){}

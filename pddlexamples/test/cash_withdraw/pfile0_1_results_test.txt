@@ -1,0 +1,15 @@
+Domain size: 1000 Ratio: 0.001
+Domain size: 1000 Ratio: 0.001
+Domain size: 1000 Ratio: 0.001
+ time = 1693.395802013
+Domain size: 1000 Ratio: 0.1
+ time = 1671.9318214280001
+Domain size: 1000 Ratio: 0.1
+Domain size: 1000 Ratio: 0.1
+ time = 1710.593319095
+Domain size: 1000 Ratio: 0.1
+Domain size: 1000 Ratio: 0.1
+Domain size: 1000 Ratio: 0.1
+Domain size: 1000 Ratio: 0.1
+Domain size: 1000 Ratio: 0.1
+Domain size: 1000 Ratio: 0.1

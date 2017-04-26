@@ -3,7 +3,7 @@
 	(:requirements :typing :fluents)
 
 	(:types
-		obstacle entity - object
+		entity - object
 		waypoint rover - entity
 	)
 
@@ -159,15 +159,6 @@
   (:constraint never_trespasses_energy_capacity
     :parameters (?r - rover)
     :condition (and (>= (max_energy ?r) (energy ?r) ))
-  )
-
-  (:constraint bounding_box
-      :parameters (?r - rover ?o - obstacle)
-      :condition (or (>= (+ (* (x ?r) (a1 ?o)) (* (y ?r) (b1 ?o))) (c1 ?o))
-                     (>= (+ (* (x ?r) (a2 ?o)) (* (y ?r) (b2 ?o))) (c2 ?o))
-                     (>= (+ (* (x ?r) (a3 ?o)) (* (y ?r) (b3 ?o))) (c3 ?o))
-                     (>= (+ (* (x ?r) (a4 ?o)) (* (y ?r) (b4 ?o))) (c4 ?o))
-                 )
   )
 
 )

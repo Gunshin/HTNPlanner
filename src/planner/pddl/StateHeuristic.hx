@@ -87,6 +87,14 @@ class StateHeuristic extends State
 		functions_bounds.set(functionID_, new Pair(valA, valB));
 	}
 	
+	public function AddFunctionBounds(functionID_:String, bounds_:Pair<Int, Int>)
+	{
+		
+		var current:Pair<Int, Int> = GetFunctionBounds(functionID_);
+		SetFunctionBounds(functionID_, new Pair<Int, Int>(current.a + bounds_.a, current.b + bounds_.b));
+		
+	}
+	
 	/**
 	 * @param	functionID_
 	 * @return
@@ -116,7 +124,8 @@ class StateHeuristic extends State
 		
 		for (i in functions_bounds.keys())
 		{
-			state_to_be_copied_to_.SetFunctionBounds(i, GetFunctionBounds(i));
+			var bounds:Pair<Int, Int> = GetFunctionBounds(i);
+			state_to_be_copied_to_.SetFunctionBounds(i, new Pair<Int, Int>(bounds.a, bounds.b));
 		}
 		
 		return state_to_be_copied_to_;

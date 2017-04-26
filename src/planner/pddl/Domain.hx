@@ -55,6 +55,8 @@ class Domain
 	var evaluator:Map<String, Bool> = new StringMap<Bool>();
 	
 	var actions:Map<String, Action> = new StringMap<Action>();
+	var actions_standard:Map<String, Action> = new StringMap<Action>();
+	var actions_integer:Map<String, Action> = new StringMap<Action>();
 	
 	var constants:Array<Pair<String, String>> = new Array<Pair<String, String>>();
 	
@@ -246,6 +248,14 @@ class Domain
 			}
 			
 			actions.set(action.GetName(), action);
+			if (valueNode != null)
+			{
+				actions_integer.set(action.GetName(), action);
+			}
+			else
+			{
+				actions_standard.set(action.GetName(), action);
+			}
 		}
 		
 		
@@ -467,6 +477,16 @@ class Domain
 	public function GetAllActionNames():Iterator<String>
 	{
 		return actions.keys();
+	}
+	
+	public function GetAllStandardActionNames():Iterator<String>
+	{
+		return actions_standard.keys();
+	}
+	
+	public function GetAllIntegerParameterActionNames():Iterator<String>
+	{
+		return actions_integer.keys();
 	}
 	
 	public function GetAllFunctions():Iterator<String>
